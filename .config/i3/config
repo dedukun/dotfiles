@@ -141,6 +141,26 @@ bar {
     status_command i3status
 }
 
+# Brightness controls
+bindsym $mod+F5 exec "xbacklight -dec 5"
+bindsym $mod+F6 exec "xbacklight -inc 5"
+bindsym $mod+Shift+F5 "exec xbacklight -dec 10"
+bindsym $mod+Shift+F6 "exec xbacklight -inc 10"
+bindsym $mod+Control+F5 "exec xbacklight -dec 1"
+bindsym $mod+Control+F6 "exec xbacklight -inc 1"
+
+# Volume controls
+bindsym $mod+F10 exec "amixer -q sset Master toggle"
+bindsym $mod+F11 exec "amixer -q sset Master 5%-"
+bindsym $mod+F12 exec "amixer -q sset Master 5%+"
+bindsym $mod+Shift+F11 exec "amixer -q sset Master 10%-"
+bindsym $mod+Shift+F12 exec "amixer -q sset Master 10%+"
+bindsym $mod+Control+F11 exec "amixer -q sset Master 1%-"
+bindsym $mod+Control+F12 exec "amixer -q sset Master 1%+"
+
+# Toggle touchpad
+bindsym $mod+F9 exec "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')"
+
 # to return to previous workspace cick in the current on again
 workspace_auto_back_and_forth yes
 
