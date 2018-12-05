@@ -26,6 +26,9 @@ font pango:monospace 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+# remove top bar
+for_window [class="^.*"] border pixel 2
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -144,22 +147,25 @@ bar {
 # Brightness controls
 bindsym $mod+F5 exec "xbacklight -dec 5"
 bindsym $mod+F6 exec "xbacklight -inc 5"
-bindsym $mod+Shift+F5 "exec xbacklight -dec 10"
-bindsym $mod+Shift+F6 "exec xbacklight -inc 10"
-bindsym $mod+Control+F5 "exec xbacklight -dec 1"
-bindsym $mod+Control+F6 "exec xbacklight -inc 1"
+bindsym $mod+Control+F5 exec "xbacklight -dec 10"
+bindsym $mod+Control+F6 exec "xbacklight -inc 10"
+bindsym $mod+Shift+F5 exec "xbacklight -dec 1"
+bindsym $mod+Shift+F6 exec "xbacklight -inc 1"
 
 # Volume controls
 bindsym $mod+F10 exec "amixer -q sset Master toggle"
 bindsym $mod+F11 exec "amixer -q sset Master 5%-"
 bindsym $mod+F12 exec "amixer -q sset Master 5%+"
-bindsym $mod+Shift+F11 exec "amixer -q sset Master 10%-"
-bindsym $mod+Shift+F12 exec "amixer -q sset Master 10%+"
-bindsym $mod+Control+F11 exec "amixer -q sset Master 1%-"
-bindsym $mod+Control+F12 exec "amixer -q sset Master 1%+"
+bindsym $mod+Control+F11 exec "amixer -q sset Master 10%-"
+bindsym $mod+Control+F12 exec "amixer -q sset Master 10%+"
+bindsym $mod+Shift+F11 exec "amixer -q sset Master 1%-"
+bindsym $mod+Shift+F12 exec "amixer -q sset Master 1%+"
 
 # Toggle touchpad
-bindsym $mod+F9 exec "synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')"
+bindsym $mod+F9 exec "$HOME/.scripts/nomouse.sh"
+
+# Run networkmanager in dmenu
+bindsym $mod+F2 exec "$HOME/Applications/networkmanager-dmenu/networkmanager_dmenu"
 
 # to return to previous workspace cick in the current on again
 workspace_auto_back_and_forth yes
@@ -173,8 +179,39 @@ bindsym $mod+Shift+w exec "firefox --private-window"
 # lock Screen
 bindsym --release $mod+Control+l exec "slock"
 
-# snvert scrolling
-exec --no-startup-id synclient VertScrollDelta=-111
+# lock mouse and keyboard
+bindsym --release $mod+Shift+Control+l exec "xtrlock"
+
+# Scratchpad
+bindsym $mod+Shift+BackSpace move scratchpad
+bindsym $mod+backslash scratchpad show
+
+# fill video to window
+bindsym $mod+y fullscreen disable
+
+# screen shots
+bindsym $mod+Print exec "$HOME/.scripts/screenshots.sh"
+
+# only take a screen shot of the selected region
+bindsym $mod+Shift+Print exec "$HOME/.scripts/screenshots.sh -s"
+
+# screen shots Global
+bindsym $mod+Control+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df"
+
+# screen shots Global selected
+bindsym $mod+Control+Shift+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
+
+#####
+# Startup commands
+
+# invert scrolling
+exec --no-startup-id synclient NaturalScrolling=1  VertScrollDelta=-111
+
+# tap to click
+exec --no-startup-id synclient TapButton1=1
+
+# change background to solid black
+exec --no-startup-id xsetroot -solid "#000"
 
 # set keyboard map to portuguese
 exec --no-startup-id setxkbmap pt
@@ -184,3 +221,9 @@ exec --no-startup-id start-pulseaudio-x11
 
 # start redshift
 exec --no-startup-id redshift
+
+# start with screen brightness at 50%
+exec --no-startup-id "xbacklight -set 50"
+
+# for whatever reason unclutter is on on startup, this fixes it
+exec --no-startup-id "pkill unclutter"

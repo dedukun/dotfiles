@@ -1,21 +1,42 @@
 #.bashrc
 if [ `id -un` = root ]; then
-   PS1='\[\033[1;31m\]\h:\[\033[0m\]\w\$ '
+   PS1='[\[\033[1;31m\]\u@\h:\[\033[0m\]\W] \$ '
  else
-   PS1='\[\033[1;32m\]\h:\[\033[0m\]\w\$ '
+   PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\W] \$ '
 fi
 
-#
+EDITOR=vim
+
+# activate vi mode in bash
+set -o vi
+
+# disable automatically executing !, !!, !?, instead filling the bash with the command
+shopt -s histverify
+
+# Add local bin to path for personal applications
+export PATH=$PATH:$HOME/.local/bin
+
+# Add pic 32 tools
+if [ -d /opt/pic32mx/bin ] ; then
+ export PATH=$PATH:/opt/pic32mx/bin
+fi
+
 # Add color
 eval `dircolors -b`
 
 # User defined aliases
 alias ls='ls --color=auto'
+alias  l='ls -l'
 alias ll='ls -la'
-alias lsp='ls -1 /var/log/packages/'
-alias slkf='find ~/Repositories/slackbuilds/ -type d -name '
+alias grep='grep --color'
+alias xxstartx='exec startx &> /dev/null'
 
-alias xstartx='exec startx &> /dev/null'
+# Export alias
+alias vimtex='export PATH=$PATH:$HOME/.vim/plugged/vim-live-latex-preview/bin'
+alias exsbin='export PATH=$PATH:/sbin'
+
+# Tmp alias
+alias cd5='cd $HOME/UA/5Ano/'
 
 #To clean up and cover your tracks once you log off
-trap "rm -f ~$LOGNAME/.bash_history" 0
+#trap "rm -f ~$LOGNAME/.bash_history" 0
