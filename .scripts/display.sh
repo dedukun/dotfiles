@@ -3,6 +3,7 @@ print_help () {
     echo -e "Change Second Monitor"
     echo -e "This script helps configuring the second display.\nWith no extra options the second monitor will be configured as a mirror of the main monitor."
     echo -e "\t-m, --mode     Specify the display mode (default 1920x1080)"
+    echo -e "\t    --output   Specify the output (default HDMI2)"
     echo -e "\t-a, --above    Set second display above the main display"
     echo -e "\t-l, --left     Set second display to the left of the main display"
     echo -e "\t-r, --right    Set second display to the right of the main display"
@@ -12,6 +13,7 @@ print_help () {
 }
 
 DIS_MODE="1920x1080"
+DIS_OUT="HDMI2"
 
 while [[ $# -gt 0 ]]
 do
@@ -20,6 +22,11 @@ do
     case $DIS_KEY in
         -m|--mode)
         DIS_MODE="$2"
+        shift # past value
+        shift # past argument
+        ;;
+        --output)
+        DIS_OUT="$2"
         shift # past value
         shift # past argument
         ;;
@@ -58,15 +65,15 @@ do
 done
 
 if [[ -n $DIS_OFF ]]; then
-    xrandr --output HDMI2 --off
+    xrandr --output "$DIS_OUT" --off
 elif [[ -n $DIS_A ]]; then
-    xrandr --output HDMI2 --mode $DIS_MODE --above eDP1
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --above eDP1
 elif [[ -n $DIS_L ]]; then
-    xrandr --output HDMI2 --mode $DIS_MODE --left-of eDP1
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --left-of eDP1
 elif [[ -n $DIS_R ]]; then
-    xrandr --output HDMI2 --mode $DIS_MODE --right-of eDP1
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --right-of eDP1
 elif [[ -n $DIS_B ]]; then
-    xrandr --output HDMI2 --mode $DIS_MODE --below eDP1
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --below eDP1
 else
-    xrandr --output HDMI2 --mode $DIS_MODE
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE"
 fi

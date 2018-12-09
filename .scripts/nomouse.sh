@@ -1,6 +1,6 @@
 #!/bin/bash
 # This script toggles the touch pad and turns the cursor invisible if no external mouse is plugged.
-# Requires unclutter
+# Requires unclutter, xinput
 
 # Check if unclutter is running
 if [[ ! $(pgrep unclutter) ]]; then
