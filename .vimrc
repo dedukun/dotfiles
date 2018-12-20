@@ -41,7 +41,6 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-
 """"""""""
 " New maps
 
@@ -64,7 +63,8 @@ Plug 'ahonn/resize.vim'                 "resize split windows
 Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
 Plug 'vim-syntastic/syntastic'          "syntax checker
 Plug 'lervag/vimtex'                    "latex support
-"Plug 'vimwiki/vimwiki'                  "markdown stuff
+Plug 'nikvdp/ejs-syntax'                "ejs syntax
+"Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
 call plug#end()
 
 """"""""""""""""""""

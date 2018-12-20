@@ -59,16 +59,17 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Left  resize shrink width  1 px or 1 ppt
-bindsym $mod+Down  resize shrink height 1 px or 1 ppt
-bindsym $mod+Up    resize grow   height 1 px or 1 ppt
-bindsym $mod+Right resize grow   width  1 px or 1 ppt
+bindsym $mod+y  resize shrink right 1 px or 1 ppt; resize grow left 1 px or 1 ppt
+bindsym $mod+u  resize shrink up 1 px or 1 ppt;    resize grow down 1 px or 1 ppt
+bindsym $mod+i    resize grow up 1 px or 1 ppt;      resize shrink down 1 px or 1 ppt
+bindsym $mod+o resize grow right 1 px or 1 ppt;   resize shrink left 1 px or 1 ppt
+
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left  resize shrink width  10 px or 10 ppt
-bindsym $mod+Shift+Down  resize shrink height 10 px or 10 ppt
-bindsym $mod+Shift+Up    resize grow   height 10 px or 10 ppt
-bindsym $mod+Shift+Right resize grow   width  10 px or 10 ppt
+bindsym $mod+Shift+y resize shrink right 10 px or 10 ppt; resize grow left 10 px or 10 ppt
+bindsym $mod+Shift+u resize shrink up 10 px or 10 ppt;    resize grow down 10 px or 10 ppt
+bindsym $mod+Shift+i resize grow up 10 px or 10 ppt;      resize shrink down 10 px or 10 ppt
+bindsym $mod+Shift+o resize grow right 10 px or 10 ppt;   resize shrink left 10 px or 10 ppt
 
 # togglw split orientation
 bindsym $mod+v split toggle
@@ -143,8 +144,6 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -176,7 +175,7 @@ bindsym $mod+F9 exec "$HOME/.scripts/nomouse.sh"
 # Run networkmanager in dmenu
 bindsym $mod+F2 exec "$HOME/Applications/networkmanager-dmenu/networkmanager_dmenu"
 
-# to return to previous workspace cick in the current on again
+# return to the previous workspace by clicking in the current workspace again
 workspace_auto_back_and_forth yes
 
 # mouse doesn't focus window
@@ -196,7 +195,7 @@ bindsym $mod+Shift+BackSpace move scratchpad
 bindsym $mod+backslash scratchpad show
 
 # fill video to window
-bindsym $mod+y fullscreen disable
+#bindsym $mod+ fullscreen disable
 
 # screen shots
 bindsym $mod+Print exec "$HOME/.scripts/screenshots.sh"
