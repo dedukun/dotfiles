@@ -61,8 +61,8 @@ bindsym $mod+Shift+l move right
 # alternatively, you can use the cursor keys:
 bindsym $mod+y  resize shrink right 1 px or 1 ppt; resize grow left 1 px or 1 ppt
 bindsym $mod+u  resize shrink up 1 px or 1 ppt;    resize grow down 1 px or 1 ppt
-bindsym $mod+i    resize grow up 1 px or 1 ppt;      resize shrink down 1 px or 1 ppt
-bindsym $mod+o resize grow right 1 px or 1 ppt;   resize shrink left 1 px or 1 ppt
+bindsym $mod+i  resize grow up 1 px or 1 ppt;      resize shrink down 1 px or 1 ppt
+bindsym $mod+o  resize grow right 1 px or 1 ppt;   resize shrink left 1 px or 1 ppt
 
 
 # alternatively, you can use the cursor keys:
