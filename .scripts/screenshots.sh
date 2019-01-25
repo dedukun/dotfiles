@@ -2,7 +2,7 @@
 print_help () { echo "This script helps to take and organize screenshots."
     echo "Calling it with no arguments will take a screenshot and save to the current date's folder."
     echo -e "\t -f, --folder       Specify the folder where the screenshots are saved (default: \$HOME/Pictures/screenshots)"
-    echo -e "\t -s, --selected     Specify the area of the screenshot to take"
+    echo -e "\t -s, --selected     Select the area of the screenshot"
     echo -e "\t-df, --date-folder  Save the screenshot in a subdirectory with the current date"
     echo -e "\t -h, --help         Prints this help menu"
 }
@@ -48,10 +48,10 @@ if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
     exit 0
 fi
 
-# Set a costum file name (put current date/time if no input)
+# Set a custom file name (put current date/time if no input)
 SCREEN_NAME=$(echo | dmenu -p "Enter file name:")
 
-# If a costum name is defined, add a "_" before it
+# If a custom name is defined, add a "_" before it
 if [ ! -z "$SCREEN_NAME" ]; then
     SCREEN_NAME="_"$SCREEN_NAME
 fi

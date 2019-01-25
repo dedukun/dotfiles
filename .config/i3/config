@@ -33,7 +33,10 @@ for_window [class="^.*"] border pixel 2
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+Return exec st
+
+# start a terminal in the focused window's working directory
+bindsym $mod+Shift+Return exec $(cd `xcwd` && st)
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -63,7 +66,6 @@ bindsym $mod+y  resize shrink right 1 px or 1 ppt; resize grow left 1 px or 1 pp
 bindsym $mod+u  resize shrink up 1 px or 1 ppt;    resize grow down 1 px or 1 ppt
 bindsym $mod+i  resize grow up 1 px or 1 ppt;      resize shrink down 1 px or 1 ppt
 bindsym $mod+o  resize grow right 1 px or 1 ppt;   resize shrink left 1 px or 1 ppt
-
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+y resize shrink right 10 px or 10 ppt; resize grow left 10 px or 10 ppt
@@ -95,13 +97,13 @@ bindsym $mod+a focus parent
 #bindsym $mod+d focus child
 
 # Define default workspaces outputs for multi monitor setup
-workspace 1 output eDP1
-workspace 2 output eDP1
-workspace 3 output eDP1
-workspace 4 output eDP1
-workspace 5 output HDMI2
-workspace 6 output HDMI2
-workspace 7 output HDMI2
+workspace "1" output eDP1
+workspace "2" output eDP1
+workspace "3" output eDP1
+workspace "4" output eDP1
+workspace "5" output HDMI2
+workspace "6" output HDMI2
+workspace "7" output HDMI2
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
@@ -184,6 +186,9 @@ focus_follows_mouse no
 # open firefox
 bindsym $mod+Shift+w exec "firefox --private-window"
 
+# open chromium
+bindsym $mod+Control+w exec "chromium --incognito"
+
 # lock Screen
 bindsym --release $mod+Control+l exec "slock"
 
@@ -209,7 +214,13 @@ bindsym $mod+Control+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltr
 # screen shots Global selected
 bindsym $mod+Control+Shift+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
 
-#####
+######################
+# Applications configs
+
+# start thunderbird in workspace 10
+for_window [class="Thunderbird"] move container to workspace $ws10
+
+##################
 # Startup commands
 
 # invert scrolling
@@ -228,7 +239,7 @@ exec --no-startup-id setxkbmap pt
 exec --no-startup-id start-pulseaudio-x11
 
 # start redshift
-exec --no-startup-id redshift
+exec --no-startup-id "redshift -c ~/.config/redshift/redshift.conf"
 
 # start with screen brightness at 50%
 exec --no-startup-id "xbacklight -set 50"

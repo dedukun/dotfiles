@@ -1,7 +1,7 @@
 #.bashrc
 PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\W] \$ '
 
-EDITOR=vim
+export EDITOR=vim
 
 # activate vi mode in bash
 set -o vi

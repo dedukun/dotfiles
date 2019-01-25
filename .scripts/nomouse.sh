@@ -5,6 +5,8 @@
 # Check if unclutter is running
 if [[ ! $(pgrep unclutter) ]]; then
 
+    notify-send -t 1000 "TouchPad -> off"
+
     # Turn touchpad off
     synclient TouchpadOff='1';
 
@@ -16,6 +18,9 @@ if [[ ! $(pgrep unclutter) ]]; then
     fi
 
 else
+
+    notify-send -t 1000 "TouchPad -> on"
+
     # Turn touchpad on
     synclient TouchpadOff='0';
 

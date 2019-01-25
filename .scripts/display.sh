@@ -9,11 +9,21 @@ print_help () {
     echo -e "\t-r, --right    Set second display to the right of the main display"
     echo -e "\t-b, --below    Set second display below the main display"
     echo -e "\t-o, --off      Turn the second display off"
+    echo -e "\t-p, --primary  Set the external monitor as primary"
     echo -e "\t-h, --help     Prints help menu"
+}
+
+change_workspace_outputs() {
+    sed -i -r "s/(^workspace \"[1-4]\" output ).*/\1$1/"  "$HOME/.config/i3/config"
+    sed -i -r "s/(^workspace \"[5-7]\" output ).*/\1$2/" "$HOME/.config/i3/config"
+
+    i3-msg reload | grep sucess
 }
 
 DIS_MODE="1920x1080"
 DIS_OUT="HDMI2"
+DIS_BASE_MONITOR="eDP1"
+DIS_DIRECTION=""
 
 while [[ $# -gt 0 ]]
 do
@@ -31,23 +41,27 @@ do
         shift # past argument
         ;;
         -a|--above)
-        DIS_A="yes"
+        DIS_DIRECTION="--above"
         shift # past value
         ;;
         -l|--left)
-        DIS_L="yes"
+        DIS_DIRECTION="--left-of"
         shift # past value
         ;;
         -r|--right)
-        DIS_R="yes"
+        DIS_DIRECTION="--right-of"
         shift # past value
         ;;
         -b|--below)
-        DIS_B="yes"
+        DIS_DIRECTION="--below"
         shift # past value
         ;;
         -o|--off)
         DIS_OFF="yes"
+        shift # past value
+        ;;
+        -p|--primary)
+        DIS_PRIMARY="yes"
         shift # past value
         ;;
         -h|--help)
@@ -64,16 +78,21 @@ do
     esac
 done
 
+# Set display off
 if [[ -n $DIS_OFF ]]; then
+    # Restore default workspaces configs
+    change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+
     xrandr --output "$DIS_OUT" --off
-elif [[ -n $DIS_A ]]; then
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --above eDP1
-elif [[ -n $DIS_L ]]; then
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --left-of eDP1
-elif [[ -n $DIS_R ]]; then
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --right-of eDP1
-elif [[ -n $DIS_B ]]; then
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" --below eDP1
+    exit 0
+# Set secondary monitor with primary option
+elif [[ -n $DIS_PRIMARY ]]; then
+    change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
+
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR" --primary
+# Set secondary monitor
 else
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE"
+    change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+
+    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR"
 fi
