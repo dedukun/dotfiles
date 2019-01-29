@@ -12,11 +12,14 @@ if [[ ! $(pgrep unclutter) ]]; then
 
     # Check if external mouse is plugged
     if [[ ! $(xinput list | grep -i mouse) ]]; then
-        unclutter -idle 1 &
-    else
-        unclutter -idle 3 &         # mouse plugged, unclutter with 3 sec delay
-    fi
+        sleep 1
 
+        unclutter -idle 0 &
+    else
+        sleep 3          # mouse plugged, unclutter with 3 sec delay
+
+        unclutter -idle 1 &
+    fi
 else
 
     notify-send -t 1000 "TouchPad -> on"

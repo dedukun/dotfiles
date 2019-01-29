@@ -1,0 +1,2 @@
+xdotool key F5      # press F5
+exit 0

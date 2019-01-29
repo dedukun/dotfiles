@@ -214,11 +214,15 @@ bindsym $mod+Control+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltr
 # screen shots Global selected
 bindsym $mod+Control+Shift+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
 
+bindsym $mod+m exec "i3-msg unmark && i3-msg mark mexecDest && notify-send 'Window was marked [mexec]'"
+
+bindsym $mod+F1 exec "$HOME/.scripts/i3mexec.sh"
+
 ######################
 # Applications configs
 
 # start thunderbird in workspace 10
-for_window [class="Thunderbird"] move container to workspace $ws10
+#for_window [class="Thunderbird"] move container to workspace $ws10
 
 ##################
 # Startup commands
