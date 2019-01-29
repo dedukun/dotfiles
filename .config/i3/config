@@ -218,6 +218,10 @@ bindsym $mod+m exec "i3-msg unmark && i3-msg mark mexecDest && notify-send 'Wind
 
 bindsym $mod+F1 exec "$HOME/.scripts/i3mexec.sh"
 
+bindsym $mod+Control+F1 exec "$HOME/.scripts/i3mexec.sh -c"
+
+bindsym $mod+Shift+F1 exec "$HOME/.scripts/i3mexec.sh -s"
+
 ######################
 # Applications configs
 

@@ -34,6 +34,8 @@ show_command () {
     fi
 }
 
+# cd to .scripts folder because of i3 call
+cd "$HOME/.scripts" || exit
 
 while [[ $# -gt 0 ]]
 do
@@ -70,13 +72,10 @@ if [[ ! -n $command ]]; then
     notify-send -t 2000 "No command selected\nUse i3mexec -c to select a command"
 fi
 
+i3-msg unmark mexecOri | grep supress # unmark previous call
 i3-msg mark mexecOri | grep supress # mark current window
 i3-msg [con_mark="mexecDest"] focus  | grep supress # focus destination window
 
-xinput set-int-prop 14 "Device Enabled" 8 0 # disable keyboard
-
 /bin/bash $command
-
-xinput set-int-prop 14 "Device Enabled" 8 1 # enable keyboard
 
 i3-msg [con_mark="mexecOri"] focus | grep supreess # return to original window
