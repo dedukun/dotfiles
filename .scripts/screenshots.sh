@@ -8,7 +8,7 @@ print_help () { echo "This script helps to take and organize screenshots."
 }
 
 SCREEN_BASE_FOLDER="$HOME/Pictures/screenshots"
-SCREEN_DATE="$(date +%H%M%S)"
+SCREEN_TMP_NAME="/tmp/_screenshotTMP.png"
 
 while [[ $# -gt 0 ]]
 do
@@ -31,7 +31,7 @@ do
         -h|--help)
         shift # past argument
         print_help
-        exit
+        exit 0
         ;;
         *)
         echo "Invalid argument '$1'."
@@ -45,10 +45,17 @@ done
 # Check if the base folder exists
 if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
     echo -e "'$SCREEN_BASE_FOLDER' doesn't exists.\nFor more information use argument -h or --help."
-    exit 0
+    exit 1
 fi
 
-# Set a custom file name (put current date/time if no input)
+# take the screen shot now so its timing doesn't depend on the user input
+if [[ -n $SCREEN_SELECTED ]]; then
+    maim -s --hidecursor "$SCREEN_TMP_NAME"
+else
+    maim --hidecursor "$SCREEN_TMP_NAME"
+fi
+
+# Set a custom file name (uses current date/time if no input)
 SCREEN_NAME=$(echo | dmenu -p "Enter file name:")
 
 # If a custom name is defined, add a "_" before it
@@ -63,7 +70,7 @@ if [[ -n $SCREEN_DATE_FOLDER ]]; then
 
     # Create the folder if it doesn't exists
     if [ ! -d "$SCREEN_BASE_FOLDER/$SCREEN_DATE_FOLDER" ]; then
-        mkdir $SCREEN_BASE_FOLDER/$SCREEN_DATE_FOLDER
+        mkdir "$SCREEN_BASE_FOLDER/$SCREEN_DATE_FOLDER"
     fi
 
     # Add the sub-directory to the pre-name
@@ -73,9 +80,9 @@ else
     SCREEN_PRE_NAME=$(date '+%F-%H%M%S')
 fi
 
-# take screen shot of a selected region and move it to the correct folder
+# move screen shot to the correct folder and rename it
 if [[ -n $SCREEN_SELECTED ]]; then
-    maim -s --hidecursor "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 else
-    maim --hidecursor "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 fi

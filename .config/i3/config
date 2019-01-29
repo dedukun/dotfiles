@@ -143,9 +143,10 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 # reload the configuration file
-bindsym $mod+Shift+c reload
+bindsym $mod+Shift+c reload, exec notify-send -t 1500 "i3 configuration reloaded"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+#bindsym $mod+Shift+r restart
+bindsym $mod+Shift+r exec notify-send -u critical -t 1500 "Restart is disabled"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -214,13 +215,17 @@ bindsym $mod+Control+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltr
 # screen shots Global selected
 bindsym $mod+Control+Shift+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
 
-bindsym $mod+m exec "i3-msg unmark && i3-msg mark mexecDest && notify-send 'Window was marked [mexec]'"
+# Mexec mark
+bindsym $mod+m exec i3-msg unmark mexecDest && i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window\n'$($HOME/.scripts/i3/name.sh)'"
 
-bindsym $mod+F1 exec "$HOME/.scripts/i3mexec.sh"
+# Mexec run
+bindsym $mod+F1 exec "$HOME/.scripts/i3/mexec.sh"
 
-bindsym $mod+Control+F1 exec "$HOME/.scripts/i3mexec.sh -c"
+# Mexec change command
+bindsym $mod+Control+F1 exec "$HOME/.scripts/i3/mexec.sh --command"
 
-bindsym $mod+Shift+F1 exec "$HOME/.scripts/i3mexec.sh -s"
+# Mexec show command
+bindsym $mod+Shift+F1 exec "$HOME/.scripts/i3/mexec.sh --show"
 
 ######################
 # Applications configs
