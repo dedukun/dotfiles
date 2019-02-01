@@ -1,0 +1,6 @@
+xinput set-int-prop 14 "Device Enabled" 8 0 # disable keyboard
+xdotool key ctrl+c Return                   # press ^C
+xdotool type "!!"                           # type !!
+xdotool key Return Return                   # run it
+xinput set-int-prop 14 "Device Enabled" 8 1 # enable keyboard
+exit 0

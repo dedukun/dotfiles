@@ -1,9 +1,10 @@
 #!/bin/bash
 print_help () { echo "This script helps keeping logs organized and manage them"
     echo "Calling it with no arguments will open the log file of the day"
-    echo -e "\t-b, --back      Open the nth previous log from today"
-    echo -e "\t-f, --find      Search for the word in the logs"
-    echo -e "\t-h, --help      Prints help menu"
+    echo -e "\t-b , --back      Open the nth previous log from today"
+    echo -e "\t-f , --find      Search for the word in the logs"
+    echo -e "\t-fi, --find-ins  Search for the word in the logs (case insensitive)"
+    echo -e "\t-h , --help      Prints help menu"
 }
 
 LOG_FOLDER="$HOME/Globaltronic/Logging/logs"
@@ -16,6 +17,12 @@ do
     case $LOG_KEY in
         -f|--find)
         LOG_FIND="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        -fi|--find-ins)
+        LOG_FIND="$2"
+        LOG_FIND_IN=YES
         shift # past argument
         shift # past value
         ;;
@@ -40,7 +47,11 @@ done
 
 # find word in logs
 if [[ -n $LOG_FIND ]]; then
-    grep --color $LOG_FOLDER -R -i -e $LOG_FIND
+    if [[ -n $LOG_FIND_IN ]]; then
+        grep --color $LOG_FOLDER -R -i -e $LOG_FIND
+    else
+        grep --color $LOG_FOLDER -R -e $LOG_FIND
+    fi
 # open previous log
 elif [[ -n $LOG_BACK ]]; then
     # offset is different is the file for today already exists

@@ -1,0 +1,5 @@
+xinput set-int-prop 14 "Device Enabled" 8 0 # disable keyboard
+xdotool key F5                              # press F5
+xinput set-int-prop 14 "Device Enabled" 8 1 # enable keyboard
+echo | dmenu -p "Press enter to return"     # wait for enter
+exit 0

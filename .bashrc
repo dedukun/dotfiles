@@ -3,9 +3,6 @@ PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\W] \$ '
 
 export EDITOR=vim
 
-# activate vi mode in bash
-set -o vi
-
 # disable automatically executing !, !!, !?, instead filling the bash with the command
 shopt -s histverify
 
@@ -34,10 +31,6 @@ alias  l='ls -l'
 alias ll='ls -la'
 alias grep='grep --color'
 alias xxstartx='exec startx &> /dev/null'
-
-# Export alias
-alias vimtex='export PATH=$PATH:$HOME/.vim/plugged/vim-live-latex-preview/bin'
-alias exsbin='export PATH=$PATH:/sbin'
 
 # Tmp alias
 alias cd5='cd $HOME/UA/5Ano/'

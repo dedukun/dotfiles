@@ -17,7 +17,7 @@ change_workspace_outputs() {
     sed -i -r "s/(^workspace \"[1-4]\" output ).*/\1$1/"  "$HOME/.config/i3/config"
     sed -i -r "s/(^workspace \"[5-7]\" output ).*/\1$2/" "$HOME/.config/i3/config"
 
-    i3-msg reload | grep sucess
+    i3-msg -q reload
 }
 
 DIS_MODE="1920x1080"

@@ -42,8 +42,12 @@ show_script () {
     fi
 }
 
+# check if a script is alredy running using mexec
+[ "$(pgrep mexec.sh | wc -l)" -ge "3" ] && (notify-send -u critical -t 1000 "Already running a script\n") && exit 1
+
 # cd to .scripts/i3 folder so that working dir is always the same
 cd "$HOME/.scripts/i3" || exit 1
+
 
 while [[ $# -gt 0 ]]
 do
@@ -81,10 +85,10 @@ if [[ ! -n $script ]]; then
     exit 1
 fi
 
-i3-msg unmark mexecOri | grep supress # unmark previous call
-i3-msg mark mexecOri | grep supress # mark current window
-i3-msg [con_mark="mexecDest"] focus  | grep supress # focus destination window
+i3-msg -q unmark mexecOri # unmark previous call
+i3-msg -q mark mexecOri # mark current window
+i3-msg -q [con_mark="mexecDest"] focus  # move to window
 
 /bin/bash $script
 
-i3-msg [con_mark="mexecOri"] focus | grep supreess # return to original window
+i3-msg -q [con_mark="mexecOri"] focus # return to original window

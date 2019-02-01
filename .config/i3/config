@@ -227,6 +227,9 @@ bindsym $mod+Control+F1 exec "$HOME/.scripts/i3/mexec.sh --command"
 # Mexec show command
 bindsym $mod+Shift+F1 exec "$HOME/.scripts/i3/mexec.sh --show"
 
+# special key
+#bindcode $mod+248
+
 ######################
 # Applications configs
 
