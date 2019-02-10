@@ -50,6 +50,8 @@ let mapleader=","
 "remove all spaces at the end of lines
 map <leader>cc :%s/\s\+$//ge<cr>
 
+map <leader>s :SyntasticToggleMode<cr>
+
 """"""""""
 " Plugins
 call plug#begin('~/.vim/plugged')

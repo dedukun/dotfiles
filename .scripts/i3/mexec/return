@@ -1,8 +1,7 @@
 #!/bin/bash
 K_ID="$(~/.scripts/i3/mexec/.aux/keyboard_id.sh)"
 xinput set-int-prop "$K_ID" "Device Enabled" 8 0 # disable keyboard
-xdotool key ctrl+c Return                        # press ^C
-xdotool type "!!"                                # type !!
 xdotool key Return Return                        # run it
+sleep 0.5
 xinput set-int-prop "$K_ID" "Device Enabled" 8 1 # enable keyboard
 exit 0

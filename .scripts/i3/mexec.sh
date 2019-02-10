@@ -89,6 +89,6 @@ i3-msg -q unmark mexecOri # unmark previous call
 i3-msg -q mark mexecOri # mark current window
 i3-msg -q [con_mark="mexecDest"] focus  # move to window
 
-/bin/bash $script
+/bin/bash "$script"
 
 i3-msg -q [con_mark="mexecOri"] focus # return to original window

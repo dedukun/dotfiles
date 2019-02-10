@@ -33,10 +33,10 @@ for_window [class="^.*"] border pixel 2
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec st
+bindsym $mod+Return exec $TERMINAL
 
 # start a terminal in the focused window's working directory
-bindsym $mod+Shift+Return exec $(cd `xcwd` && st)
+bindsym $mod+Shift+Return exec $(cd `xcwd` && $TERMINAL)
 
 # kill focused window
 bindsym $mod+Shift+q kill
