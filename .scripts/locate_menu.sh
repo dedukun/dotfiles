@@ -16,6 +16,7 @@ print_help () {
 
 LOME_LINES=25
 LOME_LOCATE_ARGS=""
+LOME_COMMAND="echo" # default command
 
 while [[ $# -gt 0 ]]
 do
@@ -69,7 +70,6 @@ else
 fi
 
 # Get second argument (command)
-LOME_COMMAND="vim"
 if [[ -n $2 ]]; then
     LOME_COMMAND="$2"
 

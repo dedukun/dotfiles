@@ -9,8 +9,8 @@ print_help () {
 }
 
 change_script () {
-    scripts=$(ls mexec/* 2> /dev/null)
-    selected=$(echo "$scripts" | dmenu -p "Select script:")
+    local scripts=$(ls mexec/* 2> /dev/null)
+    local selected=$(echo "$scripts" | dmenu -i -p "Select script:")
 
     if [[ ! -f $selected ]]; then
         # Test if the given st is installed
@@ -32,7 +32,7 @@ change_script () {
 }
 
 show_script () {
-    script=$(ls mexec/.C_* 2> /dev/null)
+    local script=$(ls mexec/.C_* 2> /dev/null)
 
     if [[ -n $script ]]; then
         script=$(echo "$script" | cut -d'_' -f 2) # remove prefix
@@ -46,7 +46,7 @@ show_script () {
 [ "$(pgrep mexec.sh | wc -l)" -ge "3" ] && (notify-send -u critical -t 1000 "Already running a script\n") && exit 1
 
 # cd to .scripts/i3 folder so that working dir is always the same
-cd "$HOME/.scripts/i3" || exit 1
+cd "$SCRIPTS/i3" || exit 1
 
 
 while [[ $# -gt 0 ]]
@@ -85,7 +85,6 @@ if [[ ! -n $script ]]; then
     exit 1
 fi
 
-i3-msg -q unmark mexecOri # unmark previous call
 i3-msg -q mark mexecOri # mark current window
 i3-msg -q [con_mark="mexecDest"] focus  # move to window
 

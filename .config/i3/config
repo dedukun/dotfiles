@@ -129,6 +129,18 @@ bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
 bindsym $mod+9 workspace $ws9
 bindsym $mod+0 workspace $ws10
+#
+#bindsym $mod+1 mark --add lastWS; workspace $ws1
+#bindsym $mod+2 mark --add lastWS; workspace $ws2
+#bindsym $mod+3 mark --add lastWS; workspace $ws3
+#bindsym $mod+4 mark --add lastWS; workspace $ws4
+#bindsym $mod+5 mark --add lastWS; workspace $ws5
+#bindsym $mod+6 mark --add lastWS; workspace $ws6
+#bindsym $mod+7 mark --add lastWS; workspace $ws7
+#bindsym $mod+8 mark --add lastWS; workspace $ws8
+#bindsym $mod+9 mark --add lastWS; workspace $ws9
+#bindsym $mod+0 mark --add lastWS; workspace $ws10
+#bindsym $mod+Tab exec "$SCRIPTS/i3/tab.sh"
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace $ws1
@@ -173,7 +185,7 @@ bindsym $mod+Shift+F11 exec "amixer -q sset Master 1%-"
 bindsym $mod+Shift+F12 exec "amixer -q sset Master 1%+"
 
 # Toggle touchpad
-bindsym $mod+F9 exec "$HOME/.scripts/nomouse.sh"
+bindsym $mod+F9 exec "$SCRIPTS/nomouse.sh"
 
 # Run networkmanager in dmenu
 bindsym $mod+F2 exec "$HOME/Applications/networkmanager-dmenu/networkmanager_dmenu"
@@ -204,28 +216,43 @@ bindsym $mod+backslash scratchpad show
 #bindsym $mod+ fullscreen disable
 
 # screen shots
-bindsym $mod+Print exec "$HOME/.scripts/screenshots.sh"
+bindsym $mod+Print exec "$SCRIPTS/screenshots.sh"
 
 # only take a screen shot of the selected region
-bindsym $mod+Shift+Print exec "$HOME/.scripts/screenshots.sh -s"
+bindsym $mod+Shift+Print exec "$SCRIPTS/screenshots.sh -s"
 
 # screen shots Global
-bindsym $mod+Control+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df"
+bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df"
 
 # screen shots Global selected
-bindsym $mod+Control+Shift+Print exec "$HOME/.scripts/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
+bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
 
 # Mexec mark
-bindsym $mod+m exec i3-msg unmark mexecDest && i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window\n'$($HOME/.scripts/i3/name.sh)'"
+bindsym $mod+m exec i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window\n'$($SCRIPTS/i3/name.sh)'"
 
 # Mexec run
-bindsym $mod+F1 exec "$HOME/.scripts/i3/mexec.sh"
+bindsym $mod+F1 exec "$SCRIPTS/i3/mexec.sh"
 
 # Mexec change command
-bindsym $mod+Control+F1 exec "$HOME/.scripts/i3/mexec.sh --command"
+bindsym $mod+Control+F1 exec "$SCRIPTS/i3/mexec.sh --command"
 
 # Mexec show command
-bindsym $mod+Shift+F1 exec "$HOME/.scripts/i3/mexec.sh --show"
+bindsym $mod+Shift+F1 exec "$SCRIPTS/i3/mexec.sh --show"
+
+# Todo list
+bindsym $mod+t exec "$SCRIPTS/todo"
+
+# GBT Manage
+bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"
+
+# Mexec run
+bindsym $mod+F3 exec "$SCRIPTS/i3/mexec.sh"
+
+# Mexec change command
+bindsym $mod+Control+F3 exec "$SCRIPTS/i3/mexec.sh --command"
+
+# Mexec show command
+bindsym $mod+Shift+F3 exec "$SCRIPTS/i3/mexec.sh --show"
 
 # special key
 #bindcode $mod+248
