@@ -81,7 +81,7 @@ fi
 
 # Search for folders only
 if [[ -n $LOME_LOCATE_FOLDER ]]; then
-    LOME_LOCATE_VALUE="/$LOME_LOCATE_VALUE$"
+    LOME_LOCATE_VALUE="$LOME_LOCATE_VALUE$"
 fi
 
 if [[ -n $LOME_NO_LINES ]];then

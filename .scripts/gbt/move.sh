@@ -1,6 +1,6 @@
 #!/bin/bash
 print_help () { echo "This script helps organizing compiled images."
-    echo -e "Usage 'glbt_mov <file>'"
+    echo -e "Usage '$(basename $0) <file>'"
     echo -e "\t-h, --help      Prints help menu"
 }
 

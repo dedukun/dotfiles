@@ -68,7 +68,8 @@ Plug 'lervag/vimtex'                    "latex support
 Plug 'nikvdp/ejs-syntax'                "ejs syntax
 "Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
 Plug 'momota/cisco.vim'                 "cisco syntax
-Plug 'chrisbra/Colorizer'                 "color preview
+Plug 'chrisbra/Colorizer'               "color preview
+Plug 'Valloric/YouCompleteMe'           "auto complete
 call plug#end()
 
 """"""""""""""""""""

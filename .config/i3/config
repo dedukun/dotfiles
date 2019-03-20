@@ -36,7 +36,10 @@ floating_modifier $mod
 bindsym $mod+Return exec $TERMINAL
 
 # start a terminal in the focused window's working directory
-bindsym $mod+Shift+Return exec $(cd `xcwd` && $TERMINAL)
+bindsym $mod+Shift+Return exec $(cd $(xcwd) && $TERMINAL)
+
+# start a terminal in the current GBT project directory
+bindsym $mod+Control+Return exec $(cd $(glbt_proj --get) && $TERMINAL)
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -245,14 +248,8 @@ bindsym $mod+t exec "$SCRIPTS/todo"
 # GBT Manage
 bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"
 
-# Mexec run
-bindsym $mod+F3 exec "$SCRIPTS/i3/mexec.sh"
-
-# Mexec change command
-bindsym $mod+Control+F3 exec "$SCRIPTS/i3/mexec.sh --command"
-
-# Mexec show command
-bindsym $mod+Shift+F3 exec "$SCRIPTS/i3/mexec.sh --show"
+# GBT Show current project
+bindsym $mod+Shift+g exec "$SCRIPTS/gbt/project.sh --show"
 
 # special key
 #bindcode $mod+248

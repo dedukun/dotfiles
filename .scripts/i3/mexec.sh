@@ -9,8 +9,10 @@ print_help () {
 }
 
 change_script () {
-    local scripts=$(ls mexec/* 2> /dev/null)
-    local selected=$(echo "$scripts" | dmenu -i -p "Select script:")
+    local scripts
+    scripts=$(ls mexec/* 2> /dev/null)
+    local selected
+    selected=$(echo "$scripts" | dmenu -i -p "Select script:")
 
     if [[ ! -f $selected ]]; then
         # Test if the given st is installed
@@ -32,13 +34,14 @@ change_script () {
 }
 
 show_script () {
-    local script=$(ls mexec/.C_* 2> /dev/null)
+    local script
+    script=$(ls mexec/.C_* 2> /dev/null)
 
     if [[ -n $script ]]; then
         script=$(echo "$script" | cut -d'_' -f 2) # remove prefix
         notify-send -t 2000 "The current script is\n$script"
     else
-        notify-send -t 2000 "No script selected\nUse i3mexec -c to select a script"
+        notify-send -t 2000 "No script selected" "Use i3mexec -c to select a script"
     fi
 }
 
@@ -81,7 +84,7 @@ done
 script=$(ls mexec/.C_* 2> /dev/null)
 
 if [[ ! -n $script ]]; then
-    notify-send -t 2000 "No script selected\nUse i3mexec -c to select a script"
+    notify-send -t 2000 "No script selected" "Use i3mexec -c to select a script"
     exit 1
 fi
 

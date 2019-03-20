@@ -1,21 +1,103 @@
 #!/bin/bash
-# Create a new globaltronic project wizard
-print_help () { echo "This script helps creating a project."
-    echo -e "Usage 'glbt_proj'"
+# Manages GBT projects.
+print_help () { echo "This script helps creating a project and manage it."
+    echo -e "Usage '$(basename "$0")'"
+    echo -e "\t-n, --new       Create a new project"
+    echo -e "\t-c, --choose    Choose the current working project"
+    echo -e "\t-s, --show      Show the current project"
+    echo -e "\t-g, --get       Get the current project"
     echo -e "\t-h, --help      Prints help menu"
 }
 
-PROJ_FOLDER="$HOME/Globaltronic/Projects"
+new_project () {
+    local PROJ_NAME
+    PROJ_NAME=$(echo | dmenu -p "Project Name: ")
+
+    [[ $PROJ_NAME == "" ]] && exit 0
+
+    [[ -d "$PROJ_FOLDER/$PROJ_NAME" ]] && notify-send -u critical -t 1500 "Project '$PROJ_NAME' already exists!" && exit 1
+
+    mkdir -p "$PROJ_FOLDER/$PROJ_NAME"
+
+    local PROJ_ID
+    PROJ_ID=$(grep -e "^id=" "$SCRIPTS/.config/.gbt_project" | sed 's/id=\s*// g')
+    echo "$PROJ_ID" > "$PROJ_FOLDER/$PROJ_NAME/.id"
+    sed -i "s/id=.*$/id=$((PROJ_ID+1))/ g" "$SCRIPTS/.config/.gbt_project"
+
+    local PROJ_LIST="Manuals\nImages\nCode\nRepos"
+    local PROJ_INPUT
+    PROJ_INPUT=$(echo -e $PROJ_LIST | dmenu -i -p "Input: ")
+    while true ; do
+        if [ "$PROJ_INPUT" == "" ]; then
+          break
+        fi
+
+        mkdir "$PROJ_FOLDER/$PROJ_NAME/$PROJ_INPUT"
+        PROJ_INPUT=$(echo -e $PROJ_LIST | dmenu -p "Input: ")
+    done
+}
+
+choose_project () {
+    local PROJ_NAME
+    PROJ_NAME=$(find "$PROJ_FOLDER" -maxdepth 1 -type d | sort | tail -n +2 | xargs -n 1 -I @ sh -c 'echo `basename "@"`' | dmenu -i -p "Choose Project: ")
+    local PROJ_FULL_NAME
+    PROJ_FULL_NAME="$PROJ_NAME"
+    while [ ! -f "$PROJ_FOLDER/$PROJ_FULL_NAME/.id" ]
+    do
+        PROJ_NAME=$(find "$PROJ_FOLDER/$PROJ_FULL_NAME" -maxdepth 1 -type d | sort | tail -n +2 | xargs -n 1 -I @ sh -c 'echo `basename "@"`' | dmenu -i -p "Choose Project: ")
+        PROJ_FULL_NAME="$PROJ_FULL_NAME/$PROJ_NAME"
+    done
+
+    sed -i "s/proj=.*$/proj=$(echo $PROJ_FULL_NAME | sed 's/\//\\\// g')/ g" "$SCRIPTS/.config/.gbt_project"
+
+    notify-send -t 1500 "Project '$PROJ_FULL_NAME' was selected."
+}
+
+show_project () {
+    local PROJ_NAME
+    PROJ_NAME=$(grep -e "^proj=" "$SCRIPTS/.config/.gbt_project" | sed 's/proj=\s*// g')
+
+    notify-send -t 1500 "Current project is '$PROJ_NAME'."
+}
+
+get_project () {
+    local PROJ_NAME
+    PROJ_NAME=$(grep -e "^proj=" "$SCRIPTS/.config/.gbt_project" | sed 's/proj=\s*// g')
+
+    echo "$GBT_PROJECTS/$PROJ_NAME"
+}
+
+PROJ_FOLDER="$GBT_PROJECTS"
 
 while [[ $# -gt 0 ]]
 do
     PROJ_KEY="$1"
 
     case $PROJ_KEY in
+        -n|--new)
+        shift # past argument
+        new_project
+        exit 0
+        ;;
+        -c|--choose)
+        shift # past argument
+        choose_project
+        exit 0
+        ;;
+        -s|--show)
+        shift # past argument
+        show_project
+        exit 0
+        ;;
+        -g|--get)
+        shift # past argument
+        get_project
+        exit 0
+        ;;
         -h|--help)
         shift # past argument
         print_help
-        exit
+        exit 0
         ;;
         *)
         echo "Invalid argument '$1'."
@@ -25,21 +107,3 @@ do
         ;;
     esac
 done
-
-PROJ_NAME=$(echo | dmenu -p "Project Name: ")
-
-[[ -d "$PROJ_FOLDER/$PROJ_NAME" ]] && notify-send -u critical -t 1500 "Project '$PROJ_NAME' already exists!" && exit 1
-
-mkdir -p "$PROJ_FOLDER/$PROJ_NAME"
-
-PROJ_LIST="Manuals\nImages\nCode\nRepos"
-PROJ_INPUT=$(echo -e $PROJ_LIST | dmenu -i -p "Input: ")
-while : ; do
-    if [ "$PROJ_INPUT" == "" ]; then
-      break
-    fi
-
-    mkdir "$PROJ_FOLDER/$PROJ_NAME/$PROJ_INPUT"
-    PROJ_INPUT=$(echo -e $PROJ_LIST | dmenu -p "Input: ")
-done
-
