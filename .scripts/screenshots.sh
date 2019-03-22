@@ -4,6 +4,7 @@ print_help () { echo "This script helps to take and organize screenshots."
     echo -e "\t -f, --folder       Specify the folder where the screenshots are saved (default: \$HOME/Pictures/screenshots)"
     echo -e "\t -s, --selected     Select the area of the screenshot"
     echo -e "\t-df, --date-folder  Save the screenshot in a subdirectory with the current date"
+    echo -e "\t -t, --timer        Starts a countdown timer for the screenshot"
     echo -e "\t -h, --help         Prints this help menu"
 }
 
@@ -28,6 +29,11 @@ do
         SCREEN_DATE_FOLDER=YES
         shift # past argument
         ;;
+        -t|--timer)
+        SCREEN_TIMER=$2
+        shift # past argument
+        shift # past value
+        ;;
         -h|--help)
         shift # past argument
         print_help
@@ -46,6 +52,16 @@ done
 if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
     echo -e "'$SCREEN_BASE_FOLDER' doesn't exists.\nFor more information use argument -h or --help."
     exit 1
+fi
+
+if [[ -n $SCREEN_TIMER ]]; then
+    timer_count=0
+    while [[ "$timer_count" != "$SCREEN_TIMER" ]]
+    do
+        timer_count=$((timer_count+1))
+        notify-send -t 1000 "Timer: $((SCREEN_TIMER-timer_count))"
+        sleep 1
+    done
 fi
 
 # take the screen shot now so its timing doesn't depend on the user input
