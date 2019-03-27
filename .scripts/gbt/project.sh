@@ -24,7 +24,7 @@ new_project () {
     echo "$PROJ_ID" > "$PROJ_FOLDER/$PROJ_NAME/.id"
     sed -i "s/id=.*$/id=$((PROJ_ID+1))/ g" "$SCRIPTS/.config/.gbt_project"
 
-    local PROJ_LIST="Manuals\nImages\nCode\nRepos"
+    local PROJ_LIST="Code\nRepos\nManuals\nDocumentation\nImages\nSchematics"
     local PROJ_INPUT
     PROJ_INPUT=$(echo -e $PROJ_LIST | dmenu -i -p "Input: ")
     while true ; do

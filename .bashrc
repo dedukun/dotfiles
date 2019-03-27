@@ -18,7 +18,7 @@ fi
 eval "$(dircolors -b)"
 
 # User defined aliases
-alias ls='ls -h --color=auto'
+alias ls='ls -h --color=auto --group-directories-first'
 alias  l='ls -l'
 alias ll='ls -lA'
 alias grep='grep --color'
