@@ -41,6 +41,9 @@ bindsym $mod+Shift+Return exec $(cd $(xcwd) && $TERMINAL)
 # start a terminal in the current GBT project directory
 bindsym $mod+Control+Return exec $(cd $(glbt_proj --get) && $TERMINAL)
 
+# start a terminal in thesis directory
+bindsym $mod+Control+Shift+Return exec $(cd "$HOME/Thesis" && $TERMINAL)
+
 # kill focused window
 bindsym $mod+Shift+q kill
 
@@ -187,6 +190,12 @@ bindsym $mod+Control+F12 exec "amixer -q sset Master 10%+"
 bindsym $mod+Shift+F11 exec "amixer -q sset Master 1%-"
 bindsym $mod+Shift+F12 exec "amixer -q sset Master 1%+"
 
+# Media controls
+bindcode $mod+111 exec "playerctl stop"
+bindcode $mod+113 exec "playerctl previous"
+bindcode $mod+114 exec "playerctl next"
+bindcode $mod+116 exec "playerctl play-pause"
+
 # Toggle touchpad
 bindsym $mod+F9 exec "$SCRIPTS/nomouse.sh"
 
@@ -231,7 +240,7 @@ bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/L
 bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
 
 # Mexec mark
-bindsym $mod+m exec i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window\n'$($SCRIPTS/i3/name.sh)'"
+bindsym $mod+m exec i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window" "'$($SCRIPTS/i3/name.sh)'"
 
 # Mexec run
 bindsym $mod+F1 exec "$SCRIPTS/i3/mexec.sh"

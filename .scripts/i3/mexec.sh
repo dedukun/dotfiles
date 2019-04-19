@@ -39,7 +39,7 @@ show_script () {
 
     if [[ -n $script ]]; then
         script=$(echo "$script" | cut -d'_' -f 2) # remove prefix
-        notify-send -t 2000 "The current script is\n$script"
+        notify-send -t 2000 "The current script is" "$script"
     else
         notify-send -t 2000 "No script selected" "Use i3mexec -c to select a script"
     fi

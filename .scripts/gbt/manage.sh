@@ -1,7 +1,7 @@
 #!/bin/bash
 # Manage gbt scripts
 
-MAN_CMD=$(echo -e "Logs\nMove\nOutputs\nNew Project\nChoose Project\nShow Project" | dmenu -i -p "GBT Command: ")
+MAN_CMD=$(echo -e "Logs\nMove\nOutputs\nCreate Project\nChoose Project\nShow Project" | dmenu -i -p "GBT Command: ")
 
 case $MAN_CMD in
     "Logs")
@@ -13,7 +13,7 @@ case $MAN_CMD in
     "Outputs")
         notify-send -u critical -t 1500 "Outputs not implemented"
         ;;
-    "New Project")
+    "Create Project")
         glbt_proj --new
         ;;
     "Choose Project")

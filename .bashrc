@@ -23,6 +23,7 @@ alias  l='ls -l'
 alias ll='ls -lA'
 alias grep='grep --color'
 alias xxstartx='exec startx &> /dev/null'
+alias update-time='sudo ntpdate pt.pool.ntp.org'
 
 #To clean up and cover your tracks once you log off
 #trap "rm -f ~$LOGNAME/.bash_history" 0
@@ -41,7 +42,7 @@ countdown() {
     while [ $secs -gt 0 ]; do
         sleep 1 &
         printf "\r%02d:%02d:%02d" $((secs/3600)) $(( (secs/60)%60)) $((secs%60))
-        secs=$(( $secs - 1 ))
+        secs=$(( secs - 1 ))
         wait
     done
     echo
@@ -49,9 +50,10 @@ countdown() {
 
 # https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
 stopwatch(){
-    local date1=$(date +%s);
+    local date1
+    date1=$(date +%s);
     while true; do
-        echo -ne "$(date -u --date @$(($(date +%s) - $date1)) +%H:%M:%S)\r";
+        echo -ne "$(date -u --date @$(($(date +%s) - date1)) +%H:%M:%S)\r";
         sleep 0.1
     done
 }

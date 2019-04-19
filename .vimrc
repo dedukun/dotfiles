@@ -14,12 +14,13 @@ set backspace=2                  "make backspace work in insert mode
 set splitbelow splitright        "make splits open at the bottom and right
 set bg=dark
 if has('unnamedplus')            "use special register '*' or '+' for all
-    set clipboard+=unnamedplus   "yank, delete, ...
+    set clipboard=unnamedplus    "yank, delete, ...
 else
-    set clipboard+=unnamed
+    set clipboard=unnamed
 endif
 set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
+set wildmode=longest,list,full   "autocomplete for vim commands
 
 " Change the directory where temporary files are stored
 set backupdir=~/.vim/.backup//
@@ -35,22 +36,31 @@ let &t_EI = "\<Esc>[2 q"
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Remap split windows navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+" Disable maximum text width for this files
+autocmd FileType tex set tw=0
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 """"""""""
-" New maps
+" Maps
 
 "set map leader
 let mapleader=","
 
 "remove all spaces at the end of lines
-map <leader>cc :%s/\s\+$//ge<cr>
+map <leader>cc  :%s/\s\+$//ge<cr>
 
-map <leader>s :SyntasticToggleMode<cr>
+" Enable/Disable Color Preview
+map <leader>c  :ColorHighlight<cr>
+map <leader>cl  :ColorClear<cr>
+
+" Toogle Syntastic
+map <leader>s  :SyntasticToggleMode <bar> lclose<cr>
+
+" Remap split windows navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
 
 """"""""""
 " Plugins
@@ -66,7 +76,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
 Plug 'vim-syntastic/syntastic'          "syntax checker
 Plug 'lervag/vimtex'                    "latex support
 Plug 'nikvdp/ejs-syntax'                "ejs syntax
-"Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
+Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
 Plug 'momota/cisco.vim'                 "cisco syntax
 Plug 'chrisbra/Colorizer'               "color preview
 Plug 'Valloric/YouCompleteMe'           "auto complete
@@ -85,3 +95,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" YouCompleteMe
+" Turn off error highlights
+let g:ycm_enable_diagnostic_signs = 0
+let g:ycm_enable_diagnostic_highlighting = 0
