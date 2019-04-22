@@ -1,5 +1,27 @@
+"""""""""""
+" Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'myusuf3/numbers.vim'              "set relativenumber or number depending of the current mode
+Plug 'vim-airline/vim-airline'          "status/tabline
+Plug 'vim-airline/vim-airline-themes'   "status line themes
+Plug 'bronson/vim-trailing-whitespace'  "show whitespaces at the end of lines in red
+Plug 'lervag/vimtex'                    "latex support
+Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
+Plug 'nikvdp/ejs-syntax'                "ejs syntax
+Plug 'vim-syntastic/syntastic'          "syntax checker
+Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
+Plug 'Valloric/YouCompleteMe'           "auto complete
+Plug 'tpope/vim-surround'               "map to delete, change,... around brackets,... (eg. cs'<q>)
+Plug 'kana/vim-textobj-user'            "create custom text objects easily
+Plug 'kana/vim-textobj-function'        "text object for functions
+Plug 'kana/vim-textobj-indent'          "text object for indents
+call plug#end()
+
+""""""""""""""""""""
+" General Settings
 syntax on                        "enable syntax highlighting
 
+set nocompatible                 "less vi compatibility
 set t_Co=256                     "number of colors
 set tabstop=4                    "tabs are 4 spaces
 set shiftwidth=4                 "spaces used in auto indenting
@@ -20,7 +42,7 @@ else
 endif
 set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
-set wildmode=longest,list,full   "autocomplete for vim commands
+set wildmenu                     "command-line completion in enhanced mode
 
 " Change the directory where temporary files are stored
 set backupdir=~/.vim/.backup//
@@ -38,52 +60,31 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Disable maximum text width for this files
 autocmd FileType tex set tw=0
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-""""""""""
+""""""""
 " Maps
 
 "set map leader
 let mapleader=","
 
 "remove all spaces at the end of lines
-map <leader>cc  :%s/\s\+$//ge<cr>
+nnoremap <leader>cc  :%s/\s\+$//ge<cr>
 
-" Enable/Disable Color Preview
-map <leader>c  :ColorHighlight<cr>
-map <leader>cl  :ColorClear<cr>
-
-" Toogle Syntastic
-map <leader>s  :SyntasticToggleMode <bar> lclose<cr>
+" Toggle Syntastic
+nnoremap <leader>s  :SyntasticToggleMode <bar> lclose<cr>
 
 " Remap split windows navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
-""""""""""
-" Plugins
-call plug#begin('~/.vim/plugged')
-Plug 'myusuf3/numbers.vim'              "set relativenumber or number depending of the current mode
-Plug 'tpope/vim-surround'               "map to delete, change,... arround brakets, ...  (eg. cs'<q>)
-Plug 'nathanaelkane/vim-indent-guides'  "show indent levels
-Plug 'vim-airline/vim-airline'          "status/tabline
-Plug 'vim-airline/vim-airline-themes'   "status line themes
-Plug 'bronson/vim-trailing-whitespace'  "show whitespaces at the end of lines in red
-Plug 'ahonn/resize.vim'                 "resize split windows
-Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
-Plug 'vim-syntastic/syntastic'          "syntax checker
-Plug 'lervag/vimtex'                    "latex support
-Plug 'nikvdp/ejs-syntax'                "ejs syntax
-Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
-Plug 'momota/cisco.vim'                 "cisco syntax
-Plug 'chrisbra/Colorizer'               "color preview
-Plug 'Valloric/YouCompleteMe'           "auto complete
-call plug#end()
+" Build tags file
+nnoremap <leader>t :!ctags -R .<cr>
+nnoremap <leader>T :!ctags -R ..<cr>
 
 """"""""""""""""""""
-" Plugins Setttings
+" Plugins Settings
 
 " Syntastic settings
 set statusline+=%#warningmsg#
