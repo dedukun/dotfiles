@@ -3,7 +3,7 @@
 
 # Exports
 export PATH="$PATH:$HOME/.local/bin"
-export EDITOR="vim"
+export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
@@ -14,7 +14,7 @@ export SCRIPTS="$HOME/.scripts"
 
 # start ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval `ssh-agent -s`
+    eval "$(ssh-agent -s)"
     ssh-add ~/.ssh/id_rsa
     ssh-add ~/.ssh/gbt_rsa
 fi

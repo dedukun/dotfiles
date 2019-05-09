@@ -2,6 +2,12 @@
 #.bashrc
 PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\[\033[01;34m\]\W\[\033[00m\]] \$ '
 
+
+export HISTCONTROL=ignoredups       # dont save duplicate consecutive commands
+HISTSIZE=HISTFILESIZE=              # infinite history
+shopt -s histappend                 # append to history, don't overwrite it
+[[ $(echo $PROMPT_COMMAND | grep history) ]] || PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # update history after each command in multiple terminals
+
 # disable automatically executing !, !!, !?, instead filling the bash with the command
 shopt -s histverify
 
@@ -18,6 +24,9 @@ fi
 eval "$(dircolors -b)"
 
 # User defined aliases
+alias nvim="$HOME/.local/bin/nvim"
+alias vi="nvim"
+alias vim="nvim"
 alias ls='ls -h --color=auto --group-directories-first'
 alias  l='ls -l'
 alias ll='ls -lA'
@@ -57,3 +66,5 @@ stopwatch(){
         sleep 0.1
     done
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
