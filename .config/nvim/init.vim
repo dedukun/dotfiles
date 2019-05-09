@@ -13,7 +13,12 @@ Plug 'Valloric/YouCompleteMe'           "auto complete
 Plug 'vim-airline/vim-airline'          "status/tabline
 Plug 'vim-airline/vim-airline-themes'   "status line themes
 Plug 'morhetz/gruvbox'                  "colorscheme
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+if has('nvim')                          "fuzzy finder
+    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+else
+    Plug 'junegunn/fzf'
+endif
+
 
 " Syntax
 Plug 'vim-syntastic/syntastic'          "syntax checker
