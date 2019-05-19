@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 # This script toggles the touch pad and turns the cursor invisible if no external mouse is plugged.
 # Requires unclutter, xinput
 
 # Check if unclutter is running
-if [[ ! $(pgrep unclutter) ]]; then
+if [ ! "$(pgrep unclutter)" ]; then
 
     notify-send -t 1000 "TouchPad -> off"
 
@@ -11,14 +11,14 @@ if [[ ! $(pgrep unclutter) ]]; then
     synclient TouchpadOff='1';
 
     # Check if external mouse is plugged
-    if [[ ! $(xinput list | grep -i mouse) ]]; then
+    if [ ! "$(xinput list | grep -i mouse)" ]; then
         sleep 1
 
         unclutter -idle 0 &
     else
-        sleep 3          # mouse plugged, unclutter with 3 sec delay
+        sleep 1          # mouse plugged, unclutter with 3 sec delay
 
-        unclutter -idle 1 &
+        unclutter -idle 6 &
     fi
 else
 

@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 # Manage gbt scripts
 
-MAN_CMD=$(echo -e "Logs\nMove\nOutputs\nCreate Project\nChoose Project\nShow Project" | dmenu -i -p "GBT Command: ")
+MAN_CMD=$(printf "Logs\nMove\nOutputs\nCreate Project\nChoose Project\nShow Project" | dmenu -i -p "GBT Command: ")
 
 case $MAN_CMD in
     "Logs")

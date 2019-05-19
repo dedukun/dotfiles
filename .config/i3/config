@@ -228,16 +228,16 @@ bindsym $mod+backslash scratchpad show
 #bindsym $mod+ fullscreen disable
 
 # screen shots
-bindsym $mod+Print exec "$SCRIPTS/screenshots.sh"
+bindsym $mod+Print exec "$SCRIPTS/screenshots.sh -df"
 
 # only take a screen shot of the selected region
-bindsym $mod+Shift+Print exec "$SCRIPTS/screenshots.sh -s"
+bindsym $mod+Shift+Print exec "$SCRIPTS/screenshots.sh -df -s"
 
-# screen shots Global
-bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df"
+# screen shots GBT current project
+bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots"
 
-# screen shots Global selected
-bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $HOME/Globaltronic/Logging/screenshots -df -s"
+# screen shots GBT current project of the selected region
+bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots -s"
 
 # Mexec mark
 bindsym $mod+m exec i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window" "'$($SCRIPTS/i3/name.sh)'"
@@ -251,8 +251,11 @@ bindsym $mod+Control+F1 exec "$SCRIPTS/i3/mexec.sh --command"
 # Mexec show command
 bindsym $mod+Shift+F1 exec "$SCRIPTS/i3/mexec.sh --show"
 
-# Todo list
-bindsym $mod+t exec "$SCRIPTS/todo"
+# Curret GBT project TODO list
+bindsym $mod+t exec "$SCRIPTS/other/todo -l $(glbt_proj --get)/.todo"
+
+# Global TODO list
+bindsym $mod+Shift+t exec "$SCRIPTS/other/todo"
 
 # GBT Manage
 bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"

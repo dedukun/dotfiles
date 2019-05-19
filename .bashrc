@@ -33,6 +33,7 @@ alias ll='ls -lA'
 alias grep='grep --color'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
+alias gbtcd='cd $(glbt_proj --get)'
 
 #To clean up and cover your tracks once you log off
 #trap "rm -f ~$LOGNAME/.bash_history" 0

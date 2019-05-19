@@ -19,7 +19,6 @@ else
     Plug 'junegunn/fzf'
 endif
 
-
 " Syntax
 Plug 'vim-syntastic/syntastic'          "syntax checker
 Plug 'myint/syntastic-extras'           "syntastic extras
@@ -31,7 +30,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
 " Text objects
 Plug 'kana/vim-textobj-user'            "create custom text objects easily
 Plug 'kana/vim-textobj-indent'          "text object for indents
-Plug 'kana/vim-textobj-function'        "text object for functions
+Plug 'kana/vim-textobj-function'        "text object for C-like functions
 
 " Tpope
 Plug 'tpope/vim-repeat'                 "more repeatable plugins
@@ -135,12 +134,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-
-" Resize split screens
-nnoremap <M-h> :ResizeLeft<CR>
-nnoremap <M-j> :ResizeDown<CR>
-nnoremap <M-k> :ResizeUp<CR>
-nnoremap <M-l> :ResizeRight<CR>
 
 " Search for under under cursor in multiple files
 nnoremap gr :grep <cword> *<CR>

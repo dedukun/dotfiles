@@ -1,16 +1,17 @@
-#!/bin/bash
-print_help () { echo "This script helps keeping logs organized and manage them"
+#!/bin/sh
+print_help () {
+    echo "This script helps keeping logs organized and manage them"
     echo "Calling it with no arguments will open the log file of the day"
-    echo -e "\t-b , --back      Open the nth previous log from today"
-    echo -e "\t-f , --find      Search for the word in the logs"
-    echo -e "\t-fi, --find-ins  Search for the word in the logs (case insensitive)"
-    echo -e "\t-h , --help      Prints help menu"
+    printf "\t-b , --back      Open the nth previous log from today\n"
+    printf "\t-f , --find      Search for the word in the logs\n"
+    printf "\t-fi, --find-ins  Search for the word in the logs (case insensitive)\n"
+    printf "\t-h , --help      Prints help menu\n"
 }
 
 LOG_FOLDER="$HOME/Globaltronic/Logging/logs"
 LOG_NAME="log_$(date +%y_%m_%d)"
 
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     LOG_KEY="$1"
 
@@ -34,7 +35,7 @@ do
         -h|--help)
         shift # past argument
         print_help
-        exit
+        exit 0
         ;;
         *)
         echo "Invalid argument '$1'."
@@ -46,21 +47,21 @@ do
 done
 
 # find word in logs
-if [[ -n $LOG_FIND ]]; then
-    if [[ -n $LOG_FIND_IN ]]; then
-        grep --color $LOG_FOLDER -R -i -e $LOG_FIND
+if [ -n "$LOG_FIND" ]; then
+    if [ -n "$LOG_FIND_IN" ]; then
+        grep --color "$LOG_FOLDER" -R -i -e "$LOG_FIND"
     else
-        grep --color $LOG_FOLDER -R -e $LOG_FIND
+        grep --color "$LOG_FOLDER" -R -e "$LOG_FIND"
     fi
 # open previous log
-elif [[ -n $LOG_BACK ]]; then
+elif [ -n "$LOG_BACK" ]; then
     # offset is different is the file for today already exists
-    if [[ ! -f $LOG_FOLDER/$LOG_NAME ]]; then
-        vim $LOG_FOLDER/$(ls $LOG_FOLDER | tail -n $LOG_BACK | head -n 1)
+    if [ ! -f "$LOG_FOLDER/$LOG_NAME" ]; then
+        vim "$LOG_FOLDER/$(find "$LOG_FOLDER" | tail -n "$LOG_BACK" | head -n 1)"
     else
-        vim $LOG_FOLDER/$(ls $LOG_FOLDER | tail -n $(echo "$LOG_BACK+1" | bc) | head -n 1)
+        vim "$LOG_FOLDER/$(find "$LOG_FOLDER" | tail -n $(("$LOG_BACK"+1)) | head -n 1)"
     fi
 # open today's log
 else
-    vim $LOG_FOLDER/$LOG_NAME
+    vim "$LOG_FOLDER/$LOG_NAME"
 fi

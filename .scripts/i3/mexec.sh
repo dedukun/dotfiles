@@ -1,22 +1,20 @@
-#!/bin/bash
+#!/bin/sh
 # i3 Mark exec
 print_help () {
     echo "i3 Mark Exec"
     echo "This script executes a bash script on a marked window (using i3 marks)"
-    echo -e "\t-c, --command   Change script to execute"
-    echo -e "\t-s, --show      Show selected script"
-    echo -e "\t-h, --help      Prints help menu"
+    printf "\t-c, --command   Change script to execute\n"
+    printf "\t-s, --show      Show selected script\n"
+    printf "\t-h, --help      Prints help menu\n"
 }
 
 change_script () {
-    local scripts
     scripts=$(ls mexec/* 2> /dev/null)
-    local selected
     selected=$(echo "$scripts" | dmenu -i -p "Select script:")
 
-    if [[ ! -f $selected ]]; then
+    if [ ! -f "$selected" ]; then
         # Test if the given st is installed
-        [[ ! -n $(command -v "st") ]] \
+        [ ! -n "$(command -v "st")" ] \
             && notify-send -u critical -t 4000 "'st' is not installed in your system." \
                                                 "You cant create new scripts ." && exit 1
 
@@ -24,7 +22,7 @@ change_script () {
         selected="mexec/$selected"
         st vim "$selected"
 
-        [[ ! -f $selected ]] && notify-send -u critical -t 1500 "'$selected' wasn't created." && exit 1
+        [ ! -f "$selected" ] && notify-send -u critical -t 1500 "'$selected' wasn't created." && exit 1
     fi
 
     rm mexec/.C_* 2> /dev/null # delete old selection
@@ -34,10 +32,9 @@ change_script () {
 }
 
 show_script () {
-    local script
     script=$(ls mexec/.C_* 2> /dev/null)
 
-    if [[ -n $script ]]; then
+    if [ -n "$script" ]; then
         script=$(echo "$script" | cut -d'_' -f 2) # remove prefix
         notify-send -t 2000 "The current script is" "$script"
     else
@@ -51,8 +48,7 @@ show_script () {
 # cd to .scripts/i3 folder so that working dir is always the same
 cd "$SCRIPTS/i3" || exit 1
 
-
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     MEXEC_KEY="$1"
 
@@ -83,7 +79,7 @@ done
 
 script=$(ls mexec/.C_* 2> /dev/null)
 
-if [[ ! -n $script ]]; then
+if [ ! -n "$script" ]; then
     notify-send -t 2000 "No script selected" "Use i3mexec -c to select a script"
     exit 1
 fi

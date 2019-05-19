@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 notify-send -t 1000 "THIS IS A NOTIFY"
 sleep 1
 exit 0

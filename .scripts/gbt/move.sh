@@ -1,13 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 print_help () { echo "This script helps organizing compiled images."
-    echo -e "Usage '$(basename $0) <file>'"
-    echo -e "\t-h, --help      Prints help menu"
+    printf "Usage '%s' <file>\n" "$(basename "$0")"
+    printf "\t-h, --help      Prints help menu\n"
 }
 
 MOVE_FOLDER="$HOME/Globaltronic/Logging/images"
 MOVE_DATE_FOLDER="$(date +%y_%m_%d)"
 
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     MOVE_KEY="$1"
 
@@ -31,19 +31,19 @@ do
 done
 
 # Check if a file name was given
-if [[ ! -n $MOVE_FILE ]]; then
-    echo -e "Missing argument.\nYou need to specify the file to move (e.g. gbtm <file>)"
+if [ ! -n "$MOVE_FILE" ]; then
+    printf "Missing argument.\nYou need to specify the file to move (e.g. gbtm <file>)"
     exit 1
 fi
 
 # Check if given file exists
-if [[ ! -f $MOVE_FILE ]]; then
-    echo -e "File '$MOVE_FILE' doesn't exists.\nFor more information use option -h or --help."
+if [ ! -f "$MOVE_FILE" ]; then
+    printf "File '%s' doesn't exists.\nFor more information use option -h or --help.\n" "$MOVE_FILE"
     exit 1
 fi
 
 # Create date's folder if it doesn't exists
-if [[ ! -d $MOVE_FOLDER/$MOVE_DATE_FOLDER ]]; then
+if [ ! -d "$MOVE_FOLDER/$MOVE_DATE_FOLDER" ]; then
     mkdir "$MOVE_FOLDER/$MOVE_DATE_FOLDER"
 fi
 
@@ -51,6 +51,6 @@ fi
 MOVE_NAME=$(echo | dmenu -p "File name:")
 
 # If no file name is given, use <time>_<file-name>
-[[ ! -n $MOVE_NAME ]] && MOVE_NAME=$(date '+%H%M%S')_$MOVE_FILE
+[ ! -n "$MOVE_NAME" ] && MOVE_NAME=$(date '+%H%M%S')_$MOVE_FILE
 
 mv "$MOVE_FILE" "$MOVE_FOLDER/$MOVE_DATE_FOLDER/$MOVE_NAME"

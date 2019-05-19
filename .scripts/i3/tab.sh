@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 i3-msg -q mark --add lastWSTMP
 i3-msg -q [con_mark="lastWS"] focus
 exit 0

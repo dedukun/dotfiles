@@ -48,10 +48,13 @@ do
     esac
 done
 
+[ -f "$SCREEN_BASE_FOLDER" ] && notify-send -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" && exit 1
+
 # Check if the base folder exists
 if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
-    echo -e "'$SCREEN_BASE_FOLDER' doesn't exists.\nFor more information use argument -h or --help."
-    exit 1
+    mkdir -p "$SCREEN_BASE_FOLDER"
+    notify-send -t 1500 "'$SCREEN_BASE_FOLDER' was created."
+    printf "'%s' was created.\n" "$SCREEN_BASE_FOLDER"
 fi
 
 if [[ -n $SCREEN_TIMER ]]; then

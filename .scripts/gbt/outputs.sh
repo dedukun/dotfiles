@@ -1,12 +1,13 @@
-#!/bin/bash
-print_help () { echo "This script helps organizing commands outputs and kernel logs."
-    echo -e "\t-h, --help      Prints help menu"
+#!/bin/sh
+print_help () {
+    echo "This script helps organizing commands outputs and kernel logs."
+    printf "\t-h, --help      Prints help menu\n"
 }
 
 OUT_FOLDER="$HOME/Globaltronic/Logging/outputs"
 OUT_DATE_FOLDER="$(date +%y_%m_%d)"
 
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     OUT_KEY="$1"
 
@@ -26,7 +27,7 @@ do
 done
 
 # Create date's folder if it doesn't exists
-if [[ ! -d $OUT_FOLDER/$OUT_DATE_FOLDER ]]; then
+if [ ! -d "$OUT_FOLDER/$OUT_DATE_FOLDER" ]; then
     mkdir  "$OUT_FOLDER/$OUT_DATE_FOLDER"
 fi
 
@@ -34,7 +35,7 @@ fi
 OUT_NAME=$(echo | dmenu -p "File name:")
 
 # Add <time> to name
-if [[ ! -n $OUT_NAME ]]; then
+if [ ! -n "$OUT_NAME" ]; then
     OUT_NAME=$(date '+%H%M%S')
 else
     OUT_NAME=$(date '+%H%M%S')_$OUT_NAME

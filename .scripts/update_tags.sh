@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 tags_folder="$HOME/.vim/tags"
 
 printf "Updating clang_tags ... "
