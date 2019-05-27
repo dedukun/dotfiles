@@ -287,6 +287,10 @@ exec --no-startup-id xsetroot -solid "#000"
 # set keyboard map to portuguese
 exec --no-startup-id setxkbmap pt
 
+# disables the caps lock key
+# To reset: setxkbmap -option
+exec --no-startup-id setxkbmap -option ctrl:nocaps
+
 # start audio
 exec --no-startup-id start-pulseaudio-x11
 

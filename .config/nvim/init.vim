@@ -6,6 +6,7 @@ Plug 'ahonn/resize.vim'                 "resize split screens
 Plug 'troydm/zoomwintab.vim'            "zoom in and out off a split window
 Plug 'myusuf3/numbers.vim'              "set relativenumber or number depending of the current mode
 Plug 'bronson/vim-trailing-whitespace'  "show whitespaces at the end of lines in red
+Plug 'vim-scripts/DoxygenToolkit.vim'   "doxygen autogenerator
 
 " Misc
 Plug 'junegunn/goyo.vim'                "distraction free
@@ -13,11 +14,6 @@ Plug 'Valloric/YouCompleteMe'           "auto complete
 Plug 'vim-airline/vim-airline'          "status/tabline
 Plug 'vim-airline/vim-airline-themes'   "status line themes
 Plug 'morhetz/gruvbox'                  "colorscheme
-if has('nvim')                          "fuzzy finder
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-else
-    Plug 'junegunn/fzf'
-endif
 
 " Syntax
 Plug 'vim-syntastic/syntastic'          "syntax checker
@@ -33,9 +29,9 @@ Plug 'kana/vim-textobj-indent'          "text object for indents
 Plug 'kana/vim-textobj-function'        "text object for C-like functions
 
 " Tpope
-Plug 'tpope/vim-repeat'                 "more repeatable plugins
 Plug 'tpope/vim-surround'               "maps to delete, change,... around brackets,... (eg. cs'<q>)
 Plug 'tpope/vim-unimpaired'             "maps for multiple uses
+Plug 'tpope/vim-repeat'                 "more repeatable plugins
 call plug#end()
 
 """"""""""""""""""""
@@ -45,7 +41,7 @@ filetype plugin indent on
 syntax enable                    "enable syntax highlighting
 
 set nocompatible                 "less vi compatibility
-set t_Co=256                     "number of colors
+set termguicolors                "number of colors
 set tabstop=4                    "tabs are 4 spaces
 set shiftwidth=4                 "spaces used in auto indenting
 set expandtab                    "replace tabs with spaces
@@ -69,6 +65,10 @@ set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
 set wildmenu                     "command-line completion in enhanced mode
 
+if has('nvim')
+    let g:python3_host_prog = '/usr/local/bin/python3.6'
+endif
+
 " Change the directory where temporary files are stored
 set backupdir=~/.config/nvim/.backup//
 set directory=~/.config/nvim/.backup//
@@ -77,8 +77,7 @@ set directory=~/.config/nvim/.backup//
 set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
 
 " Add additional tags depending on file type
-autocmd FileType c   set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags
-autocmd FileType cpp set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag
+autocmd BufRead call LoadTags
 
 " Change cursor shape depending of the mode
 if has('nvim')
@@ -93,8 +92,22 @@ endif
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Disable maximum text width for this files
+" Disable maximum text width for tex files
 autocmd FileType tex set tw=0
+
+" Delete bash 'edit-and-execute-command' (C-xC-e, or, if vi-mode enabled, <Esc>v) temporary file when opening it
+"
+" Case: When using bash 'edit-and-execute-command', if you open the mode with nothing on the command-line,
+" and after writing something you quit without saving, the temporary script will not run, as the file doesn't
+" exists in the system. However, when starting this mode with something already in the command-line, the
+" temporary script file will be created an saved in the system automatically, so even if you leave the mode
+" without saving it, the command that was originally in the command-line will still run.
+" Result: The autocmd's bellow delete the temporary file when vim starts reading it to the buffer, so the script needs
+" to be saved before it is executed.
+augroup del_bash_tmp_script
+    autocmd FileChangedShell /tmp/bash-fc.* execute
+    autocmd BufRead /tmp/bash-fc.* !rm %
+augroup end
 
 "set color scheme
 colorscheme gruvbox
@@ -102,10 +115,10 @@ colorscheme gruvbox
 """"""""
 " Maps
 
-"set map leader
+" Set map leader
 let mapleader=","
 
-"remove all spaces at the end of lines
+" Remove all spaces at the end of lines
 nnoremap <leader>cc  :%s/\s\+$//ge<CR>
 
 " Toggle Syntastic
@@ -158,6 +171,15 @@ function GoyoToggle()
     endif
 endfunction
 
+function LoadTags()
+    let &tags = '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags'
+    if &filetype == 'c'
+        set tags+= '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags'
+    elseif &filetype == 'cpp'
+        set tags+= '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag'
+    endif
+endfunction
+
 """""""
 " WIP "
 """""""
@@ -167,7 +189,7 @@ function SyntasticToggle()
 endfunction
 
 function SearchInMultipleFiles(search)
-    grep -s a:search ** --exclude=tags --exclude-dir={_*}
+    grep -s a:search ** --exclude={tags,compile_commands.json} --exclude-dir={_*}
 endfunction
 
 """"""""""""""""""""

@@ -1,5 +1,6 @@
 #!/bin/bash
-print_help () { echo "This script helps to take and organize screenshots."
+print_help () {
+    echo "This script helps to take and organize screenshots."
     echo "Calling it with no arguments will take a screenshot and save to the current date's folder."
     echo -e "\t -f, --folder       Specify the folder where the screenshots are saved (default: \$HOME/Pictures/screenshots)"
     echo -e "\t -s, --selected     Select the area of the screenshot"
@@ -71,6 +72,7 @@ fi
 if [[ -n $SCREEN_SELECTED ]]; then
     maim -s --hidecursor "$SCREEN_TMP_NAME"
 else
+    sleep 0.5
     maim --hidecursor "$SCREEN_TMP_NAME"
 fi
 

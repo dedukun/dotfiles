@@ -23,15 +23,14 @@ new_project () {
     echo "$PROJ_ID" > "$PROJ_FOLDER/$PROJ_NAME/.id"
     sed -i "s/id=.*$/id=$((PROJ_ID+1))/ g" "$SCRIPTS/.config/.gbt_project"
 
-    PROJ_LIST="Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures"
-    PROJ_INPUT=$(printf "%s" "$PROJ_LIST" | dmenu -i -p "Input: ")
+    PROJ_INPUT=$(printf "Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures" | dmenu -i -p "Input: ")
     while true ; do
         if [ "$PROJ_INPUT" = "" ]; then
           break
         fi
 
         mkdir "$PROJ_FOLDER/$PROJ_NAME/$PROJ_INPUT"
-        PROJ_INPUT=$(printf "%s" "$PROJ_LIST" | dmenu -p "Input: ")
+        PROJ_INPUT=$(printf "Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures" | dmenu -p "Input: ")
     done
 }
 

@@ -9,7 +9,8 @@
 
 todo_file="$SCRIPTS/.config/.todo"
 
-print_help () { echo "TODO list."
+print_help () {
+    echo "TODO list."
     echo "Calling it with no arguments will start the default todo list."
     printf "\t -l, --list         Specify the list to use\n"
     printf "\t -h, --help         Prints this help menu\n"
