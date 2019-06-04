@@ -66,6 +66,7 @@ set noundofile                   "don't create .un~ file for persistent undo
 set wildmenu                     "command-line completion in enhanced mode
 
 if has('nvim')
+    let g:python_host_prog  = '/usr/bin/python2.7'
     let g:python3_host_prog = '/usr/local/bin/python3.6'
 endif
 
@@ -76,13 +77,18 @@ set directory=~/.config/nvim/.backup//
 " Tags files default locations
 set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
 
+
 " Add additional tags depending on file type
-autocmd BufRead call LoadTags
+autocmd FileType c   set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags
+autocmd FileType cpp set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag
+"autocmd BufRead call LoadTags
 
 " Change cursor shape depending of the mode
 if has('nvim')
-    " (only for nvim 0.1.7 or before)
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    " only for nvim 0.1.7 or before
+    if !has('nvim-0.1.7')
+        let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+    endif
 else
     let &t_SI = "\<Esc>[6 q"
     let &t_EI = "\<Esc>[2 q"
@@ -224,5 +230,6 @@ let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'w3
 " vimtex
 if has('nvim')
     let g:vimtex_latexmk_progname = 'nvr'
+    let g:vimtex_compiler_progname = 'nvr'
 endif
 let g:vimtex_view_method = 'zathura'

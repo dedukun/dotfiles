@@ -1,7 +1,7 @@
 #!/bin/sh
 # Manage gbt scripts
 
-MAN_CMD=$(printf "Logs\nMove\nOutputs\nCreate Project\nChoose Project\nShow Project" | dmenu -i -p "GBT Command: ")
+MAN_CMD=$(printf "Logs\nMove\nOutputs\nCreate Project\nChoose Project\nChoose 'All' Project\nShow Project" | dmenu -i -p "GBT Command: ")
 
 case $MAN_CMD in
     "Logs")
@@ -18,6 +18,9 @@ case $MAN_CMD in
         ;;
     "Choose Project")
         glbt_proj --choose
+        ;;
+    "Choose 'All' Project")
+        glbt_proj --choose-all
         ;;
     "Show Project")
         glbt_proj --show

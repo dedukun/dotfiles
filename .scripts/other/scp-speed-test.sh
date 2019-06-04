@@ -29,21 +29,21 @@ echo "Generating $test_size kB test file..."
 
 # upload test
 echo "Testing upload to $ssh_server..."
-up_speed=`scp -v $test_file $ssh_server:$test_file 2>&1 | \
+up_speed=`scp -v $test_file $ssh_server:/tmp/$test_file 2>&1 | \
   grep "Bytes per second" | \
   sed "s/^[^0-9]*\([0-9.]*\)[^0-9]*\([0-9.]*\).*$/\1/g"`
 up_speed=`echo "($up_speed*0.0009765625*100.0+0.5)/1*0.01" | bc`
 
 # download test
 echo "Testing download from $ssh_server..."
-down_speed=`scp -v $ssh_server:$test_file $test_file 2>&1 | \
+down_speed=`scp -v $ssh_server:/tmp/$test_file $test_file 2>&1 | \
   grep "Bytes per second" | \
   sed "s/^[^0-9]*\([0-9.]*\)[^0-9]*\([0-9.]*\).*$/\2/g"`
 down_speed=`echo "($down_speed*0.0009765625*100.0+0.5)/1*0.01" | bc`
 
 # clean up
 echo "Removing test file on $ssh_server..."
-`ssh $ssh_server "rm $test_file"`
+`ssh $ssh_server "rm /tmp/$test_file"`
 echo "Removing test file locally..."
 `rm $test_file`
 

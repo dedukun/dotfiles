@@ -40,12 +40,24 @@ choose_project () {
     while [ ! -f "$PROJ_FOLDER/$PROJ_FULL_NAME/.id" ]
     do
         PROJ_NAME=$(find "$PROJ_FOLDER/$PROJ_FULL_NAME" -maxdepth 1 -type d | sort | tail -n +2 | xargs -n 1 -I @ sh -c 'echo `basename "@"`' | dmenu -i -p "Choose Project: ")
-        PROJ_FULL_NAME="$PROJ_FULL_NAME/$PROJ_NAME"
+        if [ $? == 0 ]; then
+            PROJ_FULL_NAME="$PROJ_FULL_NAME/$PROJ_NAME"
+        else # <ESC> -> Quit
+            return
+        fi
     done
 
     sed -i "s/proj=.*$/proj=$(echo "$PROJ_FULL_NAME" | sed 's/\//\\\// g')/ g" "$SCRIPTS/.config/.gbt_project"
 
     notify-send -t 1500 "Project '$PROJ_FULL_NAME' was selected."
+}
+
+choose_all_projects () {
+    PROJ_NAME=$(find "$GBT_PROJECTS" -maxdepth 3 -name ".id" | sort | sed 's$'$GBT_PROJECTS/'$$g' | sed 's$/.id$$g' | dmenu -i -p "Choose Project: " -l 25)
+
+    sed -i "s/proj=.*$/proj=$(echo "$PROJ_NAME" | sed 's/\//\\\// g')/ g" "$SCRIPTS/.config/.gbt_project"
+
+    notify-send -t 1500 "Project '$PROJ_NAME' was selected."
 }
 
 show_project () {
@@ -75,6 +87,11 @@ do
         -c|--choose)
         shift # past argument
         choose_project
+        exit 0
+        ;;
+        --choose-all)
+        shift # past argument
+        choose_all_projects
         exit 0
         ;;
         -s|--show)
