@@ -34,6 +34,7 @@ alias grep='grep --color'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
+alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
 
 #To clean up and cover your tracks once you log off
 #trap "rm -f ~$LOGNAME/.bash_history" 0

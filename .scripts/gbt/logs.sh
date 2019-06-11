@@ -2,10 +2,24 @@
 print_help () {
     echo "This script helps keeping logs organized and manage them"
     echo "Calling it with no arguments will open the log file of the day"
-    printf "\t-b , --back      Open the nth previous log from today\n"
-    printf "\t-f , --find      Search for the word in the logs\n"
-    printf "\t-fi, --find-ins  Search for the word in the logs (case insensitive)\n"
-    printf "\t-h , --help      Prints help menu\n"
+    printf "\t-b , --back        Open the nth previous log from today\n"
+    printf "\t-f , --find        Search for the word in the logs\n"
+    printf "\t-fi, --find-ins    Search for the word in the logs (case insensitive)\n"
+    printf "\t-d , --destination Destination folder\n"
+    printf "\t-h , --help        Prints help menu\n"
+}
+
+check_folder () {
+    # Check if valid directory
+    if [ ! -e "$1" ]; then
+        mkdir -p "$1"
+        notify-send -t 2000 "New Log Folder" "'$1' was created."
+    elif [ ! -d "$1" ]; then
+        notify-send -u critical -t 2000 "Invalid file type" "'$1' is not a directory."
+        exit 1
+    fi
+
+    LOG_FOLDER="$1"
 }
 
 LOG_FOLDER="$HOME/Globaltronic/Logging/logs"
@@ -29,6 +43,11 @@ do
         ;;
         -b|--back)
         LOG_BACK="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        -d|--destination)
+        check_folder "$2"
         shift # past argument
         shift # past value
         ;;

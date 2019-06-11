@@ -2,7 +2,7 @@
 # .bash_profile
 
 # Exports
-export PATH="$PATH:$HOME/.local/bin:~/.npm_global/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.npm_global/bin"
 export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"

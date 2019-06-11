@@ -77,15 +77,14 @@ set directory=~/.config/nvim/.backup//
 " Tags files default locations
 set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
 
-
 " Add additional tags depending on file type
-autocmd FileType c   set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags
-autocmd FileType cpp set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag
+"autocmd FileType c   set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags
+"autocmd FileType cpp set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag
 "autocmd BufRead call LoadTags
 
 " Change cursor shape depending of the mode
 if has('nvim')
-    " only for nvim 0.1.7 or before
+    " only needed in nvim 0.1.7 or before
     if !has('nvim-0.1.7')
         let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     endif
@@ -131,7 +130,7 @@ nnoremap <leader>cc  :%s/\s\+$//ge<CR>
 nnoremap <leader>s  :call SyntasticToggle()
 
 " vimgrep maps
-nnoremap <leader>f  :grep -s <cword> ** --exclude=tags --exclude-dir={_*}<CR>
+nnoremap <leader>f  :grep -s <cword> ** --include={*.c,*.h}<CR>
 nnoremap <leader>F  :call SearchInMultipleFiles("")<Left><Left>
 
 " Build tags file
