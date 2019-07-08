@@ -22,9 +22,9 @@ _install_mpsyt() {
 
     workonenv
     mkvirutalenv youtube
-    "$WORKON_HOME/youtube/bin/pip install youtube-dl"
-    "$WORKON_HOME/youtube/bin/pip install dbus-python pygobject"
-    "$WORKON_HOME/youtube/bin/pip install mps-youtube"
+    "$WORKON_usr_home/youtube/bin/pip install youtube-dl"
+    "$WORKON_usr_home/youtube/bin/pip install dbus-python pygobject"
+    "$WORKON_usr_home/youtube/bin/pip install mps-youtube"
 }
 
 _install_nvim() {
@@ -32,19 +32,19 @@ _install_nvim() {
 
     python3 -m install neovim
 
-    mkdir -p "$HOME/.local/bin"
-    wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$HOME/.local/bin/nvim" --quiet --show-progress
+    mkdir -p "$usr_home/.local/bin"
+    wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$usr_home/.local/bin/nvim" --quiet --show-progress
 
     # Install plugs
     nvim -c PlugInstall -c quit -c quit
 
     # Install youcompleteme
-    apt install cmake
+    apt install cmake -y
 
-    cd "$HOME/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$HOME/.vim/plugged/YouCompleteMe'"; return $?; }
+    cd "$usr_home/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$HOME/.vim/plugged/YouCompleteMe'"; return $?; }
     python3 install.py --clang --ts-completer --java-completer
 
-    cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
+    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
 }
 
 _install_st() {
@@ -57,16 +57,21 @@ _install_st() {
 
     make install
 
-    cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
+    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
     rm -rf /tmp/st-luke
+}
+
+_install_i3() {
+    printf "\nInstalling i3...\n"
+    apt install i3 -y
 }
 
 _install_basics() {
     printf "\nInstalling basics...\n"
     apt update
     apt install build-essential git -y
-    apt install node npm
-    apt install default-jre default-jdk
+    apt install node npm -y
+    apt install default-jre default-jdk -y
 }
 
 _install_dotfiles(){
@@ -74,23 +79,41 @@ _install_dotfiles(){
     git clone https://github.com/dedukun/dotfiles /tmp/dotfiles
     cd /tmp/dotfiles || { _error "Can't cd into '/tmp/dotfiles'"; return $?; }
 
-    cp -r ".scripts" "$HOME"
-    cp    ".bashrc"  "$HOME"
-    cp    ".profile" "$HOME"
-    cp    ".inputrc" "$HOME"
-    cp    ".xinitrc" "$HOME"
-    cp    ".pythonrc.py" "$HOME"
-    cp -r ".config/" "$HOME"
-    cp -r ".local/" "$HOME"
+    cp -r ".scripts" "$usr_home"
+    cp    ".bashrc"  "$usr_home"
+    cp    ".profile" "$usr_home"
+    cp    ".inputrc" "$usr_home"
+    cp    ".xinitrc" "$usr_home"
+    cp    ".pythonrc.py" "$usr_home"
+    cp -r ".config/" "$usr_home"
+    cp -r ".local/" "$usr_home"
 
-    . "$HOME/.profile"
+    . "$usr_home/.profile"
 
-    cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
+    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
     rm -rf /tmp/dotfiles
 }
 
+###################
+## MAIN FUNCTION ##
+###################
+
 # run as root
-[ "$(whoami)" = root ] || { sudo "$0" "$@"; exit $?; }
+if [ ! "$(whoami)" = root ]; then
+    # save original home directory
+    echo "$HOME" >> /tmp/dotfiles-deploy.sh
+    sudo "$0" "$@"
+    exit $?
+fi
+
+if [ -e /tmp/dotfiles-deploy.sh ]; then
+    usr_home="$(cat /tmp/dotfiles-deploy.sh)"
+    rm /tmp/dotfiles-deploy.sh
+else
+    usr_home="$HOME"
+fi
+
+printf "Deploying configs into '%s'...\n" "$usr_home"
 
 _install_basics
 _install_dotfiles
@@ -98,5 +121,6 @@ _install_python3
 _install_mpsyt
 _install_nvim
 _install_st
+_install_i3
 
 printf "\nYou need to reboot the machine to enable the  modifications.\n"
