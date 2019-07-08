@@ -1,1 +1,17 @@
+# zathurarc
+
+# Fix clipboard
 set selection-clipboard clipboard
+
+# shorten the file name
+set window-title-home-tilde "true"
+set statusbar-home-tilde "true"
+
+# configs for 2 page mode 'd'
+map [normal]     <A-1> set "first-page-column 1:1"
+map [fullscreen] <A-1> set "first-page-column 1:1"
+map [normal]     <A-2> set "first-page-column 1:2"
+map [fullscreen] <A-2> set "first-page-column 1:2"
+
+# exec example
+#map t feedkeys ":exec notify-send $FILE<Return>"

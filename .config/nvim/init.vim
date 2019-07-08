@@ -1,12 +1,14 @@
 """""""""""
 " Plugins
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.vim/plugged')
 " General
 Plug 'ahonn/resize.vim'                 "resize split screens
 Plug 'troydm/zoomwintab.vim'            "zoom in and out off a split window
 Plug 'myusuf3/numbers.vim'              "set relativenumber or number depending of the current mode
 Plug 'bronson/vim-trailing-whitespace'  "show whitespaces at the end of lines in red
 Plug 'vim-scripts/DoxygenToolkit.vim'   "doxygen autogenerator
+Plug 'lambdalisue/suda.vim'             "edit root flies
+
 
 " Misc
 Plug 'junegunn/goyo.vim'                "distraction free
@@ -36,7 +38,6 @@ call plug#end()
 
 """"""""""""""""""""
 " General Settings
-filetype plugin on
 filetype plugin indent on
 syntax enable                    "enable syntax highlighting
 
@@ -46,7 +47,7 @@ set tabstop=4                    "tabs are 4 spaces
 set shiftwidth=4                 "spaces used in auto indenting
 set expandtab                    "replace tabs with spaces
 set mouse=a                      "enable mouse
-set tw=150                       "maximum width of text that is being inserted
+set tw=0                         "maximum width of text that is being inserted
 set cursorline                   "set a line where the cursor is
 set showcmd                      "show commands in the lower right corner
 set number                       "set number of the lines in the side
@@ -63,6 +64,7 @@ else
 endif
 set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
+set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 
 if has('nvim')
@@ -71,8 +73,8 @@ if has('nvim')
 endif
 
 " Change the directory where temporary files are stored
-set backupdir=~/.config/nvim/.backup//
-set directory=~/.config/nvim/.backup//
+set backupdir=~/.vim/.backup//
+set directory=~/.vim/.backup//
 
 " Tags files default locations
 set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
@@ -98,7 +100,7 @@ endif
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Disable maximum text width for tex files
-autocmd FileType tex set tw=0
+autocmd FileType tex set tw=200
 
 " Delete bash 'edit-and-execute-command' (C-xC-e, or, if vi-mode enabled, <Esc>v) temporary file when opening it
 "
@@ -128,6 +130,9 @@ nnoremap <leader>cc  :%s/\s\+$//ge<CR>
 
 " Toggle Syntastic
 nnoremap <leader>s  :call SyntasticToggle()
+
+" Send through scp
+nnoremap <leader>h  :call SCP()<CR>
 
 " vimgrep maps
 nnoremap <leader>f  :grep -s <cword> ** --include={*.c,*.h}<CR>
@@ -188,6 +193,11 @@ endfunction
 """""""
 " WIP "
 """""""
+function SCP()
+    echo "[WIP] SCP send"
+
+endfunction
+
 function SyntasticToggle()
     echom b:syntastic_mode
     "SyntasticToggleMode | lclose<CR>
@@ -196,6 +206,9 @@ endfunction
 function SearchInMultipleFiles(search)
     grep -s a:search ** --exclude={tags,compile_commands.json} --exclude-dir={_*}
 endfunction
+
+" args *
+" argsdo
 
 """"""""""""""""""""
 " Plugins Settings
@@ -227,8 +240,6 @@ let g:ycm_autoclose_preview_window_after_completion=1
 let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'w3m', 'help']
 
 " vimtex
-if has('nvim')
-    let g:vimtex_latexmk_progname = 'nvr'
-    let g:vimtex_compiler_progname = 'nvr'
-endif
+let g:vimtex_latexmk_progname = 'nvr'
+let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method = 'zathura'

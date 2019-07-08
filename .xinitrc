@@ -17,4 +17,3 @@ if [ -z "$DESKTOP_SESSION" -a -x /usr/bin/ck-launch-session ]; then
 else
     exec dbus-launch --exit-with-session /usr/bin/i3
 fi
-

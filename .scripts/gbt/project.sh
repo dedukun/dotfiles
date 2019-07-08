@@ -25,24 +25,32 @@ new_project () {
     echo "$PROJ_ID" > "$PROJ_FOLDER/$PROJ_NAME/.id"
     sed -i "s/id=.*$/id=$((PROJ_ID+1))/ g" "$SCRIPTS/.config/.gbt_project"
 
-    create_folders
+    create_folders "$PROJ_NAME"
 }
 
 create_folders () {
-    PROJ_NAME=$(private_get_project)
-    PROJ_INPUT=$(printf "Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures\nOther" | dmenu -i -p "Input: ")
+    if [ -n "$1" ]; then
+        PROJ_NAME="$1"
+    else
+        PROJ_NAME=$(private_get_project)
+    fi
+    PROJ_INPUT=$(private_get_unused_directories "$PROJ_FOLDER/$PROJ_NAME")
     while true ; do
         if [ "$PROJ_INPUT" = "" ]; then
           break
         fi
 
         mkdir "$PROJ_FOLDER/$PROJ_NAME/$PROJ_INPUT"
-        PROJ_INPUT=$(printf "Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures\nOther" | dmenu -p "Input: ")
+        PROJ_INPUT=$(private_get_unused_directories "$PROJ_FOLDER/$PROJ_NAME")
     done
 }
 
 choose_project () {
-    PROJ_NAME=$(find "$PROJ_FOLDER" -maxdepth 1 -type d | sort | tail -n +2 | xargs -n 1 -I @ sh -c 'echo `basename "@"`' | dmenu -i -p "Choose Project: ")
+    PROJ_NAME=$(find "$PROJ_FOLDER" -maxdepth 1 -type d |       # search the project foolder for directories
+                sort |                                      # sort them
+                tail -n +2 |                                # remove the '.' folder
+                awk -F'/' '{print $(NF)}' |                 # only get the top's directory name
+                dmenu -i -p "Choose Project: ")             # dmenu
 
     # Check if project name was given
     if [ "$PROJ_NAME" = "" ]; then
@@ -52,7 +60,9 @@ choose_project () {
     PROJ_FULL_NAME="$PROJ_NAME"
     while [ ! -f "$PROJ_FOLDER/$PROJ_FULL_NAME/.id" ]
     do
-        PROJ_NAME=$(find "$PROJ_FOLDER/$PROJ_FULL_NAME" -maxdepth 1 -type d | sort | tail -n +2 | xargs -n 1 -I @ sh -c 'echo `basename "@"`' | dmenu -i -p "Choose Project: ")
+        PROJ_NAME=$(find "$PROJ_FOLDER/$PROJ_FULL_NAME" -maxdepth 1 -type d |
+                    sort | tail -n +2 | awk -F'/' '{print $(NF)}' | dmenu -i -p "Choose Project: ")
+
         if [ $? = 0 ]; then
             PROJ_FULL_NAME="$PROJ_FULL_NAME/$PROJ_NAME"
         else # <ESC> -> Abort/Quit
@@ -64,7 +74,11 @@ choose_project () {
 }
 
 choose_all_projects () {
-    PROJ_NAME=$(find "$GBT_PROJECTS" -maxdepth 3 -name ".id" | sort | sed 's$'$GBT_PROJECTS/'$$g' | sed 's$/.id$$g' | dmenu -i -p "Choose Project: " -l 25)
+    PROJ_NAME=$(find "$GBT_PROJECTS" -maxdepth 3 -name ".id" |              # get folders with file '.id'
+                sort |                                                      # sort them
+                sed 's$'"$GBT_PROJECTS"/'$$g' |                             # get only the relative names from the base directory
+                sed 's$/.id$$g' |                                           # remove the '/.id' file string
+                dmenu -i -p "Choose Project: " -l 25)                       # dmenu
 
     [ "$PROJ_NAME" = "" ] && exit 0
 
@@ -84,6 +98,20 @@ get_full_project () {
 }
 
 # PRIVATE FUNCTIONS
+private_get_unused_directories () {
+    existing_directories=$(find "$1" -maxdepth 1 -type d |                 # search directories in folder
+                           tail -n +2 |                                    # remove '.' folder
+                           awk -F'/' '{print $(NF)}' |                     # only get the directory name
+                           sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')     # remove new lines from results and replace with '|'
+
+
+    printf "Code\nRepos\nManuals\nDocumentation\nImages\nSchematics\nPictures\nOther" |
+    sort |
+    awk '{gsub(/'"$existing_directories"'/,"")}1' |
+    sed '/^$/d' |
+    dmenu -i -p "Input: "
+}
+
 private_choose_project () {
     # Check that given directory exists
     [ ! -d "$1" ] && notify -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
