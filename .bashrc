@@ -49,7 +49,7 @@ youtube() {
 workonenv() {
     # python's virtualenvwrapper
     export WORKON_HOME="$HOME/.virtualenvs"
-    source "$HOME/.local/bin/virtualenvwrapper.sh"
+    . "/usr/local/bin/virtualenvwrapper.sh"
 }
 
 # gitignore

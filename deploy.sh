@@ -8,7 +8,7 @@ _install_python3() {
     printf "\nInstalling python3...\n"
 
     # install support packages
-    apt install python3 python3-pip python3-dev
+    apt install python3 python3-pip python3-dev -y
 
     # Upgrade pip
     python3 -m pip install --upgrade pip
@@ -29,14 +29,28 @@ _install_mpsyt() {
 
 _install_nvim() {
     printf "\nInstalling nvim...\n"
+
+    python3 -m install neovim
+
     mkdir -p "$HOME/.local/bin"
     wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$HOME/.local/bin/nvim" --quiet --show-progress
+
+    # Install plugs
+    nvim -c PlugInstall -c quit -c quit
+
+    # Install youcompleteme
+    apt install cmake
+
+    cd "$HOME/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$HOME/.vim/plugged/YouCompleteMe'"; return $?; }
+    python3 install.py --clang --ts-completer --java-completer
+
+    cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
 }
 
 _install_st() {
     printf "\nInstalling st...\n"
     # installing x11 headers
-    apt install libx11-dev libxft-dev
+    apt install libx11-dev libxft-dev -y
 
     git clone https://github.com/lukesmithxyz/st /tmp/st-luke
     cd /tmp/st-luke || { _error "Can't cd into '/tmp/st-luke'"; return $?; }
@@ -50,12 +64,14 @@ _install_st() {
 _install_basics() {
     printf "\nInstalling basics...\n"
     apt update
-    apt install build-essential git
+    apt install build-essential git -y
+    apt install node npm
+    apt install default-jre default-jdk
 }
 
 _install_dotfiles(){
     printf "\nInstalling dotfiles...\n"
-    git clone https://github.com/lukesmithxyz/st /tmp/dotfiles
+    git clone https://github.com/dedukun/dotfiles /tmp/dotfiles
     cd /tmp/dotfiles || { _error "Can't cd into '/tmp/dotfiles'"; return $?; }
 
     cp -r ".scripts" "$HOME"
@@ -67,7 +83,7 @@ _install_dotfiles(){
     cp -r ".config/" "$HOME"
     cp -r ".local/" "$HOME"
 
-    source "$HOME/.profile"
+    . "$HOME/.profile"
 
     cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
     rm -rf /tmp/dotfiles
