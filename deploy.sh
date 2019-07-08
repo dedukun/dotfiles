@@ -1,7 +1,7 @@
 #!/bin/sh
 
 _error() {
-    printf "\033[31mERROR:\033[0m %s" "$1"
+    printf "\033[31mERROR:\033[0m %s\n" "$1"
 }
 
 _install_python3() {
@@ -38,7 +38,6 @@ _install_st() {
     git clone https://github.com/lukesmithxyz/st /tmp/st-luke
     cd /tmp/st-luke || { _error "Can't cd into '/tmp/st-luke'"; return $?; }
 
-    make
     make install
 
     cd "$HOME" || { _error "Can't cd into '$HOME'"; return $?; }
@@ -51,7 +50,7 @@ _install_basics() {
     apt install build-essential git
 }
 
-_install_configs(){
+_install_dotfiles(){
     git clone https://github.com/lukesmithxyz/st /tmp/dotfiles
     cd /tmp/dotfiles || { _error "Can't cd into '/tmp/dotfiles'"; return $?; }
 
@@ -74,8 +73,10 @@ _install_configs(){
 [ "$(whoami)" = root ] || { sudo "$0" "$@"; exit $?; }
 
 _install_basics
-_install_configs
+_install_dotfiles
 _install_python3
 _install_mpsyt
 _install_nvim
 _install_st
+
+printf "\nYou need to reboot the machine to enable the  modifications.\n"
