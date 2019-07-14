@@ -46,10 +46,11 @@ youtube() {
     deactivate
 }
 
+# start python's virtualenvwrapper
 workonenv() {
-    # python's virtualenvwrapper
     export WORKON_HOME="$HOME/.virtualenvs"
-    . "/usr/local/bin/virtualenvwrapper.sh"
+    export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
+    . "$HOME/.local/bin/virtualenvwrapper.sh"
 }
 
 # gitignore
@@ -68,3 +69,21 @@ stopwatch(){
 }
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# https://github.com/junegunn/fzf/issues/1309
+# Remove repeated entries from history search
+__fzf_history__() {
+    local line
+    countskip="$(history | tail -n 1 | grep -E '^ *[0-9]+' -o | wc -c)"
+    countskip="$(( countskip + 1 ))"
+    line=$(
+    HISTTIMEFORMAT= history |
+    grep '^.\{1,130\}$' --text |
+    sed 's/ *$//g' |
+    { i=$(cat); head --lines=-50 <<<"$i" ; cat ~/shared_history | while read line; do echo " 0000  $line"; done; tail -n 50 <<< "$i"; } |
+    tac |
+    nauniq --skip-chars="$countskip" |
+    tac |
+    $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+    \grep '^ *[0-9]') && sed 's/ *\([0-9]*\)\** \(.*\)/\2/' <<< "$line"
+}

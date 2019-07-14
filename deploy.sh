@@ -1,8 +1,45 @@
 #!/bin/sh
 
+##############
+## AUXILIAR ##
+##############
+_run_as_root() {
+    # run as root
+    if [ ! "$(whoami)" = root ]; then
+        # save original home directory
+        if [ -z "$usr_name" ]; then
+            echo "$USER" >> /tmp/dotfiles-deploy.sh
+        fi
+        sudo "$0" "$@"
+        exit $?
+    fi
+
+    if [ -z "$usr_name" ]; then
+        if [ -e /tmp/dotfiles-deploy.sh ]; then
+            usr_name="$(cat /tmp/dotfiles-deploy.sh)"
+            usr_home="/home/$usr_name"
+            rm /tmp/dotfiles-deploy.sh
+        else
+            usr_name="$USER"
+            usr_home="$HOME"
+        fi
+    fi
+    printf "Deploying configs into '%s'...\n" "$usr_home"
+}
+
+_set_user() {
+    [ -z "$(getent passwd "$1")" ] && _error "User '$1' doens't exist." && exit 1
+    usr_name="$1"
+    usr_home="/home/$usr_name"
+}
+
 _error() {
     printf "\033[31mERROR:\033[0m %s\n" "$1"
 }
+
+#######################
+## INSTALL FUNCTIONS ##
+#######################
 
 _install_python3() {
     printf "\nInstalling python3...\n"
@@ -10,45 +47,45 @@ _install_python3() {
     # install support packages
     apt install python3 python3-pip python3-dev -y
 
-    # Upgrade pip
+    # upgrade pip
     runuser -l "$usr_name" -c "python3 -m pip install --upgrade pip"
 }
 
-_install_mpsyt() {
-    printf "\nInstalling mpsyt...\n"
+_install_nvim_latest() {
+    printf "\nInstalling nvim latest...\n"
 
-    # install virtualenvwrapper
-    runuser -l "$usr_name" -c "python3 -m pip install virtualenvwrapper"
-
-    workonenv
-    mkvirutalenv youtube
-    "$WORKON_usr_home/youtube/bin/pip install youtube-dl"
-    "$WORKON_usr_home/youtube/bin/pip install dbus-python pygobject"
-    "$WORKON_usr_home/youtube/bin/pip install mps-youtube"
-}
-
-_install_nvim() {
-    printf "\nInstalling nvim...\n"
-
-    runuser -l "$usr_name" -c "python3 -m install neovim"
+    runuser -l "$usr_name" -c "python3 -m install --user neovim"
 
     mkdir -p "$usr_home/.local/bin"
     wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$usr_home/.local/bin/nvim" --quiet --show-progress
+
+    # change permissions
+    chown "$usr_name:$usr_name" "$usr_home/.local/bin/nvim"
+    chmod +x "$usr_home/.local/bin/nvim"
 
     # Install plugs
     runuser -l "$usr_name" -c "$usr_home/.local/bin/nvim -c PlugInstall -c quit -c quit"
 
     # Install youcompleteme
-    apt install cmake -y
+    cd "$usr_home/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$usr_home/.vim/plugged/YouCompleteMe'"; return $?; }
 
-    cd "$usr_home/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$HOME/.vim/plugged/YouCompleteMe'"; return $?; }
-    python3 install.py --clang-completer --ts-completer --java-completer
+    # shell scripts analysis tool
+    apt install shellcheck -y
 
-    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
+    # ctags
+    apt install exuberant-ctags
+
+    # install nauniq (used in custom fzf_history custom command (in .bashrc) to remove repeated entries)
+    cpan App::nauniq
+
+    runuser -l "$usr_name" -c "python3 install.py --clang-completer --ts-completer --java-completer"
+
+    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
 }
 
 _install_st() {
     printf "\nInstalling st...\n"
+
     # installing x11 headers
     apt install libx11-dev libxft-dev -y
 
@@ -57,30 +94,37 @@ _install_st() {
 
     make install
 
-    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
+    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
     rm -rf /tmp/st-luke
 }
 
 _install_i3() {
     printf "\nInstalling i3...\n"
+    apt install suckless-tools -y           # dmenu | slock
     apt install i3 -y
 }
 
 _install_basics() {
     printf "\nInstalling basics...\n"
-    apt update
-    apt install build-essential git -y
-    apt install npm -y
-    apt install default-jre default-jdk -y
-    apt install shellsheck -y
+    apt install build-essential -y          #
+    apt install git -y                      #
+    apt install cmake -y                    #
+}
+
+_install_basics_extras() {
+    printf "\nInstalling extras...\n"
+    apt install npm -y                      # Node
+    apt install default-jre default-jdk -y  # Java
+    apt install perl perl-base -y           # Perl
 }
 
 _install_dotfiles(){
     printf "\nInstalling dotfiles...\n"
 
+    git clone https://github.com/dedukun/dotfiles /tmp/dotfiles
+
     chown -R "$usr_name:$usr_name" /tmp/dotfiles
 
-    git clone https://github.com/dedukun/dotfiles /tmp/dotfiles
     cd /tmp/dotfiles || { _error "Can't cd into '/tmp/dotfiles'"; return $?; }
 
     cp -p -r ".scripts" "$usr_home"
@@ -94,38 +138,114 @@ _install_dotfiles(){
 
     . "$usr_home/.profile"
 
-    cd "$usr_home" || { _error "Can't cd into '$HOME'"; return $?; }
+    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
     rm -rf /tmp/dotfiles
+}
+
+_install_scripts() {
+    printf "\nInstalling custom scripts...\n"
+
+    mkdir -p "$usr_home/.local/bin"
+    usr_scripts="$usr_home/.scripts"
+    usr_scripts_bin="$usr_home/.local/bin"
+
+    ln -s "$usr_scripts/other/countdown.sh" "$usr_scripts_bin/countdown"
+    ln -s "$usr_scripts/second.sh" "$usr_scripts_bin/csd"
+    ln -s "$usr_scripts/dispay.sh" "$usr_scripts_bin/csm"
+    ln -s "$usr_scripts/gbt/logs.sh"    "$usr_scripts_bin/glbt_log"
+    ln -s "$usr_scripts/gbt/move.sh"   "$usr_scripts_bin/glbt_mov"
+    ln -s "$usr_scripts/gbt/outputs.sh" "$usr_scripts_bin/glbt_out"
+    ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
+    ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
+}
+
+##############
+## COMMANDS ##
+##############
+
+print_help() {
+    printf "dotfiles deployment utility.\n\n"
+    printf "This script is intended to help install the dotfiles from this repository,\n"
+    printf "as well as to setup the my whole environment, including the\n"
+    printf "desktop environment I use (i3), as well as some common packages (build-essential,\n"
+    printf "java, node, etc) and programs I commonly use (st, nvim, suckless-tools, etc)\n\n"
+    printf "\033[1;33mWARINING: This was written and tested to run on a Debian system, it won't work or\n"
+    printf "may have unexpected behaviour on other distributions.\033[0m\n"
+    printf "\nOptions:\n"
+    printf "\t-a, --all       Install dotfiles and recommended packages and environments.\n"
+    printf "\t-d, --dotfiles  Only install dotfiles (copies/overwrites dotfiles and symlinks custom scripts).\n"
+    printf "\t-u, --user      Destination user.\n"
+    printf "\t-h, --help      Prints help menu.\n"
+}
+
+install_all() {
+    apt update
+    _install_basics
+    _install_basics_extras
+    _install_dotfiles
+    _install_scripts
+    _install_python3
+    _install_nvim_latest
+    _install_st
+    _install_i3
+    printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
+}
+
+install_dot() {
+    apt update
+    _install_dotfiles
+    _install_scripts
+    printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
+}
+
+######################
+## ARGUMENTS PARSER ##
+######################
+
+parse_args() {
+    while [ $# -gt 0 ]
+    do
+        dp_key="$1"
+
+        case "$dp_key" in
+            -a|--all)
+                shift # past argument
+                usr_all="True"
+                ;;
+            -d|--dotfiles)
+                shift # past argument
+                usr_dot="True"
+                ;;
+            -u|--user)
+                _set_user "$2"
+                shift # past argument
+                shift # past value
+                ;;
+            -h|--help)
+                shift # past argument
+                print_help
+                exit 0
+                ;;
+            *)
+                echo "Invalid argument '$1'."
+                echo "For more help use argument -h or --help".
+                shift # past argument
+                exit 1
+                ;;
+        esac
+    done
 }
 
 ###################
 ## MAIN FUNCTION ##
 ###################
 
-# run as root
-if [ ! "$(whoami)" = root ]; then
-    # save original home directory
-    echo "$USER" >> /tmp/dotfiles-deploy.sh
-    sudo "$0" "$@"
-    exit $?
+parse_args "$@"
+
+if [ "$usr_all" = "True" ];then
+    _run_as_root "$@"
+    install_all
+elif [ "$usr_dot" = "True" ];then
+    _run_as_root "$@"
+    install_dot
 fi
-
-if [ -e /tmp/dotfiles-deploy.sh ]; then
-    usr_name="$(cat /tmp/dotfiles-deploy.sh)"
-    usr_home="/home/$usr_name"
-    rm /tmp/dotfiles-deploy.sh
-else
-    usr_home="$HOME"
-fi
-
-printf "Deploying configs into '%s'...\n" "$usr_home"
-
-_install_basics
-_install_dotfiles
-_install_python3
-# _install_mpsyt WIP
-_install_nvim
-_install_st
-_install_i3
-
-printf "\nYou need to reboot the machine to enable the  modifications.\n"

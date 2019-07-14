@@ -2,38 +2,41 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 " General
-Plug 'ahonn/resize.vim'                 "resize split screens
-Plug 'troydm/zoomwintab.vim'            "zoom in and out off a split window
-Plug 'myusuf3/numbers.vim'              "set relativenumber or number depending of the current mode
-Plug 'bronson/vim-trailing-whitespace'  "show whitespaces at the end of lines in red
-Plug 'vim-scripts/DoxygenToolkit.vim'   "doxygen autogenerator
-Plug 'lambdalisue/suda.vim'             "edit root flies
+Plug 'ahonn/resize.vim'                    "resize split screens
+Plug 'troydm/zoomwintab.vim'               "zoom in and out off a split window
+Plug 'myusuf3/numbers.vim'                 "set relativenumber or number depending of the current mode
+Plug 'bronson/vim-trailing-whitespace'     "show whitespaces at the end of lines in red
+Plug 'vim-scripts/DoxygenToolkit.vim'      "doxygen autogenerator
+Plug 'lambdalisue/suda.vim'                "edit root flies
 
+" Fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 " Misc
-Plug 'junegunn/goyo.vim'                "distraction free
-Plug 'Valloric/YouCompleteMe'           "auto complete
-Plug 'vim-airline/vim-airline'          "status/tabline
-Plug 'vim-airline/vim-airline-themes'   "status line themes
-Plug 'morhetz/gruvbox'                  "colorscheme
+Plug 'junegunn/goyo.vim'                   "distraction free
+Plug 'Valloric/YouCompleteMe'              "auto complete
+Plug 'vim-airline/vim-airline'             "status/tabline
+Plug 'vim-airline/vim-airline-themes'      "status line themes
+Plug 'morhetz/gruvbox'                     "colorscheme
 
 " Syntax
-Plug 'vim-syntastic/syntastic'          "syntax checker
-Plug 'myint/syntastic-extras'           "syntastic extras
-Plug 'lervag/vimtex'                    "latex support
-Plug 'vimwiki/vimwiki'                  "markdown (and other stuff)
-Plug 'nikvdp/ejs-syntax'                "ejs syntax
-Plug 'PotatoesMaster/i3-vim-syntax'     "i3 config file syntax
+Plug 'vim-syntastic/syntastic'             "syntax checker
+Plug 'myint/syntastic-extras'              "syntastic extras
+Plug 'lervag/vimtex'                       "latex support
+Plug 'vimwiki/vimwiki'                     "markdown (and other stuff)
+Plug 'nikvdp/ejs-syntax'                   "ejs syntax
+Plug 'PotatoesMaster/i3-vim-syntax'        "i3 config file syntax
 
 " Text objects
-Plug 'kana/vim-textobj-user'            "create custom text objects easily
-Plug 'kana/vim-textobj-indent'          "text object for indents
-Plug 'kana/vim-textobj-function'        "text object for C-like functions
+Plug 'kana/vim-textobj-user'               "create custom text objects easily
+Plug 'kana/vim-textobj-indent'             "text object for indents
+Plug 'kana/vim-textobj-function'           "text object for C-like functions
 
 " Tpope
-Plug 'tpope/vim-surround'               "maps to delete, change,... around brackets,... (eg. cs'<q>)
-Plug 'tpope/vim-unimpaired'             "maps for multiple uses
-Plug 'tpope/vim-repeat'                 "more repeatable plugins
+Plug 'tpope/vim-surround'                  "maps to delete, change,... around brackets,... (eg. cs'<q>)
+Plug 'tpope/vim-unimpaired'                "maps for multiple uses
+Plug 'tpope/vim-repeat'                    "more repeatable plugins
 call plug#end()
 
 """"""""""""""""""""
@@ -68,8 +71,8 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 
 if has('nvim')
-    let g:python_host_prog  = '/usr/bin/python2.7'
-    let g:python3_host_prog = '/usr/local/bin/python3.6'
+    let g:python_host_prog  = '/usr/bin/python2'
+    let g:python3_host_prog = '/usr/bin/python3'
 endif
 
 " Change the directory where temporary files are stored
@@ -140,7 +143,7 @@ nnoremap <leader>F  :call SearchInMultipleFiles("")<Left><Left>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
-nnoremap <leader>T :!ctags -R ..<CR>
+nnoremap <leader>T :!./generate-tags.sh<CR>
 
 " Toggle Goyo
 nnoremap <leader>g :call GoyoToggle()<CR>

@@ -48,7 +48,6 @@ do
         shift # past value
         ;;
         -h|--help)
-        second_mount_point="$2"
         shift # past argument
         print_help
         exit
