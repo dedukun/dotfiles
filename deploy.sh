@@ -66,9 +66,6 @@ _install_nvim_latest() {
     # Install plugs
     runuser -l "$usr_name" -c "$usr_home/.local/bin/nvim -c PlugInstall -c quit -c quit"
 
-    # Install youcompleteme
-    cd "$usr_home/.vim/plugged/YouCompleteMe" || { _error "Can't cd into '$usr_home/.vim/plugged/YouCompleteMe'"; return $?; }
-
     # shell scripts analysis tool
     apt install shellcheck -y
 
@@ -78,9 +75,8 @@ _install_nvim_latest() {
     # install nauniq (used in custom fzf_history custom command (in .bashrc) to remove repeated entries)
     cpan App::nauniq
 
-    runuser -l "$usr_name" -c "python3 install.py --clang-completer --ts-completer --java-completer"
-
-    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
+    # install youcompleteme completer's
+    runuser -l "$usr_name" -c "python3 $usr_home/.vim/plugged/YouCompleteMe/install.py --clang-completer --ts-completer --java-completer"
 }
 
 _install_st() {
@@ -151,12 +147,17 @@ _install_scripts() {
 
     ln -s "$usr_scripts/other/countdown.sh" "$usr_scripts_bin/countdown"
     ln -s "$usr_scripts/second.sh" "$usr_scripts_bin/csd"
-    ln -s "$usr_scripts/dispay.sh" "$usr_scripts_bin/csm"
+    ln -s "$usr_scripts/display.sh" "$usr_scripts_bin/csm"
     ln -s "$usr_scripts/gbt/logs.sh"    "$usr_scripts_bin/glbt_log"
     ln -s "$usr_scripts/gbt/move.sh"   "$usr_scripts_bin/glbt_mov"
     ln -s "$usr_scripts/gbt/outputs.sh" "$usr_scripts_bin/glbt_out"
     ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
     ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
+}
+
+_uninstall_undesired_packages() {
+    apt purge gdm3 gnome lightdm
+    apt autoremove
 }
 
 ##############
@@ -165,14 +166,15 @@ _install_scripts() {
 
 print_help() {
     printf "dotfiles deployment utility.\n\n"
-    printf "This script is intended to help install the dotfiles from this repository,\n"
-    printf "as well as to setup the my whole environment, including the\n"
-    printf "desktop environment I use (i3), as well as some common packages (build-essential,\n"
-    printf "java, node, etc) and programs I commonly use (st, nvim, suckless-tools, etc)\n\n"
+    printf "  This script is intended to help install the dotfiles from this repository,\n"
+    printf "as well as to setup the whole environment that I use, including the\n"
+    printf "desktop environment (i3), as well as some common packages (build-essential,\n"
+    printf "java, node, etc) and programs I commonly use (st, nvim, suckless-tools, etc)\n"
+    printf "  It will also uninstall undesired packages (gmd3, gnome, etc).\n\n"
     printf "\033[1;33mWARINING: This was written and tested to run on a Debian system, it won't work or\n"
     printf "may have unexpected behaviour on other distributions.\033[0m\n"
-    printf "\nOptions:\n"
-    printf "\t-a, --all       Install dotfiles and recommended packages and environments.\n"
+    printf "\n  Options:\n"
+    printf "\t-a, --all       Installs dotfiles, recommended packages and environments and uninstall undesired packages.\n"
     printf "\t-d, --dotfiles  Only install dotfiles (copies/overwrites dotfiles and symlinks custom scripts).\n"
     printf "\t-u, --user      Destination user.\n"
     printf "\t-h, --help      Prints help menu.\n"
@@ -188,6 +190,7 @@ install_all() {
     _install_nvim_latest
     _install_st
     _install_i3
+    _uninstall_undesired_packages
     printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
 }
 
