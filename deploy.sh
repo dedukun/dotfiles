@@ -57,7 +57,7 @@ _install_python3() {
 _install_nvim_latest() {
     printf "\nInstalling nvim latest...\n"
 
-    mkdir -p "$usr_home/.local/bin"
+    runuser -l "$usr_name" -c "mkdir -p $usr_home/.local/bin"
     wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$usr_home/.local/bin/nvim" --quiet --show-progress
 
     # change permissions
@@ -66,6 +66,7 @@ _install_nvim_latest() {
 
     # add python3 support
     runuser -l "$usr_name" -c "python3 -m pip install --user pynvim"
+    runuser -l "$usr_name" -c "python3 -m pip install --user neovim-remote"
 
     # Install plugs
     runuser -l "$usr_name" -c "$usr_home/.local/bin/nvim -c PlugInstall -c quit -c quit"
@@ -104,25 +105,35 @@ _install_st() {
 _install_i3() {
     printf "\nInstalling i3...\n"
     apt install suckless-tools -y           # dmenu | slock
-    apt install i3 -y
+    apt install i3-wm i3status -y
 }
 
 _install_basics() {
     printf "\nInstalling basics...\n"
-    apt install build-essential -y          #
-    apt install git -y                      #
-    apt install cmake -y                    #
-    apt install mlocate -y                  # updatedb/locate
-    apt install libnotify4 libnotify-bin -y # notify-send
-    apt install zathura xdotool -y          # zathura and xdotool to search forward inside zathura
-    apt install xclip -y                    # clipboard tool
-    apt install htop -y                     #
+    apt install build-essential -y              #
+    apt install cmake -y                        #
+    apt install git -y                          #
 }
 
-_install_extras() {
-    printf "\nInstalling extras...\n"
-    apt install npm -y                      # Node
+_install_extra_packages() {
+    printf "\nInstalling extras packages...\n"
+    apt install xserver-xorg-input-synaptics -y # synclient (to config touchpad)
+    apt install libnotify4 libnotify-bin -y     # notify-send
+    apt install zathura xdotool -y              # zathura and xdotool to search forward inside zathura
+    apt install xbacklight -y                   #
+    apt install unclutter -y                    # puts the mouse invisible
+    apt install redshift -y                     # reduce blue light (similar f.lux)
+    apt install mlocate -y                      # updatedb locate
+    apt install xtrlock -y                      # lock display leaving windows visible
+    apt install xclip -y                        # clipboard tool
+    apt install htop -y                         # interactive process viewer
+    apt install mpv -y                          # media player
+}
+
+_install_extra_languages() {
+    printf "\nInstalling extras languages...\n"
     apt install default-jre default-jdk -y  # Java
+    apt install npm -y                      # Node
     apt install perl -y                     # Perl
 }
 
@@ -157,7 +168,7 @@ _install_dotfiles(){
 _install_scripts() {
     printf "\nInstalling custom scripts...\n"
 
-    mkdir -p "$usr_home/.local/bin"
+    runuser -l "$usr_name" -c "mkdir -p $usr_home/.local/bin"
     usr_scripts="$usr_home/.scripts"
     usr_scripts_bin="$usr_home/.local/bin"
 
@@ -169,6 +180,8 @@ _install_scripts() {
     ln -s "$usr_scripts/gbt/outputs.sh" "$usr_scripts_bin/glbt_out"
     ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
     ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
+
+    chown -R "$usr_name:$usr_name" "$usr_scripts_bin"
 }
 
 _uninstall_undesired_packages() {
@@ -198,15 +211,16 @@ print_help() {
 }
 
 install_all() {
+    _uninstall_undesired_packages
     _install_basics
-    _install_extras
+    _install_extra_packages
+    _install_extra_languages
     _install_dotfiles
     _install_scripts
     _install_python3
     _install_nvim_latest
     _install_st
     _install_i3
-    _uninstall_undesired_packages
 }
 
 install_dot() {
@@ -265,8 +279,10 @@ _run_as_root "$@"
 
 if [ "$usr_all" = "True" ];then
     install_all
-elif [ "$usr_dot" = "True" ];then
-    install_dot
+else
+    if [ "$usr_dot" = "True" ];then
+        install_dot
+    fi
 fi
 
 printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
