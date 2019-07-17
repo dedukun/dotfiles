@@ -6,8 +6,8 @@ Plug 'ahonn/resize.vim'                    "resize split screens
 Plug 'troydm/zoomwintab.vim'               "zoom in and out off a split window
 Plug 'myusuf3/numbers.vim'                 "set relativenumber or number depending of the current mode
 Plug 'bronson/vim-trailing-whitespace'     "show whitespaces at the end of lines in red
-Plug 'vim-scripts/DoxygenToolkit.vim'      "doxygen autogenerator
 Plug 'lambdalisue/suda.vim'                "edit root flies
+Plug 'morhetz/gruvbox'                     "colorscheme
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -18,7 +18,7 @@ Plug 'junegunn/goyo.vim'                   "distraction free
 Plug 'Valloric/YouCompleteMe'              "auto complete
 Plug 'vim-airline/vim-airline'             "status/tabline
 Plug 'vim-airline/vim-airline-themes'      "status line themes
-Plug 'morhetz/gruvbox'                     "colorscheme
+Plug 'frazrepo/vim-rainbow'                "brackets color
 
 " Syntax
 Plug 'vim-syntastic/syntastic'             "syntax checker
@@ -27,6 +27,7 @@ Plug 'lervag/vimtex'                       "latex support
 Plug 'vimwiki/vimwiki'                     "markdown (and other stuff)
 Plug 'nikvdp/ejs-syntax'                   "ejs syntax
 Plug 'PotatoesMaster/i3-vim-syntax'        "i3 config file syntax
+Plug 'gisphm/vim-gitignore'                "gitignore syntax
 
 " Text objects
 Plug 'kana/vim-textobj-user'               "create custom text objects easily
@@ -37,6 +38,7 @@ Plug 'kana/vim-textobj-function'           "text object for C-like functions
 Plug 'tpope/vim-surround'                  "maps to delete, change,... around brackets,... (eg. cs'<q>)
 Plug 'tpope/vim-unimpaired'                "maps for multiple uses
 Plug 'tpope/vim-repeat'                    "more repeatable plugins
+Plug 'tpope/vim-commentary'                "easy comments
 call plug#end()
 
 """"""""""""""""""""
@@ -71,7 +73,6 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 
 if has('nvim')
-    let g:python_host_prog  = '/usr/bin/python2'
     let g:python3_host_prog = '/usr/bin/python3'
 endif
 
@@ -120,7 +121,11 @@ augroup del_bash_tmp_script
 augroup end
 
 "set color scheme
-colorscheme gruvbox
+try
+    colorscheme gruvbox
+catch /^Vim\%((\a\+)\)\=:E185/
+    " do nothing
+endtry
 
 """"""""
 " Maps
@@ -246,3 +251,14 @@ let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'w3
 let g:vimtex_latexmk_progname = 'nvr'
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_view_method = 'zathura'
+
+" rainbow
+"au FileType c,cpp,objc,objcpp call rainbow#load()
+let g:rainbow_active = 1
+let g:rainbow_guifgs = ['DarkOrange3', 'DarkGoldenrod3', 'LightGoldenrod3']
+let g:rainbow_load_separately = [
+    \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+    \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
+    \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+    \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+    \ ]

@@ -49,12 +49,13 @@ _install_python3() {
 
     # upgrade pip
     runuser -l "$usr_name" -c "python3 -m pip install --upgrade pip"
+
+    # install virtualenvwrapper
+    runuser -l "$usr_name" -c "python3 -m pip install --user virtualenvwrapper"
 }
 
 _install_nvim_latest() {
     printf "\nInstalling nvim latest...\n"
-
-    runuser -l "$usr_name" -c "python3 -m install --user neovim"
 
     mkdir -p "$usr_home/.local/bin"
     wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O "$usr_home/.local/bin/nvim" --quiet --show-progress
@@ -63,6 +64,9 @@ _install_nvim_latest() {
     chown "$usr_name:$usr_name" "$usr_home/.local/bin/nvim"
     chmod +x "$usr_home/.local/bin/nvim"
 
+    # add python3 support
+    runuser -l "$usr_name" -c "python3 -m pip install --user pynvim"
+
     # Install plugs
     runuser -l "$usr_name" -c "$usr_home/.local/bin/nvim -c PlugInstall -c quit -c quit"
 
@@ -70,10 +74,13 @@ _install_nvim_latest() {
     apt install shellcheck -y
 
     # ctags
-    apt install exuberant-ctags
+    apt install exuberant-ctags -y
+
+    # Latex for vimtex
+    apt install latexmk -y
 
     # install nauniq (used in custom fzf_history custom command (in .bashrc) to remove repeated entries)
-    cpan App::nauniq
+    PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install App::nauniq'
 
     # install youcompleteme completer's
     runuser -l "$usr_name" -c "python3 $usr_home/.vim/plugged/YouCompleteMe/install.py --clang-completer --ts-completer --java-completer"
@@ -105,13 +112,18 @@ _install_basics() {
     apt install build-essential -y          #
     apt install git -y                      #
     apt install cmake -y                    #
+    apt install mlocate -y                  # updatedb/locate
+    apt install libnotify4 libnotify-bin -y # notify-send
+    apt install zathura xdotool -y          # zathura and xdotool to search forward inside zathura
+    apt install xclip -y                    # clipboard tool
+    apt install htop -y                     #
 }
 
-_install_basics_extras() {
+_install_extras() {
     printf "\nInstalling extras...\n"
     apt install npm -y                      # Node
     apt install default-jre default-jdk -y  # Java
-    apt install perl perl-base -y           # Perl
+    apt install perl -y                     # Perl
 }
 
 _install_dotfiles(){
@@ -123,6 +135,8 @@ _install_dotfiles(){
 
     cd /tmp/dotfiles || { _error "Can't cd into '/tmp/dotfiles'"; return $?; }
 
+    #find . -maxdepth 1 -name "\.*" -and -not -name ".git*" -type f | tail -n +2 | xargs cp    - "$usr_home"
+    #find . -maxdepth 1 -name "\.*" -and -not -name ".git*" -type d | tail -n +2 | xargs cp -r - "$usr_home"
     cp -p -r ".scripts" "$usr_home"
     cp -p    ".bashrc"  "$usr_home"
     cp -p    ".profile" "$usr_home"
@@ -131,6 +145,8 @@ _install_dotfiles(){
     cp -p    ".pythonrc.py" "$usr_home"
     cp -p -r ".config/" "$usr_home"
     cp -p -r ".local/" "$usr_home"
+    cp -p    ".vim" "$usr_home"
+    cp -p    ".vimrc" "$usr_home"
 
     . "$usr_home/.profile"
 
@@ -156,8 +172,9 @@ _install_scripts() {
 }
 
 _uninstall_undesired_packages() {
-    apt purge gdm3 gnome lightdm
-    apt autoremove
+    apt purge gdm3 gnome lightdm -y
+    apt purge evince -y
+    apt autoremove -y
 }
 
 ##############
@@ -181,9 +198,8 @@ print_help() {
 }
 
 install_all() {
-    apt update
     _install_basics
-    _install_basics_extras
+    _install_extras
     _install_dotfiles
     _install_scripts
     _install_python3
@@ -191,14 +207,11 @@ install_all() {
     _install_st
     _install_i3
     _uninstall_undesired_packages
-    printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
 }
 
 install_dot() {
-    apt update
     _install_dotfiles
     _install_scripts
-    printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
 }
 
 ######################
@@ -206,6 +219,8 @@ install_dot() {
 ######################
 
 parse_args() {
+    [ $# -lt 1 ] && echo "Need at least one argument!\nFor more information see the '--help' page." && exit 1
+
     while [ $# -gt 0 ]
     do
         dp_key="$1"
@@ -245,10 +260,13 @@ parse_args() {
 
 parse_args "$@"
 
+apt update
+_run_as_root "$@"
+
 if [ "$usr_all" = "True" ];then
-    _run_as_root "$@"
     install_all
 elif [ "$usr_dot" = "True" ];then
-    _run_as_root "$@"
     install_dot
 fi
+
+printf "\n\033[1;33mYou need to reboot the machine for the modifications to take effect.\033[0m\n"
