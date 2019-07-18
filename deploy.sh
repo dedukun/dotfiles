@@ -120,14 +120,30 @@ _install_extra_packages() {
     apt install xserver-xorg-input-synaptics -y # synclient (to config touchpad)
     apt install libnotify4 libnotify-bin -y     # notify-send
     apt install zathura xdotool -y              # zathura and xdotool to search forward inside zathura
+    apt install thunderbird -y                  # mail client
     apt install xbacklight -y                   #
     apt install unclutter -y                    # puts the mouse invisible
+    apt install chromium -y                     # chromium to use as secondary browser
     apt install redshift -y                     # reduce blue light (similar f.lux)
     apt install mlocate -y                      # updatedb locate
     apt install xtrlock -y                      # lock display leaving windows visible
+    apt install xinput -y                       #
     apt install xclip -y                        # clipboard tool
     apt install htop -y                         # interactive process viewer
+    apt install maim -y                         # to take screenshots
+    apt install sxiv -y                         # simple image viewer
     apt install mpv -y                          # media player
+
+    # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
+    apt install libX11-dev
+    git clone https://github.com/schischi/xcwd.git /tmp/xcwd
+    cd /tmp/xcwd || { _error "Can't cd into '/tmp/xcwd'"; return $?; }
+    make
+    make install
+    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
+
+    # dmenu network manager [mod+F2]
+    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications2/networkmanager-dmenu"
 }
 
 _install_extra_languages() {
@@ -156,8 +172,8 @@ _install_dotfiles(){
     cp -p    ".pythonrc.py" "$usr_home"
     cp -p -r ".config/" "$usr_home"
     cp -p -r ".local/" "$usr_home"
-    cp -p    ".vim" "$usr_home"
-    cp -p    ".vimrc" "$usr_home"
+    ln -s    "$usr_home/.config/nvim" "$usr_home/.vim"
+    ln -s    "$usr_home/.config/nvim/init.vim" "$usr_home/.vimrc"
 
     . "$usr_home/.profile"
 
@@ -181,11 +197,13 @@ _install_scripts() {
     ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
     ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
 
-    chown -R "$usr_name:$usr_name" "$usr_scripts_bin"
+    # make sure that everything in the user's home is owned by the user
+    chown -R "$usr_name:$usr_name" "$usr_home"
 }
 
 _uninstall_undesired_packages() {
     apt purge gdm3 gnome lightdm -y
+    apt purge evolution -y
     apt purge evince -y
     apt autoremove -y
 }

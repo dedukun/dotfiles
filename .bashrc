@@ -23,7 +23,7 @@ fi
 eval "$(dircolors -b)"
 
 # User defined aliases
-alias nvim="$HOME/.local/bin/nvim"
+alias nvim="\$HOME/.local/bin/nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias ls='ls -h --color=auto --group-directories-first'
@@ -35,6 +35,12 @@ alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
 #alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
+
+# wine aliases
+alias wine="WINEPREFIX=\$HOME/.wine32 wine"
+alias wine64="WINEPREFIX=\$HOME/.wine64 wine64"
+alias winecfg="WINEPREFIX=\$HOME/.wine32 winecfg"
+alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
 
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc.py"

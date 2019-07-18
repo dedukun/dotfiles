@@ -2,43 +2,44 @@
 " Plugins
 call plug#begin('~/.vim/plugged')
 " General
-Plug 'ahonn/resize.vim'                    "resize split screens
-Plug 'troydm/zoomwintab.vim'               "zoom in and out off a split window
-Plug 'myusuf3/numbers.vim'                 "set relativenumber or number depending of the current mode
-Plug 'bronson/vim-trailing-whitespace'     "show whitespaces at the end of lines in red
-Plug 'lambdalisue/suda.vim'                "edit root flies
-Plug 'morhetz/gruvbox'                     "colorscheme
+Plug 'ahonn/resize.vim'                        "resize split screens
+Plug 'troydm/zoomwintab.vim'                   "zoom in and out off a split window
+Plug 'myusuf3/numbers.vim'                     "set relativenumber or number depending of the current mode
+Plug 'bronson/vim-trailing-whitespace'         "show whitespaces at the end of lines in red
+Plug 'lambdalisue/suda.vim'                    "edit root flies
+Plug 'morhetz/gruvbox'                         "colorscheme
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " Misc
-Plug 'junegunn/goyo.vim'                   "distraction free
-Plug 'Valloric/YouCompleteMe'              "auto complete
-Plug 'vim-airline/vim-airline'             "status/tabline
-Plug 'vim-airline/vim-airline-themes'      "status line themes
-Plug 'frazrepo/vim-rainbow'                "brackets color
+Plug 'junegunn/goyo.vim'                       "distraction free
+Plug 'Valloric/YouCompleteMe'                  "auto complete
+Plug 'vim-airline/vim-airline'                 "status/tabline
+Plug 'vim-airline/vim-airline-themes'          "status line themes
+Plug 'frazrepo/vim-rainbow'                    "brackets color
+Plug 'scrooloose/nerdtree'                     "file explorer
 
 " Syntax
-Plug 'vim-syntastic/syntastic'             "syntax checker
-Plug 'myint/syntastic-extras'              "syntastic extras
-Plug 'lervag/vimtex'                       "latex support
-Plug 'vimwiki/vimwiki'                     "markdown (and other stuff)
-Plug 'nikvdp/ejs-syntax'                   "ejs syntax
-Plug 'PotatoesMaster/i3-vim-syntax'        "i3 config file syntax
-Plug 'gisphm/vim-gitignore'                "gitignore syntax
+Plug 'vim-syntastic/syntastic'                 "syntax checker
+Plug 'myint/syntastic-extras'                  "syntastic extras
+Plug 'lervag/vimtex'                           "latex support
+Plug 'vimwiki/vimwiki'                         "markdown (and other stuff)
+Plug 'nikvdp/ejs-syntax'                       "ejs syntax
+Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
+Plug 'gisphm/vim-gitignore'                    "gitignore syntax
 
 " Text objects
-Plug 'kana/vim-textobj-user'               "create custom text objects easily
-Plug 'kana/vim-textobj-indent'             "text object for indents
-Plug 'kana/vim-textobj-function'           "text object for C-like functions
+Plug 'kana/vim-textobj-user'                   "create custom text objects easily
+Plug 'kana/vim-textobj-indent'                 "text object for indents
+Plug 'kana/vim-textobj-function'               "text object for C-like functions
 
 " Tpope
-Plug 'tpope/vim-surround'                  "maps to delete, change,... around brackets,... (eg. cs'<q>)
-Plug 'tpope/vim-unimpaired'                "maps for multiple uses
-Plug 'tpope/vim-repeat'                    "more repeatable plugins
-Plug 'tpope/vim-commentary'                "easy comments
+Plug 'tpope/vim-surround'                      "maps to delete, change,... around brackets,... (eg. cs'<q>)
+Plug 'tpope/vim-unimpaired'                    "maps for multiple uses
+Plug 'tpope/vim-repeat'                        "more repeatable plugins
+Plug 'tpope/vim-commentary'                    "easy comments
 call plug#end()
 
 """"""""""""""""""""
@@ -82,11 +83,6 @@ set directory=~/.vim/.backup//
 
 " Tags files default locations
 set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
-
-" Add additional tags depending on file type
-"autocmd FileType c   set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags
-"autocmd FileType cpp set tags+=~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag
-"autocmd BufRead call LoadTags
 
 " Change cursor shape depending of the mode
 if has('nvim')
@@ -136,29 +132,25 @@ let mapleader=","
 " Remove all spaces at the end of lines
 nnoremap <leader>cc  :%s/\s\+$//ge<CR>
 
-" Toggle Syntastic
+" Toggle Syntastic [WIP]
 nnoremap <leader>s  :call SyntasticToggle()
 
-" Send through scp
-nnoremap <leader>h  :call SCP()<CR>
-
 " vimgrep maps
-nnoremap <leader>f  :grep -s <cword> ** --include={*.c,*.h}<CR>
-nnoremap <leader>F  :call SearchInMultipleFiles("")<Left><Left>
+nnoremap <leader>f  :grep -s <cword> ** --include={*.c,*.h,*.py,*.java}<CR>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
-nnoremap <leader>T :!./generate-tags.sh<CR>
+nnoremap <leader>T :call GenerateTags()<CR>
 
 " Toggle Goyo
 nnoremap <leader>g :call GoyoToggle()<CR>
 nnoremap <leader>G :Goyo<CR>
 
-" Clear highligths
+" clear highlights
 nnoremap <leader>n :noh<CR>
 
-" Repeat last command-line command
-noremap <leader>r @:<CR>
+" File Explorer
+nnoremap <leader>m :NERDTreeToggle<CR>
 
 " Remap split windows navigation
 nnoremap <C-h> <C-w>h
@@ -189,30 +181,25 @@ function GoyoToggle()
     endif
 endfunction
 
-function LoadTags()
-    let &tags = '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags'
-    if &filetype == 'c'
-        set tags+= '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags'
-    elseif &filetype == 'cpp'
-        set tags+= '~/.vim/tags/clang_tags,~/.vim/tags/arduino_tags,~/.vim/tags/cpp_tag'
-    endif
+function GenerateTags()
+   if filereadable("generate-tags.sh")
+       echo "Generating tags... "
+       execute '!./generate-tags.sh'
+   elseif filereadable("../generate-tags.sh")
+       echo "Generating tags... "
+       execute '!../generate-tags.sh'
+   else
+       echo "No tag generation script found!"
+   endif
 endfunction
 
 """""""
 " WIP "
 """""""
-function SCP()
-    echo "[WIP] SCP send"
-
-endfunction
 
 function SyntasticToggle()
     echom b:syntastic_mode
     "SyntasticToggleMode | lclose<CR>
-endfunction
-
-function SearchInMultipleFiles(search)
-    grep -s a:search ** --exclude={tags,compile_commands.json} --exclude-dir={_*}
 endfunction
 
 " args *
@@ -262,3 +249,7 @@ let g:rainbow_load_separately = [
     \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
     \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
     \ ]
+
+" NERDTree
+" closes NERDTree if only NERDTree is open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
