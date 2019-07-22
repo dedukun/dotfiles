@@ -196,7 +196,7 @@ _install_scripts() {
     ln -s "$usr_scripts/gbt/outputs.sh" "$usr_scripts_bin/glbt_out"
     ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
     ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
-    ln -s "$usr_scripts/remove_whitespaces.sh" "$usr_scripts_bin/rts"
+    ln -s "$usr_scripts/wemove_white_spaces.sh" "$usr_scripts_bin/rws"
 
     # make sure that everything in the user's home is owned by the user
     chown -R "$usr_name:$usr_name" "$usr_home"

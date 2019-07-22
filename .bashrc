@@ -5,7 +5,7 @@ PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\[\033[01;34m\]\W\[\033[00m\]] \$ '
 export HISTCONTROL=ignoredups       # dont save duplicate consecutive commands
 HISTSIZE=HISTFILESIZE=              # infinite history
 shopt -s histappend                 # append to history, don't overwrite it
-[[ $(echo "$PROMPT_COMMAND" | grep history) ]] || PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # update history after each command in multiple terminals
+#[[ $(echo "$PROMPT_COMMAND" | grep history) ]] || PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # update history after each command in multiple terminals
 
 # disable automatically executing !, !!, !?, instead filling the bash with the command
 shopt -s histverify
@@ -61,7 +61,12 @@ workonenv() {
 
 # gitignore
 gitignore() {
-    curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,$*"
+    local_ignores="""\
+### Local Ignores ###
+generate-tags.sh
+"""
+    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,$*")
+    echo "$local_ignores$remote_ignores"
 }
 
 # https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
