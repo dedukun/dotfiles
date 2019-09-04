@@ -1,6 +1,7 @@
 #!/bin/bash
 # Multiple grep
 # Grep multiple patters at the same time more easily.
+# [WIP]
 
 print_help () {
     echo "Multiple GREP."

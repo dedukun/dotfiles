@@ -26,11 +26,14 @@ eval "$(dircolors -b)"
 alias nvim="\$HOME/.local/bin/nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias git="\$SCRIPTS/gbt/git.sh"
+alias ag="\$SCRIPTS/ag.sh"
 alias ls='ls -h --color=auto --group-directories-first'
 alias  l='ls -l'
 alias ll='ls -lA'
+alias less='less -i'
 alias grep='grep --color'
-alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py}'
+alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html}'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
@@ -79,10 +82,11 @@ stopwatch(){
     done
 }
 
+# Initialize fzf
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # https://github.com/junegunn/fzf/issues/1309
-# Remove repeated entries from history search
+# Remove repeated entries from fzf history search
 __fzf_history__() {
     local line
     countskip="$(history | tail -n 1 | grep -E '^ *[0-9]+' -o | wc -c)"

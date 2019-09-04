@@ -106,6 +106,17 @@ _install_i3() {
     printf "\nInstalling i3...\n"
     apt install suckless-tools -y           # dmenu | slock
     apt install i3-wm i3status -y
+
+    # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
+    apt install libX11-dev
+    git clone https://github.com/schischi/xcwd.git /tmp/xcwd
+    cd /tmp/xcwd || { _error "Can't cd into '/tmp/xcwd'"; return $?; }
+    make
+    make install
+    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
+
+    # dmenu network manager [mod+F2]
+    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications2/networkmanager-dmenu"
 }
 
 _install_basics() {
@@ -133,17 +144,6 @@ _install_extra_packages() {
     apt install maim -y                         # to take screenshots
     apt install sxiv -y                         # simple image viewer
     apt install mpv -y                          # media player
-
-    # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
-    apt install libX11-dev
-    git clone https://github.com/schischi/xcwd.git /tmp/xcwd
-    cd /tmp/xcwd || { _error "Can't cd into '/tmp/xcwd'"; return $?; }
-    make
-    make install
-    cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
-
-    # dmenu network manager [mod+F2]
-    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications2/networkmanager-dmenu"
 }
 
 _install_extra_languages() {
@@ -169,6 +169,7 @@ _install_dotfiles(){
     cp -p    ".profile" "$usr_home"
     cp -p    ".inputrc" "$usr_home"
     cp -p    ".xinitrc" "$usr_home"
+    cp -p    ".screenrc" "$usr_home"
     cp -p    ".pythonrc.py" "$usr_home"
     cp -p -r ".config/" "$usr_home"
     cp -p -r ".local/" "$usr_home"

@@ -15,3 +15,4 @@ map [fullscreen] <A-2> set "first-page-column 1:2"
 
 # exec example
 #map t feedkeys ":exec notify-send $FILE<Return>"
+set default-bg "#111111"

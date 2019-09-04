@@ -1,12 +1,11 @@
 #!/bin/bash
 print_help () {
     echo -e "LOME (Locate Menu)\n"
-    echo -e "This script finds a items in system and pipes the output to dmenu."
+    echo -e "This script finds items in the system and pipes the output to dmenu."
     echo -e "The result of the selection if then passed to a given command."
-    echo -e "(eg. lome <item> <command>) [default command is 'vim']\n"
+    echo -e "(eg. lome <item> <command>) [default command is 'echo']\n"
     echo -e "Options:"
     echo -e "\t-l, --lines         Number of lines in dmenu (default: 25)"
-    echo -e "\t-n, --no-lines      Don't display dmenu with lines"
     echo -e "\t-f, --folders       Only search for directories (Uses regex '/<dirname>$')"
     echo -e "\t-r, --regex         Find items using regex"
     echo -e "\t-i, --ignore-case   Search case insensetive"
@@ -16,7 +15,7 @@ print_help () {
 
 LOME_LINES=25
 LOME_LOCATE_ARGS=""
-LOME_COMMAND="echo" # default command
+LOME_COMMAND="echo"   # default command
 
 while [[ $# -gt 0 ]]
 do
@@ -27,10 +26,6 @@ do
         LOME_LINES=$2
         shift # past argument
         shift # past value
-        ;;
-        -n|--no-lines)
-        shift # past value
-        LOME_NO_LINES=yes
         ;;
         -f|--folders)
         shift # past value
@@ -67,6 +62,7 @@ if [[ -n $1 ]]; then
     LOME_LOCATE_VALUE="$1"
 else
     echo "No argument locate"
+    exit 1
 fi
 
 # Get second argument (command)
@@ -84,8 +80,5 @@ if [[ -n $LOME_LOCATE_FOLDER ]]; then
     LOME_LOCATE_VALUE="$LOME_LOCATE_VALUE$"
 fi
 
-if [[ -n $LOME_NO_LINES ]];then
-    $LOME_COMMAND "$(locate $LOME_LOCATE_ARGS "$LOME_LOCATE_VALUE" | dmenu -i)"
-else
-    $LOME_COMMAND "$(locate $LOME_LOCATE_ARGS "$LOME_LOCATE_VALUE" | dmenu -i -l "$LOME_LINES")"
-fi
+# execute the command
+$LOME_COMMAND "$(locate $LOME_LOCATE_ARGS "$LOME_LOCATE_VALUE" | dmenu -i -l "$LOME_LINES")"

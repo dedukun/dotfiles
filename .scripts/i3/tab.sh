@@ -1,4 +1,6 @@
 #!/bin/sh
+# Use mod+TAB to switch between the two most recent windows
+# [WIP]
 i3-msg -q mark --add lastWSTMP
 i3-msg -q [con_mark="lastWS"] focus
 exit 0

@@ -163,6 +163,7 @@ bindsym $mod+Shift+r exec notify-send -u critical -t 1500 "Restart is disabled"
 bar {
 	position top
     status_command i3status
+    tray_output eDP1
 }
 
 # Brightness controls
@@ -190,6 +191,9 @@ bindcode $mod+116 exec "playerctl play-pause"
 
 # Toggle touchpad
 bindsym $mod+F9 exec "$SCRIPTS/nomouse.sh"
+
+# Toggle touchpad with no delay
+bindsym $mod+Control+F9 exec "$SCRIPTS/nomouse.sh --no-delay"
 
 # Run networkmanager in dmenu
 bindsym $mod+F2 exec "$HOME/Applications/networkmanager-dmenu/networkmanager_dmenu"

@@ -1,4 +1,6 @@
-xinput set-int-prop 14 "Device Enabled" 8 0 # disable keyboard
-xdotool key F5                              # press F5
-xinput set-int-prop 14 "Device Enabled" 8 1 # enable keyboard
+#!/bin/sh
+K_ID="$("$SCRIPTS"/i3/mexec/.aux/keyboard_id.sh)"
+xinput set-int-prop "$K_ID" "Device Enabled" 8 0 # disable keyboard
+xdotool key F5                                   # press F5
+xinput set-int-prop "$K_ID" "Device Enabled" 8 1 # enable keyboard
 exit 0

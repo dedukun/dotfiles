@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 second_dev="/dev/second/debian_gbt"
 second_mount_point="$HOME/Globaltronic/Second_GBT"
 second_mount=false
@@ -7,6 +7,8 @@ second_umount=false
 print_help () {
     printf "Change Second Driver.\n"
     printf "This script helps configuring the second mass storage driver.\n"
+    printf "\n"
+    printf "Options:\n"
     printf "\t-m, --mount       Mount the second driver.\n"
     printf "\t-u, --umount      Un-mount the second driver.\n"
     printf "\t    --mount-point Define the mount point.     [default: '%s']\n"  "\$HOME/Globaltronic/Second_GBT"
@@ -16,6 +18,7 @@ print_help () {
 
 mount_second() {
     sudo mount "$second_dev" "$second_mount_point"
+    sudo chown "$USER" "$second_mount_point"
     sync
 }
 
@@ -24,7 +27,7 @@ umount_second() {
     sync
 }
 
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     csd_key="$1"
 

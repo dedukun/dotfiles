@@ -1,0 +1,5 @@
+# change command character from ctrl-a to ctrl-b (emacs users may want this)
+escape ^Ff
+
+# Don't display the copyright page
+startup_message off

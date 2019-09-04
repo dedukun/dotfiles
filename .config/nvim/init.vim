@@ -18,17 +18,21 @@ Plug 'junegunn/goyo.vim'                       "distraction free
 Plug 'Valloric/YouCompleteMe'                  "auto complete
 Plug 'vim-airline/vim-airline'                 "status/tabline
 Plug 'vim-airline/vim-airline-themes'          "status line themes
-Plug 'frazrepo/vim-rainbow'                    "brackets color
+Plug 'frazrepo/vim-rainbow'                     "brackets color
 Plug 'scrooloose/nerdtree'                     "file explorer
+Plug 'vimlab/split-term.vim'                   "better terminal
+Plug 'Chiel92/vim-autoformat'                  "autoformatter
+Plug 'qwertologe/nextval.vim'                  "better increments/decrements with ^a/^x
 
 " Syntax
 Plug 'vim-syntastic/syntastic'                 "syntax checker
 Plug 'myint/syntastic-extras'                  "syntastic extras
 Plug 'lervag/vimtex'                           "latex support
-Plug 'vimwiki/vimwiki'                         "markdown (and other stuff)
 Plug 'nikvdp/ejs-syntax'                       "ejs syntax
 Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
 Plug 'gisphm/vim-gitignore'                    "gitignore syntax
+Plug 'plasticboy/vim-markdown'                 "markdown syntax
+Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
 
 " Text objects
 Plug 'kana/vim-textobj-user'                   "create custom text objects easily
@@ -99,7 +103,7 @@ endif
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Disable maximum text width for tex files
+" Enale maximum text width for tex files
 autocmd FileType tex set tw=200
 
 " Delete bash 'edit-and-execute-command' (C-xC-e, or, if vi-mode enabled, <Esc>v) temporary file when opening it
@@ -109,7 +113,7 @@ autocmd FileType tex set tw=200
 " exists in the system. However, when starting this mode with something already in the command-line, the
 " temporary script file will be created an saved in the system automatically, so even if you leave the mode
 " without saving it, the command that was originally in the command-line will still run.
-" Result: The autocmd's bellow delete the temporary file when vim starts reading it to the buffer, so the script needs
+" Result: The autocmd's bellow deletes the temporary file when vim starts reading it to the buffer, so the script needs
 " to be saved before it is executed.
 augroup del_bash_tmp_script
     autocmd FileChangedShell /tmp/bash-fc.* execute
@@ -126,6 +130,9 @@ endtry
 """"""""
 " Maps
 
+" Remap 'Y' to stay the same as other commands
+map Y y$
+
 " Set map leader
 let mapleader=","
 
@@ -136,7 +143,8 @@ nnoremap <leader>cc  :%s/\s\+$//ge<CR>
 nnoremap <leader>s  :call SyntasticToggle()
 
 " vimgrep maps
-nnoremap <leader>f  :grep -s <cword> ** --include={*.c,*.h,*.py,*.java}<CR>
+nnoremap <leader>f  :noautocmd grep -s <cword> **/* --include={*.c,*.h,*.py,*.java}<CR>
+nnoremap <leader>F  :call MultipleFileSearch("")<left><left>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
@@ -159,10 +167,10 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Search for under under cursor in multiple files
-nnoremap gr :grep <cword> *<CR>
-nnoremap Gr :grep <cword> %:p:h/*<CR>
-nnoremap gR :grep '\b<cword>\b' *<CR>
-nnoremap GR :grep '\b<cword>\b' %:p:h/*<CR>
+nnoremap gr :noautocmd rep <cword> *<CR>
+nnoremap Gr :noautocmd rep <cword> %:p:h/*<CR>
+nnoremap gR :noautocmd rep '\b<cword>\b' *<CR>
+nnoremap GR :noautocmd rep '\b<cword>\b' %:p:h/*<CR>
 
 " Remap ^W_w to zoomwin
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
@@ -172,9 +180,17 @@ nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
 function GoyoToggle()
     if &number ==# 1
+        "change terminal's font size (only works in this st configuration)
+        silent exec "!xdotool key alt+shift+k"
+        silent exec "!xdotool key alt+shift+k"
+        silent exec "!xdotool key alt+shift+k"
         NumbersDisable
         Goyo 70%
     else
+        "change terminal's font size (only works in this st configuration)
+        silent exec "!xdotool key alt+shift+j"
+        silent exec "!xdotool key alt+shift+j"
+        silent exec "!xdotool key alt+shift+j"
         NumbersEnable
         Goyo!
         set number
@@ -191,6 +207,10 @@ function GenerateTags()
    else
        echo "No tag generation script found!"
    endif
+endfunction
+
+function MultipleFileSearch(search)
+    exec 'grep -s' a:search ' **/* --include={*.c,*.h,*.py,*.java}'
 endfunction
 
 """""""
@@ -232,7 +252,7 @@ let g:ycm_enable_diagnostic_highlighting = 0
 let g:ycm_autoclose_preview_window_after_completion=1
 
 " Number
-let g:numbers_exclude = ['unite', 'tagbar', 'startify', 'gundo', 'vimshell', 'w3m', 'help']
+let g:numbers_exclude = ['tagbar', 'help', 'nerdtree']
 
 " vimtex
 let g:vimtex_latexmk_progname = 'nvr'
@@ -253,3 +273,9 @@ let g:rainbow_load_separately = [
 " NERDTree
 " closes NERDTree if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
+
+" polyglot
+let g:polyglot_disabled = ['latex', 'i3']
