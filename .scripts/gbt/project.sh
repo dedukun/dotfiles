@@ -74,7 +74,7 @@ choose_project () {
 }
 
 choose_all_projects () {
-    PROJ_NAME=$(find "$GBT_PROJECTS" -maxdepth 3 -name ".id" |              # get folders with file '.id'
+    PROJ_NAME=$(find "$GBT_PROJECTS" -maxdepth 4 -name ".id" |              # get folders with file '.id'
                 sort |                                                      # sort them
                 sed 's$'"$GBT_PROJECTS"/'$$g' |                             # get only the relative names from the base directory
                 sed 's$/.id$$g' |                                           # remove the '/.id' file string

@@ -4,9 +4,30 @@ print_help () {
     echo "Calling it with no arguments will take a screenshot and save to the current date's folder."
     echo -e "\t -f, --folder       Specify the folder where the screenshots are saved (default: \$HOME/Pictures/screenshots)"
     echo -e "\t -s, --selected     Select the area of the screenshot"
+    echo -e "\t -i, --window       Select window to take the screenshot"
     echo -e "\t-df, --date-folder  Save the screenshot in a subdirectory with the current date"
     echo -e "\t -t, --timer        Starts a countdown timer for the screenshot"
+    echo -e "\t -m, --menu         Start the a menu to choose the type to screenshot to take"
     echo -e "\t -h, --help         Prints this help menu"
+}
+
+choose_menu () {
+    screenshot_type=$(printf "Normal\nSelect\nWindow" | dmenu -i -p "Mode: ")
+
+    case $screenshot_type in
+        Normal)
+        ;;
+        Select)
+        SCREEN_SELECTED=YES
+        ;;
+        Window)
+        SCREEN_WINDOW=YES
+        ;;
+        *)
+        echo "Invalid screenshot type '$1'."
+        exit 1
+        ;;
+    esac
 }
 
 SCREEN_BASE_FOLDER="$HOME/Pictures/screenshots"
@@ -26,6 +47,10 @@ do
         SCREEN_SELECTED=YES
         shift # past argument
         ;;
+        -i|--window)
+        SCREEN_WINDOW=YES
+        shift # past argument
+        ;;
         -df|--date-folder)
         SCREEN_DATE_FOLDER=YES
         shift # past argument
@@ -33,6 +58,10 @@ do
         -t|--timer)
         SCREEN_TIMER=$2
         shift # past argument
+        shift # past value
+        ;;
+        -m|--menu)
+        choose_menu
         shift # past value
         ;;
         -h|--help)
@@ -71,6 +100,9 @@ fi
 # take the screen shot now so its timing doesn't depend on the user input
 if [[ -n $SCREEN_SELECTED ]]; then
     maim -s --hidecursor "$SCREEN_TMP_NAME"
+elif [[ -n $SCREEN_WINDOW ]]; then
+    geometry=$(xwininfo | grep "geometry" | awk '{print $2;}')
+    maim -g "$geometry" --hidecursor "$SCREEN_TMP_NAME"
 else
     sleep 0.5
     maim --hidecursor "$SCREEN_TMP_NAME"
@@ -104,6 +136,8 @@ fi
 # move screen shot to the correct folder and rename it
 if [[ -n $SCREEN_SELECTED ]]; then
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+elif [[ -n $SCREEN_WINDOW ]]; then
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"; notify-send -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 else
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 fi

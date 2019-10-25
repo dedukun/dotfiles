@@ -155,8 +155,8 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 # reload the configuration file
 bindsym $mod+Shift+c reload, exec notify-send -t 1500 "i3 configuration reloaded"
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-#bindsym $mod+Shift+r restart
-bindsym $mod+Shift+r exec notify-send -u critical -t 1500 "Restart is disabled"
+bindsym $mod+Shift+r restart
+# bindsym $mod+Shift+r exec notify-send -u critical -t 1500 "Restart is disabled"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -224,16 +224,16 @@ bindsym $mod+backslash scratchpad show
 #bindsym $mod+ fullscreen disable
 
 # screen shots
-bindsym $mod+Print exec "$SCRIPTS/screenshots.sh -df"
+bindsym $mod+Print exec "$SCRIPTS/screenshots.sh -df -m"
 
-# only take a screen shot of the selected region
-bindsym $mod+Shift+Print exec "$SCRIPTS/screenshots.sh -df -s"
+# # only take a screen shot of the selected region
+# bindsym $mod+Shift+Print exec "$SCRIPTS/screenshots.sh -df -s"
 
 # screen shots GBT current project
-bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots"
+bindsym $mod+Control+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots -m"
 
-# screen shots GBT current project of the selected region
-bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots -s"
+# # screen shots GBT current project of the selected region
+# bindsym $mod+Control+Shift+Print exec "$SCRIPTS/screenshots.sh -f $(glbt_proj --get)/Pictures/screenshots -s"
 
 # Mexec mark
 bindsym $mod+m exec i3-msg mark mexecDest && notify-send -t 3000 "[mexec] marked window" "'$($SCRIPTS/i3/name.sh)'"
@@ -258,6 +258,15 @@ bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"
 
 # GBT Show current project
 bindsym $mod+Shift+g exec "$SCRIPTS/gbt/project.sh --show"
+
+# Toggle Mouse Remaps
+bindsym $mod+b exec "$SCRIPTS/mousebuttons.sh --toggle"
+
+# Mouse Remaps Show
+bindsym $mod+Shift+b exec "$SCRIPTS/mousebuttons.sh --show"
+
+# Mouse Remaps Mode
+bindsym $mod+Control+b exec "$SCRIPTS/mousebuttons.sh --mode"
 
 # special key
 #bindcode $mod+248

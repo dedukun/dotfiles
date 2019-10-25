@@ -8,9 +8,15 @@ export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_AVD_HOME="$HOME/.android/avd"
 
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
 export SCRIPTS="$HOME/.scripts"
+
+# export python startup file to add autocomplete to python console
+export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
 # start ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then

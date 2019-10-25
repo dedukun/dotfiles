@@ -1,7 +1,9 @@
 #!/bin/bash
 print_help () {
     printf "Change Second Monitor\n"
-    printf "This script helps configuring the second display.\nWith no extra options the second monitor will be configured as a mirror of the main monitor.\n"
+    printf "This wrapper script helps configuring the second display."
+    # printf "With no extra options the second monitor will be configured as a mirror of the main monitor."
+    printf "\n"
     printf "\t-m, --mode        Specify the display mode (default 1920x1080)\n"
     printf "\t-M, --dmenu-mode  Choose the display mode using a dmenu list\n"
     printf "\t    --output      Specify the output (default HDMI2)\n"
@@ -20,6 +22,11 @@ change_workspace_outputs() {
     sed -i -r "s/(^workspace \"[5-7]\" output ).*/\1$2/" "$HOME/.config/i3/config"
 
     i3-msg -q reload
+}
+
+# [ WIP ]
+check_main_monitor() {
+    xrandr | grep -A 1 "eDP1" | tail -n 1 | awk '{print $2}'
 }
 
 # Set display off

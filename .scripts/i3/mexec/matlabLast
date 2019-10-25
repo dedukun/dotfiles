@@ -1,0 +1,7 @@
+#!/bin/sh
+K_ID="$("$SCRIPTS"/i3/mexec/.aux/keyboard_id.sh)"
+xinput set-int-prop "$K_ID" "Device Enabled" 8 0 # disable keyboard
+xdotool key Up                                   # last command
+xdotool key Return                               # run it
+xinput set-int-prop "$K_ID" "Device Enabled" 8 1 # enable keyboard
+exit 0

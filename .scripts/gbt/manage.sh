@@ -8,10 +8,10 @@ case $MAN_CMD in
         st glbt_log
         ;;
     "Move")
-        notify-send -u critical -t 1500 "Move not implemented"
+        notify-send -u critical -t 1500 "'Move' not implemented"
         ;;
     "Outputs")
-        notify-send -u critical -t 1500 "Outputs not implemented"
+        notify-send -u critical -t 1500 "'Outputs' not implemented"
         ;;
     "New Project")
         glbt_proj --new

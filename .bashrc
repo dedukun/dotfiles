@@ -5,7 +5,7 @@ PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\[\033[01;34m\]\W\[\033[00m\]] \$ '
 export HISTCONTROL=ignoredups       # dont save duplicate consecutive commands
 HISTSIZE=HISTFILESIZE=              # infinite history
 shopt -s histappend                 # append to history, don't overwrite it
-#[[ $(echo "$PROMPT_COMMAND" | grep history) ]] || PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"  # update history after each command in multiple terminals
+PROMPT_COMMAND='history -a; history -n'  # update history after each command in multiple terminals
 
 # disable automatically executing !, !!, !?, instead filling the bash with the command
 shopt -s histverify
@@ -33,7 +33,7 @@ alias  l='ls -l'
 alias ll='ls -lA'
 alias less='less -i'
 alias grep='grep --color'
-alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html}'
+alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html,*.sh}'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
@@ -45,13 +45,10 @@ alias wine64="WINEPREFIX=\$HOME/.wine64 wine64"
 alias winecfg="WINEPREFIX=\$HOME/.wine32 winecfg"
 alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
 
-# export python startup file to add autocomplete to python console
-export PYTHONSTARTUP="$HOME/.pythonrc.py"
-
 youtube() {
     workonenv
     workon youtube
-    mpsyt
+    "$HOME/Applications/mps-youtube/mpsyt" "$*"
     deactivate
 }
 

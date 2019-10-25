@@ -107,16 +107,18 @@ _install_i3() {
     apt install suckless-tools -y           # dmenu | slock
     apt install i3-wm i3status -y
 
+    runuser -l "$usr_name" -c "mkdir -p $usr_home/Applications"
+
     # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
     apt install libX11-dev
-    git clone https://github.com/schischi/xcwd.git /tmp/xcwd
-    cd /tmp/xcwd || { _error "Can't cd into '/tmp/xcwd'"; return $?; }
-    make
+    runuser -l "$usr_name" -c "git clone https://github.com/schischi/xcwd.git $usr_home/Applications/xcwd"
+    cd $usr_home/Applications/xcwd || { _error "Can't cd into '$usr_home/Applications/xcwd'"; return $?; }
+    runuser -l "$usr_name" -c "make"
     make install
     cd "$usr_home" || { _error "Can't cd into '$usr_home'"; return $?; }
 
     # dmenu network manager [mod+F2]
-    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications2/networkmanager-dmenu"
+    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications/networkmanager-dmenu"
 }
 
 _install_basics() {
@@ -130,14 +132,16 @@ _install_extra_packages() {
     printf "\nInstalling extras packages...\n"
     apt install xserver-xorg-input-synaptics -y # synclient (to config touchpad)
     apt install libnotify4 libnotify-bin -y     # notify-send
-    apt install zathura xdotool -y              # zathura and xdotool to search forward inside zathura
     apt install thunderbird -y                  # mail client
     apt install xbacklight -y                   #
     apt install unclutter -y                    # puts the mouse invisible
     apt install chromium -y                     # chromium to use as secondary browser
     apt install redshift -y                     # reduce blue light (similar f.lux)
     apt install mlocate -y                      # updatedb locate
+    apt install xdotool -y                      #
     apt install xtrlock -y                      # lock display leaving windows visible
+    apt install zathura -y                      # pdf reader
+    apt install wmctrl -y                       #
     apt install xinput -y                       #
     apt install xclip -y                        # clipboard tool
     apt install htop -y                         # interactive process viewer
@@ -171,6 +175,7 @@ _install_dotfiles(){
     cp -p    ".xinitrc" "$usr_home"
     cp -p    ".screenrc" "$usr_home"
     cp -p    ".pythonrc.py" "$usr_home"
+    cp -p    ".xbindkeysrc" "$usr_home"
     cp -p -r ".config/" "$usr_home"
     cp -p -r ".local/" "$usr_home"
     ln -s    "$usr_home/.config/nvim" "$usr_home/.vim"
@@ -197,7 +202,7 @@ _install_scripts() {
     ln -s "$usr_scripts/gbt/outputs.sh" "$usr_scripts_bin/glbt_out"
     ln -s "$usr_scripts/gbt/project.sh" "$usr_scripts_bin/glbt_proj"
     ln -s "$usr_scripts/locate_menu.sh" "$usr_scripts_bin/lome"
-    ln -s "$usr_scripts/wemove_white_spaces.sh" "$usr_scripts_bin/rws"
+    ln -s "$usr_scripts/remove_white_spaces.sh" "$usr_scripts_bin/rws"
 
     # make sure that everything in the user's home is owned by the user
     chown -R "$usr_name:$usr_name" "$usr_home"
