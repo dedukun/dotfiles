@@ -46,7 +46,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 let g:vim_markdown_folding_disabled = 1
 
 " polyglot
-let g:polyglot_disabled = ['latex', 'i3']
+let g:polyglot_disabled = ['latex', 'i3', 'markdown']
 
 " editor
 let g:EditorConfig_exclude_patterns = ['scp://.\*', 'suda://.\*', 'term://.\*']
@@ -63,8 +63,6 @@ autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " deoplete tab-complete
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-let g:UltiSnipsExpandTrigger="<C-j>"
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " deoplete-clang
 let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
@@ -74,5 +72,22 @@ let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
 let g:deoplete#sources#jedi#enable_cache = 1
 let g:deoplete#sources#jedi#python_path = '/usr/bin/python'
 
+" deoplete vimtex
+call deoplete#custom#var('omni', 'input_patterns', {
+      \ 'tex': g:vimtex#re#deoplete
+      \})
+
+" This is old style (deprecated)
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+
+" neosnippet
+" if has('conceal')
+"   set conceallevel=2 concealcursor=niv
+" endif
+
 " vim-commentary
 autocmd FileType matlab setlocal commentstring=\%\ %s
+autocmd FileType dosini setlocal commentstring=#\ %s

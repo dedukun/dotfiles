@@ -15,15 +15,16 @@ Plug 'vimlab/split-term.vim'                   "better terminal
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
-" Autocomplete
+" Autocomplete & snippets
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx'                  "c-lang completer
 Plug 'deoplete-plugins/deoplete-jedi'          "python completer
 Plug 'artur-shaik/vim-javacomplete2'           "java completer
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
 Plug 'ervandew/supertab'                       "use tab for autocomplete
-Plug 'SirVer/ultisnips'                        "snippet engine
-Plug 'honza/vim-snippets'                      "large snippets collection
-Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
+Plug 'Shougo/neosnippet.vim'                   "snippets support
+Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
 
 " Misc
 Plug 'junegunn/goyo.vim'                       "distraction free
@@ -33,7 +34,9 @@ Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'scrooloose/nerdtree'                     "file explorer
 Plug 'Chiel92/vim-autoformat'                  "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
+Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
 "Plug 'editorconfig/editorconfig-vim'           "project configs
+Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
 
 " Syntax
 Plug 'vim-syntastic/syntastic'                 "syntax checker
@@ -42,9 +45,9 @@ Plug 'lervag/vimtex'                           "latex support
 Plug 'nikvdp/ejs-syntax'                       "ejs syntax
 Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
 Plug 'gisphm/vim-gitignore'                    "gitignore syntax
-Plug 'plasticboy/vim-markdown'                 "markdown syntax
 Plug 'datsun240z/bitbake.vim'                  "yocto syntax
 Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
+Plug 'plasticboy/vim-markdown'
 
 " Text objects
 Plug 'kana/vim-textobj-user'                   "create custom text objects easily

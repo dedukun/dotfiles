@@ -107,30 +107,30 @@ do
 
     case $meb_key in
         -b|--back)
-        back_press
-        shift # past value
-        ;;
+            back_press
+            shift # past value
+            ;;
         -f|--forward)
-        forward_press
-        shift # past value
-        ;;
+            forward_press
+            shift # past value
+            ;;
         -m|--mode)
-        mode_select
-        shift # past argument
-        ;;
+            mode_select
+            shift # past argument
+            ;;
         -t|--toggle)
-        toggle_app
-        shift # past argument
-        ;;
+            toggle_app
+            shift # past argument
+            ;;
         -s|--show)
-        show_mode
-        shift # past argument
-        ;;
+            show_mode
+            shift # past argument
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done

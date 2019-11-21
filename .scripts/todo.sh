@@ -27,21 +27,21 @@ do
 
     case $todo_key in
         -l|--list)
-        todo_file="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            todo_file="$2"
+            shift # past argument
+            shift # past value
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help."
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help."
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 

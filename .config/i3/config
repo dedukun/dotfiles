@@ -248,10 +248,10 @@ bindsym $mod+Control+F1 exec "$SCRIPTS/i3/mexec.sh --command"
 bindsym $mod+Shift+F1 exec "$SCRIPTS/i3/mexec.sh --show"
 
 # Curret GBT project TODO list
-bindsym $mod+t exec "$SCRIPTS/other/todo -l $(glbt_proj --get)/.todo"
+bindsym $mod+t exec "$SCRIPTS/todo.sh -l $(glbt_proj --get)/.todo"
 
 # Global TODO list
-bindsym $mod+Shift+t exec "$SCRIPTS/other/todo"
+bindsym $mod+Shift+t exec "$SCRIPTS/todo.sh"
 
 # GBT Manage
 bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"

@@ -23,37 +23,37 @@ do
 
     case $LOME_KEY in
         -l|--lines)
-        LOME_LINES=$2
-        shift # past argument
-        shift # past value
-        ;;
+            LOME_LINES=$2
+            shift # past argument
+            shift # past value
+            ;;
         -f|--folders)
-        shift # past value
-        LOME_LOCATE_FOLDER=yes
-        LOME_LOCATE_ARGS+=" --regex"
-        ;;
+            shift # past value
+            LOME_LOCATE_FOLDER=yes
+            LOME_LOCATE_ARGS+=" --regex"
+            ;;
         -r|--regex)
-        shift # past value
-        LOME_LOCATE_ARGS+=" --regex"
-        ;;
+            shift # past value
+            LOME_LOCATE_ARGS+=" --regex"
+            ;;
         -i|--ignore-case)
-        shift # past value
-        LOME_LOCATE_ARGS+=" -i"
-        ;;
+            shift # past value
+            LOME_LOCATE_ARGS+=" -i"
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         [a-zA-Z._]*)
-        break # parse the remaining arguments outside the case
-        ;;
+            break # parse the remaining arguments outside the case
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help."
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help."
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 
@@ -72,7 +72,7 @@ if [[ -n $2 ]]; then
     # Test if the given command exists in the system
     [[ ! -n $(command -v "$LOME_COMMAND") ]] \
         && echo -e "The command '$LOME_COMMAND' doesn't exists in your system.\nTry again with another command." && exit 1
-fi
+        fi
 
 
 # Search for folders only

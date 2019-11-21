@@ -16,17 +16,17 @@ choose_menu () {
 
     case $screenshot_type in
         Normal)
-        ;;
+            ;;
         Select)
-        SCREEN_SELECTED=YES
-        ;;
+            SCREEN_SELECTED=YES
+            ;;
         Window)
-        SCREEN_WINDOW=YES
-        ;;
+            SCREEN_WINDOW=YES
+            ;;
         *)
-        echo "Invalid screenshot type '$1'."
-        exit 1
-        ;;
+            echo "Invalid screenshot type '$1'."
+            exit 1
+            ;;
     esac
 }
 
@@ -39,42 +39,42 @@ do
 
     case $SCREEN_KEY in
         -f|--folder)
-        SCREEN_BASE_FOLDER=$2
-        shift # past argument
-        shift # past value
-        ;;
+            SCREEN_BASE_FOLDER=$2
+            shift # past argument
+            shift # past value
+            ;;
         -s|--selected)
-        SCREEN_SELECTED=YES
-        shift # past argument
-        ;;
+            SCREEN_SELECTED=YES
+            shift # past argument
+            ;;
         -i|--window)
-        SCREEN_WINDOW=YES
-        shift # past argument
-        ;;
+            SCREEN_WINDOW=YES
+            shift # past argument
+            ;;
         -df|--date-folder)
-        SCREEN_DATE_FOLDER=YES
-        shift # past argument
-        ;;
+            SCREEN_DATE_FOLDER=YES
+            shift # past argument
+            ;;
         -t|--timer)
-        SCREEN_TIMER=$2
-        shift # past argument
-        shift # past value
-        ;;
+            SCREEN_TIMER=$2
+            shift # past argument
+            shift # past value
+            ;;
         -m|--menu)
-        choose_menu
-        shift # past value
-        ;;
+            choose_menu
+            shift # past value
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help."
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help."
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 

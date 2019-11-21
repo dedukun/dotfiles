@@ -13,6 +13,15 @@ function change_email()
     fi
 }
 
+function enable_cache()
+{
+    read -r -p "Do you want to configure this repository to use cache credentials? [Y/n] " cache_creds
+    if [[ $cache_creds =~ ^[Yy]?$ ]]; then
+        git config credential.helper cache
+        echo "git cache configured."
+    fi
+}
+
 if [ "$1" = "commit" ];then
     if [ $(git remote -v \
          | head -n 1 | awk '{ print $2; }' \
@@ -29,6 +38,16 @@ if [ "$1" = "commit" ];then
         if [ ! "$(git config --get user.email)" = "diogo.duarte@globaltronic.pt" ]; then
             printf "Your're not using the GBT email even though you are in a ${COLOR}GitHub${NC} GBT repository.\n"
             change_email
+        fi
+    fi
+elif [ "$1" = "pull" ];then
+    if [ $(git remote -v \
+         | head -n 1 | awk '{ print $2; }' \
+         | cut -d '/' -f 3 \
+         | grep '^git.overleaf.com$' -o) ]; then
+        if [ ! "$(git config --get credential.helper)" = "cache" ]; then
+            printf "Detect ${COLOR}Overleaf${NC} repository with no credentials cache.\n"
+            enable_cache
         fi
     fi
 fi

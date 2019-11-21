@@ -2,21 +2,21 @@
 #.bashrc
 PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\[\033[01;34m\]\W\[\033[00m\]] \$ '
 
-export HISTCONTROL=ignoredups       # dont save duplicate consecutive commands
-HISTSIZE=HISTFILESIZE=              # infinite history
-shopt -s histappend                 # append to history, don't overwrite it
-PROMPT_COMMAND='history -a; history -n'  # update history after each command in multiple terminals
+export HISTCONTROL=ignoredups           # dont save duplicate consecutive commands
+HISTSIZE=HISTFILESIZE=                  # infinite history
+shopt -s histappend                     # append to history, don't overwrite it
+PROMPT_COMMAND='history -a; history -n' # update history after each command in multiple terminals
 
 # disable automatically executing !, !!, !?, instead filling the bash with the command
 shopt -s histverify
 
 # activate bash completion
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 # Add color
@@ -28,12 +28,12 @@ alias vi="nvim"
 alias vim="nvim"
 alias git="\$SCRIPTS/gbt/git.sh"
 alias ag="\$SCRIPTS/ag.sh"
-alias ls='ls -h --color=auto --group-directories-first'
-alias  l='ls -l'
+alias ls='ls -h --color=auto --group-directories-first --sort=extension'
+alias l='ls -l'
 alias ll='ls -lA'
 alias less='less -i'
 alias grep='grep --color'
-alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html,*.sh}'
+alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html,*.sh,*.tex}'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
@@ -59,6 +59,36 @@ workonenv() {
     . "$HOME/.local/bin/virtualenvwrapper.sh"
 }
 
+pip_upgrade() {
+
+    if [ -z "$1" ]; then
+        echo "Missing argument"
+        return 1
+    fi
+
+    case $1 in
+        "2" )
+            ;;
+        "2.7" )
+            ;;
+        "3" )
+            ;;
+        "3.5" )
+            ;;
+        "3.6" )
+            ;;
+        "3.7" )
+            ;;
+        *)
+            echo "ERROR: Unknown version '$1'"
+            return 1
+            ;;
+
+    esac
+
+    sh -c "python$1 -m pip list --outdated | tail -n +3 | awk '{print \$1;}' | xargs python$1 -m pip install --user --upgrade"
+}
+
 # gitignore
 gitignore() {
     local_ignores="""\
@@ -70,11 +100,11 @@ generate-tags.sh
 }
 
 # https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
-stopwatch(){
+stopwatch() {
     local date1
-    date1=$(date +%s);
+    date1=$(date +%s)
     while true; do
-        echo -ne "$(date -u --date @$(($(date +%s) - date1)) +%H:%M:%S)\r";
+        echo -ne "$(date -u --date @$(($(date +%s) - date1)) +%H:%M:%S)\r"
         sleep 0.1
     done
 }
@@ -87,15 +117,21 @@ stopwatch(){
 __fzf_history__() {
     local line
     countskip="$(history | tail -n 1 | grep -E '^ *[0-9]+' -o | wc -c)"
-    countskip="$(( countskip + 1 ))"
+    countskip="$((countskip + 1))"
     line=$(
-    HISTTIMEFORMAT= history |
-    grep '^.\{1,130\}$' --text |
-    sed 's/ *$//g' |
-    { i=$(cat); head --lines=-50 <<<"$i" ; cat ~/shared_history | while read line; do echo " 0000  $line"; done; tail -n 50 <<< "$i"; } |
-    tac |
-    nauniq --skip-chars="$countskip" |
-    tac |
-    $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
-    \grep '^ *[0-9]') && sed 's/ *\([0-9]*\)\** \(.*\)/\2/' <<< "$line"
+        HISTTIMEFORMAT= history |
+            grep '^.\{1,130\}$' --text |
+            sed 's/ *$//g' |
+            {
+                i=$(cat)
+                head --lines=-50 <<<"$i"
+                cat ~/shared_history | while read line; do echo " 0000  $line"; done
+                tail -n 50 <<<"$i"
+            } |
+            tac |
+            nauniq --skip-chars="$countskip" |
+            tac |
+            $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+            \grep '^ *[0-9]'
+    ) && sed 's/ *\([0-9]*\)\** \(.*\)/\2/' <<<"$line"
 }

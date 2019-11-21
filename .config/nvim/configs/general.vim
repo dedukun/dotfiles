@@ -29,7 +29,7 @@ set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
-set spelllang=en,pt              "languages for spell checker
+set spelllang=en                 "languages for spell checker
 
 if has('nvim')
     let g:python3_host_prog = '/usr/local/bin/python3.6'
@@ -60,8 +60,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Enale maximum text width for tex files
 autocmd FileType tex set tw=200
 
-" Enable spell check by default in tex files
+" Enable spell check by default in specific files
 autocmd FileType tex set spell
+autocmd FileType markdown set spell
 
 " Delete bash 'edit-and-execute-command' (C-xC-e, or, if vi-mode enabled, <Esc>v) temporary file when opening it
 "

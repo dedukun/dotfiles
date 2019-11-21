@@ -69,59 +69,59 @@ do
 
     case $DIS_KEY in
         -m|--mode)
-        DIS_MODE="$2"
-        shift # past value
-        shift # past argument
-        ;;
+            DIS_MODE="$2"
+            shift # past value
+            shift # past argument
+            ;;
         -M|--dmenu-mode)
-        dmenu_mode
-        shift # past argument
-        ;;
+            dmenu_mode
+            shift # past argument
+            ;;
         --output)
-        DIS_OUT="$2"
-        shift # past value
-        shift # past argument
-        ;;
+            DIS_OUT="$2"
+            shift # past value
+            shift # past argument
+            ;;
         -a|--above)
-        DIS_DIRECTION="--above"
-        shift # past value
-        ;;
+            DIS_DIRECTION="--above"
+            shift # past value
+            ;;
         -l|--left)
-        DIS_DIRECTION="--left-of"
-        shift # past value
-        ;;
+            DIS_DIRECTION="--left-of"
+            shift # past value
+            ;;
         -r|--right)
-        DIS_DIRECTION="--right-of"
-        shift # past value
-        ;;
+            DIS_DIRECTION="--right-of"
+            shift # past value
+            ;;
         -b|--below)
-        DIS_DIRECTION="--below"
-        shift # past value
-        ;;
+            DIS_DIRECTION="--below"
+            shift # past value
+            ;;
         -o|--off)
-        monitor_off
-        shift # past value
-        ;;
+            monitor_off
+            shift # past value
+            ;;
         --only)
-        only_external
-        shift # past value
-        exit 0
-        ;;
+            only_external
+            shift # past value
+            exit 0
+            ;;
         -p|--primary)
-        DIS_PRIMARY="yes"
-        shift # past value
-        ;;
+            DIS_PRIMARY="yes"
+            shift # past value
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit
-        ;;
+            shift # past argument
+            print_help
+            exit
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 
@@ -130,7 +130,7 @@ if [[ -n $DIS_PRIMARY ]]; then
     change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
 
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR" --primary
-# Set secondary monitor
+    # Set secondary monitor
 else
     change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
 

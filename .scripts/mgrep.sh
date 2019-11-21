@@ -21,32 +21,32 @@ do
 
     case $search_key in
         -i|--ignore-case)
-        shift # past argument
-        search_params+="-i "
-        ;;
+            shift # past argument
+            search_params+="-i "
+            ;;
         -r|--recursive)
-        shift # past argument
-        search_params+="-r "
-        ;;
+            shift # past argument
+            search_params+="-r "
+            ;;
         -R)
-        shift # past argument
-        search_params+="-R "
-        ;;
+            shift # past argument
+            search_params+="-R "
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         -*)
-        echo "Invalid argument '$1'."
-        echo "For more information use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more information use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
         *)
-        shift
-        # Arguments
-        ;;
+            shift
+            # Arguments
+            ;;
     esac
 done
 

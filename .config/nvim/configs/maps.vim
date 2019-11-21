@@ -48,3 +48,8 @@ nnoremap GR :noautocmd rep '\b<cword>\b' %:p:h/*<CR>
 
 " Remap ^W_w to zoomwin
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
+
+" neosnippet
+imap <C-j>     <Plug>(neosnippet_expand_or_jump)
+smap <C-j>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-j>     <Plug>(neosnippet_expand_target)

@@ -2,7 +2,8 @@
 # .bash_profile
 
 # Exports
-export PATH="$PATH:$HOME/.local/bin:$HOME/.npm_global/bin"
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.npm_global/bin:/usr/local/go/bin:$GOPATH/bin"
 export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"

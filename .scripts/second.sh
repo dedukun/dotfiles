@@ -33,34 +33,34 @@ do
 
     case "$csd_key" in
         -m|--mount)
-        second_mount=true
-        shift # past argument
-        ;;
+            second_mount=true
+            shift # past argument
+            ;;
         -u|--umount)
-        second_umount=true
-        shift # past argument
-        ;;
+            second_umount=true
+            shift # past argument
+            ;;
         --mount-point)
-        second_mount_point="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            second_mount_point="$2"
+            shift # past argument
+            shift # past value
+            ;;
         -d|--dev)
-        second_dev="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            second_dev="$2"
+            shift # past argument
+            shift # past value
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        exit
-        ;;
+            shift # past argument
+            print_help
+            exit
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 

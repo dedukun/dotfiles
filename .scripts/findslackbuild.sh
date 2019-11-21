@@ -21,29 +21,29 @@ do
 
     case $SLKF_KEY in
         -r|--repository)
-        SLKF_SOURCE="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            SLKF_SOURCE="$2"
+            shift # past argument
+            shift # past value
+            ;;
         -s|--show)
-        shift # past argument
-        SLKF_SHOW=YES
-        ;;
+            shift # past argument
+            SLKF_SHOW=YES
+            ;;
         -h|--help)
-        shift # past argument
-        print_help
-        return
-        ;;
+            shift # past argument
+            print_help
+            return
+            ;;
         [a-zA-Z]*)
-        SLKF_BUILD="$1"
-        shift # past argument
-        ;;
+            SLKF_BUILD="$1"
+            shift # past argument
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        return
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            return
+            ;;
     esac
 done
 
