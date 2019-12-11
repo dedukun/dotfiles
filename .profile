@@ -16,6 +16,11 @@ export ANDROID_AVD_HOME="$HOME/.android/avd"
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
 export SCRIPTS="$HOME/.scripts"
 
+# locale
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 

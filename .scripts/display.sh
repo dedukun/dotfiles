@@ -125,13 +125,11 @@ do
     esac
 done
 
-# Set secondary monitor with primary option
-if [[ -n $DIS_PRIMARY ]]; then
+if [[ -n $DIS_PRIMARY ]]; then # Set secondary monitor with primary option
     change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
 
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR" --primary
-    # Set secondary monitor
-else
+else # Set secondary monitor
     change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
 
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR"

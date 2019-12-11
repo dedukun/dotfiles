@@ -30,6 +30,7 @@ set noundofile                   "don't create .un~ file for persistent undo
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en                 "languages for spell checker
+set complete=.,w,b,u,t,i,kspell  "complete options
 
 if has('nvim')
     let g:python3_host_prog = '/usr/local/bin/python3.6'
@@ -80,7 +81,7 @@ augroup end
 
 "set color scheme
 try
-    colorscheme gruvbox
+    colorscheme gruvbox8
 catch /^Vim\%((\a\+)\)\=:E185/
     " do nothing
 endtry

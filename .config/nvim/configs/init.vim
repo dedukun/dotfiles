@@ -3,13 +3,14 @@
 
 call plug#begin('~/.vim/plugged')
 " General
-Plug 'ahonn/resize.vim'                        "resize split screens
 Plug 'troydm/zoomwintab.vim'                   "zoom in and out off a split window
 Plug 'myusuf3/numbers.vim'                     "set relativenumber or number depending of the current mode
 Plug 'bronson/vim-trailing-whitespace'         "show whitespaces at the end of lines in red
 Plug 'lambdalisue/suda.vim'                    "edit root flies
-Plug 'morhetz/gruvbox'                         "colorscheme
+Plug 'lifepillar/vim-gruvbox8'                 "colorscheme
 Plug 'vimlab/split-term.vim'                   "better terminal
+Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
+Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -22,6 +23,7 @@ Plug 'deoplete-plugins/deoplete-jedi'          "python completer
 Plug 'artur-shaik/vim-javacomplete2'           "java completer
 Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+Plug 'Shougo/neco-vim'                         "vim completer
 Plug 'ervandew/supertab'                       "use tab for autocomplete
 Plug 'Shougo/neosnippet.vim'                   "snippets support
 Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
@@ -35,8 +37,8 @@ Plug 'scrooloose/nerdtree'                     "file explorer
 Plug 'Chiel92/vim-autoformat'                  "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
 Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
-"Plug 'editorconfig/editorconfig-vim'           "project configs
 Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
+Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
 
 " Syntax
 Plug 'vim-syntastic/syntastic'                 "syntax checker
@@ -45,9 +47,11 @@ Plug 'lervag/vimtex'                           "latex support
 Plug 'nikvdp/ejs-syntax'                       "ejs syntax
 Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
 Plug 'gisphm/vim-gitignore'                    "gitignore syntax
-Plug 'datsun240z/bitbake.vim'                  "yocto syntax
+Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
 Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
-Plug 'plasticboy/vim-markdown'
+Plug 'plasticboy/vim-markdown'                 "markdown syntax and other stuff
+Plug 'calviken/vim-gdscript3'                  "GDScript syntax
+Plug 'neomutt/neomutt.vim'                     "neomutt syntax
 
 " Text objects
 Plug 'kana/vim-textobj-user'                   "create custom text objects easily
@@ -59,4 +63,6 @@ Plug 'tpope/vim-surround'                      "maps to delete, change,... aroun
 Plug 'tpope/vim-unimpaired'                    "maps for multiple uses
 Plug 'tpope/vim-repeat'                        "more repeatable plugins
 Plug 'tpope/vim-commentary'                    "easy comments
+Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
+Plug 'tpope/vim-fugitive'                      "git plugin
 call plug#end()

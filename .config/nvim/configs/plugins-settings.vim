@@ -1,6 +1,13 @@
 """"""""""""""""""""
 " Plugins Settings
 
+" Airline settings
+let g:airline_powerline_fonts = 1
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_theme = 'bubblegum'
+
 " Syntastic settings
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -32,11 +39,11 @@ let g:vimtex_view_method = 'zathura'
 let g:rainbow_active = 1
 let g:rainbow_guifgs = ['DarkOrange3', 'DarkGoldenrod3', 'LightGoldenrod3']
 let g:rainbow_load_separately = [
-            \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-            \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
-            \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-            \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
-            \ ]
+      \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+      \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
+      \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+      \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+      \ ]
 
 " NERDTree
 " closes NERDTree if only NERDTree is open
@@ -82,11 +89,6 @@ if !exists('g:deoplete#omni#input_patterns')
   let g:deoplete#omni#input_patterns = {}
 endif
 let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
-
-" neosnippet
-" if has('conceal')
-"   set conceallevel=2 concealcursor=niv
-" endif
 
 " vim-commentary
 autocmd FileType matlab setlocal commentstring=\%\ %s

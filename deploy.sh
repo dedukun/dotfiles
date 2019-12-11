@@ -28,7 +28,7 @@ _run_as_root() {
 }
 
 _set_user() {
-    [ -z "$(getent passwd "$1")" ] && _error "User '$1' doens't exist." && exit 1
+    [ -z "$(getent passwd "$1")" ] && _error "User '$1' doesn't exist." && exit 1
     usr_name="$1"
     usr_home="/home/$usr_name"
 }
@@ -148,6 +148,7 @@ _install_extra_packages() {
     apt install maim -y                         # to take screenshots
     apt install sxiv -y                         # simple image viewer
     apt install mpv -y                          # media player
+    apt install s -y                            # search browser in terminal
 }
 
 _install_extra_languages() {
@@ -155,6 +156,11 @@ _install_extra_languages() {
     apt install default-jre default-jdk -y  # Java
     apt install npm -y                      # Node
     apt install perl -y                     # Perl
+}
+
+_install_fonts() {
+    printf "\nInstalling fonts...\n"
+    apt install ttf-unifont fonts-cmu fonts-oldstandard mathematica-fonts msttcorefonts ttf-dejavu ttf-bitstream-vera fonts-powerline -y
 }
 
 _install_dotfiles(){
@@ -240,6 +246,7 @@ install_all() {
     _install_basics
     _install_extra_packages
     _install_extra_languages
+    _install_fonts
     _install_dotfiles
     _install_scripts
     _install_python3

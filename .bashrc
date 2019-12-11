@@ -19,6 +19,11 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# s auto completion
+if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
+    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
+fi
+
 # Add color
 eval "$(dircolors -b)"
 
@@ -37,6 +42,7 @@ alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
+alias mtdcd='cd $(mtd --get)'
 #alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
 
 # wine aliases
