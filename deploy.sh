@@ -222,6 +222,9 @@ _install_dotfiles() {
     ln -s "$usr_home/.config/nvim" "$usr_home/.vim"
     ln -s "$usr_home/.config/nvim/init.vim" "$usr_home/.vimrc"
 
+    chmod +x "$usr_home"/.config/polybar/launch.sh
+    chmod +x "$usr_home"/.config/bspwm/bspwmrc
+
     . "$usr_home/.profile"
 
     cd "$usr_home" || {

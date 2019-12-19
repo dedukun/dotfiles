@@ -1,5 +1,4 @@
-#!/bin/bash
-# .bash_profile
+#!/bin/sh
 
 # Exports
 export GOPATH="$HOME/.go"
