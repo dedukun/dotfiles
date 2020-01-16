@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Multiple grep
 # Grep multiple patters at the same time more easily.
 # [WIP]

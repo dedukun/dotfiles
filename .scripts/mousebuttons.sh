@@ -42,6 +42,14 @@ back_press() {
         "Workspace")
             i3-msg workspace prev
             ;;
+        "Firefox Reader View")
+            xdotool key Ctrl+Alt+r
+            ;;
+        "Firefox Force Reader View")
+            xdotool key F6 Home
+            xdotool type "about:reader?url="
+            xdotool key Return
+            ;;
         "Off")
             ;;
         "")
@@ -68,6 +76,12 @@ forward_press() {
         "Workspace")
             i3-msg workspace next
             ;;
+        "Firefox Reader View")
+            xdotool key --delay 2 Down Down Down Down Down Down
+            ;;
+        "Firefox Force Reader View")
+            xdotool key --delay 2 Down Down Down Down Down Down
+            ;;
         "Off")
             ;;
         "")
@@ -82,7 +96,7 @@ forward_press() {
 }
 
 mode_select() {
-    meb_mode=$(printf "LeftRight\nUpDown\nWorkspace\nOff" | dmenu -i -p "Mode: ")
+    meb_mode=$(printf "LeftRight\nUpDown\nWorkspace\nFirefox Reader View\nFirefox Force Reader View\nOff" | dmenu -i -p "Mode: ")
     sed -i "s/mode=.*$/mode=$meb_mode/ g" "$SCRIPTS/.config/.meb"
 
     # MISSING CHECK VALUE

@@ -11,6 +11,7 @@ Plug 'lifepillar/vim-gruvbox8'                 "colorscheme
 Plug 'vimlab/split-term.vim'                   "better terminal
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
+Plug 'yuratomo/w3m.vim'
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -34,7 +35,7 @@ Plug 'vim-airline/vim-airline'                 "status/tabline
 Plug 'vim-airline/vim-airline-themes'          "status line themes
 Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'scrooloose/nerdtree'                     "file explorer
-Plug 'Chiel92/vim-autoformat'                  "autoformatter
+Plug 'sbdchd/neoformat'                        "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
 Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
 Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)

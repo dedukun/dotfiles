@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # This script wrappes ag to have default configurations (alias not really working with no argument)
 if [ "$#" = 0 ]; then
     ag

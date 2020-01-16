@@ -38,15 +38,13 @@ _error() {
 }
 
 _check_non_free_repositories() {
-    if [ $(grep -q "non-free" /etc/apt/sources.list) ]; then
-        printf "Contrib and non-free repositories are not active."
-        read -r -p "\nThis script needs them to install some of the packages,
-want to activate them? [Y/n] " activate_non_free
+    if [ ! $(grep -q "non-free" /etc/apt/sources.list) ]; then
+        dialog --yesno "Contrib and non-free repositories are not active.\nThis script needs them to install some of the packages, and will automatically enable them, want to continue?" 7 60
 
-        if [ $(echo "$activate_non_free" | grep -q -e "^[yY]?$") -gt 0 ]; then
-            printf "OK"
+        if [ "$?" -eq 0 ]; then
+            sed "s/^deb.*main$/& contrib non-free/g" /etc/apt/sources.list
         else
-            printf "ERROR"
+
         fi
     fi
 }
@@ -347,8 +345,10 @@ parse_args() {
 ## MAIN FUNCTION ##
 ###################
 
-parse_args "$@"
+# parse_args "$@"
 
+_check_non_free_repositories
+exit 0
 apt update
 _run_as_root "$@"
 

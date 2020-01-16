@@ -29,7 +29,7 @@ set encoding=utf-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
-set spelllang=en                 "languages for spell checker
+set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
 
 if has('nvim')

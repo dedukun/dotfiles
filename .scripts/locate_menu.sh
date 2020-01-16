@@ -1,23 +1,23 @@
-#!/bin/bash
+#!/bin/sh
 print_help () {
-    echo -e "LOME (Locate Menu)\n"
-    echo -e "This script finds items in the system and pipes the output to dmenu."
-    echo -e "The result of the selection if then passed to a given command."
-    echo -e "(eg. lome <item> <command>) [default command is 'echo']\n"
-    echo -e "Options:"
-    echo -e "\t-l, --lines         Number of lines in dmenu (default: 25)"
-    echo -e "\t-f, --folders       Only search for directories (Uses regex '/<dirname>$')"
-    echo -e "\t-r, --regex         Find items using regex"
-    echo -e "\t-i, --ignore-case   Search case insensetive"
-    echo -e "\t-h, --help          Prints help menu"
-    echo -e "\nRequires: mlocate dmenu vim"
+    echo "LOME (Locate Menu)\n"
+    echo "This script finds items in the system and pipes the output to dmenu."
+    echo "The result of the selection if then passed to a given command."
+    echo "(eg. lome <item> <command>) [default command is 'echo']\n"
+    echo "Options:"
+    echo "\t-l, --lines         Number of lines in dmenu (default: 25)"
+    echo "\t-f, --folders       Only search for directories (Uses regex '/<dirname>$')"
+    echo "\t-r, --regex         Find items using regex"
+    echo "\t-i, --ignore-case   Search case insensetive"
+    echo "\t-h, --help          Prints help menu"
+    echo "\nRequires: mlocate dmenu vim"
 }
 
 LOME_LINES=25
 LOME_LOCATE_ARGS=""
 LOME_COMMAND="echo"   # default command
 
-while [[ $# -gt 0 ]]
+while [ $# -gt 0 ]
 do
     LOME_KEY="$1"
 
@@ -58,7 +58,7 @@ do
 done
 
 # Get first argument (locate value)
-if [[ -n $1 ]]; then
+if [ -n $1 ]; then
     LOME_LOCATE_VALUE="$1"
 else
     echo "No argument locate"
@@ -66,17 +66,17 @@ else
 fi
 
 # Get second argument (command)
-if [[ -n $2 ]]; then
+if [ -n $2 ]; then
     LOME_COMMAND="$2"
 
     # Test if the given command exists in the system
-    [[ ! -n $(command -v "$LOME_COMMAND") ]] \
+    [ ! -n $(command -v "$LOME_COMMAND") ] \
         && echo -e "The command '$LOME_COMMAND' doesn't exists in your system.\nTry again with another command." && exit 1
         fi
 
 
 # Search for folders only
-if [[ -n $LOME_LOCATE_FOLDER ]]; then
+if [ -n $LOME_LOCATE_FOLDER ]; then
     LOME_LOCATE_VALUE="$LOME_LOCATE_VALUE$"
 fi
 
