@@ -49,9 +49,6 @@ let g:rainbow_load_separately = [
 " closes NERDTree if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" vim-markdown
-let g:vim_markdown_folding_disabled = 1
-
 " polyglot
 let g:polyglot_disabled = ['latex', 'i3', 'markdown']
 

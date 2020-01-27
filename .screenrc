@@ -1,4 +1,4 @@
-# change command character from ctrl-a to ctrl-b (emacs users may want this)
+# change command character from ctrl-a to ctrl-f, as ctrl-a is already used in picocom
 escape ^Ff
 
 # Don't display the copyright page

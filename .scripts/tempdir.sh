@@ -27,7 +27,7 @@ rm_directory() {
 }
 
 delete_directories() {
-    [ ! -f "$mtd_cache" ] && echo "No directories in cache" && exit
+    [ ! -f "$mtd_cache" ] && exit_error "No directories in cache"
 
     printf "Deleting directories...\n"
 

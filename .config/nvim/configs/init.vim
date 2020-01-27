@@ -11,7 +11,7 @@ Plug 'lifepillar/vim-gruvbox8'                 "colorscheme
 Plug 'vimlab/split-term.vim'                   "better terminal
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
-Plug 'yuratomo/w3m.vim'
+Plug 'yuratomo/w3m.vim'                        "w3m support with :W3m
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -50,7 +50,6 @@ Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
 Plug 'gisphm/vim-gitignore'                    "gitignore syntax
 Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
 Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
-Plug 'plasticboy/vim-markdown'                 "markdown syntax and other stuff
 Plug 'calviken/vim-gdscript3'                  "GDScript syntax
 Plug 'neomutt/neomutt.vim'                     "neomutt syntax
 
