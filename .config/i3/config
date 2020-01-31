@@ -167,6 +167,9 @@ bar {
 }
 
 # Brightness controls
+bindsym $mod+F3 exec "$SCRIPTS/keyboard_backlight.sh --dec"
+bindsym $mod+F4 exec "$SCRIPTS/keyboard_backlight.sh --inc"
+
 bindsym $mod+F5 exec "xbacklight -dec 5"
 bindsym $mod+F6 exec "xbacklight -inc 5"
 bindsym $mod+Control+F5 exec "xbacklight -dec 10"

@@ -50,7 +50,7 @@ let g:rainbow_load_separately = [
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " polyglot
-let g:polyglot_disabled = ['latex', 'i3', 'markdown']
+let g:polyglot_disabled = ['latex', 'i3']
 
 " editor
 let g:EditorConfig_exclude_patterns = ['scp://.\*', 'suda://.\*', 'term://.\*']
@@ -90,3 +90,4 @@ let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 " vim-commentary
 autocmd FileType matlab setlocal commentstring=\%\ %s
 autocmd FileType dosini setlocal commentstring=#\ %s
+autocmd FileType markdown setlocal commentstring=<!--%s-->
