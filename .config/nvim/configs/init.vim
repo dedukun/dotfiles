@@ -30,16 +30,18 @@ Plug 'Shougo/neosnippet.vim'                   "snippets support
 Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
 
 " Misc
-Plug 'junegunn/goyo.vim'                       "distraction free
 Plug 'vim-airline/vim-airline'                 "status/tabline
 Plug 'vim-airline/vim-airline-themes'          "status line themes
-Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'scrooloose/nerdtree'                     "file explorer
+Plug 'Xuyuanp/nerdtree-git-plugin'             "git plugin for nerdtree
+Plug 'junegunn/goyo.vim'                       "distraction free
+Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'sbdchd/neoformat'                        "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
 Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
 Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
+Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
 
 " Syntax
 Plug 'vim-syntastic/syntastic'                 "syntax checker

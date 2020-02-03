@@ -48,6 +48,8 @@ let g:rainbow_load_separately = [
 " NERDTree
 " closes NERDTree if only NERDTree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" show hidden files
+let NERDTreeShowHidden=1
 
 " polyglot
 let g:polyglot_disabled = ['latex', 'i3']

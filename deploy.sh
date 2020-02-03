@@ -8,7 +8,7 @@ _run_as_root() {
     if [ ! "$(whoami)" = root ]; then
         # save original home directory
         if [ -z "$usr_name" ]; then
-            echo "$USER" >> /tmp/dotfiles-deploy.sh
+            echo "$USER" >>/tmp/dotfiles-deploy.sh
         fi
         sudo "$0" "$@"
         exit $?
@@ -63,7 +63,7 @@ _install_python3() {
 
     # upgrade pip
     runuser -l "$usr_name" -c "python3 -m pip install --upgrade pip"
-f
+    f
     # install virtualenvwrapper
     runuser -l "$usr_name" -c "python3 -m pip install --user virtualenvwrapper"
 }
@@ -193,7 +193,15 @@ _install_extra_languages() {
 
 _install_fonts() {
     printf "\nInstalling fonts...\n"
-    apt install ttf-unifont fonts-cmu fonts-oldstandard mathematica-fonts msttcorefonts ttf-dejavu ttf-bitstream-vera fonts-powerline -y
+    apt install ttf-unifont \
+        fonts-cmu \
+        fonts-oldstandard \
+        mathematica-fonts \
+        msttcorefonts \
+        ttf-dejavu \
+        ttf-bitstream-vera \
+        fonts-powerline \
+        fonts-firacode -y
 }
 
 _install_dotfiles() {
@@ -220,6 +228,7 @@ _install_dotfiles() {
     cp -p ".xbindkeysrc" "$usr_home"
     cp -p -r ".config/" "$usr_home"
     cp -p -r ".local/" "$usr_home"
+    ln -s "$usr_home/.profile" "$usr_home/.zprofile"
     ln -s "$usr_home/.config/nvim" "$usr_home/.vim"
     ln -s "$usr_home/.config/nvim/init.vim" "$usr_home/.vimrc"
 

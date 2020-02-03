@@ -39,6 +39,9 @@ back_press() {
         "UpDown")
             xdotool key 116
             ;;
+        "PagesUpDown")
+            xdotool key --delay 2 Page_Down Up
+            ;;
         "Workspace")
             i3-msg workspace prev
             ;;
@@ -74,6 +77,9 @@ forward_press() {
         "UpDown")
             xdotool key 111
             ;;
+        "PagesUpDown")
+            xdotool key --delay 2 Page_Up Down
+            ;;
         "Workspace")
             i3-msg workspace next
             ;;
@@ -98,7 +104,7 @@ forward_press() {
 }
 
 mode_select() {
-    meb_mode=$(printf "LeftRight\nUpDown\nWorkspace\nFirefox Reader View\nFirefox Force Reader View\nOff" | dmenu -i -p "Mode: ")
+    meb_mode=$(printf "LeftRight\nUpDown\nPagesUpDown\nWorkspace\nFirefox Reader View\nFirefox Force Reader View\nOff" | dmenu -i -p "Mode: ")
     sed -i "s/mode=.*$/mode=$meb_mode/ g" "$SCRIPTS/.config/.meb"
 
     # TODO MISSING CHECK VALUE

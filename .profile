@@ -1,13 +1,15 @@
 #!/bin/sh
 
-# Exports
-export GOPATH="$HOME/.go"
-export PATH="$PATH:$HOME/.local/bin:$HOME/.npm_global/bin:/usr/local/go/bin:$GOPATH/bin"
+# Default programs
 export EDITOR="nvim"
 export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
+
+# Exports
+export GOPATH="$HOME/.go"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.npm_global/bin:/usr/local/go/bin:$GOPATH/bin"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"

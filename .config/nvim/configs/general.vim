@@ -4,6 +4,8 @@
 filetype plugin indent on
 syntax enable                    "enable syntax highlighting
 
+set autoindent                   "indent at the same level of the previous line
+set autoread                     "automatically read a file changed outside of vim
 set nocompatible                 "less vi compatibility
 set termguicolors                "number of colors
 set tabstop=4                    "tabs are 4 spaces
@@ -13,6 +15,7 @@ set mouse=a                      "enable mouse
 set tw=0                         "maximum width of text that is being inserted
 set cursorline                   "set a line where the cursor is
 set showcmd                      "show commands in the lower right corner
+set showmatch                    "show matching brackets/parentthesis
 set number                       "set number of the lines in the side
 set hlsearch                     "highlight all search matches
 set ignorecase                   "searches are case insensitive
@@ -41,11 +44,11 @@ set backupdir=~/.vim/.backup//
 set directory=~/.vim/.backup//
 
 " Tags files default locations
-set tags=./tags,./TAGS,tags,TAGS,../tags,../TAGS
+set tags=tags,TAGS,./tags,./TAGS,../tags,../TAGS
 
 " Change cursor shape depending of the mode
 if has('nvim')
-    " only needed in nvim 0.1.7 or before
+    " only needed in nvim 0.1.7 or older
     if !has('nvim-0.1.7')
         let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
     endif
