@@ -34,6 +34,9 @@ nnoremap <leader>N :call ToggleNumber()<CR>
 " File Explorer
 nnoremap <leader>m :NERDTreeToggle<CR>
 
+" Refresh the buffer and NERDTree
+nnoremap <leader>r :call RefreshBufferAndNERDTree()<CR>
+
 " Remap split windows navigation
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j

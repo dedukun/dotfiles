@@ -1,46 +1,41 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export ZSH_CONFIGS="$HOME/.config/zsh"
+export ZPLUG_HOME="$ZSH_CONFIGS/.zplug"
+source $ZPLUG_HOME/init.zsh
 
-# Path to your oh-my-zsh installation.
-export ZSH="$HOME/.config/oh-my-zsh"
+# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-# ZSH_THEME="Ducula/ducula"
-# ZSH_THEME="oxide"
-# ZSH_THEME="lambda-mod"
-# ZSH_THEME="zeta"
-# ZSH_THEME="punctual"
-ZSH_THEME="spaceship"
+# Set the priority when loading
+# e.g., zsh-syntax-highlighting must be loaded
+# after executing compinit command and sourcing other plugins
+# (If the defer tag is given 2 or above, run after compinit command)
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
+zplug "zsh-users/zsh-completions"
+zplug "softmoth/zsh-vim-mode"
+zplug "plugins/git-prompt", from:oh-my-zsh
+# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
+
+# Load theme file
+zplug 'dracula/zsh', as:theme
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
+# ZSH_THEME="spaceship"
 SPACESHIP_VI_MODE_SHOW="false"
 SPACESHIP_TIME_SHOW="true"
 SPACESHIP_USER_SHOW="always"
 SPACESHIP_BATTERY_THRESHOLD="15"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="dd.mm.yyyy"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-completions zsh-vim-mode git-prompt)
-
-source $ZSH/oh-my-zsh.sh
+ZSH_DISABLE_COMPFIX=true
 
 autoload -U compinit
 zstyle ':completion:*' menu select

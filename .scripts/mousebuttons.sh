@@ -40,7 +40,7 @@ back_press() {
             xdotool key 116
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Page_Down Up
+            xdotool key --delay 2 Page_Up Down
             ;;
         "Workspace")
             i3-msg workspace prev
@@ -78,7 +78,7 @@ forward_press() {
             xdotool key 111
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Page_Up Down
+            xdotool key --delay 2 Page_Down Up
             ;;
         "Workspace")
             i3-msg workspace next

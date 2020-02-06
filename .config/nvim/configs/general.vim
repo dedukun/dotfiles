@@ -61,6 +61,9 @@ endif
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
+" Auto check the file so that 'autoread' works as expected
+autocmd FocusGained,BufEnter * :call RefreshBufferAndNERDTree()
+
 " Enale maximum text width for tex files
 autocmd FileType tex set tw=200
 

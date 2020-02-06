@@ -262,6 +262,12 @@ bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"
 # GBT Show current project
 bindsym $mod+Shift+g exec "$SCRIPTS/gbt/project.sh --show"
 
+# Personal Projects
+bindsym $mod+p exec "$SCRIPTS/gbt/manage.sh"
+
+# Show current personal project
+bindsym $mod+Shift+p exec "$SCRIPTS/gbt/project.sh --show"
+
 # Toggle Mouse Remaps
 bindsym $mod+b exec "$SCRIPTS/mousebuttons.sh --toggle"
 

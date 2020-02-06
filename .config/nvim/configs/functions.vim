@@ -62,5 +62,10 @@ function SyntasticToggle()
     endif
 endfunction
 
+function RefreshBufferAndNERDTree()
+    silent! checktime
+    silent! NERDTreeRefreshRoot
+endfunction
+
 " args *
 " argsdo
