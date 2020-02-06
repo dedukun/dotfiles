@@ -14,6 +14,7 @@ export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 
+export ZSH_CONFIGS="$HOME/.config/zsh"
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
 export SCRIPTS="$HOME/.scripts"
 

@@ -1,22 +1,18 @@
-export ZSH_CONFIGS="$HOME/.config/zsh"
+###############
+# ZPLUG STUFF #
+###############
+
 export ZPLUG_HOME="$ZSH_CONFIGS/.zplug"
 source $ZPLUG_HOME/init.zsh
 
-# zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 
-# Set the priority when loading
-# e.g., zsh-syntax-highlighting must be loaded
-# after executing compinit command and sourcing other plugins
-# (If the defer tag is given 2 or above, run after compinit command)
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 zplug "zsh-users/zsh-completions"
-zplug "softmoth/zsh-vim-mode"
-zplug "plugins/git-prompt", from:oh-my-zsh
-# zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 
-# Load theme file
-zplug 'dracula/zsh', as:theme
+zplug 'mafredri/zsh-async', from:github
+zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -29,11 +25,13 @@ fi
 # Then, source plugins and add commands to $PATH
 zplug load
 
-# ZSH_THEME="spaceship"
-SPACESHIP_VI_MODE_SHOW="false"
-SPACESHIP_TIME_SHOW="true"
-SPACESHIP_USER_SHOW="always"
-SPACESHIP_BATTERY_THRESHOLD="15"
+##################
+# CONFIGURATIONS #
+##################
+
+setopt INC_APPEND_HISTORY
+SAVEHIST=1000
+HISTFILE=~/.zsh_history
 
 ZSH_DISABLE_COMPFIX=true
 
@@ -52,16 +50,31 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-MODE_CURSOR_VICMD="green block"
-MODE_CURSOR_VIINS="#20d08a blinking bar"
-MODE_CURSOR_SEARCH="#ff00ff steady underline"
+# ZLE hooks for prompt's vi mode status
+function zle-line-init zle-keymap-select {
+	# Change the cursor style depending on keymap mode.
+	case $KEYMAP {
+		vicmd)
+			printf '\e[0 q' # Box.
+			;;
+
+		viins|main)
+			printf '\e[6 q' # Vertical bar.
+			;;
+	}
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+#########
+# ALIAS #
+#########
 
 # User defined aliases
 unalias -a
-alias nvim="\$HOME/.local/bin/nvim"
 alias vi="nvim"
 alias vim="nvim"
-alias git="\$SCRIPTS/gbt/git.sh"
+# alias git="\$SCRIPTS/gbt/git.sh"
 alias ag="\$SCRIPTS/ag.sh"
 alias ls='ls -h --color=auto --group-directories-first --sort=extension'
 alias l='ls -l'
@@ -80,6 +93,10 @@ alias wine="WINEPREFIX=\$HOME/.wine32 wine"
 alias wine64="WINEPREFIX=\$HOME/.wine64 wine64"
 alias winecfg="WINEPREFIX=\$HOME/.wine32 winecfg"
 alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
+
+############
+# FUCTIONS #
+############
 
 youtube() {
     workonenv
@@ -144,6 +161,10 @@ stopwatch() {
         sleep 0.1
     done
 }
+
+#################
+# FZF OVERWRITE #
+#################
 
 # Initialize fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

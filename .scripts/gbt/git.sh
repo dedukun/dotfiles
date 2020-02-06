@@ -52,5 +52,5 @@ elif [ "$1" = "pull" ];then
     fi
 fi
 
-git "$@"
+/usr/bin/git "$@"
 exit $?
