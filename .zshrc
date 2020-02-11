@@ -30,13 +30,17 @@ zplug load
 ##################
 
 setopt INC_APPEND_HISTORY
-SAVEHIST=1000
+setopt HIST_IGNORE_DUPS
+setopt EXTENDED_HISTORY
 HISTFILE=~/.zsh_history
+SAVEHIST=10000
+HISTSIZE=10000
 
 ZSH_DISABLE_COMPFIX=true
 
 autoload -U compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
 zmodload zsh/complist
 compinit
 
@@ -167,7 +171,7 @@ stopwatch() {
 #################
 
 # Initialize fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 # https://github.com/junegunn/fzf/issues/1309
 # Remove repeated entries from fzf history search

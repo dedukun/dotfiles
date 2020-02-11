@@ -40,7 +40,7 @@ back_press() {
             xdotool key 116
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Page_Up Down
+            xdotool key --delay 2 Down Page_Up
             ;;
         "Workspace")
             i3-msg workspace prev
@@ -78,16 +78,16 @@ forward_press() {
             xdotool key 111
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Page_Down Up
+            xdotool key --delay 2 Up Page_Down
             ;;
         "Workspace")
             i3-msg workspace next
             ;;
         "Firefox Reader View")
-            xdotool key --delay 2 Page_Down Up Up Up
+            xdotool key --delay 2 Up Up Up Page_Down
             ;;
         "Firefox Force Reader View")
-            xdotool key --delay 2 Page_Down Up Up Up
+            xdotool key --delay 2 Up Up Up Page_Down
             ;;
         "Off")
             # DO NOTHING

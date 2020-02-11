@@ -13,10 +13,6 @@ Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
 Plug 'yuratomo/w3m.vim'                        "w3m support with :W3m
 
-" Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-
 " Autocomplete & snippets
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-clangx'                  "c-lang completer

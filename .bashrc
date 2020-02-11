@@ -116,7 +116,6 @@ stopwatch() {
 }
 
 # Initialize fzf
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # https://github.com/junegunn/fzf/issues/1309
 # Remove repeated entries from fzf history search
