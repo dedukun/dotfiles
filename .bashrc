@@ -116,6 +116,7 @@ stopwatch() {
 }
 
 # Initialize fzf
+[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # https://github.com/junegunn/fzf/issues/1309
 # Remove repeated entries from fzf history search

@@ -14,16 +14,24 @@ Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - =
 Plug 'yuratomo/w3m.vim'                        "w3m support with :W3m
 
 " Autocomplete & snippets
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-clangx'                  "c-lang completer
-Plug 'deoplete-plugins/deoplete-jedi'          "python completer
-Plug 'artur-shaik/vim-javacomplete2'           "java completer
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-Plug 'Shougo/neco-vim'                         "vim completer
-Plug 'ervandew/supertab'                       "use tab for autocomplete
-Plug 'Shougo/neosnippet.vim'                   "snippets support
-Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
+if USE_COC
+  Plug 'Shougo/neco-vim'
+  Plug 'neoclide/coc-neco'
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+else
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete-clangx'                  "c-lang completer
+  Plug 'deoplete-plugins/deoplete-jedi'          "python completer
+  Plug 'artur-shaik/vim-javacomplete2'           "java completer
+  Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+  Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
+  Plug 'Shougo/neco-vim'                         "vim completer
+  Plug 'ervandew/supertab'                       "use tab for autocomplete
+  Plug 'Shougo/neosnippet.vim'                   "snippets support
+  Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
+endif
+
+Plug 'Shougo/echodoc.vim'
 
 " Misc
 Plug 'vim-airline/vim-airline'                 "status/tabline

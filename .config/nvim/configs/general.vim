@@ -4,6 +4,7 @@
 filetype plugin indent on
 syntax enable                    "enable syntax highlighting
 
+set hidden
 set autoindent                   "indent at the same level of the previous line
 set autoread                     "automatically read a file changed outside of vim
 set nocompatible                 "less vi compatibility
@@ -34,9 +35,14 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
+set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
+set updatetime=300
+set shortmess+=c                 "don't give |ins-completion-menu| messages.
 
-if has('nvim')
-    let g:python3_host_prog = '/usr/local/bin/python3.6'
+if USE_COC
+    set signcolumn=yes               "show signcolumns
+    set nobackup                     "don't create backups
+    set nowritebackup
 endif
 
 " Change the directory where temporary files are stored
@@ -44,7 +50,11 @@ set backupdir=~/.vim/.backup//
 set directory=~/.vim/.backup//
 
 " Tags files default locations
-set tags=tags,TAGS,./tags,./TAGS,../tags,../TAGS
+set tags=tags,./tags
+
+if has('nvim')
+    let g:python3_host_prog = '/usr/local/bin/python3.6'
+endif
 
 " Change cursor shape depending of the mode
 if has('nvim')

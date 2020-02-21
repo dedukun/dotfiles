@@ -36,10 +36,11 @@ floating_modifier $mod
 bindsym $mod+Return exec $TERMINAL
 
 # start a terminal in the focused window's working directory
-bindsym $mod+Shift+Return exec $(cd $(xcwd) && $TERMINAL)
+# bindsym $mod+Shift+Return exec $(cd $(xcwd) && $TERMINAL)
+bindsym $mod+Shift+Return exec $TERMINAL --working-directory $(xcwd)
 
 # start a terminal in the current GBT project directory
-bindsym $mod+Control+Return exec $(cd $(glbt_proj --get) && $TERMINAL)
+bindsym $mod+Control+Return exec $TERMINAL --working-directory $(glbt_proj --get)
 
 # kill focused window
 bindsym $mod+Shift+q kill

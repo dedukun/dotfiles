@@ -14,13 +14,17 @@ print_help() {
     printf "Make Temporary Directory\n"
     printf "Creates and Manages Temporary directories."
     printf "\n"
-    printf "\t-g, --get         Creates temporary directory and prints name to terminal\n"
-    printf "\t-l, --list-cache  Prints directories cache to terminal\n"
-    printf "\t-d, --delete      Deletes Temporary directories\n"
-    printf "\t-h, --help        Prints help menu\n"
+    printf "\t-g , --get            Creates temporary directory and prints name to terminal\n"
+    printf "\t-l , --list-cache     Prints directories cache to terminal\n"
+    printf "\t-d , --delete         Deletes Temporary directories\n"
+    printf "\t-dc, --delete-current Deletes mtd directory if directory is in current path\n"
+    printf "\t-h , --help           Prints help menu\n"
 }
 
 rm_directory() {
+    mtd_dir=$(echo $1 | grep -E "/tmp/tmp\.[a-zA-Z0-9]{10}-mtd")
+    [ ! "$mtd_dir" ] && exit_error "Error - Tried to remove non-mtd directory."
+
     printf "   $1\n"
     sed -i "\#$1#d" "$mtd_cache"
     rm -rf "$1"
@@ -28,6 +32,11 @@ rm_directory() {
 
 delete_directories() {
     [ ! -f "$mtd_cache" ] && exit_error "No directories in cache"
+
+    if [ $(id -u) -eq 0 ]; then
+        echo "Running deletions as root is not accepted"
+        exit 0
+    fi
 
     printf "Deleting directories...\n"
 
@@ -48,6 +57,24 @@ delete_directories() {
     printf "Done\n"
 }
 
+delete_current_directory() {
+    mtd_dir=$(echo $PWD | grep -E "/tmp/tmp\.[a-zA-Z0-9]{10}-mtd" | sed -r 's/^(\/tmp\/tmp\.[a-zA-Z0-9]{10}-mtd).*$/\1/')
+    [ ! "$mtd_dir" ] && exit_error "Not a valid mtd directory."
+
+    if [ $(id -u) -eq 0 ]; then
+        echo "Running deletions as root is not accepted"
+        read -r -p "Do you want to delete it either way? [Y/n] " force_delete
+        if [[ "$force_delete" =~ ^[Yy]?$ ]]; then
+            printf "Removing $mtd_dir... "
+            rm_directory "$tmp_dir"
+        fi
+        exit 1
+    fi
+
+    printf "Removing"
+    rm_directory "$mtd_dir"
+}
+
 create_directory() {
     dir_name=$(mktemp -d --suffix="$mtd_suffix")
     echo "$dir_name" >>"$mtd_cache"
@@ -66,21 +93,26 @@ while [ $# -gt 0 ]; do
     mtd_key="$1"
 
     case $mtd_key in
-    -g | --get)
+    -g  | --get)
         shift # past argument
         create_directory
         ;;
-    -l | --list-cache)
+    -l  | --list-cache)
         shift # past argument
         show_cache
         exit
         ;;
-    -d | --delete)
+    -d  | --delete)
         shift # past argument
         delete_directories
         exit
         ;;
-    -h | --help)
+    -dc | --delete-current)
+        shift # past argument
+        delete_current_directory
+        exit
+        ;;
+    -h  | --help)
         shift # past argument
         print_help
         exit

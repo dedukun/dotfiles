@@ -29,6 +29,8 @@ zplug load
 # CONFIGURATIONS #
 ##################
 
+fpath+=${ZDOTDIR:-~}/.zsh_functions
+
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
@@ -104,8 +106,8 @@ alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
 
 youtube() {
     workonenv
-    workon youtube
-    "$HOME/Applications/mps-youtube/mpsyt" "$*"
+    workon mps-youtube
+    mpsyt
     deactivate
 }
 
@@ -151,6 +153,7 @@ gitignore() {
     local_ignores="""\
 ### Local Ignores ###
 generate-tags.sh
+compile_commands.json
 """
     remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,$*")
     echo "$local_ignores$remote_ignores"

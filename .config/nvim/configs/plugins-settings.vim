@@ -57,37 +57,43 @@ let g:polyglot_disabled = ['latex', 'i3']
 " editor
 let g:EditorConfig_exclude_patterns = ['scp://.\*', 'suda://.\*', 'term://.\*']
 
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
+if USE_COC
+else
+  " deoplete
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#omni_patterns = {}
+  let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
+  if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+  endif
+  autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+  autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+  " deoplete tab-complete
+  let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+  " deoplete-clang
+  let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
+  let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
+
+  " deoplete/Jedi
+  let g:deoplete#sources#jedi#enable_cache = 1
+  let g:deoplete#sources#jedi#python_path = '/usr/bin/python'
+
+  " deoplete vimtex
+  call deoplete#custom#var('omni', 'input_patterns', {
+        \ 'tex': g:vimtex#re#deoplete
+        \})
+
+  " This is old style (deprecated)
+  if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+  endif
+  let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 endif
-autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
-" deoplete tab-complete
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-" deoplete-clang
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
-let g:deoplete#sources#clang#clang_header = '/usr/lib/llvm-3.8/lib/clang'
-
-" deoplete/Jedi
-let g:deoplete#sources#jedi#enable_cache = 1
-let g:deoplete#sources#jedi#python_path = '/usr/bin/python'
-
-" deoplete vimtex
-call deoplete#custom#var('omni', 'input_patterns', {
-      \ 'tex': g:vimtex#re#deoplete
-      \})
-
-" This is old style (deprecated)
-if !exists('g:deoplete#omni#input_patterns')
-  let g:deoplete#omni#input_patterns = {}
-endif
-let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
+" start echodoc on startup
+let g:echodoc#enable_at_startup = 1
 
 " vim-commentary
 autocmd FileType matlab setlocal commentstring=\%\ %s
