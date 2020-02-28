@@ -35,7 +35,7 @@ nnoremap <leader>n :noh<CR>
 nnoremap <leader>N :call ToggleNumber()<CR>
 
 " File Explorer
-nnoremap <leader>m :NERDTreeToggle<CR>
+nnoremap <leader>m :call ToggleNERDTree()<CR>
 
 " Refresh the buffer and NERDTree
 nnoremap <leader>r :call RefreshBufferAndNERDTree()<CR>
@@ -99,3 +99,5 @@ endif
 " Reverse order of lines
 " source: https://vim.fandom.com/wiki/Reverse_order_of_lines
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
+
+command! -buffer -nargs=1 CreateSectionHeader :call CreateSectionHeader(<args>)

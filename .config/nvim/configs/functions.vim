@@ -62,11 +62,6 @@ function SyntasticToggle()
     endif
 endfunction
 
-function RefreshBufferAndNERDTree()
-    silent! checktime
-    silent! NERDTreeRefreshRoot
-endfunction
-
 function CreateSectionHeader(comment)
   let filler_str = ''
 
@@ -113,3 +108,54 @@ function CreateSectionHeader(comment)
   let print_str = ' *' . filler_str . '*/'
   call append(line('.')-1, print_str)
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""" N E R D T R E E   F U N C T I O N S """"""
+""""""""""""""""""""""""""""""""""""""""""""""""""
+
+function ToggleNERDTree()
+  let nerdtree_buffer = GetNERDTreeActiveBuffers()
+  if len(nerdtree_buffer) == 0
+    NERDTreeFocus
+    call ResizeNERDTree()
+  else
+    NERDTreeClose
+  endif
+endfunction
+
+function RefreshBufferAndNERDTree()
+    silent! checktime
+    silent! NERDTreeRefreshRoot
+endfunction
+
+function GetNERDTreeActiveBuffers()
+  let buffers = filter(range(1, bufnr('$')), 'bufexists(v:val)')
+  let buffers_active = filter(buffers, 'bufwinid(v:val) > -1')
+  let buffer_filter = "NERD_Tree_"
+  let nerdtree_buffer = filter(buffers_active, 'match(bufname(v:val), buffer_filter) > -1')
+  return nerdtree_buffer
+endfunction
+
+function ResizeNERDTree()
+  let nerdtree_buffer = GetNERDTreeActiveBuffers()
+  if len(nerdtree_buffer) == 0
+    echo "No buffer was detected to belong to NerdTree"
+  elseif len(nerdtree_buffer) > 1
+    echo "ERROR: ". len(nerdtree_buffer) ." buffers were detected to belong to NerdTree"
+  else
+    let lines = getbufline(nerdtree_buffer[0], 5, "$")
+    let max_file_len = 0
+    let tmp_len=-1
+    for line in lines
+      let tmp_len=strlen(line)
+      if max_file_len < tmp_len
+        let max_file_len = tmp_len
+      endif
+    endfor
+
+    " Set new size and refresh NERDTree
+    let g:NERDTreeWinSize=max_file_len
+    NERDTreeFocus
+  endif
+endfunction
+

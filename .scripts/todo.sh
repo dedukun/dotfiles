@@ -18,7 +18,7 @@ print_help () {
 
 # https://stackoverflow.com/questions/15783701/which-characters-need-to-be-escaped-when-using-bash/20053121#20053121
 escape_input () {
-    echo "$1" | sed -e 's/[^a-zA-Z0-9,._+?@%/()-]/\\&/g; 1{$s/^$/""/}; 1!s/^/"/; $!s/$/"/'
+    echo "$1" | sed -e 's/[^a-zA-Z0-9,._+?@%/()><-]/\\&/g; 1{$s/^$/""/}; 1!s/^/"/; $!s/$/"/'
 }
 
 while [ $# -gt 0 ]
@@ -56,7 +56,7 @@ prompt="Add/delete a task: "
 cmd=$(sort "$todo_file" | dmenu -l "$height" -p "$prompt")
 while [ -n "$cmd" ]; do
     escaped_cmd=$(escape_input "$cmd")
-    print "$escaped_cmd"
+    printf "PRINT HERE: -> '%s'\n" "$escaped_cmd"
     if grep -q "^$escaped_cmd\$" "$todo_file"; then
         tmpfile=$(mktemp)
         grep -v "^$escaped_cmd\$" "$todo_file" > "$tmpfile"

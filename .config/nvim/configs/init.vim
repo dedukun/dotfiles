@@ -36,9 +36,8 @@ Plug 'Shougo/echodoc.vim'
 " Misc
 Plug 'vim-airline/vim-airline'                 "status/tabline
 Plug 'vim-airline/vim-airline-themes'          "status line themes
-Plug 'scrooloose/nerdtree'                     "file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin'             "git plugin for nerdtree
 Plug 'junegunn/goyo.vim'                       "distraction free
+
 Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'sbdchd/neoformat'                        "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
@@ -71,4 +70,10 @@ Plug 'tpope/vim-repeat'                        "more repeatable plugins
 Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
 Plug 'tpope/vim-fugitive'                      "git plugin
+
+" NerdTree
+Plug 'scrooloose/nerdtree'                     "file explorer
+Plug 'Xuyuanp/nerdtree-git-plugin'             "git plugin for nerdtree
+" Plug 'ryanoasis/vim-devicons'                  "extra icons for nerdtree
+" Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 call plug#end()

@@ -29,7 +29,7 @@ if has('unnamedplus')            "use special register '*' or '+' for all
 else
     set clipboard=unnamed
 endif
-set encoding=utf-8               "add support for utf-8 encoding
+set encoding=UTF-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
@@ -51,6 +51,13 @@ set directory=~/.vim/.backup//
 
 " Tags files default locations
 set tags=tags,./tags
+
+"set color scheme
+try
+    colorscheme gruvbox8
+catch /^Vim\%((\a\+)\)\=:E185/
+    " do nothing
+endtry
 
 if has('nvim')
     let g:python3_host_prog = '/usr/local/bin/python3.6'
@@ -94,10 +101,3 @@ augroup del_bash_tmp_script
     autocmd FileChangedShell /tmp/bash-fc.* execute
     autocmd BufRead /tmp/bash-fc.* !rm %
 augroup end
-
-"set color scheme
-try
-    colorscheme gruvbox8
-catch /^Vim\%((\a\+)\)\=:E185/
-    " do nothing
-endtry
