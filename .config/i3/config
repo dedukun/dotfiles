@@ -37,10 +37,10 @@ bindsym $mod+Return exec $TERMINAL
 
 # start a terminal in the focused window's working directory
 # bindsym $mod+Shift+Return exec $(cd $(xcwd) && $TERMINAL)
-bindsym $mod+Shift+Return exec $TERMINAL --working-directory $(xcwd)
+bindsym $mod+Shift+Return exec $TERMINAL_OPEN $(xcwd)
 
 # start a terminal in the current GBT project directory
-bindsym $mod+Control+Return exec $TERMINAL --working-directory $(glbt_proj --get)
+bindsym $mod+Control+Return exec $TERMINAL_OPEN $(glbt_proj --get)
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -264,10 +264,10 @@ bindsym $mod+g exec "$SCRIPTS/gbt/manage.sh"
 bindsym $mod+Shift+g exec "$SCRIPTS/gbt/project.sh --show"
 
 # Personal Projects
-bindsym $mod+p exec "$SCRIPTS/gbt/manage.sh"
+bindsym $mod+p exec "$SCRIPTS/project/manage.sh"
 
 # Show current personal project
-bindsym $mod+Shift+p exec "$SCRIPTS/gbt/project.sh --show"
+bindsym $mod+Shift+p exec "$SCRIPTS/project/project.sh --show"
 
 # Toggle Mouse Remaps
 bindsym $mod+b exec "$SCRIPTS/mousebuttons.sh --toggle"

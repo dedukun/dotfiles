@@ -43,8 +43,10 @@ Plug 'sbdchd/neoformat'                        "autoformatter
 Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
 Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
 Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
+Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
 Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
+Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
 
 " Syntax
 Plug 'vim-syntastic/syntastic'                 "syntax checker

@@ -128,28 +128,29 @@ _install_st() {
     rm -rf /tmp/st-dedu
 }
 
-_install_i3() {
-    printf "\nInstalling i3...\n"
-    apt install i3-wm i3status -y
+_install_wm() {
+    printf "\nInstalling wm...\n"
+    apt install bspwm -y
+    # apt install i3-wm i3status -y
 
-    runuser -l "$usr_name" -c "mkdir -p $usr_home/Applications"
+    # runuser -l "$usr_name" -c "mkdir -p $usr_home/Applications"
 
-    # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
-    apt install libX11-dev
-    runuser -l "$usr_name" -c "git clone https://github.com/schischi/xcwd.git $usr_home/Applications/xcwd"
-    cd $usr_home/Applications/xcwd || {
-        _error "Can't cd into '$usr_home/Applications/xcwd'"
-        return $?
-    }
-    runuser -l "$usr_name" -c "make"
-    make install
-    cd "$usr_home" || {
-        _error "Can't cd into '$usr_home'"
-        return $?
-    }
+    # # xcwd (used in i3 to check the directory of the current terminal)  [Control+mod+Enter]
+    # apt install libX11-dev
+    # runuser -l "$usr_name" -c "git clone https://github.com/schischi/xcwd.git $usr_home/Applications/xcwd"
+    # cd $usr_home/Applications/xcwd || {
+    #     _error "Can't cd into '$usr_home/Applications/xcwd'"
+    #     return $?
+    # }
+    # runuser -l "$usr_name" -c "make"
+    # make install
+    # cd "$usr_home" || {
+    #     _error "Can't cd into '$usr_home'"
+    #     return $?
+    # }
 
-    # dmenu network manager [mod+F2]
-    runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications/networkmanager-dmenu"
+    # # dmenu network manager [mod+F2]
+    # runuser -l "$usr_name" -c "git clone https://github.com/firecat53/networkmanager-dmenu.git $usr_home/Applications/networkmanager-dmenu"
 }
 
 _install_basics() {
@@ -305,7 +306,7 @@ install_all() {
     _install_python3
     _install_nvim_latest
     _install_st
-    _install_i3
+    _install_wm
 }
 
 install_dot() {
