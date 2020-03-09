@@ -32,9 +32,14 @@ check_main_monitor() {
 # Set display off
 monitor_off () {
     # Restore default workspaces configs
-    change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+    # change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
 
     xrandr --output "$DIS_OUT" --off
+
+    # ps aux | grep "polybar second"  | head -n 1  | awk '{print $2;}' | xargs kill -9
+    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4 5 6 7 8 9 10
+    killall -q polybar
+    polybar default & > /dev/null
     exit 0
 }
 
@@ -126,11 +131,27 @@ do
 done
 
 if [[ -n $DIS_PRIMARY ]]; then # Set secondary monitor with primary option
-    change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
+    # change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
 
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR" --primary
+
+    killall -q polybar
+
+    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
+    bspc monitor $DIS_OUT -d 5 6 7 8 9 10
+    bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    polybar primary & > /dev/null
+    polybar second & > /dev/null
 else # Set secondary monitor
-    change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+    # change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
 
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR"
+
+    killall -q polybar
+
+    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
+    bspc monitor $DIS_OUT -d 5 6 7 8 9 10
+    bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    polybar primary & > /dev/null
+    polybar second & > /dev/null
 fi

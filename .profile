@@ -8,6 +8,7 @@ export TERMINAL_OPEN="alacritty --working-directory"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
+export PAGER="less"
 
 # Exports
 export GOPATH="$HOME/.go"

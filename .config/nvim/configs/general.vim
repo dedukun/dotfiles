@@ -60,7 +60,7 @@ catch /^Vim\%((\a\+)\)\=:E185/
 endtry
 
 if has('nvim')
-    let g:python3_host_prog = '/usr/local/bin/python3.6'
+    let g:python3_host_prog = '/usr/bin/python3'
 endif
 
 " Change cursor shape depending of the mode
