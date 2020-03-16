@@ -64,6 +64,9 @@ imap <C-j>     <Plug>(neosnippet_expand_or_jump)
 smap <C-j>     <Plug>(neosnippet_expand_or_jump)
 xmap <C-j>     <Plug>(neosnippet_expand_target)
 
+" FZF
+nnoremap <C-p>  :FZF<CR>
+
 if USE_COC
   " Coc
   " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph

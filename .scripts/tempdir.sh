@@ -46,10 +46,11 @@ delete_directories() {
             rm_directory "$tmp_dir"
         else
             echo "Directory '$tmp_dir' does not have the right format."
-            read -r -p "Do you want to delete it either way? [Y/n] " force_delete
-            if [[ "$force_delete" =~ ^[Yy]?$ ]]; then
+            printf "Do you want to delete it either way? [Y/n] "
+            if read -q; then
                 rm_directory "$tmp_dir"
             fi
+            echo
         fi
     done 3<"$mtd_cache"
 
@@ -62,12 +63,13 @@ delete_current_directory() {
     [ ! "$mtd_dir" ] && exit_error "Not a valid mtd directory."
 
     if [ $(id -u) -eq 0 ]; then
-        echo "Running deletions as root is not accepted"
-        read -r -p "Do you want to delete it either way? [Y/n] " force_delete
-        if [[ "$force_delete" =~ ^[Yy]?$ ]]; then
+        echo "Running deletions as root is not recommended."
+        printf "Do you want to delete it either way? [Y/n] "
+        if read -q; then
             printf "Removing $mtd_dir... "
             rm_directory "$tmp_dir"
         fi
+        echo
         exit 1
     fi
 

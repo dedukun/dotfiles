@@ -35,6 +35,7 @@ monitor_off () {
     # change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
 
     xrandr --output "$DIS_OUT" --off
+    xrandr --output "$DIS_BASE_MONITOR" --mode 1366x768 --primary
 
     # ps aux | grep "polybar second"  | head -n 1  | awk '{print $2;}' | xargs kill -9
     bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4 5 6 7 8 9 10
@@ -61,6 +62,10 @@ dmenu_mode () {
 only_external () {
     xrandr --output "eDP1" --off
     xrandr --output "$DIS_OUT" --mode "$DIS_MODE"
+
+    killall -q polybar
+    polybar second & > /dev/null
+    bspc monitor $DIS_OUT -d 1 2 3 4 5 6 7 8 9 10
 }
 
 DIS_MODE="1920x1080"

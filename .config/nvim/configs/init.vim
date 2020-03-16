@@ -31,12 +31,11 @@ else
   Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
 endif
 
-Plug 'Shougo/echodoc.vim'
-
 " Misc
 Plug 'vim-airline/vim-airline'                 "status/tabline
 Plug 'vim-airline/vim-airline-themes'          "status line themes
 Plug 'junegunn/goyo.vim'                       "distraction free
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 Plug 'frazrepo/vim-rainbow'                    "brackets color
 Plug 'sbdchd/neoformat'                        "autoformatter

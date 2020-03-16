@@ -95,10 +95,10 @@ alias mtdcd='cd $(mtd --get)'
 #alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
 
 # wine aliases
-alias wine="WINEPREFIX=\$HOME/.wine32 wine"
-alias wine64="WINEPREFIX=\$HOME/.wine64 wine64"
-alias winecfg="WINEPREFIX=\$HOME/.wine32 winecfg"
-alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
+alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
+alias wine64="WINEPREFIX=\$HOME/.config/wine/wine64 wine64"
+alias winecfg="WINEPREFIX=\$HOME/.config/wine/wine32 winecfg"
+alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
 
 ############
 # FUCTIONS #
@@ -131,10 +131,6 @@ pip_upgrade() {
         "2.7" )
             ;;
         "3" )
-            ;;
-        "3.5" )
-            ;;
-        "3.6" )
             ;;
         "3.7" )
             ;;

@@ -25,11 +25,14 @@ export ANDROID_AVD_HOME="$HOME/.android/avd"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
 export SCRIPTS="$HOME/.scripts"
+export LOCAL_BINARIES="$HOME/.local/bin/"
+
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 # locale
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LANGUAGE=en_US.UTF-8
+export LC_ALL=en_GB.UTF-8
+export LANG=en_GB.UTF-8
+export LANGUAGE=en_GB.UTF-8
 
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc.py"

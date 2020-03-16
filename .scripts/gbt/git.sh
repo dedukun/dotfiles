@@ -5,21 +5,23 @@ NC='\033[0m' # No Color
 
 function change_email()
 {
-    read -r -p "Do you want to configure this repository to use the GBT email? [Y/n] " change_email
-    if [[ $change_email =~ ^[Yy]?$ ]]; then
+    printf "Do you want to configure this repository to use the GBT email? [Y/n] "
+    if read -q; then
         git config user.email "diogo.duarte@globaltronic.pt"
         git config user.name  "Diogo Duarte"
         echo "git email configured."
     fi
+    echo
 }
 
 function enable_cache()
 {
-    read -r -p "Do you want to configure this repository to use cache credentials? [Y/n] " cache_creds
-    if [[ $cache_creds =~ ^[Yy]?$ ]]; then
+    printf "Do you want to configure this repository to use cache credentials? [Y/n] "
+    if read -q; then
         git config credential.helper cache
         echo "git cache configured."
     fi
+    echo
 }
 
 if [ "$1" = "commit" ];then

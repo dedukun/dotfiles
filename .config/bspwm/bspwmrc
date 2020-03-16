@@ -3,33 +3,6 @@
 # If refreshing bspwm, remove all previous rules to prevent doubling up.
 bspc rule -r "*"
 
-###############
-## AUTOSTART ##
-###############
-
-"$HOME"/.config/polybar/launch.sh 					# Start status bar
-
-killall "sxhkd"
-sxhkd -m 1 &		                                # Bind keys with sxhkd
-
-killall "dunst"
-dunst &			                                    # dunst for notifications
-
-xsetroot -solid "#000"                              # change background to solid black
-synclient NaturalScrolling=1  VertScrollDelta=-111  # invert scrolling
-synclient TapButton1=1                              # tap to click
-
-killall "redshift"
-redshift -c ~/.config/redshift/redshift.conf &      # start redshift
-
-xbacklight -set 50                                  # start with screen brightness at 50%
-
-setxkbmap pt                                        # set keyboard map to portuguese
-setxkbmap -option ctrl:nocaps                       # disables the caps lock key
-
-xrandr --output eDP1 --mode 1366x768
-xrandr --output HDMI2 --off
-
 #############
 ## CONFIGS ##
 #############
@@ -44,13 +17,43 @@ bspc config borderless_monocle          true
 bspc config gapless_monocle             true
 bspc config remove_disabled_monitors    true
 bspc config remove_unplugged_monitors   true
+bspc config merge_overlapping_monitors  true
 
-dropdownname="dropdown"
-bspc query -N -n .hidden >/dev/null || setsid $TERMINAL -n "$dropdownname" -e dropdown >/dev/null 2>&1 &
-bspc rule -a St:$dropdownname hidden=on
-bspc rule -a St:$dropdownname sticky=on
-bspc rule -a St:$dropdownname state=floating
+bspc config automatic_scheme alternate
+bspc config initial_polarity second_child
 
-# Start workspaces on the main monitor.
+# Rules
+bspc rule -a mpv state=fullscreen
+bspc rule -a Zathura state=tiled
+
+# # Start workspaces on the main monitor.
 bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10
 bspc desktop '^1' --layout monocle
+
+###############
+## AUTOSTART ##
+###############
+
+xrandr --output eDP1 --mode 1366x768                # setting the default monitor modes
+xrandr --output HDMI2 --off
+
+xsetroot -cursor_name left_ptr                      # set the default mouse shape
+xsetroot -solid "#000"                              # change background to solid black
+synclient NaturalScrolling=1  VertScrollDelta=-111  # invert scrolling
+synclient TapButton1=1                              # tap to click
+
+xbacklight -set 50                                  # start with screen brightness at 50%
+
+setxkbmap pt                                        # set keyboard map to portuguese
+setxkbmap -option ctrl:nocaps                       # disables the caps lock key
+
+"$HOME"/.config/polybar/launch.sh 					# Start status bar
+
+killall "sxhkd"
+sxhkd -m 1 &		                                # Bind keys with sxhkd
+
+killall "dunst"
+dunst &			                                    # dunst for notifications
+
+killall "redshift"
+redshift -c ~/.config/redshift/redshift.conf &      # start redshift
