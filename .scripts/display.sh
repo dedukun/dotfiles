@@ -144,7 +144,12 @@ if [[ -n $DIS_PRIMARY ]]; then # Set secondary monitor with primary option
 
     bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
     bspc monitor $DIS_OUT -d 5 6 7 8 9 10
-    bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    bspc wm -O $DIS_BASE_MONITOR $DIS_OUT
+    # if [ "$DIS_DIRECTION" = "--left-of" ]; then
+    #     bspc monitor $DIS_OUT -g 1920x1080+0+0
+    # else
+    #     bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    # fi
     polybar primary & > /dev/null
     polybar second & > /dev/null
 else # Set secondary monitor
@@ -156,7 +161,12 @@ else # Set secondary monitor
 
     bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
     bspc monitor $DIS_OUT -d 5 6 7 8 9 10
-    bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    bspc wm -O $DIS_BASE_MONITOR $DIS_OUT
+    # if [ "$DIS_DIRECTION" = "--left-of" ]; then
+    #     bspc monitor $DIS_OUT -g 1920x1080+0+0
+    # else
+    #     bspc monitor $DIS_OUT -g 1920x1080+1366+0
+    # fi
     polybar primary & > /dev/null
     polybar second & > /dev/null
 fi

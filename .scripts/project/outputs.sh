@@ -4,14 +4,14 @@ print_help () {
     printf "\t-h, --help      Prints help menu\n"
 }
 
-OUT_FOLDER="$HOME/Globaltronic/Logging/outputs"
-OUT_DATE_FOLDER="$(date +%y_%m_%d)"
+out_folder="$HOME/Globaltronic/Logging/outputs"
+out_date_folder="$(date +%y_%m_%d)"
 
 while [ $# -gt 0 ]
 do
-    OUT_KEY="$1"
+    out_key="$1"
 
-    case $OUT_KEY in
+    case $out_key in
         -h|--help)
         shift # past argument
         print_help
@@ -27,18 +27,18 @@ do
 done
 
 # Create date's folder if it doesn't exists
-if [ ! -d "$OUT_FOLDER/$OUT_DATE_FOLDER" ]; then
-    mkdir  "$OUT_FOLDER/$OUT_DATE_FOLDER"
+if [ ! -d "$out_folder/$out_date_folder" ]; then
+    mkdir  "$out_folder/$out_date_folder"
 fi
 
 # Get custom file name
-OUT_NAME=$(echo | dmenu -p "File name:")
+out_name=$(echo | dmenu -p "File name:")
 
 # Add <time> to name
-if [ ! -n "$OUT_NAME" ]; then
-    OUT_NAME=$(date '+%H%M%S')
+if [ ! -n "$out_name" ]; then
+    out_name=$(date '+%H%M%S')
 else
-    OUT_NAME=$(date '+%H%M%S')_$OUT_NAME
+    out_name=$(date '+%H%M%S')_$out_name
 fi
 
-vim "$OUT_FOLDER/$OUT_DATE_FOLDER/$OUT_NAME"
+vim "$out_folder/$out_date_folder/$out_name"

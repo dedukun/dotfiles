@@ -7,8 +7,6 @@ bspc rule -r "*"
 ## CONFIGS ##
 #############
 
-# If you want a multi-monitor display or something else, I leave that to you to
-# arrange. I have this sensible default for most people's use cases.
 bspc config border_width 2
 bspc config window_gap 0
 bspc config top_padding 22	# top_padding I set equal to polybar's height
@@ -26,16 +24,11 @@ bspc config initial_polarity second_child
 bspc rule -a mpv state=fullscreen
 bspc rule -a Zathura state=tiled
 
-# # Start workspaces on the main monitor.
-bspc monitor eDP1 -d 1 2 3 4 5 6 7 8 9 10
-bspc desktop '^1' --layout monocle
-
 ###############
 ## AUTOSTART ##
 ###############
 
-xrandr --output eDP1 --mode 1366x768                # setting the default monitor modes
-xrandr --output HDMI2 --off
+$SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
 xsetroot -solid "#000"                              # change background to solid black
@@ -47,7 +40,7 @@ xbacklight -set 50                                  # start with screen brightne
 setxkbmap pt                                        # set keyboard map to portuguese
 setxkbmap -option ctrl:nocaps                       # disables the caps lock key
 
-"$HOME"/.config/polybar/launch.sh 					# Start status bar
+xmodmap -e 'keycode  248 = grave asciitilde grave asciitilde' # set special key [248] to keysym '~' [which is keybinded in sxhkd]
 
 killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd

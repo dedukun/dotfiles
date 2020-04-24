@@ -35,15 +35,9 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
-set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
+" set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
-
-if USE_COC
-    set signcolumn=yes               "show signcolumns
-    set nobackup                     "don't create backups
-    set nowritebackup
-endif
 
 " Change the directory where temporary files are stored
 set backupdir=~/.vim/.backup//

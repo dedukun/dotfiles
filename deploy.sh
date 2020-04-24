@@ -100,6 +100,7 @@ _install_nvim_latest() {
     # Latex for vimtex
     apt install latexmk -y
 
+    runuser -l "$usr_name" -c "python -m pip install --user pynvim neovim"
     runuser -l "$usr_name" -c "python3 -m pip install --user pynvim neovim"
     runuser -l "$usr_name" -c "npm install -g neovim"
 
@@ -182,7 +183,6 @@ _install_extra_packages() {
     apt install maim -y                         # to take screenshots
     apt install sxiv -y                         # simple image viewer
     apt install mpv -y                          # media player
-    apt install s -y                            # search browser in terminal
 }
 
 _install_extra_languages() {

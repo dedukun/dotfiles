@@ -2,9 +2,9 @@
 
 # Default programs
 export EDITOR="nvim"
-# export TERMINAL="st"
-export TERMINAL="alacritty"
-export TERMINAL_OPEN="alacritty --working-directory"
+export TERMINAL="/usr/bin/alacritty"
+export TERMINAL_OPEN="$TERMINAL --working-directory"
+export TERMINAL_RUN="$TERMINAL --command"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
@@ -24,6 +24,7 @@ export ANDROID_AVD_HOME="$HOME/.android/avd"
 
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
+export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
 export LOCAL_BINARIES="$HOME/.local/bin/"
 

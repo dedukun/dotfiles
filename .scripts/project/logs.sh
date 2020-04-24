@@ -19,11 +19,11 @@ check_folder () {
         exit 1
     fi
 
-    LOG_FOLDER="$1"
+    log_folder="$1"
 }
 
-LOG_FOLDER="$HOME/Globaltronic/Logging/logs"
-LOG_NAME="log_$(date +%y_%m_%d)"
+log_folder="$HOME/Globaltronic/Logging/logs"
+log_name="log_$(date +%y_%m_%d)"
 
 while [ $# -gt 0 ]
 do
@@ -31,18 +31,18 @@ do
 
     case $LOG_KEY in
         -f|--find)
-        LOG_FIND="$2"
+        log_find="$2"
         shift # past argument
         shift # past value
         ;;
         -fi|--find-ins)
-        LOG_FIND="$2"
-        LOG_FIND_IN=YES
+        log_find="$2"
+        log_find_in=YES
         shift # past argument
         shift # past value
         ;;
         -b|--back)
-        LOG_BACK="$2"
+        log_back="$2"
         shift # past argument
         shift # past value
         ;;
@@ -66,21 +66,21 @@ do
 done
 
 # find word in logs
-if [ -n "$LOG_FIND" ]; then
-    if [ -n "$LOG_FIND_IN" ]; then
-        grep --color "$LOG_FOLDER" -R -i -e "$LOG_FIND"
+if [ -n "$log_find" ]; then
+    if [ -n "$log_find_in" ]; then
+        grep --color "$log_folder" -R -i -e "$log_find"
     else
-        grep --color "$LOG_FOLDER" -R -e "$LOG_FIND"
+        grep --color "$log_folder" -R -e "$log_find"
     fi
 # open previous log
-elif [ -n "$LOG_BACK" ]; then
+elif [ -n "$log_back" ]; then
     # offset is different is the file for today already exists
-    if [ ! -f "$LOG_FOLDER/$LOG_NAME" ]; then
-        vim "$LOG_FOLDER/$(find "$LOG_FOLDER" | tail -n "$LOG_BACK" | head -n 1)"
+    if [ ! -f "$log_folder/$log_name" ]; then
+        vim "$log_folder/$(find "$log_folder" | tail -n "$log_back" | head -n 1)"
     else
-        vim "$LOG_FOLDER/$(find "$LOG_FOLDER" | tail -n $(("$LOG_BACK"+1)) | head -n 1)"
+        vim "$log_folder/$(find "$log_folder" | tail -n $(("$log_back"+1)) | head -n 1)"
     fi
 # open today's log
 else
-    vim "$LOG_FOLDER/$LOG_NAME"
+    vim "$log_folder/$log_name"
 fi
