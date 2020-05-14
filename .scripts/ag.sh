@@ -1,9 +1,9 @@
 #!/bin/sh
 # This script wrappes ag to have default configurations (alias not really working with no argument)
 if [ "$#" = 0 ]; then
-    ag
-    exit 0
+    /usr/bin/ag
 else
-    ag --color --nogroup "$@"
-    exit $?
+    /usr/bin/ag --color --nogroup "$@"
 fi
+
+exit $?

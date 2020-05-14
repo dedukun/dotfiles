@@ -28,6 +28,7 @@ bspc rule -a Zathura state=tiled
 ## AUTOSTART ##
 ###############
 
+$SCRIPTS/mousebuttons.sh --toggle                   # start mouse extra buttons extra functionality
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape

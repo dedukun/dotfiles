@@ -81,9 +81,6 @@ if !exists('g:vscode')
     let g:deoplete#enable_at_startup = 1
     let g:deoplete#omni_patterns = {}
     let g:deoplete#omni_patterns.java = '[^. *\t]\.\w*'
-    if !exists('g:deoplete#omni#input_patterns')
-      let g:deoplete#omni#input_patterns = {}
-    endif
     autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
     autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
@@ -102,12 +99,6 @@ if !exists('g:vscode')
     call deoplete#custom#var('omni', 'input_patterns', {
           \ 'tex': g:vimtex#re#deoplete
           \})
-
-    " This is old style (deprecated)
-    if !exists('g:deoplete#omni#input_patterns')
-      let g:deoplete#omni#input_patterns = {}
-    endif
-    let g:deoplete#omni#input_patterns.tex = g:vimtex#re#deoplete
 endif
 
 " vim-commentary

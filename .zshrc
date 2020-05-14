@@ -31,6 +31,8 @@ zplug load
 
 fpath+=${ZDOTDIR:-~}/.zsh_functions
 
+fpath+=($HOMW/.config/zsh/.zplug/repos/zsh-users/zsh-completions/src $fpath)
+
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
@@ -93,6 +95,7 @@ alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
 alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
 alias mtdcd='cd $(mtd --get)'
+alias list-big-files='sudo find / -type f -size +50M -exec du -h {} \; | sort -n'
 #alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
 
 # wine aliases

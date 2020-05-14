@@ -46,6 +46,7 @@ if !exists('g:vscode')
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
   Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
   Plug 'unblevable/quick-scope'                  "horizontal movement helper
+  Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 endif
 
 " Syntax

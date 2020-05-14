@@ -42,23 +42,25 @@ create_folders () {
     else
         proj_name=$(private_get_project)
     fi
-    proj_input=$(private_get_unused_directories "$proj_folder/$proj_name")
+    proj_input=$(private_get_unused_directories "$proj_name")
     while true ; do
         if [ "$proj_input" = "" ]; then
-          break
+            break
+        elif [ "$proj_input" = "Second" ]; then
+            private_link_second "$proj_name"
         fi
 
-        mkdir "$proj_folder/$proj_name/$proj_input"
-        proj_input=$(private_get_unused_directories "$proj_folder/$proj_name")
+        mkdir "$proj_name/$proj_input"
+        proj_input=$(private_get_unused_directories "$proj_name")
     done
 }
 
 choose_project () {
     proj_name=$(find "$proj_folder" -maxdepth 1 -type d |       # search the project foolder for directories
-                sort |                                      # sort them
-                tail -n +2 |                                # remove the '.' folder
-                awk -F'/' '{print $(NF)}' |                 # only get the top's directory name
-                dmenu -i -p "Choose Project: ")             # dmenu
+                sort |                                          # sort them
+                tail -n +2 |                                    # remove the '.' folder
+                awk -F'/' '{print $(NF)}' |                     # only get the top's directory name
+                dmenu -i -p "Choose Project: ")                 # dmenu
 
     # Check if project name was given
     if [ "$proj_name" = "" ]; then
@@ -113,7 +115,7 @@ private_get_unused_directories () {
                            sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')     # remove new lines from results and replace with '|'
 
 
-    printf "Code\nRepos\nManuals\nDocumentation\nDocuments\nImages\nSchematics\nMedia\nPictures\nOther" |
+    printf "Code\nRepos\nManuals\nDocumentation\nDocuments\nImages\nSchematics\nMedia\nPictures\nOther\nSecond" |
     sort |
     awk '{gsub(/'"$existing_directories"'/,"")}1' |
     sed '/^$/d' |
@@ -138,6 +140,12 @@ private_get_project () {
     proj_name=$(grep -e "^proj=" "$config_file" | sed 's/proj=\s*// g')
 
     echo "$proj_name"
+}
+
+private_link_second () {
+    # check if second is mounted
+    notify-send "IM LINKING SECOND" "$1"
+
 }
 
 while [ $# -gt 0 ]

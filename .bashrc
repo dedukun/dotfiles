@@ -44,6 +44,7 @@ alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $(glbt_proj --get)'
 alias mtdcd='cd $(mtd --get)'
 #alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
+alias list-big-files='sudo find / -type f -size +50M -exec du -h {} \; | sort -n'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.wine32 wine"
