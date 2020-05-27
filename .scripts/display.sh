@@ -1,8 +1,7 @@
 #!/bin/bash
-print_help () {
+print_help() {
     printf "Change Second Monitor\n"
-    printf "This wrapper script helps configuring the second display."
-    # printf "With no extra options the second monitor will be configured as a mirror of the main monitor."
+    printf "This wrapper script helps configuring the second display.\n"
     printf "\n"
     printf "\t-m, --mode        Specify the display mode (default 1920x1080)\n"
     printf "\t-M, --dmenu-mode  Choose the display mode using a dmenu list\n"
@@ -17,156 +16,130 @@ print_help () {
     printf "\t-h, --help        Prints help menu\n"
 }
 
-change_workspace_outputs() {
-    sed -i -r "s/(^workspace \"[1-4]\" output ).*/\1$1/"  "$HOME/.config/i3/config"
+change_i3_workspace_outputs() {
+    sed -i -r "s/(^workspace \"[1-4]\" output ).*/\1$1/" "$HOME/.config/i3/config"
     sed -i -r "s/(^workspace \"[5-7]\" output ).*/\1$2/" "$HOME/.config/i3/config"
 
     i3-msg -q reload
 }
 
-# [ WIP ]
-check_main_monitor() {
-    xrandr | grep -A 1 "eDP1" | tail -n 1 | awk '{print $2}'
+reset_bspwm() {
+    if [ "$1" = "single" ]; then
+        bspc monitor "$2" -d 1 2 3 4 5 6 7 8 9 10
+    elif [ "$1" = "dual" ]; then
+        bspc monitor "$2" -d 1 2 3 4
+        bspc monitor "$3" -d 5 6 7 8 9 10
+        bspc wm -O "$2" "$3"
+    fi
 }
 
-# Set display off
-monitor_off () {
-    # Restore default workspaces configs
-    # change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+reset_polybar() {
+    if [ "$1" = "single" ]; then
+        killall -q polybar
+        polybar default &
+        >/dev/null
+    elif [ "$1" = "dual" ]; then
+        killall -q polybar
+        polybar primary &
+        >/dev/null
+        polybar second &
+        >/dev/null
+    fi
+}
 
-    xrandr --output "$DIS_OUT" --off
-    xrandr --output "$DIS_BASE_MONITOR" --mode 1366x768 --primary
+single_monitor() {
+    if [ "$3" = "" ]; then
+        xrandr --output "$1" --off --output "$2" --auto --primary
+    else
+        xrandr --output "$1" --off --output "$2" --mode "$3" --primary
+    fi
 
-    # ps aux | grep "polybar second"  | head -n 1  | awk '{print $2;}' | xargs kill -9
-    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4 5 6 7 8 9 10
-    killall -q polybar
-    polybar default & > /dev/null
-    exit 0
+    reset_bspwm "single" "$2"
+    reset_polybar "single" "$2"
 }
 
 # Use dmenu to choose display mode
-dmenu_mode () {
-    dis_list=$(xrandr)
-    tail_line_number=$(echo "$dis_list"  | grep -n -e "^$DIS_OUT" |  cut -d ":" -f 1)
-    dis_list=$(echo "$dis_list" |tail -n +$((tail_line_number + 1)))
-    head_line_number=$(echo "$dis_list" | grep -n -e "^[a-zA-Z0-9]" | head -n 1 | cut -d ":" -f 1)
-
-    lines=$(echo "$dis_list" | wc -l)
-    head_line_number=$(("$head_line_number"-1))
-    dis_list=$(echo "$dis_list" | head -n -$(( "$lines" - "$head_line_number" )) | awk '{print $1}')
-
-    DIS_MODE=$(echo "$dis_list" | dmenu -p "Display Mode: " -l 20)
+dmenu_mode() {
+    output_list="$($SCRIPTS/xrandr-query.sh "$dis_out" | tail -n +2 | awk '{print $1;}')"
+    dis_mode=$(echo "$output_list" | rofi -dmenu -p "Display Mode: ")
 }
 
-# Only use the external monitor
-only_external () {
-    xrandr --output "eDP1" --off
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE"
+dis_mode="1920x1080"
+dis_out="HDMI2"
+dis_base_monitor="eDP1"
+dis_direction=""
 
-    killall -q polybar
-    polybar second & > /dev/null
-    bspc monitor $DIS_OUT -d 1 2 3 4 5 6 7 8 9 10
-}
+while [[ $# -gt 0 ]]; do
+    dis_key="$1"
 
-DIS_MODE="1920x1080"
-DIS_OUT="HDMI2"
-DIS_BASE_MONITOR="eDP1"
-DIS_DIRECTION=""
-
-while [[ $# -gt 0 ]]
-do
-    DIS_KEY="$1"
-
-    case $DIS_KEY in
-        -m|--mode)
-            DIS_MODE="$2"
-            shift # past value
-            shift # past argument
-            ;;
-        -M|--dmenu-mode)
-            dmenu_mode
-            shift # past argument
-            ;;
-        --output)
-            DIS_OUT="$2"
-            shift # past value
-            shift # past argument
-            ;;
-        -a|--above)
-            DIS_DIRECTION="--above"
-            shift # past value
-            ;;
-        -l|--left)
-            DIS_DIRECTION="--left-of"
-            shift # past value
-            ;;
-        -r|--right)
-            DIS_DIRECTION="--right-of"
-            shift # past value
-            ;;
-        -b|--below)
-            DIS_DIRECTION="--below"
-            shift # past value
-            ;;
-        -o|--off)
-            monitor_off
-            shift # past value
-            ;;
-        --only)
-            only_external
-            shift # past value
-            exit 0
-            ;;
-        -p|--primary)
-            DIS_PRIMARY="yes"
-            shift # past value
-            ;;
-        -h|--help)
-            shift # past argument
-            print_help
-            exit
-            ;;
-        *)
-            echo "Invalid argument '$1'."
-            echo "For more help use argument -h or --help".
-            shift # past argument
-            exit 1
-            ;;
+    case $dis_key in
+    -m | --mode)
+        dis_mode="$2"
+        shift # past value
+        shift # past argument
+        ;;
+    -M | --dmenu-mode)
+        dmenu_mode
+        shift # past argument
+        exit
+        ;;
+    --output)
+        dis_out="$2"
+        shift # past value
+        shift # past argument
+        ;;
+    -a | --above)
+        dis_direction="--above"
+        shift # past value
+        ;;
+    -l | --left)
+        dis_direction="--left-of"
+        shift # past value
+        ;;
+    -r | --right)
+        dis_direction="--right-of"
+        shift # past value
+        ;;
+    -b | --below)
+        dis_direction="--below"
+        shift # past value
+        ;;
+    -o | --off)
+        single_monitor "$dis_out" "$dis_base_monitor"
+        shift # past value
+        exit
+        ;;
+    --only)
+        single_monitor "$dis_base_monitor" "$dis_out"
+        shift # past value
+        exit
+        ;;
+    -p | --primary)
+        dis_primary="yes"
+        shift # past value
+        ;;
+    -h | --help)
+        shift # past argument
+        print_help
+        exit
+        ;;
+    *)
+        echo "Invalid argument '$1'."
+        echo "For more help use argument -h or --help".
+        shift # past argument
+        exit 1
+        ;;
     esac
 done
 
-if [[ -n $DIS_PRIMARY ]]; then # Set secondary monitor with primary option
-    # change_workspace_outputs "$DIS_OUT" "$DIS_BASE_MONITOR"
+if [[ -n $dis_primary ]]; then # Set secondary monitor with primary option
+    xrandr --output "$dis_out" --mode "$dis_mode" $dis_direction "$dis_base_monitor" --primary
 
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR" --primary
-
-    killall -q polybar
-
-    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
-    bspc monitor $DIS_OUT -d 5 6 7 8 9 10
-    bspc wm -O $DIS_BASE_MONITOR $DIS_OUT
-    # if [ "$DIS_DIRECTION" = "--left-of" ]; then
-    #     bspc monitor $DIS_OUT -g 1920x1080+0+0
-    # else
-    #     bspc monitor $DIS_OUT -g 1920x1080+1366+0
-    # fi
-    polybar primary & > /dev/null
-    polybar second & > /dev/null
+    reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
+    reset_polybar "dual"
 else # Set secondary monitor
-    # change_workspace_outputs "$DIS_BASE_MONITOR" "$DIS_OUT"
+    xrandr --output "$dis_out" --mode "$dis_mode" $dis_direction "$dis_base_monitor"
 
-    xrandr --output "$DIS_OUT" --mode "$DIS_MODE" $DIS_DIRECTION "$DIS_BASE_MONITOR"
-
-    killall -q polybar
-
-    bspc monitor $DIS_BASE_MONITOR -d 1 2 3 4
-    bspc monitor $DIS_OUT -d 5 6 7 8 9 10
-    bspc wm -O $DIS_BASE_MONITOR $DIS_OUT
-    # if [ "$DIS_DIRECTION" = "--left-of" ]; then
-    #     bspc monitor $DIS_OUT -g 1920x1080+0+0
-    # else
-    #     bspc monitor $DIS_OUT -g 1920x1080+1366+0
-    # fi
-    polybar primary & > /dev/null
-    polybar second & > /dev/null
+    reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
+    reset_polybar "dual"
 fi

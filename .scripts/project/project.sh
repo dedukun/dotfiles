@@ -21,7 +21,7 @@ print_help () {
 }
 
 new_project () {
-    proj_name=$(echo | dmenu -p "Project Name: ")
+    proj_name=$(echo | rofi -dmenu -p "Project Name")
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -60,7 +60,7 @@ choose_project () {
                 sort |                                          # sort them
                 tail -n +2 |                                    # remove the '.' folder
                 awk -F'/' '{print $(NF)}' |                     # only get the top's directory name
-                dmenu -i -p "Choose Project: ")                 # dmenu
+                rofi -dmenu -i -p "Choose Project")             # dmenu
 
     # Check if project name was given
     if [ "$proj_name" = "" ]; then
@@ -71,7 +71,7 @@ choose_project () {
     while [ ! -f "$proj_folder/$proj_full_name/.id" ]
     do
         proj_name=$(find "$proj_folder/$proj_full_name" -maxdepth 1 -type d |
-                    sort | tail -n +2 | awk -F'/' '{print $(NF)}' | dmenu -i -p "Choose Project: ")
+                    sort | tail -n +2 | awk -F'/' '{print $(NF)}' | rofi -dmenu -i -p "Choose Project")
 
         if [ $? = 0 ]; then
             proj_full_name="$proj_full_name/$proj_name"
@@ -84,11 +84,11 @@ choose_project () {
 }
 
 choose_all_projects () {
-    proj_name=$(find "$proj_folder" -maxdepth 4 -name ".id" |              # get folders with file '.id'
-                sort |                                                      # sort them
-                sed 's$'"$proj_folder"/'$$g' |                             # get only the relative names from the base directory
-                sed 's$/.id$$g' |                                           # remove the '/.id' file string
-                dmenu -i -p "Choose Project: " -l 25)                       # dmenu
+    proj_name=$(find "$proj_folder" -maxdepth 4 -name ".id" |        # get folders with file '.id'
+                sort |                                               # sort them
+                sed 's$'"$proj_folder"/'$$g' |                       # get only the relative names from the base directory
+                sed 's$/.id$$g' |                                    # remove the '/.id' file string
+                rofi -dmenu -i -p "Choose Project" -l 25)            # dmenu
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -119,7 +119,7 @@ private_get_unused_directories () {
     sort |
     awk '{gsub(/'"$existing_directories"'/,"")}1' |
     sed '/^$/d' |
-    dmenu -i -p "Input: "
+    rofi -dmenu -i -p "Input"
 }
 
 private_choose_project () {

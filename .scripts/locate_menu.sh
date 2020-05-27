@@ -13,32 +13,32 @@ print_help () {
     echo "\nRequires: mlocate dmenu vim"
 }
 
-LOME_LINES=25
-LOME_LOCATE_ARGS=""
-LOME_COMMAND="echo"   # default command
+lome_lines=25
+lome_locate_args=""
+lome_command="echo"   # default command
 
 while [ $# -gt 0 ]
 do
-    LOME_KEY="$1"
+    lome_key="$1"
 
-    case $LOME_KEY in
+    case $lome_key in
         -l|--lines)
-            LOME_LINES=$2
+            lome_lines=$2
             shift # past argument
             shift # past value
             ;;
         -f|--folders)
             shift # past value
-            LOME_LOCATE_FOLDER=yes
-            LOME_LOCATE_ARGS+=" --regex"
+            lome_locate_folder=yes
+            lome_locate_args+=" --regex"
             ;;
         -r|--regex)
             shift # past value
-            LOME_LOCATE_ARGS+=" --regex"
+            lome_locate_args+=" --regex"
             ;;
         -i|--ignore-case)
             shift # past value
-            LOME_LOCATE_ARGS+=" -i"
+            lome_locate_args+=" -i"
             ;;
         -h|--help)
             shift # past argument
@@ -59,7 +59,7 @@ done
 
 # Get first argument (locate value)
 if [ -n $1 ]; then
-    LOME_LOCATE_VALUE="$1"
+    lome_locate_value="$1"
 else
     echo "No argument locate"
     exit 1
@@ -67,18 +67,18 @@ fi
 
 # Get second argument (command)
 if [ -n $2 ]; then
-    LOME_COMMAND="$2"
+    lome_command="$2"
 
     # Test if the given command exists in the system
-    [ ! -n $(command -v "$LOME_COMMAND") ] \
-        && echo -e "The command '$LOME_COMMAND' doesn't exists in your system.\nTry again with another command." && exit 1
+    [ ! -n $(command -v "$lome_command") ] \
+        && echo -e "The command '$lome_command' doesn't exists in your system.\nTry again with another command." && exit 1
         fi
 
 
 # Search for folders only
-if [ -n $LOME_LOCATE_FOLDER ]; then
-    LOME_LOCATE_VALUE="$LOME_LOCATE_VALUE$"
+if [ -n $lome_locate_folder ]; then
+    lome_locate_value="$lome_locate_value$"
 fi
 
 # execute the command
-$LOME_COMMAND "$(locate $LOME_LOCATE_ARGS "$LOME_LOCATE_VALUE" | dmenu -i -l "$LOME_LINES")"
+$lome_command "$(locate $lome_locate_args "$lome_locate_value" | rofi -dmenu -i -l "$lome_lines" -p "Lome")"

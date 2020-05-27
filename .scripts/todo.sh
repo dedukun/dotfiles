@@ -7,7 +7,7 @@
 #
 # original:https://tools.suckless.org/dmenu/scripts/todo
 
-todo_file="$SCRIPTS/.config/.todo"
+todo_file="$SCRIPTS/.cache/.todo"
 
 print_help () {
     echo "TODO list."
@@ -51,12 +51,11 @@ done
 
 touch "$todo_file"
 height=$(wc -l "$todo_file" | awk '{print $1}')
-prompt="Add/delete a task: "
+prompt="Add/delete a task"
 
-cmd=$(sort "$todo_file" | dmenu -l "$height" -p "$prompt")
+cmd=$(sort "$todo_file" | rofi -dmenu -l "$height" -p "$prompt")
 while [ -n "$cmd" ]; do
     escaped_cmd=$(escape_input "$cmd")
-    printf "PRINT HERE: -> '%s'\n" "$escaped_cmd"
     if grep -q "^$escaped_cmd\$" "$todo_file"; then
         tmpfile=$(mktemp)
         grep -v "^$escaped_cmd\$" "$todo_file" > "$tmpfile"
@@ -67,5 +66,5 @@ while [ -n "$cmd" ]; do
         height=$(( height + 1 ))
     fi
 
-    cmd=$(sort "$todo_file" | dmenu -l "$height" -p "$prompt")
+    cmd=$(sort "$todo_file" | rofi -dmenu -l "$height" -p "$prompt")
 done

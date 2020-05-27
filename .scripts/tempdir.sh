@@ -18,25 +18,43 @@ print_help() {
     printf "\t-l , --list-cache     Prints directories cache to terminal\n"
     printf "\t-d , --delete         Deletes Temporary directories\n"
     printf "\t-dc, --delete-current Deletes mtd directory if directory is in current path\n"
+    printf "\t-c , --check          Checks if directories in cache still exists and removes then from cache if don't\n"
     printf "\t-h , --help           Prints help menu\n"
 }
 
-rm_directory() {
+_remove_from_cache() {
     mtd_dir=$(echo $1 | grep -E "/tmp/tmp\.[a-zA-Z0-9]{10}-mtd")
-    [ ! "$mtd_dir" ] && exit_error "Error - Tried to remove non-mtd directory."
+    [ ! "$mtd_dir" ] && exit_error "Error - Tried to remove non-mtd directory '$1'."
+
+    sed -i "\#$1#d" "$mtd_cache"
+}
+
+rm_directory() {
+    _remove_from_cache $1
 
     printf "   $1\n"
-    sed -i "\#$1#d" "$mtd_cache"
     rm -rf "$1"
 }
 
 delete_directories() {
     [ ! -f "$mtd_cache" ] && exit_error "No directories in cache"
 
-    if [ $(id -u) -eq 0 ]; then
-        echo "Running deletions as root is not accepted"
-        exit 0
-    fi
+    # if [ $(id -u) -eq 0 ]; then
+    #     echo "Running deletions as root is not accepted"
+    #     exit 0
+    # fi
+
+    # [WIP]
+    # if [ $(id -u) -eq 0 ]; then
+    #     echo "Running deletions as root is not recommended."
+    #     printf "Do you want to delete it either way? [Y/n] "
+    #     if read -q; then
+    #         printf "Removing $mtd_dir... "
+    #         rm_directory "$tmp_dir"
+    #     fi
+    #     echo
+    #     exit 1
+    # fi
 
     printf "Deleting directories...\n"
 
@@ -68,13 +86,15 @@ delete_current_directory() {
         if read -q; then
             printf "Removing $mtd_dir... "
             rm_directory "$tmp_dir"
+            echo
+        else
+            exit 1
         fi
-        echo
-        exit 1
     fi
 
-    printf "Removing"
+    printf "Removing $mtd_dir... "
     rm_directory "$mtd_dir"
+    echo "done"
 }
 
 create_directory() {
@@ -89,22 +109,34 @@ show_cache() {
     cat "$mtd_cache"
 }
 
+check_cached_directories() {
+    [ ! -f "$mtd_cache" ] && echo "No directories in cache" && exit
+
+    printf "Cleaning cache... "
+    while read tmp_dir <&3; do
+        [ ! -d "$tmp_dir" ] && _remove_from_cache "$tmp_dir"
+    done 3<"$mtd_cache"
+
+    printf "done\n"
+}
+
 [ $# -eq 0 ] && exit_error "Error: No argument"
 
 while [ $# -gt 0 ]; do
     mtd_key="$1"
 
     case $mtd_key in
-    -g  | --get)
+    -g | --get)
         shift # past argument
         create_directory
         ;;
-    -l  | --list-cache)
+    -l | --list-cache)
         shift # past argument
+        check_cached_directories
         show_cache
         exit
         ;;
-    -d  | --delete)
+    -d | --delete)
         shift # past argument
         delete_directories
         exit
@@ -114,7 +146,12 @@ while [ $# -gt 0 ]; do
         delete_current_directory
         exit
         ;;
-    -h  | --help)
+    -c | --check)
+        shift # past argument
+        check_cached_directories
+        exit
+        ;;
+    -h | --help)
         shift # past argument
         print_help
         exit

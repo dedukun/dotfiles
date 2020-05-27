@@ -1,6 +1,6 @@
 #!/bin/sh
 second_dev="/dev/second/debian_gbt"
-second_mount_point="$HOME/Globaltronic/Second_GBT"
+second_mount_point="/second"
 second_mount=false
 second_umount=false
 

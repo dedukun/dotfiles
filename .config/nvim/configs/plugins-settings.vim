@@ -147,3 +147,8 @@ if !exists('g:vscode')
   " Trigger a highlight in the appropriate direction when pressing these keys:
   let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 endif
+
+" editorconfig
+if !exists('g:vscode')
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+endif

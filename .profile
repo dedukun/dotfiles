@@ -1,7 +1,8 @@
 #!/bin/sh
 
 # Default programs
-export EDITOR="nvim"
+export EDITOR="$HOME/.local/bin/nvim"
+export VISUAL="$HOME/.local/bin/nvim"
 export TERMINAL="/usr/bin/alacritty"
 export TERMINAL_OPEN="$TERMINAL --working-directory"
 export TERMINAL_RUN="$TERMINAL --command"
@@ -12,12 +13,12 @@ export PAGER="less"
 
 # Exports
 export GOPATH="$HOME/.go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/.npm_global/bin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$GOPATH/bin"
 export PATH="$PATH:/snap/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
+export PATH="$PATH:/usr/local/go/bin"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export ANDROID_AVD_HOME="$HOME/.android/avd"
@@ -51,4 +52,3 @@ echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc
 # Kill ssh-agent on logout
 trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
 
-export PATH="$HOME/.cargo/bin:$PATH"

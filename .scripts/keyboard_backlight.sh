@@ -11,12 +11,17 @@ print_help () {
     printf "\t-h, --help  Prints help menu\n"
 }
 
+exit_error() {
+    printf "ERROR %s\n" "$1" >&2;
+    exit 1
+}
+
 get_current_backlight() {
     cat "$kb_file"
 }
 
 set_backlight() {
-    echo "$1" > "$kb_file"
+    echo "$1" | sudo tee "$kb_file" > /dev/null
 }
 
 inc_backlight() {
@@ -40,7 +45,7 @@ dec_backlight() {
 }
 
 
-[ $# -eq 0 ] && error_exit "Error: Missing argument"
+[ $# -eq 0 ] && exit_error "Missing argument"
 
 while [ $# -gt 0 ]
 do

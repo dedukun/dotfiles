@@ -54,9 +54,10 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
-modules-right = filesystem pulseaudio memory cpu wlan eth battery temperature date
+modules-right = filesystem pulseaudio pulseaudio-microphone memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 2
@@ -144,9 +145,10 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=9:antialias=false;3
 
 modules-left = bspwm-second
-modules-right = filesystem pulseaudio memory cpu wlan eth battery temperature date
+modules-right = filesystem pulseaudio pulseaudio-microphone memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 2
@@ -166,8 +168,9 @@ cursor-scroll = ns-resize
 type = internal/fs
 interval = 25
 
-mount-0 = /home
-mount-1 = /
+mount-0 = /
+mount-1 = /home
+mount-2 = /second
 
 label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
@@ -309,7 +312,7 @@ format-volume = <label-volume> <bar-volume>
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = 🔇 muted
+label-muted = muted
 label-muted-foreground = #666
 
 bar-volume-width = 10
@@ -361,7 +364,7 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = AC0
-full-at = 98
+full-at = 96
 
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
@@ -409,6 +412,13 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
+[module/pulseaudio-microphone]
+type = custom/script
+exec = $HOME/.scripts/polybar/pulseaudio-microphone.sh
+tail = true
+click-left = $HOME/.scripts/polybar/pulseaudio-microphone.sh --toggle &
+label = %output%
+label-font = 2
 
 [settings]
 screenchange-reload = true

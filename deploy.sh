@@ -181,6 +181,7 @@ _install_extra_packages() {
     apt install xclip -y                        # clipboard tool
     apt install htop -y                         # interactive process viewer
     apt install maim -y                         # to take screenshots
+    apt install rofi -y                         #
     apt install sxiv -y                         # simple image viewer
     apt install mpv -y                          # media player
 }

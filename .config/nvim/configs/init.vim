@@ -47,6 +47,7 @@ if !exists('g:vscode')
   Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
   Plug 'unblevable/quick-scope'                  "horizontal movement helper
   Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
+  Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
 endif
 
 " Syntax

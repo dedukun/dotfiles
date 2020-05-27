@@ -12,8 +12,8 @@ print_help () {
     printf "\t-h, --help      Prints help menu\n"
 }
 
-error_exit() {
-    notify-send -t 1500 -u critical "$1"
+exit_error() {
+    notify-send -t 1500 -u critical "ERROR" "$1"
     exit 1
 }
 
@@ -121,7 +121,7 @@ show_mode() {
     notify-send -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
 }
 
-[ $# -eq 0 ] && error_exit "Error: Missing argument"
+[ $# -eq 0 ] && exit_error "Missing argument"
 
 while [ $# -gt 0 ]
 do

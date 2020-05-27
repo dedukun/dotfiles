@@ -108,6 +108,10 @@ alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
 # FUCTIONS #
 ############
 
+sourcerust() {
+  source $HOME/.cargo/env
+}
+
 youtube() {
     workonenv
     workon mps-youtube
@@ -194,3 +198,9 @@ fzf-history-widget() {
   zle reset-prompt
   return $ret
 }
+
+PATH="/home/dedukun/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/home/dedukun/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/home/dedukun/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/home/dedukun/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/dedukun/perl5"; export PERL_MM_OPT;
