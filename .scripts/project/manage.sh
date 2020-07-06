@@ -19,7 +19,7 @@ if [ "$2" = "--show" ]; then
 elif [ "$2" = "--get" ]; then
     man_cmd="Get Project"
 else
-    man_cmd=$(printf "Logs\nMove\nOutputs\nNew Project\nCreate Folders\nChoose Project\nChoose 'All' Project\nShow Project" | rofi -dmenu -i -p "PROJ Command" -l 8)
+    man_cmd=$(printf "Logs\nMove\nOutputs\nNew Project\nCreate Folders\nChoose Project\nShow Project" | rofi -dmenu -i -p "PROJ Command" -l 7)
 fi
 
 case $man_cmd in
@@ -41,9 +41,6 @@ case $man_cmd in
         ;;
     "Choose Project")
         $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --choose
-        ;;
-    "Choose 'All' Project")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --choose-all
         ;;
     "Show Project")
         $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --show

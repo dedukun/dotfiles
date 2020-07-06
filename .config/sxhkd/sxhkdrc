@@ -1,0 +1,224 @@
+# The Simple X Hotkey Daemon is the program used by LARBS to map most of the
+# dwm-independent commands.  This file is pretty readable, so I'll let you read
+# it.
+
+# The keys NOT bound here by sxhkd, but by dwm or i3 are:
+# The t thru p keys on the top row
+# The f thru ; keys on the home row
+# The b key on the bottom row (hides the bar in either case)
+
+# start a terminal
+super + Return
+        eval "$TERMINAL_OPEN" "$HOME"
+
+# start a terminal in the focused window's working directory
+super + shift + Return
+        eval "$TERMINAL_OPEN" "$(xcwd)"
+
+# start a terminal in the current GBT project directory
+super + control + Return
+        eval "$TERMINAL_OPEN" "$($SCRIPTS/project/manage.sh gbt --get)"
+
+# start a terminal in the current Personal project directory
+super + shift + control + Return
+        eval "$TERMINAL_OPEN" "$($SCRIPTS/project/manage.sh personal --get)"
+
+# start program launcher
+super + d
+        rofi -show run
+
+# lock Screen
+super + control + l
+        slock && bspc wm -O eDP1 HDMI2
+
+# lock mouse and keyboard
+super + shift + control + l
+        xtrlock && bspc wm -O eDP1 HDMI2
+
+# open firefox
+super + shift + w
+        firefox --private-window
+
+# open chromium
+super + control + w
+        chromium --incognito
+
+# open rofi as ssh launcher
+super + s
+        rofi -show ssh
+
+##
+## WINDOWS COMMANDS
+##
+
+# kill focused window
+super + {shift + ,shift + control + }q
+	bspc node -{c,k}
+
+# toggle fullscreen
+super + {_, shift +} f
+        {bspc desktop -l next, $SCRIPTS/bspwm/fullscreen.sh}
+
+# rotate current node 90 degrees
+super + r
+	bspc node @focused:/ -R 90
+
+# rotate current node 270 degrees
+super + shift + r
+	bspc node @focused:/ -R 270
+
+# swap the current node and the biggest local node
+super + space
+	bspc node -s biggest.local || bspc node -s next.local
+
+# toggle tiling / floating
+super + shift + space
+	bspc node focused -t \~floating
+
+# focus or send the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# resize window
+super + {y,u,i,o}
+        $SCRIPTS/bspwm/resize.sh {west, north, south, east} 1
+
+super + shift + {y,u,i,o}
+        $SCRIPTS/bspwm/resize.sh {west, north, south, east} 5
+
+# focus the given desktop remenbering last focus (similar to i3 back-and-forth)
+super + {1-9,0}
+        desktop='^{1-9,10}'; \
+        [ $(bspc query -D -d "$desktop") = $(bspc query -D -d "newest") ] && bspc desktop -f last || bspc desktop -f "$desktop"
+
+# focus or send to the given desktop
+super + shift + {1-9,0}
+	bspc node -d ^{1-9,10}
+
+# last desktop
+super + {Tab}
+	bspc desktop last --focus
+
+# scratch pad
+super + {_,shift +} backslash
+        $SCRIPTS/bspwm/scratchpad.sh {cycle,send}
+
+##
+## FUNCTION KEYS
+##
+
+# Run networkmanager in dmenu
+super + F2
+        $HOME/Applications/networkmanager-dmenu/networkmanager_dmenu
+
+# keyboard backlight
+super + F3
+        $SCRIPTS/keyboard_backlight.sh --dec
+
+super + F4
+        $SCRIPTS/keyboard_backlight.sh --inc
+
+# screen backlight
+super + F5
+        xbacklight -dec 5
+super + F6
+        xbacklight -inc 5
+super + control + F5
+        xbacklight -dec 10
+super + control + F6
+        xbacklight -inc 10
+super + shift + F5
+        xbacklight -dec 1
+super + shift + F6
+        xbacklight -inc 1
+
+# Toggle touchpad
+super + F9
+        $SCRIPTS/nomouse.sh
+
+# Toggle touchpad with no delay
+super + control + F9
+        $SCRIPTS/nomouse.sh --no-delay
+
+# Toggle microphone
+super + shift + F10
+        $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle
+
+# Volume controls
+super + F10
+        amixer -q sset Master toggle
+super + F11
+        amixer -q sset Master 5%-
+super + F12
+        amixer -q sset Master 5%+
+super + control + F11
+        amixer -q sset Master 10%-
+super + control + F12
+        amixer -q sset Master 10%+
+super + shift + F11
+        amixer -q sset Master 1%-
+super + shift + F12
+        amixer -q sset Master 1%+
+
+# Media controls
+super + 111
+        playerctl stop
+super + 113
+        playerctl previous
+super + 114
+        playerctl next
+super + 116
+        playerctl play-pause
+
+# screen shots
+super + Print
+        $SCRIPTS/screenshots.sh -df -m
+
+# screen shots GBT current project
+super + control + Print
+        $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh gbt --get)/Pictures/screenshots -m
+
+# Others
+
+# Curret GBT project TODO list
+super + t
+        $SCRIPTS/todo.sh -l $($SCRIPTS/project/manage.sh gbt --get)/.todo
+
+# Global TODO list
+super + shift + t
+        $SCRIPTS/todo.sh
+
+# GBT Manage
+super + g
+        $SCRIPTS/project/manage.sh gbt
+
+# GBT Show current project
+super + shift + g
+        $SCRIPTS/project/manage.sh gbt --show
+
+# Personal Projects
+super + p
+        $SCRIPTS/project/manage.sh personal
+
+# Show current personal project
+super + shift + p
+        $SCRIPTS/project/manage.sh personal --show
+
+# Toggle Mouse Remaps
+super + b
+        $SCRIPTS/mousebuttons.sh --toggle
+
+# Mouse Remaps Show
+super + shift + b
+        $SCRIPTS/mousebuttons.sh --show
+
+# Mouse Remaps Mode
+super + control + b
+        $SCRIPTS/mousebuttons.sh --mode
+
+# color picker
+super + c
+        colorpicker --one-shot --short --preview | xclip -selection clipboard
+
+grave
+        slock && bspc wm -O eDP1 HDMI2

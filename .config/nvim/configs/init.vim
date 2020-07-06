@@ -3,7 +3,7 @@
 
 call plug#begin('~/.vim/plugged')
 " General
-Plug 'bronson/vim-trailing-whitespace'         "show whitespaces at the end of lines in red
+Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of lines in red
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
@@ -15,45 +15,31 @@ if !exists('g:vscode')
   Plug 'vimlab/split-term.vim'                   "better terminal
 endif
 
-" Autocomplete & snippets
+" CoC
 if !exists('g:vscode')
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'Shougo/deoplete-clangx'                  "c-lang completer
-    Plug 'deoplete-plugins/deoplete-jedi'          "python completer
-    Plug 'artur-shaik/vim-javacomplete2'           "java completer
-    Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-    Plug 'deoplete-plugins/deoplete-go', { 'do': 'make'}
-    Plug 'Shougo/neco-vim'                         "vim completer
-    Plug 'ervandew/supertab'                       "use tab for autocomplete
-    Plug 'Shougo/neosnippet.vim'                   "snippets support
-    Plug 'Shougo/neosnippet-snippets'              "standard snippets repo
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 endif
 
 " Misc
 if !exists('g:vscode')
   Plug 'vim-airline/vim-airline'                 "status/tabline
   Plug 'vim-airline/vim-airline-themes'          "status line themes
-  Plug 'junegunn/goyo.vim'                       "distraction free
   Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
   Plug 'frazrepo/vim-rainbow'                    "brackets color
   Plug 'sbdchd/neoformat'                        "autoformatter
-  Plug 'thinca/vim-quickrun'                     "run temporary code with QuickRun
   Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
   Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarnpkg install', 'branch': 'linux-browser-args' } "markdown previewer
-  " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarnpkg install' } "markdown previewer
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
-  Plug 'daeyun/vim-matlab', { 'do': ':UpdateRemotePlugins' }
   Plug 'unblevable/quick-scope'                  "horizontal movement helper
   Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
   Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
+  Plug 'ap/vim-css-color'                        "color name highlighter
 endif
 
 " Syntax
 if !exists('g:vscode')
-  Plug 'vim-syntastic/syntastic'                 "syntax checker
-  Plug 'myint/syntastic-extras'                  "syntastic extras
   Plug 'lervag/vimtex'                           "latex support
   Plug 'nikvdp/ejs-syntax'                       "ejs syntax
   Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
@@ -77,13 +63,5 @@ Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
 if !exists('g:vscode')
   Plug 'tpope/vim-fugitive'                      "git plugin
-endif
-
-" NerdTree
-if !exists('g:vscode')
-  Plug 'scrooloose/nerdtree'                     "file explorer
-  Plug 'Xuyuanp/nerdtree-git-plugin'             "git plugin for nerdtree
-  " Plug 'ryanoasis/vim-devicons'                  "extra icons for nerdtree
-  " Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 endif
 call plug#end()

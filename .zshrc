@@ -1,79 +1,3 @@
-###############
-# ZPLUG STUFF #
-###############
-
-export ZPLUG_HOME="$ZSH_CONFIGS/.zplug"
-source $ZPLUG_HOME/init.zsh
-
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
-
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-zplug "zsh-users/zsh-completions"
-
-zplug 'mafredri/zsh-async', from:github
-zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-    printf "Install? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-# Then, source plugins and add commands to $PATH
-zplug load
-
-##################
-# CONFIGURATIONS #
-##################
-
-fpath+=${ZDOTDIR:-~}/.zsh_functions
-
-fpath+=($HOMW/.config/zsh/.zplug/repos/zsh-users/zsh-completions/src $fpath)
-
-setopt INC_APPEND_HISTORY
-setopt HIST_IGNORE_DUPS
-setopt EXTENDED_HISTORY
-HISTFILE=~/.zsh_history
-SAVEHIST=10000
-HISTSIZE=10000
-
-ZSH_DISABLE_COMPFIX=true
-
-autoload -U compinit
-zstyle ':completion:*' menu select
-zstyle ':completion:*' special-dirs true
-zmodload zsh/complist
-compinit
-
-# Include hidden files in autocomplete:
-_comp_options+=(globdots)
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-
-# ZLE hooks for prompt's vi mode status
-function zle-line-init zle-keymap-select {
-	# Change the cursor style depending on keymap mode.
-	case $KEYMAP {
-		vicmd)
-			printf '\e[0 q' # Box.
-			;;
-
-		viins|main)
-			printf '\e[6 q' # Vertical bar.
-			;;
-	}
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
 #########
 # ALIAS #
 #########
@@ -95,8 +19,6 @@ alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
 alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
 alias mtdcd='cd $(mtd --get)'
-alias list-big-files='sudo find / -type f -size +50M -exec du -h {} \; | sort -n'
-#alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
@@ -172,6 +94,89 @@ stopwatch() {
         sleep 0.1
     done
 }
+
+run_swallow() {
+  echo
+  eval swallow $BUFFER
+  BUFFER=''
+  zle reset-prompt
+}
+
+###############
+# ZPLUG STUFF #
+###############
+
+export ZPLUG_HOME="$ZSH_CONFIGS/.zplug"
+source $ZPLUG_HOME/init.zsh
+
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+zplug "zsh-users/zsh-completions"
+
+zplug 'mafredri/zsh-async', from:github
+zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+
+##################
+# CONFIGURATIONS #
+##################
+
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt EXTENDED_HISTORY
+HISTFILE=~/.config/zsh/zsh_history
+SAVEHIST=10000
+HISTSIZE=10000
+
+ZSH_DISABLE_COMPFIX=true
+
+autoload -U compinit
+zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
+zmodload zsh/complist
+compinit
+
+# Include hidden files in autocomplete:
+_comp_options+=(globdots)
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+
+# ZLE hooks for prompt's vi mode status
+function zle-line-init zle-keymap-select {
+	# Change the cursor style depending on keymap mode.
+	case $KEYMAP {
+		vicmd)
+			printf '\e[0 q' # Box.
+			;;
+
+		viins|main)
+			printf '\e[6 q' # Vertical bar.
+			;;
+	}
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+# swallow keybinding
+zle -N run_swallow
+bindkey '^P' run_swallow
 
 #################
 # FZF OVERWRITE #

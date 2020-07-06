@@ -31,17 +31,30 @@ else
 endif
 set encoding=UTF-8               "add support for utf-8 encoding
 set noundofile                   "don't create .un~ file for persistent undo
+set nobackup                     "CoC -> some servers have issues with backup files, see #649.
+set nowritebackup
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
-" set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
+set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
+" set cmdheight=2                  " Give more space for displaying messages.
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')} " Add CoC statusline support
 
 " Change the directory where temporary files are stored
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.backup//
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Tags files default locations
 set tags=tags,./tags
@@ -71,9 +84,6 @@ endif
 
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" Auto check the file so that 'autoread' works as expected
-autocmd FocusGained,BufEnter * :call RefreshBufferAndNERDTree()
 
 " Enale maximum text width for tex files
 autocmd FileType tex set tw=200

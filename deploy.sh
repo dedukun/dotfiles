@@ -239,6 +239,8 @@ _install_dotfiles() {
 
     . "$usr_home/.profile"
 
+    systemctl --user enable ssh-agent.service
+
     cd "$usr_home" || {
         _error "Can't cd into '$usr_home'"
         return $?

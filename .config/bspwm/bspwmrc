@@ -17,8 +17,8 @@ bspc config remove_disabled_monitors    true
 bspc config remove_unplugged_monitors   true
 bspc config merge_overlapping_monitors  true
 
-bspc config automatic_scheme alternate
-bspc config initial_polarity second_child
+bspc config automatic_scheme spiral
+bspc config initial_polarity first_child
 
 # Rules
 bspc rule -a mpv state=fullscreen

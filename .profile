@@ -39,12 +39,8 @@ export LANGUAGE=en_GB.UTF-8
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc.py"
 
-# start ssh-agent
-if [ -z "$SSH_AUTH_SOCK" ] ; then
-    eval "$(ssh-agent -s)"
-    ssh-add ~/.ssh/id_rsa
-    ssh-add ~/.ssh/gbt_rsa
-fi
+# export socket for ssh-agent
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
 ## Run bashrc
 echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"

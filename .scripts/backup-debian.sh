@@ -8,8 +8,8 @@ sudo borg create --stats \
                  --compression lz4 \
                  --checkpoint-interval 86400 \
                  "$backup_mount"::"$backup_date" \
-                 /home/dedukun/Android \
-                 /home/dedukun/AndroidStudioProjects \
+                 # /home/dedukun/Android \
+                 # /home/dedukun/AndroidStudioProjects \
                  /home/dedukun/Applications \
                  /home/dedukun/Arduino \
                  /home/dedukun/Desktop \
@@ -26,7 +26,5 @@ sudo borg create --stats \
                  /home/dedukun/Public \
                  /home/dedukun/Repositories \
                  /home/dedukun/Shared \
-                 /home/dedukun/snap \
                  /home/dedukun/Steam \
-                 "/home/dedukun/VirtualBox VMs" \
                  /home/dedukun/.scripts

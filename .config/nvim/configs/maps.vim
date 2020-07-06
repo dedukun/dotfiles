@@ -8,7 +8,7 @@ map Y y$
 let mapleader=","
 
 " Remove all spaces at the end of lines
-nnoremap <leader>cc  :%s/\s\+$//ge<CR>
+nnoremap <leader>cc  :StripWhitespace<CR>
 
 " Toggle Syntastic [WIP]
 nnoremap <leader>s  :call SyntasticToggle()<CR>
@@ -24,10 +24,6 @@ nnoremap <leader>h  :call CreateSectionHeader("")<left><left>
 nnoremap <leader>t :!ctags -R .<CR>
 nnoremap <leader>T :call GenerateTags()<CR>
 
-" Toggle Goyo
-nnoremap <leader>g :call GoyoToggle()<CR>
-nnoremap <leader>G :Goyo<CR>
-
 " clear highlights
 nnoremap <leader>n :noh<CR>
 
@@ -35,10 +31,7 @@ nnoremap <leader>n :noh<CR>
 nnoremap <leader>N :call ToggleNumber()<CR>
 
 " File Explorer
-nnoremap <leader>m :call ToggleNERDTree()<CR>
-
-" Refresh the buffer and NERDTree
-nnoremap <leader>r :call RefreshBufferAndNERDTree()<CR>
+nnoremap <leader>m :call Vexplore<CR>
 
 " Remap split windows navigation
 nnoremap <C-h> <C-w>h
@@ -51,21 +44,70 @@ nnoremap <C-l> <C-w>l
 nnoremap gb <C-^>
 
 " Search for under under cursor in multiple files
-nnoremap gr :noautocmd rep <cword> *<CR>
-nnoremap Gr :noautocmd rep <cword> %:p:h/*<CR>
-nnoremap gR :noautocmd rep '\b<cword>\b' *<CR>
-nnoremap GR :noautocmd rep '\b<cword>\b' %:p:h/*<CR>
+nnoremap gr :noautocmd vimgrep <cword> *<CR>
+nnoremap Gr :noautocmd vimgrep <cword> %:p:h/*<CR>
+nnoremap gR :noautocmd vimgrep '\b<cword>\b' *<CR>
+nnoremap GR :noautocmd vimgrep '\b<cword>\b' %:p:h/*<CR>
 
 " Remap ^W_w to zoomwin
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
-" neosnippet
-imap <C-j>     <Plug>(neosnippet_expand_or_jump)
-smap <C-j>     <Plug>(neosnippet_expand_or_jump)
-xmap <C-j>     <Plug>(neosnippet_expand_target)
-
 " FZF
 nnoremap <C-p>  :FZF<CR>
+
+" CoC
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ COC_Check_Back_Space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K  :call COC_Show_Documentation()<CR>
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
 """"""""
 " Commands

@@ -1,37 +1,6 @@
 """""""""""""""""
 " Vim Functions
 
-function ToggleNumber()
-    if &number ==# 1
-        echo "Numbers Off"
-        NumbersToggle
-        NumbersDisable
-    else
-        echo "Numbers On"
-        NumbersEnable
-        set number
-    endif
-endfunction
-
-function GoyoToggle()
-    if &number ==# 1
-        "change terminal's font size (only works in this st configuration)
-        silent exec "!xdotool key alt+shift+k"
-        silent exec "!xdotool key alt+shift+k"
-        silent exec "!xdotool key alt+shift+k"
-        NumbersDisable
-        Goyo 85%
-    else
-        "change terminal's font size (only works in this st configuration)
-        silent exec "!xdotool key alt+shift+j"
-        silent exec "!xdotool key alt+shift+j"
-        silent exec "!xdotool key alt+shift+j"
-        NumbersEnable
-        Goyo!
-        set number
-    endif
-endfunction
-
 function GenerateTags()
     if filereadable("generate-tags.sh")
         echo "Generating tags... "
@@ -109,53 +78,18 @@ function CreateSectionHeader(comment)
   call append(line('.')-1, print_str)
 endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-""""""" N E R D T R E E   F U N C T I O N S """"""
-""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""
+" Coc
 
-function ToggleNERDTree()
-  let nerdtree_buffer = GetNERDTreeActiveBuffers()
-  if len(nerdtree_buffer) == 0
-    NERDTreeFocus
-    call ResizeNERDTree()
+function! COC_Check_Back_Space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+function! COC_Show_Documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
   else
-    NERDTreeClose
+    call CocAction('doHover')
   endif
 endfunction
-
-function RefreshBufferAndNERDTree()
-    silent! checktime
-    silent! NERDTreeRefreshRoot
-endfunction
-
-function GetNERDTreeActiveBuffers()
-  let buffers = filter(range(1, bufnr('$')), 'bufexists(v:val)')
-  let buffers_active = filter(buffers, 'bufwinid(v:val) > -1')
-  let buffer_filter = "NERD_Tree_"
-  let nerdtree_buffer = filter(buffers_active, 'match(bufname(v:val), buffer_filter) > -1')
-  return nerdtree_buffer
-endfunction
-
-function ResizeNERDTree()
-  let nerdtree_buffer = GetNERDTreeActiveBuffers()
-  if len(nerdtree_buffer) == 0
-    echo "No buffer was detected to belong to NerdTree"
-  elseif len(nerdtree_buffer) > 1
-    echo "ERROR: ". len(nerdtree_buffer) ." buffers were detected to belong to NerdTree"
-  else
-    let lines = getbufline(nerdtree_buffer[0], 5, "$")
-    let max_file_len = 0
-    let tmp_len=-1
-    for line in lines
-      let tmp_len=strlen(line)
-      if max_file_len < tmp_len
-        let max_file_len = tmp_len
-      endif
-    endfor
-
-    " Set new size and refresh NERDTree
-    let g:NERDTreeWinSize=max_file_len
-    NERDTreeFocus
-  endif
-endfunction
-
