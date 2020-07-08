@@ -36,14 +36,11 @@ reset_bspwm() {
 reset_polybar() {
     if [ "$1" = "single" ]; then
         killall -q polybar
-        polybar default &
-        >/dev/null
+        nohup polybar default > /dev/null 2>&1 &
     elif [ "$1" = "dual" ]; then
         killall -q polybar
-        polybar primary &
-        >/dev/null
-        polybar second &
-        >/dev/null
+        nohup polybar primary > /dev/null 2>&1 &
+        nohup polybar second > /dev/null 2>&1 &
     fi
 }
 

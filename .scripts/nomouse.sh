@@ -23,7 +23,7 @@ if [ ! "$(pgrep unclutter)" ]; then
     fi
 
     # Turn touchpad off
-    synclient TouchpadOff='1';
+    xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 0
 
     # Check if external mouse is plugged
     if [ ! "$(xinput list | grep -i mouse)" ]; then
@@ -45,7 +45,7 @@ else
     notify-send -t 1000 "TouchPad -> on"
 
     # Turn touchpad on
-    synclient TouchpadOff='0';
+    xinput set-prop "ETPS/2 Elantech Touchpad" "Device Enabled" 1
 
     pkill unclutter
 fi

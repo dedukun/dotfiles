@@ -1,6 +1,5 @@
-source $HOME/.vim/configs/init.vim
-source $HOME/.vim/configs/general.vim
-source $HOME/.vim/configs/maps.vim
-source $HOME/.vim/configs/functions.vim
-source $HOME/.vim/configs/plugins-settings.vim
-
+source $HOME/.config/nvim/configs/init.vim
+source $HOME/.config/nvim/configs/general.vim
+source $HOME/.config/nvim/configs/maps.vim
+source $HOME/.config/nvim/configs/functions.vim
+source $HOME/.config/nvim/configs/plugins-settings.vim

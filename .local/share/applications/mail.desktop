@@ -1,4 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Mail
-Exec=$TERMINAL_RUN neomutt %u

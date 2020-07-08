@@ -1,7 +1,7 @@
 """""""""""
 " Plugins
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 " General
 Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of lines in red
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
@@ -24,13 +24,13 @@ endif
 if !exists('g:vscode')
   Plug 'vim-airline/vim-airline'                 "status/tabline
   Plug 'vim-airline/vim-airline-themes'          "status line themes
-  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
   Plug 'frazrepo/vim-rainbow'                    "brackets color
   Plug 'sbdchd/neoformat'                        "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
   Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
-  Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarnpkg install', 'branch': 'linux-browser-args' } "markdown previewer
+  " Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarnpkg install', 'branch': 'linux-browser-args' } "markdown previewer
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
   Plug 'unblevable/quick-scope'                  "horizontal movement helper
   Plug 'qwertologe/nextval.vim'                  "better ^A and ^X

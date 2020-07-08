@@ -1,6 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=Text editor
-Exec=/home/dedukun/.scripts/nvim_gui.sh %u
-
-

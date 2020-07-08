@@ -29,13 +29,12 @@ bspc rule -a Zathura state=tiled
 ###############
 
 $SCRIPTS/mousebuttons.sh --toggle                   # start mouse extra buttons extra functionality
-$SCRIPTS/pulseaudio-microphone.sh --toggle          # turn off the microphone
+$SCRIPTS/polybar/pulseaudio-microphone.sh --toggle          # turn off the microphone
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
 xsetroot -solid "#000"                              # change background to solid black
-synclient NaturalScrolling=1  VertScrollDelta=-111  # invert scrolling
-synclient TapButton1=1                              # tap to click
+xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1 # invert scrolling
 
 xbacklight -set 50                                  # start with screen brightness at 50%
 

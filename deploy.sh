@@ -167,7 +167,7 @@ _install_extra_packages() {
     apt install libnotify4 libnotify-bin -y     # notify-send
     apt install suckless-tools -y               # dmenu | slock
     apt install thunderbird -y                  # mail client
-    apt install xbacklight -y                   #
+    apt install xbacklight -y                   #  xorg-xbacklight
     apt install unclutter -y                    # puts the mouse invisible
     apt install chromium -y                     # chromium to use as secondary browser
     apt install redshift -y                     # reduce blue light (similar f.lux)

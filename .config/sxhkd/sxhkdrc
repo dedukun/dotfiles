@@ -216,9 +216,9 @@ super + shift + b
 super + control + b
         $SCRIPTS/mousebuttons.sh --mode
 
-# color picker
+# color picker TODO change to xsel
 super + c
-        colorpicker --one-shot --short --preview | xclip -selection clipboard
+        colorpicker --one-shot --short --preview | xsel --clipboard
 
 grave
         slock && bspc wm -O eDP1 HDMI2
