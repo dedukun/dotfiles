@@ -1,6 +1,8 @@
 #!/bin/sh
 # Manages GBT projects.
 
+notify_send_flags='--replaces-process "proj-proj"'
+
 config_file=""
 proj_folder=""
 symlink=""
@@ -24,7 +26,8 @@ new_project () {
 
     [ "$proj_name" = "" ] && exit 0
 
-    [ -d "$proj_folder/$proj_name" ] && notify-send -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
+    #[ -d "$proj_folder/$proj_name" ] && notify-send.py  -u critical -t 1500 "Project '$proj_name' already exists!" $notify_send_flags && exit 1
+    [ -d "$proj_folder/$proj_name" ] && notify-send  -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
 
     mkdir -p "$proj_folder/$proj_name"
 
@@ -56,11 +59,17 @@ create_folders () {
 }
 
 choose_project () {
-    proj_name=$(find "$proj_folder" -maxdepth 4 -name ".id" |        # get folders with file '.id'
-                sort |                                               # sort them
-                sed 's$'"$proj_folder"/'$$g' |                       # get only the relative names from the base directory
-                sed 's$/.id$$g' |                                    # remove the '/.id' file string
-                rofi -dmenu -i -p "Choose Project" -l 25)            # dmenu
+    list_projects=$(find "$proj_folder" -maxdepth 4 -name ".id" |        # get folders with file '.id'
+                    sort |                                               # sort them
+                    sed 's$'"$proj_folder"/'$$g' |                       # get only the relative names from the base directory
+                    sed 's$/.id$$g')                                     # remove the '/.id' file string
+
+    number_of_lines=$(echo "$list_projects" | wc -l)
+    if [ "$number_of_lines" -gt 25 ]; then
+        number_of_lines=25
+    fi
+
+    proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project" -l $number_of_lines)            # dmenu
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -70,7 +79,8 @@ choose_project () {
 show_project () {
     proj_name=$1
 
-    notify-send -t 1500 "Current working project" "'$proj_name'"
+    #notify-send.py  -t 1500 "Current working project" "'$proj_name'" $notify_send_flags
+    notify-send  -t 1500 "Current working project" "'$proj_name'"
 }
 
 get_full_project () {
@@ -96,7 +106,8 @@ _get_unused_directories () {
 
 _choose_project () {
     # Check that given directory exists
-    [ ! -d "$1" ] && notify-send -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
+    #[ ! -d "$1" ] && notify-send.py  -u critical -t 2500 "Error" "Given directory doesn't exist" $notify_send_flags && exit 1
+    [ ! -d "$1" ] && notify-send  -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
 
     # Change current working project in the configs
     sed -i "s/proj=.*$/proj=$(echo "$1" | sed 's/\//\\\// g')/ g" "$config_file"
@@ -116,8 +127,8 @@ _get_project () {
 
 _link_second () {
     # check if second is mounted
-    notify-send "IM LINKING SECOND" "$1"
-
+    #notify-send.py  "IM LINKING SECOND" "$1" $notify_send_flags
+    notify-send  "IM LINKING SECOND" "$1"
 }
 
 while [ $# -gt 0 ]

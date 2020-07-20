@@ -29,7 +29,7 @@ bspc rule -a Zathura state=tiled
 ###############
 
 $SCRIPTS/mousebuttons.sh --toggle                   # start mouse extra buttons extra functionality
-$SCRIPTS/polybar/pulseaudio-microphone.sh --toggle          # turn off the microphone
+$SCRIPTS/polybar/pulseaudio-microphone.sh --toggle  # turn off the microphone
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
@@ -42,6 +42,9 @@ setxkbmap pt                                        # set keyboard map to portug
 setxkbmap -option ctrl:nocaps                       # disables the caps lock key
 
 xmodmap -e 'keycode  248 = grave asciitilde grave asciitilde' # set special key [248] to keysym '~' [which is keybinded in sxhkd]
+
+wmname LG3D                                         # rename the WM instance to fix Java applications
+                                                    # More info in: https://wiki.archlinux.org/index.php/Bspwm#Problems_with_Java_applications
 
 killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd

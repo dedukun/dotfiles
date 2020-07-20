@@ -1,0 +1,5 @@
+[user]
+	name = Diogo Duarte
+	email = dierduarte@gmail.com
+[core]
+	pager = less -+FX

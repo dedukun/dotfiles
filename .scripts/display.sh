@@ -29,6 +29,7 @@ reset_bspwm() {
     elif [ "$1" = "dual" ]; then
         bspc monitor "$2" -d 1 2 3 4
         bspc monitor "$3" -d 5 6 7 8 9 10
+        sleep 0.5
         bspc wm -O "$2" "$3"
     fi
 }

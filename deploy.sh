@@ -103,9 +103,6 @@ _install_nvim_latest() {
     runuser -l "$usr_name" -c "python -m pip install --user pynvim neovim"
     runuser -l "$usr_name" -c "python3 -m pip install --user pynvim neovim"
     runuser -l "$usr_name" -c "npm install -g neovim"
-
-    # install nauniq (used in custom fzf_history custom command (in .bashrc) to remove repeated entries)
-    PERL_MM_USE_DEFAULT=1 perl -MCPAN -e 'install App::nauniq'
 }
 
 _install_st() {
@@ -190,7 +187,6 @@ _install_extra_languages() {
     printf "\nInstalling extras languages...\n"
     apt install default-jre default-jdk -y # Java
     apt install npm -y                     # Node
-    apt install perl -y                    # Perl
 }
 
 _install_fonts() {

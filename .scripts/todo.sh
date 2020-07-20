@@ -7,6 +7,7 @@
 #
 # original:https://tools.suckless.org/dmenu/scripts/todo
 
+notify_send_flags='--replaces-process "todo-list"'
 todo_file="$SCRIPTS/.cache/.todo"
 
 print_help () {
@@ -45,9 +46,11 @@ do
     esac
 done
 
-[ -d "$todo_file" ] && notify-send --urgency=critical -t 2000 "ERROR" "'$todo_file' is a directory" && exit 1
+#[ -d "$todo_file" ] && notify-send.py  --urgency=critical -t 2000 "ERROR" "'$todo_file' is a directory" $notify_send_flags && exit 1
+[ -d "$todo_file" ] && notify-send  --urgency=critical -t 2000 "ERROR" "'$todo_file' is a directory" && exit 1
 
-[ ! -f "$todo_file" ] && notify-send -t 2000 "New Todo List" "New list was created at '$todo_file'"
+#[ ! -f "$todo_file" ] && notify-send.py  -t 2000 "New Todo List" "New list was created at '$todo_file'"  $notify_send_flags
+[ ! -f "$todo_file" ] && notify-send  -t 2000 "New Todo List" "New list was created at '$todo_file'"
 
 touch "$todo_file"
 height=$(wc -l "$todo_file" | awk '{print $1}')

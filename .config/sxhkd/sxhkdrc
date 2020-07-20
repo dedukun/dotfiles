@@ -103,6 +103,10 @@ super + {Tab}
 super + {_,shift +} backslash
         $SCRIPTS/bspwm/scratchpad.sh {cycle,send}
 
+# toggle followinf the focused window
+super + w
+        $SCRIPTS/bspwm/follow_desktop.sh toggle_follow
+
 ##
 ## FUNCTION KEYS
 ##
@@ -113,24 +117,24 @@ super + F2
 
 # keyboard backlight
 super + F3
-        $SCRIPTS/keyboard_backlight.sh --dec
+        light -s "sysfs/leds/asus::kbd_backlight" -U 50
 
 super + F4
-        $SCRIPTS/keyboard_backlight.sh --inc
+        light -s "sysfs/leds/asus::kbd_backlight" -A 50
 
 # screen backlight
 super + F5
-        xbacklight -dec 5
+        light -U 5
 super + F6
-        xbacklight -inc 5
+        light -A 5
 super + control + F5
-        xbacklight -dec 10
+        light -U 10
 super + control + F6
-        xbacklight -inc 10
+        light -A 10
 super + shift + F5
-        xbacklight -dec 1
+        light -U 1
 super + shift + F6
-        xbacklight -inc 1
+        light -A 1
 
 # Toggle touchpad
 super + F9

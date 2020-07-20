@@ -1,6 +1,8 @@
 #!/bin/sh
 # Reassign extra mouse buttons
 
+notify_send_flags='--replaces-process "mouse-buttons"'
+
 print_help () {
     printf "Mouse Extra Buttons\n"
     printf "This script reassigns key presses to the mouse extra buttons.\n"
@@ -13,16 +15,19 @@ print_help () {
 }
 
 exit_error() {
-    notify-send -t 1500 -u critical "ERROR" "$1"
+    #notify-send.py  -t 1500 -u critical "ERROR" "$1" $notify_send_flags
+    notify-send  -t 1500 -u critical "ERROR" "$1"
     exit 1
 }
 
 toggle_app() {
     meb_mode=$(get_mode)
     if [ "$(pgrep xbindkeys)" = "" ]; then
+        #notify-send.py -t 1500 -u normal "Toggle On" "'$meb_mode'" $notify_send_flags
         notify-send -t 1500 -u normal "Toggle On" "'$meb_mode'"
         xbindkeys
     else
+        #notify-send.py -t 1500 -u normal "Toggle Off" $notify_send_flags
         notify-send -t 1500 -u normal "Toggle Off"
         killall xbindkeys
     fi
@@ -30,7 +35,8 @@ toggle_app() {
 }
 
 back_press() {
-    # notify-send -t 1500 -u normal "Back"
+    ## notify-send.py  -t 1500 -u normal "Back" $notify_send_flags
+    # notify-send  -t 1500 -u normal "Back"
     meb_mode=$(get_mode)
     case $meb_mode in
         "LeftRight")
@@ -60,7 +66,8 @@ back_press() {
             # DO NOTHING
             ;;
         *)
-            notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
+            #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
+            notify-send  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
     esac
@@ -68,7 +75,8 @@ back_press() {
 }
 
 forward_press() {
-    # notify-send -t 1500 -u normal "Forward"
+    ## notify-send.py  -t 1500 -u normal "Forward" $notify_send_flags
+    # notify-send  -t 1500 -u normal "Forward"
     meb_mode=$(get_mode)
     case $meb_mode in
         "LeftRight")
@@ -96,7 +104,8 @@ forward_press() {
             # DO NOTHING
             ;;
         *)
-            notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
+            #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
+            notify-send  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
     esac
@@ -118,7 +127,8 @@ get_mode() {
 show_mode() {
     meb_mode=$(get_mode)
 
-    notify-send -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
+    #notify-send.py  -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'" $notify_send_flags
+    notify-send  -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
 }
 
 [ $# -eq 0 ] && exit_error "Missing argument"
