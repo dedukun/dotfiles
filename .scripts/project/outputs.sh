@@ -1,4 +1,5 @@
 #!/bin/sh
+#[WIP]
 print_help () {
     echo "This script helps organizing commands outputs and kernel logs."
     printf "\t-h, --help      Prints help menu\n"

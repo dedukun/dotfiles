@@ -3,3 +3,4 @@
 	email = dierduarte@gmail.com
 [core]
 	pager = less -+FX
+	hooksPath = /home/dedukun/.config/git/hooks

@@ -1,4 +1,5 @@
 #!/bin/sh
+#[WIP]
 print_help () { echo "This script helps organizing compiled images."
     printf "Usage '%s' <file>\n" "$(basename "$0")"
     printf "\t-h, --help      Prints help menu\n"

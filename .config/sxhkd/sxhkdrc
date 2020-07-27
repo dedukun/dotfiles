@@ -103,9 +103,9 @@ super + {Tab}
 super + {_,shift +} backslash
         $SCRIPTS/bspwm/scratchpad.sh {cycle,send}
 
-# toggle followinf the focused window
+# toggle following the focused window
 super + w
-        $SCRIPTS/bspwm/follow_desktop.sh toggle_follow
+        bspc node focused --flag sticky
 
 ##
 ## FUNCTION KEYS

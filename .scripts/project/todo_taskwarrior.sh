@@ -1,5 +1,6 @@
 #!/bin/sh
 # This is a script to manage a todo list, with taskwarrior, between projects using a cli or dmenu/rofi
+# [WIP]
 
 todo_project="general"
 

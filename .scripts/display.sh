@@ -24,12 +24,12 @@ change_i3_workspace_outputs() {
 }
 
 reset_bspwm() {
+    bspc config top_padding 23
     if [ "$1" = "single" ]; then
         bspc monitor "$2" -d 1 2 3 4 5 6 7 8 9 10
     elif [ "$1" = "dual" ]; then
         bspc monitor "$2" -d 1 2 3 4
         bspc monitor "$3" -d 5 6 7 8 9 10
-        sleep 0.5
         bspc wm -O "$2" "$3"
     fi
 }

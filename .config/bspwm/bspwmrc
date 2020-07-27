@@ -1,7 +1,14 @@
 #!/bin/sh
 
+###########
+## RULES ##
+###########
+
 # If refreshing bspwm, remove all previous rules to prevent doubling up.
 bspc rule -r "*"
+
+bspc rule -a mpv state=fullscreen
+bspc rule -a Zathura state=tiled
 
 #############
 ## CONFIGS ##
@@ -9,7 +16,7 @@ bspc rule -r "*"
 
 bspc config border_width 2
 bspc config window_gap 0
-bspc config top_padding 22	# top_padding I set equal to polybar's height
+bspc config top_padding 23
 bspc config focus_follows_pointer       false
 bspc config borderless_monocle          true
 bspc config gapless_monocle             true
@@ -20,9 +27,6 @@ bspc config merge_overlapping_monitors  true
 bspc config automatic_scheme spiral
 bspc config initial_polarity first_child
 
-# Rules
-bspc rule -a mpv state=fullscreen
-bspc rule -a Zathura state=tiled
 
 ###############
 ## AUTOSTART ##
@@ -33,7 +37,7 @@ $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle  # turn off the microphone
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
-xsetroot -solid "#000"                              # change background to solid black
+hsetroot -solid "#000"                              # change background to solid black
 xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1 # invert scrolling
 
 xbacklight -set 50                                  # start with screen brightness at 50%
@@ -45,6 +49,9 @@ xmodmap -e 'keycode  248 = grave asciitilde grave asciitilde' # set special key 
 
 wmname LG3D                                         # rename the WM instance to fix Java applications
                                                     # More info in: https://wiki.archlinux.org/index.php/Bspwm#Problems_with_Java_applications
+
+killall "picom"
+picom &                                             # compositor
 
 killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd

@@ -1,0 +1,14 @@
+#!/bin/sh
+# This hook makes sure that I'm using the right email when working in a GBT repository
+
+# check if in GBT repo
+if [ $(git remote -v \
+     | grep origin | head -n 1 | awk '{ print $2; }' \
+     | cut -d '@' -f 2 | cut -d '/' -f 1 \
+     | grep '^192\.168\.100\....\|^github.com:Globaltronic$' -o) ]; then
+
+    if [ ! "$(git config --get user.email)" = "diogo.duarte@globaltronic.pt" ]; then
+        echo "You're not using the GBT email even though you are in a GBT repository. Git email changed."
+        git config user.email "diogo.duarte@globaltronic.pt"
+    fi
+fi

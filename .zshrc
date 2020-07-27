@@ -6,7 +6,6 @@
 unalias -a
 alias vi="nvim"
 alias vim="nvim"
-# alias git="\$SCRIPTS/gbt/git.sh"
 alias ag="\$SCRIPTS/ag.sh"
 alias ls='ls -h --color=auto --group-directories-first --sort=extension'
 alias l='ls -l'

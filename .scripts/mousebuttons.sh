@@ -35,8 +35,6 @@ toggle_app() {
 }
 
 back_press() {
-    ## notify-send.py  -t 1500 -u normal "Back" $notify_send_flags
-    # notify-send  -t 1500 -u normal "Back"
     meb_mode=$(get_mode)
     case $meb_mode in
         "LeftRight")
@@ -46,7 +44,7 @@ back_press() {
             xdotool key 116
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Down Page_Up
+            xdotool key --delay 2 Down Page_Up Down Up
             ;;
         "Workspace")
             i3-msg workspace prev
@@ -75,8 +73,6 @@ back_press() {
 }
 
 forward_press() {
-    ## notify-send.py  -t 1500 -u normal "Forward" $notify_send_flags
-    # notify-send  -t 1500 -u normal "Forward"
     meb_mode=$(get_mode)
     case $meb_mode in
         "LeftRight")
@@ -86,7 +82,7 @@ forward_press() {
             xdotool key 111
             ;;
         "PagesUpDown")
-            xdotool key --delay 2 Up Page_Down
+            xdotool key --delay 2 Up Page_Down Up Down
             ;;
         "Workspace")
             i3-msg workspace next

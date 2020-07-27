@@ -1,4 +1,5 @@
 #!/bin/sh
+#[WIP]
 
 print_help() {
     printf "Manage Monitors in BSPWM\n"
