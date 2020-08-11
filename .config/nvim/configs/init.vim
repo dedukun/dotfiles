@@ -46,7 +46,7 @@ if !exists('g:vscode')
   Plug 'gisphm/vim-gitignore'                    "gitignore syntax
   Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
   Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
-  Plug 'calviken/vim-gdscript3'                  "GDScript syntax
+  Plug 'habamax/vim-godot'                       "GDScript syntax
   Plug 'neomutt/neomutt.vim'                     "neomutt syntax
 endif
 

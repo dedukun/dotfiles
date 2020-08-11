@@ -9,6 +9,7 @@ bspc rule -r "*"
 
 bspc rule -a mpv state=fullscreen
 bspc rule -a Zathura state=tiled
+bspc rule -a "firefox:Toolkit" state=floating
 
 #############
 ## CONFIGS ##
@@ -50,8 +51,8 @@ xmodmap -e 'keycode  248 = grave asciitilde grave asciitilde' # set special key 
 wmname LG3D                                         # rename the WM instance to fix Java applications
                                                     # More info in: https://wiki.archlinux.org/index.php/Bspwm#Problems_with_Java_applications
 
-killall "picom"
-picom &                                             # compositor
+# killall "picom"
+# picom &                                             # compositor
 
 killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd

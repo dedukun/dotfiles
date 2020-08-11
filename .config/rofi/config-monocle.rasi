@@ -20,7 +20,7 @@ configuration {
     selected-urgent-background:  @urgent-foreground;
     selected-urgent-foreground:  @urgent-background;
 
-    font:                        "Terminus 22px";
+    font:                        "Terminus 20px";
     text-color:                  @foreground;
 
     border:                      0px;

@@ -14,6 +14,9 @@ if !exists('g:vscode')
   let g:airline_theme = 'bubblegum'
 endif
 
+" netrw
+let g:netrw_winsize = 20
+
 " Number
 if !exists('g:vscode')
   let g:numbers_exclude = ['tagbar', 'help', 'nerdtree', 'split-term']
@@ -21,9 +24,9 @@ endif
 
 " vimtex
 if !exists('g:vscode')
-  let g:vimtex_latexmk_progname = 'nvr'
   let g:vimtex_compiler_progname = 'nvr'
   let g:vimtex_view_method = 'zathura'
+  let g:tex_flavor = 'latex'
 endif
 
 " rainbow
@@ -51,6 +54,7 @@ autocmd FileType dosini setlocal commentstring=#\ %s
 autocmd FileType markdown setlocal commentstring=<!--%s-->
 autocmd FileType gdscript3 setlocal commentstring=#\ %s
 autocmd FileType GDScript setlocal commentstring=#\ %s
+autocmd FileType sxhkdrc setlocal commentstring=#\ %s
 
 " markdown previewer
 if !exists('g:vscode')

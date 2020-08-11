@@ -33,6 +33,7 @@ export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export ZSH_CONFIGS="$HOME/.config/zsh"
+export QT_STYLE_OVERRIDE="gtk2"
 
 # locale
 export LC_ALL=en_GB.UTF-8

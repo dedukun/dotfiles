@@ -92,6 +92,15 @@ autocmd FileType tex set tw=200
 autocmd FileType tex set spell
 autocmd FileType markdown set spell
 
+" check for autoread
+augroup checktime
+    autocmd!
+    if !has("gui_running")
+        autocmd FocusGained     * silent! checktime
+        autocmd BufEnter        * silent! checktime
+    endif
+augroup end
+
 " Delete bash 'edit-and-execute-command' (C-xC-e, or, if vi-mode enabled, <Esc>v) temporary file when opening it
 "
 " Case: When using bash 'edit-and-execute-command', if you open the mode with nothing on the command-line,

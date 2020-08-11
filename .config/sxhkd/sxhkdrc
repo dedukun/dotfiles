@@ -23,9 +23,17 @@ super + control + Return
 super + shift + control + Return
         eval "$TERMINAL_OPEN" "$($SCRIPTS/project/manage.sh personal --get)"
 
+# start terminal in temp dir
+super + m
+        eval "$TERMINAL_OPEN" "$($SCRIPTS/tempdir.sh --select)"
+
 # start program launcher
 super + d
         rofi -show run
+
+# start desktop program launcher
+super + shift + d
+        rofi -show drun
 
 # lock Screen
 super + control + l
@@ -165,14 +173,15 @@ super + shift + F12
         amixer -q sset Master 1%+
 
 # Media controls
-super + 111
-        playerctl stop
-super + 113
-        playerctl previous
-super + 114
-        playerctl next
-super + 116
-        playerctl play-pause
+# playerctl is pending with firefox, but still works
+super + Up
+        timeout 1s playerctl stop
+super + Right
+        timeout 1s playerctl previous
+super + Left
+        timeout 1s playerctl next
+super + Down
+        timeout 1s playerctl play-pause
 
 # screen shots
 super + Print
@@ -181,6 +190,10 @@ super + Print
 # screen shots GBT current project
 super + control + Print
         $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh gbt --get)/Pictures/screenshots -m
+
+# screen shots Personal current project
+super + control + shift + Print
+        $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh personal --get)/Pictures/screenshots -m
 
 # Others
 

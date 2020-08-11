@@ -1,3 +1,10 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 #########
 # ALIAS #
 #########
@@ -13,11 +20,15 @@ alias ll='ls -lA'
 alias less='less -i'
 alias grep='grep --color'
 alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
+alias info='info --vi-keys'
+
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
+
+# project alias
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
 alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
-alias mtdcd='cd $(mtd --get)'
+alias mtdcd='cd $(mtd --select)'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
@@ -131,6 +142,9 @@ zplug load
 ##################
 # CONFIGURATIONS #
 ##################
+
+# pure
+zstyle :prompt:pure:git:stash show yes
 
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS

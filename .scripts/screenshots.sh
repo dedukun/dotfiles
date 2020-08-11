@@ -15,6 +15,11 @@ print_help () {
     echo -e "\t -h, --help         Prints this help menu"
 }
 
+exit_error() {
+    notify-send  -t 1500 -u critical "ERROR" "$1"
+    exit 1
+}
+
 choose_menu () {
     screenshot_type=$(printf "Normal\nSelect\nWindow" | rofi -dmenu -i -p "Mode" -l 3)
 
@@ -106,7 +111,8 @@ fi
 
 # take the screen shot now so its timing doesn't depend on the user input
 if [[ -n $SCREEN_SELECTED ]]; then
-    maim -s --hidecursor "$SCREEN_TMP_NAME"
+    flameshot gui -r > "$SCREEN_TMP_NAME"
+    [ "$(cat $SCREEN_TMP_NAME | wc -l)" -lt 2 ] && exit_error "No Selection made"
 elif [[ -n $SCREEN_WINDOW ]]; then
     geometry=$(xwininfo | grep "geometry" | awk '{print $2;}')
     maim -g "$geometry" --hidecursor "$SCREEN_TMP_NAME"
