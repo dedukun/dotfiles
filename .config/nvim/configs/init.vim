@@ -24,13 +24,9 @@ endif
 if !exists('g:vscode')
   Plug 'vim-airline/vim-airline'                 "status/tabline
   Plug 'vim-airline/vim-airline-themes'          "status line themes
-  " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-
   Plug 'frazrepo/vim-rainbow'                    "brackets color
   Plug 'sbdchd/neoformat'                        "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
-  Plug 'godlygeek/tabular'                       "tabular (required by vim-markdown)
-  " Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarnpkg install', 'branch': 'linux-browser-args' } "markdown previewer
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
   Plug 'unblevable/quick-scope'                  "horizontal movement helper
   Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
@@ -40,14 +36,14 @@ endif
 
 " Syntax
 if !exists('g:vscode')
-  Plug 'lervag/vimtex'                           "latex support
+  Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
+  Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
   Plug 'nikvdp/ejs-syntax'                       "ejs syntax
   Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
-  Plug 'gisphm/vim-gitignore'                    "gitignore syntax
-  Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
-  Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
-  Plug 'habamax/vim-godot'                       "GDScript syntax
   Plug 'neomutt/neomutt.vim'                     "neomutt syntax
+  Plug 'gisphm/vim-gitignore'                    "gitignore syntax
+  Plug 'habamax/vim-godot'                       "GDScript syntax
+  Plug 'lervag/vimtex'                           "latex support
 endif
 
 " Text objects

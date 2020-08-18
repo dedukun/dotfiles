@@ -17,20 +17,6 @@ function MultipleFileSearch(search)
     exec 'grep -s' a:search ' **/* --include={*.c,*.h,*.py,*.java}'
 endfunction
 
-function SyntasticToggle()
-    if !exists("g:syntoggle")
-        echo "Disable Synstastic"
-        let g:syntoggle = "true"
-        silent! SyntasticToggleMode
-        SyntasticReset
-    else
-        echo "Enable Synstastic"
-        unlet g:syntoggle
-        silent! SyntasticToggleMode
-        SyntasticCheck
-    endif
-endfunction
-
 function CreateSectionHeader(comment)
   let filler_str = ''
 

@@ -23,22 +23,23 @@ export PATH
 
 # Projects
 export GBT_PROJECTS="$HOME/Globaltronic/Projects"
+export LOCAL_BINARIES="$HOME/.local/bin/"
 export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
-export LOCAL_BINARIES="$HOME/.local/bin/"
 
 # Configs
 export ANDROID_AVD_HOME="$HOME/.android/avd"
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export BSP_LAYOUT_ROOT="$HOME/Applications/bsp-layout/src"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-export ZSH_CONFIGS="$HOME/.config/zsh"
 export QT_STYLE_OVERRIDE="gtk2"
+export ZSH_CONFIGS="$HOME/.config/zsh"
 
 # locale
-export LC_ALL=en_GB.UTF-8
 export LANG=en_GB.UTF-8
 export LANGUAGE=en_GB.UTF-8
+export LC_ALL=en_GB.UTF-8
 
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc.py"

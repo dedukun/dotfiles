@@ -44,8 +44,8 @@ set shortmess+=c                 "don't give |ins-completion-menu| messages.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')} " Add CoC statusline support
 
 " Change the directory where temporary files are stored
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.backup//
+set backupdir=~/.config/nvim/.backup//
+set directory=~/.config/nvim/.backup//
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
@@ -87,6 +87,7 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Enale maximum text width for tex files
 autocmd FileType tex set tw=200
+autocmd FileType gitcommit set tw=100 | set spell
 
 " Enable spell check by default in specific files
 autocmd FileType tex set spell

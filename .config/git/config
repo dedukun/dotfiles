@@ -2,5 +2,5 @@
 	name = Diogo Duarte
 	email = dierduarte@gmail.com
 [core]
-	pager = less -+FX
+	pager = less -F -X
 	hooksPath = /home/dedukun/.config/git/hooks

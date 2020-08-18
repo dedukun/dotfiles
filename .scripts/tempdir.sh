@@ -128,7 +128,6 @@ select_directory() {
             get_cached_directory
             ;;
     esac
-
 }
 
 show_cache() {

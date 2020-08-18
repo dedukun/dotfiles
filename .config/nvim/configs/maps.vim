@@ -10,15 +10,12 @@ let mapleader=","
 " Remove all spaces at the end of lines
 nnoremap <leader>cc  :StripWhitespace<CR>
 
-" Toggle Syntastic [WIP]
-nnoremap <leader>s  :call SyntasticToggle()<CR>
-
 " vimgrep maps
 " nnoremap <leader>f  :noautocmd grep -s <cword> **/* --include={*.c,*.h,*.py,*.java}<CR>
 " nnoremap <leader>F  :call MultipleFileSearch("")<left><left>
 
 " create section header
-nnoremap <leader>h  :call CreateSectionHeader("")<left><left>
+nnoremap <leader>h  :CreateSectionHeader<space>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
@@ -116,4 +113,4 @@ omap ac <Plug>(coc-classobj-a)
 " source: https://vim.fandom.com/wiki/Reverse_order_of_lines
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 
-command! -buffer -nargs=1 CreateSectionHeader :call CreateSectionHeader(<args>)
+command! -nargs=1 CreateSectionHeader call CreateSectionHeader(<f-args>)
