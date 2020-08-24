@@ -1,5 +1,5 @@
 #!/bin/sh
-print_help () {
+print_help() {
     printf "LOME (Locate Menu)\n"
     printf "This script finds items in the system and pipes the output to dmenu.\n"
     printf "The result of the selection if then passed to a given command.\n"
@@ -12,7 +12,7 @@ print_help () {
 }
 
 _exit_error() {
-    printf "ERROR: %s\n" "$1" >&2;
+    printf "ERROR: %s\n" "$1" >&2
     exit 1
 }
 
@@ -20,25 +20,24 @@ _exit_error() {
 
 lome_lines=25
 lome_locate_args=""
-lome_command="echo"   # default command
+lome_command="echo" # default command
 
 [ $# -eq 0 ] && _exit_error "No arguments"
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     lome_key="$1"
 
     case $lome_key in
-        -l|--lines)
+        -l | --lines)
             lome_lines=$2
             shift # past argument
             shift # past value
             ;;
-        -i|--ignore-case)
+        -i | --ignore-case)
             shift # past value
             lome_locate_args+=" -i"
             ;;
-        -h|--help)
+        -h | --help)
             shift # past argument
             print_help
             exit 0
@@ -65,8 +64,8 @@ if [ ! -z $2 ]; then
     lome_command="$2"
 
     # Test if the given command exists in the system
-    command -v "$lome_command" > /dev/null \
-        || _exit_error "The command '$lome_command' doesn't exists in your system.
+    command -v "$lome_command" >/dev/null ||
+        _exit_error "The command '$lome_command' doesn't exists in your system.
        Try again with another command."
 fi
 

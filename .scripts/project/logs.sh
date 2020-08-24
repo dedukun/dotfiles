@@ -1,5 +1,5 @@
 #!/bin/sh
-print_help () {
+print_help() {
     echo "This script helps keeping logs organized and manage them"
     echo "Calling it with no arguments will open the log file of the day"
     printf "\t-b , --back        Open the nth previous log from today\n"
@@ -9,7 +9,7 @@ print_help () {
     printf "\t-h , --help        Prints help menu\n"
 }
 
-check_folder () {
+check_folder() {
     # Check if valid directory
     if [ ! -e "$1" ]; then
         mkdir -p "$1"
@@ -25,43 +25,42 @@ check_folder () {
 log_folder="$HOME/Globaltronic/Logging/logs"
 log_name="log_$(date +%y_%m_%d)"
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     LOG_KEY="$1"
 
     case $LOG_KEY in
-        -f|--find)
-        log_find="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -fi|--find-ins)
-        log_find="$2"
-        log_find_in=YES
-        shift # past argument
-        shift # past value
-        ;;
-        -b|--back)
-        log_back="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -d|--destination)
-        check_folder "$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+        -f | --find)
+            log_find="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -fi | --find-ins)
+            log_find="$2"
+            log_find_in=YES
+            shift # past argument
+            shift # past value
+            ;;
+        -b | --back)
+            log_back="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -d | --destination)
+            check_folder "$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h | --help)
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 
@@ -78,7 +77,7 @@ elif [ -n "$log_back" ]; then
     if [ ! -f "$log_folder/$log_name" ]; then
         vim "$log_folder/$(find "$log_folder" | tail -n "$log_back" | head -n 1)"
     else
-        vim "$log_folder/$(find "$log_folder" | tail -n $(("$log_back"+1)) | head -n 1)"
+        vim "$log_folder/$(find "$log_folder" | tail -n $(("$log_back" + 1)) | head -n 1)"
     fi
 # open today's log
 else

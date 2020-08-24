@@ -1,6 +1,7 @@
 #!/bin/sh
 #[WIP]
-print_help () { echo "This script helps organizing compiled images."
+print_help() {
+    echo "This script helps organizing compiled images."
     printf "Usage '%s' <file>\n" "$(basename "$0")"
     printf "\t-h, --help      Prints help menu\n"
 }
@@ -8,26 +9,25 @@ print_help () { echo "This script helps organizing compiled images."
 move_folder="$HOME/Globaltronic/Logging/images"
 move_date_folder="$(date +%y_%m_%d)"
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     move_key="$1"
 
     case $move_key in
-        -h|--help)
-        shift # past argument
-        print_help
-        exit
-        ;;
+        -h | --help)
+            shift # past argument
+            print_help
+            exit
+            ;;
         [a-zA-Z0-9]*)
-        move_file=$1
-        shift # past argument
-        ;;
+            move_file=$1
+            shift # past argument
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more information use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more information use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 

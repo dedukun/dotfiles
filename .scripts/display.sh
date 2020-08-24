@@ -36,11 +36,11 @@ reset_bspwm() {
 reset_polybar() {
     if [ "$1" = "single" ]; then
         killall -q polybar
-        nohup polybar default > /dev/null 2>&1 &
+        nohup polybar default >/dev/null 2>&1 &
     elif [ "$1" = "dual" ]; then
         killall -q polybar
-        nohup polybar primary > /dev/null 2>&1 &
-        nohup polybar second > /dev/null 2>&1 &
+        nohup polybar primary >/dev/null 2>&1 &
+        nohup polybar second >/dev/null 2>&1 &
     fi
 }
 
@@ -70,62 +70,62 @@ while [[ $# -gt 0 ]]; do
     dis_key="$1"
 
     case $dis_key in
-    -m | --mode)
-        dis_mode="$2"
-        shift # past value
-        shift # past argument
-        ;;
-    -M | --dmenu-mode)
-        dmenu_mode
-        shift # past argument
-        exit
-        ;;
-    --output)
-        dis_out="$2"
-        shift # past value
-        shift # past argument
-        ;;
-    -a | --above)
-        dis_direction="--above"
-        shift # past value
-        ;;
-    -l | --left)
-        dis_direction="--left-of"
-        shift # past value
-        ;;
-    -r | --right)
-        dis_direction="--right-of"
-        shift # past value
-        ;;
-    -b | --below)
-        dis_direction="--below"
-        shift # past value
-        ;;
-    -o | --off)
-        single_monitor "$dis_out" "$dis_base_monitor"
-        shift # past value
-        exit
-        ;;
-    --only)
-        single_monitor "$dis_base_monitor" "$dis_out"
-        shift # past value
-        exit
-        ;;
-    -p | --primary)
-        dis_primary="yes"
-        shift # past value
-        ;;
-    -h | --help)
-        shift # past argument
-        print_help
-        exit
-        ;;
-    *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+        -m | --mode)
+            dis_mode="$2"
+            shift # past value
+            shift # past argument
+            ;;
+        -M | --dmenu-mode)
+            dmenu_mode
+            shift # past argument
+            exit
+            ;;
+        --output)
+            dis_out="$2"
+            shift # past value
+            shift # past argument
+            ;;
+        -a | --above)
+            dis_direction="--above"
+            shift # past value
+            ;;
+        -l | --left)
+            dis_direction="--left-of"
+            shift # past value
+            ;;
+        -r | --right)
+            dis_direction="--right-of"
+            shift # past value
+            ;;
+        -b | --below)
+            dis_direction="--below"
+            shift # past value
+            ;;
+        -o | --off)
+            single_monitor "$dis_out" "$dis_base_monitor"
+            shift # past value
+            exit
+            ;;
+        --only)
+            single_monitor "$dis_base_monitor" "$dis_out"
+            shift # past value
+            exit
+            ;;
+        -p | --primary)
+            dis_primary="yes"
+            shift # past value
+            ;;
+        -h | --help)
+            shift # past argument
+            print_help
+            exit
+            ;;
+        *)
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done
 

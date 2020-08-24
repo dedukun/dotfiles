@@ -4,14 +4,14 @@ second_mount_point="/second"
 second_mount=false
 second_umount=false
 
-print_help () {
+print_help() {
     printf "Change Second Driver.\n"
     printf "This script helps configuring the second mass storage driver.\n"
     printf "\n"
     printf "Options:\n"
     printf "\t-m, --mount       Mount the second driver.\n"
     printf "\t-u, --umount      Un-mount the second driver.\n"
-    printf "\t    --mount-point Define the mount point.     [default: '%s']\n"  "\$HOME/Globaltronic/Second_GBT"
+    printf "\t    --mount-point Define the mount point.     [default: '%s']\n" "\$HOME/Globaltronic/Second_GBT"
     printf "\t-d, --dev         Define the device.          [default: '%s']\n" "$second_dev"
     printf "\t-h, --help        Prints help menu.\n"
 }
@@ -27,16 +27,15 @@ umount_second() {
     sync
 }
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     csd_key="$1"
 
     case "$csd_key" in
-        -m|--mount)
+        -m | --mount)
             second_mount=true
             shift # past argument
             ;;
-        -u|--umount)
+        -u | --umount)
             second_umount=true
             shift # past argument
             ;;
@@ -45,12 +44,12 @@ do
             shift # past argument
             shift # past value
             ;;
-        -d|--dev)
+        -d | --dev)
             second_dev="$2"
             shift # past argument
             shift # past value
             ;;
-        -h|--help)
+        -h | --help)
             shift # past argument
             print_help
             exit

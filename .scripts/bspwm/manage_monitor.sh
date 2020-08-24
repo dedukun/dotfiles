@@ -17,14 +17,14 @@ while [[ $# -gt 0 ]]; do
     mm_key="$1"
 
     case $mm_key in
-    -s | --single)
-        shift # past argument
-        ;;
-    *)
-        echo "Invalid argument '$1'."
-        echo "For more help use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+        -s | --single)
+            shift # past argument
+            ;;
+        *)
+            echo "Invalid argument '$1'."
+            echo "For more help use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done

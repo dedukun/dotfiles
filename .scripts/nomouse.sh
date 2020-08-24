@@ -37,7 +37,7 @@ if [ ! "$(pgrep unclutter)" ]; then
 
         unclutter -idle 0 &
     else
-        sleep 1          # mouse plugged, unclutter with 3 sec delay
+        sleep 1 # mouse plugged, unclutter with 3 sec delay
 
         # no delay
         if [ "$1" ]; then

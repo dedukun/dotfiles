@@ -48,19 +48,19 @@ case $man_cmd in
         notify-send -u critical -t 1500 "$notify_send_title" "'Outputs' not implemented"
         ;;
     "New Project")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --new
+        $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --new
         ;;
     "Create Folders")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --create-folders
+        $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --create-folders
         ;;
     "Choose Project")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --choose
+        $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --choose
         ;;
     "Show Project")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --show
+        $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --show
         ;;
     "Get Project")
-        $SCRIPTS/project/project.sh --config "$config_file"  --folder "$proj_folder"  --symlink "$simlink_name" --get
+        $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --get
         ;;
     "")
         # DO NOTHING

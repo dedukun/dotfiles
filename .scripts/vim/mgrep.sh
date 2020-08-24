@@ -3,7 +3,7 @@
 # Grep multiple patters at the same time more easily.
 # [WIP]
 
-print_help () {
+print_help() {
     echo "Multiple GREP."
     echo "Grep .. to make it easier to grep multiple patterns at the same time."
     echo "Usage: $0 [PARAMS] <patterns>..."
@@ -15,16 +15,15 @@ print_help () {
 
 search_params="--color=always "
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     search_key="$1"
 
     case $search_key in
-        -i|--ignore-case)
+        -i | --ignore-case)
             shift # past argument
             search_params+="-i "
             ;;
-        -r|--recursive)
+        -r | --recursive)
             shift # past argument
             search_params+="-r "
             ;;
@@ -32,7 +31,7 @@ do
             shift # past argument
             search_params+="-R "
             ;;
-        -h|--help)
+        -h | --help)
             shift # past argument
             print_help
             exit 0
@@ -49,4 +48,3 @@ do
             ;;
     esac
 done
-

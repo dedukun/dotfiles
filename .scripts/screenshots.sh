@@ -2,8 +2,7 @@
 
 notify_send_flags='--replaces-process "screenshots"'
 
-
-print_help () {
+print_help() {
     echo "This script helps to take and organize screenshots."
     echo "Calling it with no arguments will take a screenshot and save to the current date's folder."
     echo -e "\t -f, --folder       Specify the folder where the screenshots are saved (default: \$HOME/Pictures/screenshots)"
@@ -16,16 +15,16 @@ print_help () {
 }
 
 exit_error() {
-    notify-send  -t 1500 -u critical "ERROR" "$1"
+    notify-send -t 1500 -u critical "ERROR" "$1"
     exit 1
 }
 
-choose_menu () {
+choose_menu() {
     screenshot_type=$(printf "Normal\nSelect\nWindow" | rofi -dmenu -i -p "Mode" -l 3)
 
     case $screenshot_type in
-        Normal)
-            ;;
+        Normal) ;;
+
         Select)
             SCREEN_SELECTED=YES
             ;;
@@ -42,38 +41,37 @@ choose_menu () {
 SCREEN_BASE_FOLDER="$HOME/Pictures/screenshots"
 SCREEN_TMP_NAME="/tmp/_screenshotTMP.png"
 
-while [[ $# -gt 0 ]]
-do
+while [[ $# -gt 0 ]]; do
     SCREEN_KEY="$1"
 
     case $SCREEN_KEY in
-        -f|--folder)
+        -f | --folder)
             SCREEN_BASE_FOLDER=$2
             shift # past argument
             shift # past value
             ;;
-        -s|--selected)
+        -s | --selected)
             SCREEN_SELECTED=YES
             shift # past argument
             ;;
-        -i|--window)
+        -i | --window)
             SCREEN_WINDOW=YES
             shift # past argument
             ;;
-        -df|--date-folder)
+        -df | --date-folder)
             SCREEN_DATE_FOLDER=YES
             shift # past argument
             ;;
-        -t|--timer)
+        -t | --timer)
             SCREEN_TIMER=$2
             shift # past argument
             shift # past value
             ;;
-        -m|--menu)
+        -m | --menu)
             choose_menu
             shift # past value
             ;;
-        -h|--help)
+        -h | --help)
             shift # past argument
             print_help
             exit 0
@@ -88,30 +86,29 @@ do
 done
 
 #[ -f "$SCREEN_BASE_FOLDER" ] && notify-send.py  -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" $notify_send_flags && exit 1
-[ -f "$SCREEN_BASE_FOLDER" ] && notify-send  -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" && exit 1
+[ -f "$SCREEN_BASE_FOLDER" ] && notify-send -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" && exit 1
 
 # Check if the base folder exists
 if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
     mkdir -p "$SCREEN_BASE_FOLDER"
     #notify-send.py  -t 1500 "'$SCREEN_BASE_FOLDER' was created." $notify_send_flags
-    notify-send  -t 1500 "'$SCREEN_BASE_FOLDER' was created."
+    notify-send -t 1500 "'$SCREEN_BASE_FOLDER' was created."
     printf "'%s' was created.\n" "$SCREEN_BASE_FOLDER"
 fi
 
 if [[ -n $SCREEN_TIMER ]]; then
     timer_count=0
-    while [[ "$timer_count" != "$SCREEN_TIMER" ]]
-    do
-        timer_count=$((timer_count+1))
+    while [[ "$timer_count" != "$SCREEN_TIMER" ]]; do
+        timer_count=$((timer_count + 1))
         #notify-send.py  -t 1000 "Timer: $((SCREEN_TIMER-timer_count))" $notify_send_flags
-        notify-send  -t 1000 "Timer: $((SCREEN_TIMER-timer_count))"
+        notify-send -t 1000 "Timer: $((SCREEN_TIMER - timer_count))"
         sleep 1
     done
 fi
 
 # take the screen shot now so its timing doesn't depend on the user input
 if [[ -n $SCREEN_SELECTED ]]; then
-    flameshot gui -r > "$SCREEN_TMP_NAME"
+    flameshot gui -r >"$SCREEN_TMP_NAME"
     [ "$(cat $SCREEN_TMP_NAME | wc -l)" -lt 2 ] && exit_error "No Selection made"
 elif [[ -n $SCREEN_WINDOW ]]; then
     geometry=$(xwininfo | grep "geometry" | awk '{print $2;}')
@@ -149,11 +146,14 @@ fi
 # move screen shot to the correct folder and rename it
 if [[ -n $SCREEN_SELECTED ]]; then
     #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send.py  -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
-    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send  -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"
+    notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 elif [[ -n $SCREEN_WINDOW ]]; then
     #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"; notify-send.py  -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
-    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"; notify-send  -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"
+    notify-send -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 else
     #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send.py  -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
-    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send  -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"
+    notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 fi

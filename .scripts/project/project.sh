@@ -7,7 +7,7 @@ config_file=""
 proj_folder=""
 symlink=""
 
-print_help () {
+print_help() {
     echo "This script helps creating a project and manage it."
     printf "Usage '%s'\n" "$(basename "$0")"
     printf "\t-n, --new            Create a new project\n"
@@ -21,26 +21,26 @@ print_help () {
     printf "\t-h, --help           Prints help menu\n"
 }
 
-new_project () {
+new_project() {
     proj_name=$(echo | rofi -dmenu -p "Project Name" -l 0)
 
     [ "$proj_name" = "" ] && exit 0
 
     #[ -d "$proj_folder/$proj_name" ] && notify-send.py  -u critical -t 1500 "Project '$proj_name' already exists!" $notify_send_flags && exit 1
-    [ -d "$proj_folder/$proj_name" ] && notify-send  -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
+    [ -d "$proj_folder/$proj_name" ] && notify-send -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
 
     mkdir -p "$proj_folder/$proj_name"
 
     proj_id=$(grep -e "^id=" "$config_file" | sed 's/id=\s*// g')
-    echo "$proj_id" > "$proj_folder/$proj_name/.id"
-    sed -i "s/id=.*$/id=$((proj_id+1))/ g" "$config_file"
+    echo "$proj_id" >"$proj_folder/$proj_name/.id"
+    sed -i "s/id=.*$/id=$((proj_id + 1))/ g" "$config_file"
 
     _choose_project "$proj_folder/$proj_name"
 
     create_folders "$proj_name"
 }
 
-create_folders () {
+create_folders() {
     if [ -n "$1" ]; then
         proj_name="$1"
     else
@@ -48,7 +48,7 @@ create_folders () {
     fi
 
     proj_input=$(_get_unused_directories "$proj_name")
-    while true ; do
+    while true; do
         if [ "$proj_input" = "" ]; then
             break
         elif [ "$proj_input" = "Second" ]; then
@@ -60,56 +60,55 @@ create_folders () {
     done
 }
 
-choose_project () {
-    list_projects=$(find "$proj_folder" -maxdepth 4 -name ".id" |        # get folders with file '.id'
-                    sort |                                               # sort them
-                    sed 's$'"$proj_folder"/'$$g' |                       # get only the relative names from the base directory
-                    sed 's$/.id$$g')                                     # remove the '/.id' file string
+choose_project() {
+    list_projects=$(find "$proj_folder" -maxdepth 4 -name ".id" | # get folders with file '.id'
+        sort |                                                    # sort them
+        sed 's$'"$proj_folder"/'$$g' |                            # get only the relative names from the base directory
+        sed 's$/.id$$g')                                          # remove the '/.id' file string
 
     number_of_lines=$(echo "$list_projects" | wc -l)
     if [ "$number_of_lines" -gt 25 ]; then
         number_of_lines=25
     fi
 
-    proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project" -l $number_of_lines)            # dmenu
+    proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project" -l $number_of_lines) # dmenu
 
     [ "$proj_name" = "" ] && exit 0
 
     _choose_project "$proj_folder/$proj_name"
 }
 
-show_project () {
+show_project() {
     proj_name=$1
 
     #notify-send.py  -t 1500 "Current working project" "'$proj_name'" $notify_send_flags
-    notify-send  -t 1500 "Current working project" "'$proj_name'"
+    notify-send -t 1500 "Current working project" "'$proj_name'"
 }
 
-get_full_project () {
+get_full_project() {
     proj_name=$(_get_project)
 
     echo "$proj_name"
 }
 
 # PRIVATE FUNCTIONS
-_get_unused_directories () {
-    existing_directories=$(find "$1" -maxdepth 1 -type d |                 # search directories in folder
-                           tail -n +2 |                                    # remove '.' folder
-                           awk -F'/' '{print $(NF)}' |                     # only get the directory name
-                           sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')     # remove new lines from results and replace with '|'
-
+_get_unused_directories() {
+    existing_directories=$(find "$1" -maxdepth 1 -type d | # search directories in folder
+        tail -n +2 |                                       # remove '.' folder
+        awk -F'/' '{print $(NF)}' |                        # only get the directory name
+        sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')        # remove new lines from results and replace with '|'
 
     printf "Code\nRepos\nManuals\nDocumentation\nDocuments\nImages\nSchematics\nMedia\nPictures\nOther\nSecond" |
-    sort |
-    awk '{gsub(/'"$existing_directories"'/,"")}1' |
-    sed '/^$/d' |
-    rofi -dmenu -i -p "Input" -l 11
+        sort |
+        awk '{gsub(/'"$existing_directories"'/,"")}1' |
+        sed '/^$/d' |
+        rofi -dmenu -i -p "Input" -l 11
 }
 
-_choose_project () {
+_choose_project() {
     # Check that given directory exists
     #[ ! -d "$1" ] && notify-send.py  -u critical -t 2500 "Error" "Given directory doesn't exist" $notify_send_flags && exit 1
-    [ ! -d "$1" ] && notify-send  -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
+    [ ! -d "$1" ] && notify-send -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
 
     # Change current working project in the configs
     sed -i "s/proj=.*$/proj=$(echo "$1" | sed 's/\//\\\// g')/ g" "$config_file"
@@ -121,73 +120,72 @@ _choose_project () {
     show_project "$1"
 }
 
-_get_project () {
+_get_project() {
     proj_name=$(grep -e "^proj=" "$config_file" | sed 's/proj=\s*// g')
 
     echo "$proj_name"
 }
 
-_link_second () {
+_link_second() {
     # check if second is mounted
     #notify-send.py  "IM LINKING SECOND" "$1" $notify_send_flags
-    notify-send  "IM LINKING SECOND" "$1"
+    notify-send "IM LINKING SECOND" "$1"
 }
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     proj_key="$1"
 
     case $proj_key in
-        -n|--new)
-        shift # past argument
-        new_project
-        exit 0
-        ;;
+        -n | --new)
+            shift # past argument
+            new_project
+            exit 0
+            ;;
         --create-folders)
-        shift # past argument
-        create_folders
-        exit 0
-        ;;
-        -c|--choose)
-        shift # past argument
-        choose_project
-        exit 0
-        ;;
-        -s|--show)
-        shift # past argument
-        show_project "$(_get_project)"
-        exit 0
-        ;;
-        -g|--get)
-        shift # past argument
-        get_full_project
-        exit 0
-        ;;
+            shift # past argument
+            create_folders
+            exit 0
+            ;;
+        -c | --choose)
+            shift # past argument
+            choose_project
+            exit 0
+            ;;
+        -s | --show)
+            shift # past argument
+            show_project "$(_get_project)"
+            exit 0
+            ;;
+        -g | --get)
+            shift # past argument
+            get_full_project
+            exit 0
+            ;;
         --config)
-        config_file="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            config_file="$2"
+            shift # past argument
+            shift # past value
+            ;;
         --folder)
-        proj_folder="$2"
-        shift # past argument
-        shift # past value
-        ;;
+            proj_folder="$2"
+            shift # past argument
+            shift # past value
+            ;;
         --symlink)
-        symlink="$2"
-        shift # past argument
-        shift # past value
-        ;;
-        -h|--help)
-        shift # past argument
-        print_help
-        exit 0
-        ;;
+            symlink="$2"
+            shift # past argument
+            shift # past value
+            ;;
+        -h | --help)
+            shift # past argument
+            print_help
+            exit 0
+            ;;
         *)
-        echo "Invalid argument '$1'."
-        echo "For more information use argument -h or --help".
-        shift # past argument
-        exit 1
-        ;;
+            echo "Invalid argument '$1'."
+            echo "For more information use argument -h or --help".
+            shift # past argument
+            exit 1
+            ;;
     esac
 done

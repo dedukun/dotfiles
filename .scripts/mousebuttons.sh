@@ -3,7 +3,7 @@
 
 notify_send_flags='--replaces-process "mouse-buttons"'
 
-print_help () {
+print_help() {
     printf "Mouse Extra Buttons\n"
     printf "This script reassigns key presses to the mouse extra buttons.\n"
     printf "\t-b, --back      Back button press\n"
@@ -16,7 +16,7 @@ print_help () {
 
 exit_error() {
     #notify-send.py  -t 1500 -u critical "ERROR" "$1" $notify_send_flags
-    notify-send  -t 1500 -u critical "ERROR" "$1"
+    notify-send -t 1500 -u critical "ERROR" "$1"
     exit 1
 }
 
@@ -65,7 +65,7 @@ back_press() {
             ;;
         *)
             #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
-            notify-send  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
+            notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
     esac
@@ -101,7 +101,7 @@ forward_press() {
             ;;
         *)
             #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
-            notify-send  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
+            notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
     esac
@@ -124,33 +124,32 @@ show_mode() {
     meb_mode=$(get_mode)
 
     #notify-send.py  -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'" $notify_send_flags
-    notify-send  -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
+    notify-send -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
 }
 
 [ $# -eq 0 ] && exit_error "Missing argument"
 
-while [ $# -gt 0 ]
-do
+while [ $# -gt 0 ]; do
     meb_key="$1"
 
     case $meb_key in
-        -b|--back)
+        -b | --back)
             back_press
             shift # past value
             ;;
-        -f|--forward)
+        -f | --forward)
             forward_press
             shift # past value
             ;;
-        -m|--mode)
+        -m | --mode)
             mode_select
             shift # past argument
             ;;
-        -t|--toggle)
+        -t | --toggle)
             toggle_app
             shift # past argument
             ;;
-        -s|--show)
+        -s | --show)
             show_mode
             shift # past argument
             ;;

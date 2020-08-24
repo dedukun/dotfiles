@@ -153,49 +153,49 @@ while [ $# -gt 0 ]; do
     mtd_key="$1"
 
     case $mtd_key in
-    -g | --get)
-        shift # past argument
-        create_directory
-        ;;
-    -gc | --get-cached)
-        shift # past argument
-        get_cached_directory
-        exit
-        ;;
-    -s | --select)
-        shift # past argument
-        select_directory
-        exit
-        ;;
-    -l | --list-cache)
-        shift # past argument
-        check_cached_directories
-        show_cache
-        exit
-        ;;
-    -d | --delete)
-        shift # past argument
-        delete_directories
-        exit
-        ;;
-    -dc | --delete-current)
-        shift # past argument
-        delete_current_directory
-        exit
-        ;;
-    -c | --check)
-        shift # past argument
-        check_cached_directories
-        exit
-        ;;
-    -h | --help)
-        shift # past argument
-        print_help
-        exit
-        ;;
-    *)
-        shift # past argument
-        _exit_error "Invalid argument '$mtd_key'."
-        ;;
+        -g | --get)
+            shift # past argument
+            create_directory
+            ;;
+        -gc | --get-cached)
+            shift # past argument
+            get_cached_directory
+            exit
+            ;;
+        -s | --select)
+            shift # past argument
+            select_directory
+            exit
+            ;;
+        -l | --list-cache)
+            shift # past argument
+            check_cached_directories
+            show_cache
+            exit
+            ;;
+        -d | --delete)
+            shift # past argument
+            delete_directories
+            exit
+            ;;
+        -dc | --delete-current)
+            shift # past argument
+            delete_current_directory
+            exit
+            ;;
+        -c | --check)
+            shift # past argument
+            check_cached_directories
+            exit
+            ;;
+        -h | --help)
+            shift # past argument
+            print_help
+            exit
+            ;;
+        *)
+            shift # past argument
+            _exit_error "Invalid argument '$mtd_key'."
+            ;;
     esac
 done
