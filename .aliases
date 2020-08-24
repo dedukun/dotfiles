@@ -1,0 +1,32 @@
+#########
+# ALIAS #
+#########
+
+# User defined aliases
+unalias -a
+alias vi="nvim"
+alias vim="nvim"
+alias ag="\$SCRIPTS/ag.sh"
+alias ls='ls -h --color=auto --group-directories-first --sort=extension'
+alias l='ls -l'
+alias ll='ls -lA'
+alias less='less -i'
+alias grep='grep --color'
+alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
+alias info='info --vi-keys'
+alias weather="curl wttr.in"
+
+alias xxstartx='exec startx &> /dev/null'
+alias update-time='sudo ntpdate pt.pool.ntp.org'
+
+# project alias
+alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
+alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
+alias mtdcd='cd $(mtd --select)'
+
+# wine aliases
+alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
+alias wine64="WINEPREFIX=\$HOME/.config/wine/wine64 wine64"
+alias winecfg="WINEPREFIX=\$HOME/.config/wine/wine32 winecfg"
+alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
+

@@ -85,15 +85,12 @@ endif
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-" Enale maximum text width for tex files
-autocmd FileType tex set tw=200
+" Enable maximum text width and spell check for some files
+autocmd FileType tex set tw=200 | set spell
 autocmd FileType gitcommit set tw=100 | set spell
+autocmd FileType markdown set tw=100 | set spell
 
-" Enable spell check by default in specific files
-autocmd FileType tex set spell
-autocmd FileType markdown set spell
-
-" check for autoread
+" Check for autoread
 augroup checktime
     autocmd!
     if !has("gui_running")

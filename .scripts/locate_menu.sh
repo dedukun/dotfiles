@@ -1,21 +1,28 @@
 #!/bin/sh
 print_help () {
-    echo "LOME (Locate Menu)\n"
-    echo "This script finds items in the system and pipes the output to dmenu."
-    echo "The result of the selection if then passed to a given command."
-    echo "(eg. lome <item> <command>) [default command is 'echo']\n"
-    echo "Options:"
-    echo "\t-l, --lines         Number of lines in dmenu (default: 25)"
-    echo "\t-f, --folders       Only search for directories (Uses regex '/<dirname>$')"
-    echo "\t-r, --regex         Find items using regex"
-    echo "\t-i, --ignore-case   Search case insensetive"
-    echo "\t-h, --help          Prints help menu"
-    echo "\nRequires: mlocate dmenu vim"
+    printf "LOME (Locate Menu)\n"
+    printf "This script finds items in the system and pipes the output to dmenu.\n"
+    printf "The result of the selection if then passed to a given command.\n"
+    printf "(eg. $0 <item> [<command>]) [default command is 'echo']\n\n"
+    printf "Options:\n"
+    printf "\t-l, --lines         Number of lines in dmenu (default: 25)\n"
+    printf "\t-i, --ignore-case   Search case insensetive\n"
+    printf "\t-h, --help          Prints help menu\n"
+    printf "\nRequires: mlocate dmenu\n"
 }
+
+_exit_error() {
+    printf "ERROR: %s\n" "$1" >&2;
+    exit 1
+}
+
+[ -f $HOME/.aliases ] && . $HOME/.aliases
 
 lome_lines=25
 lome_locate_args=""
 lome_command="echo"   # default command
+
+[ $# -eq 0 ] && _exit_error "No arguments"
 
 while [ $# -gt 0 ]
 do
@@ -27,15 +34,6 @@ do
             shift # past argument
             shift # past value
             ;;
-        -f|--folders)
-            shift # past value
-            lome_locate_folder=yes
-            lome_locate_args+=" --regex"
-            ;;
-        -r|--regex)
-            shift # past value
-            lome_locate_args+=" --regex"
-            ;;
         -i|--ignore-case)
             shift # past value
             lome_locate_args+=" -i"
@@ -45,40 +43,34 @@ do
             print_help
             exit 0
             ;;
-        [a-zA-Z._]*)
-            break # parse the remaining arguments outside the case
+        -*)
+            _exit_error "Invalid argument '$1'.
+       For more help use argument -h or --help."
             ;;
         *)
-            echo "Invalid argument '$1'."
-            echo "For more help use argument -h or --help."
-            shift # past argument
-            exit 1
+            break # parse the remaining arguments outside the case
             ;;
     esac
 done
 
 # Get first argument (locate value)
-if [ -n $1 ]; then
+if [ ! -z $1 ]; then
     lome_locate_value="$1"
 else
-    echo "No argument locate"
-    exit 1
+    _exit_error "No argument to locate"
 fi
 
 # Get second argument (command)
-if [ -n $2 ]; then
+if [ ! -z $2 ]; then
     lome_command="$2"
 
     # Test if the given command exists in the system
-    [ ! -n $(command -v "$lome_command") ] \
-        && echo -e "The command '$lome_command' doesn't exists in your system.\nTry again with another command." && exit 1
-        fi
-
-
-# Search for folders only
-if [ -n $lome_locate_folder ]; then
-    lome_locate_value="$lome_locate_value$"
+    command -v "$lome_command" > /dev/null \
+        || _exit_error "The command '$lome_command' doesn't exists in your system.
+       Try again with another command."
 fi
 
 # execute the command
-$lome_command "$(locate $lome_locate_args "$lome_locate_value" | rofi -dmenu -i -l "$lome_lines" -p "Lome")"
+lome_result="$(kokatu $lome_locate_args $lome_locate_value | rofi -dmenu -i -l $lome_lines -p 'Lome')"
+
+[ ! -z $lome_result ] && eval $lome_command "$lome_result"

@@ -22,7 +22,7 @@ print_help () {
 }
 
 new_project () {
-    proj_name=$(echo | rofi -dmenu -p "Project Name")
+    proj_name=$(echo | rofi -dmenu -p "Project Name" -l 0)
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -34,6 +34,8 @@ new_project () {
     proj_id=$(grep -e "^id=" "$config_file" | sed 's/id=\s*// g')
     echo "$proj_id" > "$proj_folder/$proj_name/.id"
     sed -i "s/id=.*$/id=$((proj_id+1))/ g" "$config_file"
+
+    _choose_project "$proj_folder/$proj_name"
 
     create_folders "$proj_name"
 }

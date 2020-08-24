@@ -2,40 +2,11 @@
 # ALIAS #
 #########
 
-# User defined aliases
-unalias -a
-alias vi="nvim"
-alias vim="nvim"
-alias ag="\$SCRIPTS/ag.sh"
-alias ls='ls -h --color=auto --group-directories-first --sort=extension'
-alias l='ls -l'
-alias ll='ls -lA'
-alias less='less -i'
-alias grep='grep --color'
-alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
-alias info='info --vi-keys'
-
-alias xxstartx='exec startx &> /dev/null'
-alias update-time='sudo ntpdate pt.pool.ntp.org'
-
-# project alias
-alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
-alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
-alias mtdcd='cd $(mtd --select)'
-
-# wine aliases
-alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
-alias wine64="WINEPREFIX=\$HOME/.config/wine/wine64 wine64"
-alias winecfg="WINEPREFIX=\$HOME/.config/wine/wine32 winecfg"
-alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
+[ -f $HOME/.aliases ] && source $HOME/.aliases
 
 ############
 # FUCTIONS #
 ############
-
-sourcerust() {
-  source $HOME/.cargo/env
-}
 
 youtube() {
     workonenv
@@ -51,32 +22,6 @@ workonenv() {
     . "$HOME/.local/bin/virtualenvwrapper.sh"
 }
 
-pip_upgrade() {
-
-    if [ -z "$1" ]; then
-        echo "Missing argument"
-        return 1
-    fi
-
-    case $1 in
-        "2" )
-            ;;
-        "2.7" )
-            ;;
-        "3" )
-            ;;
-        "3.7" )
-            ;;
-        *)
-            echo "ERROR: Unknown version '$1'"
-            return 1
-            ;;
-
-    esac
-
-    sh -c "python$1 -m pip list --outdated | tail -n +3 | awk '{print \$1;}' | xargs python$1 -m pip install --user --upgrade"
-}
-
 # gitignore
 gitignore() {
     local_ignores="""\
@@ -84,18 +29,8 @@ gitignore() {
 generate-tags.sh
 compile_commands.json
 """
-    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,$*")
+    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,emacs,code,$*")
     echo "$local_ignores$remote_ignores"
-}
-
-# https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
-stopwatch() {
-    local date1
-    date1=$(date +%s)
-    while true; do
-        echo -ne "$(date -u --date @$(($(date +%s) - date1)) +%H:%M:%S)\r"
-        sleep 0.1
-    done
 }
 
 run_swallow() {
@@ -106,23 +41,26 @@ run_swallow() {
 }
 
 ###############
-# ZPLUG STUFF #
+# ZGEN STUFF #
 ###############
 
-export ZPLUG_HOME="$ZSH_CONFIGS/.zplug"
-source $ZPLUG_HOME/init.zsh
+# load zgen
+export ZGEN_DIR="$ZSH_CONFIGS/zgen"
+source "${ZGEN_DIR}/zgen.zsh"
 
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+# if the init scipt doesn't exist
+if ! zgen saved; then
+    zgen load zdharma/fast-syntax-highlighting
 
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+    # completions
+    zgen load zsh-users/zsh-completions src
 
-zplug "zsh-users/zsh-completions"
+    zgen load mafredri/zsh-async
+    zgen load sindresorhus/pure
 
-zplug 'mafredri/zsh-async', from:github
-zplug 'sindresorhus/pure', use:pure.zsh, from:github, as:theme
-
-# Source plugins and add commands to $PATH
-zplug load
+    # save all to init script
+    zgen save
+fi
 
 ##################
 # CONFIGURATIONS #

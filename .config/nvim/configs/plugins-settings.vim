@@ -100,3 +100,6 @@ endif
 if !exists('g:vscode')
   let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 endif
+
+" neoformat
+let g:shfmt_opt="-ci"
