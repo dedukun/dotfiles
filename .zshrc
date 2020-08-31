@@ -40,27 +40,24 @@ run_swallow() {
   zle reset-prompt
 }
 
-###############
-# ZGEN STUFF #
-###############
+###################
+## ANTIBODY STUFF #
+###################
 
-# load zgen
-export ZGEN_DIR="$ZSH_CONFIGS/zgen"
-source "${ZGEN_DIR}/zgen.zsh"
+## load antibody
+export ANTIBODY_HOME="$ZSH_CONFIGS/zgen/antibody"
+source <(antibody init)
 
-# if the init scipt doesn't exist
-if ! zgen saved; then
-    zgen load zdharma/fast-syntax-highlighting
+# highlighting
+antibody bundle zdharma/fast-syntax-highlighting
+# completions
+antibody bundle zsh-users/zsh-completions
+# better vim mode
+antibody bundle softmoth/zsh-vim-mode
 
-    # completions
-    zgen load zsh-users/zsh-completions src
-
-    zgen load mafredri/zsh-async
-    zgen load sindresorhus/pure
-
-    # save all to init script
-    zgen save
-fi
+# theme
+antibody bundle mafredri/zsh-async
+antibody bundle sindresorhus/pure
 
 ##################
 # CONFIGURATIONS #

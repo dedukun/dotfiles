@@ -1,15 +1,10 @@
 [*.sh]
-# like -i=4
 indent_style = space
 indent_size = 4
 
-shell_variant      = posix # like -ln=posix
-binary_next_line   = true  # like -bn
-switch_case_indent = true  # like -ci
-space_redirects    = true  # like -sr
-keep_padding       = true  # like -kp
-function_next_line = true  # like -fn
-
-# Ignore the entire "third_party" directory.
-[third_party/**]
-ignore = true
+shell_variant      = posix
+binary_next_line   = true
+switch_case_indent = true
+space_redirects    = true
+keep_padding       = true
+function_next_line = true
