@@ -16,7 +16,8 @@ bspc rule -a Gnome-calculator state=floating
 ## CONFIGS ##
 #############
 
-bspc config border_width 2
+bspc config normal_border_color "#222D32"
+bspc config border_width 1
 bspc config window_gap 0
 bspc config top_padding 23
 bspc config focus_follows_pointer       false

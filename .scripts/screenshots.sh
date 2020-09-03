@@ -20,7 +20,7 @@ exit_error() {
 }
 
 choose_menu() {
-    screenshot_type=$(printf "Normal\nSelect\nWindow" | rofi -dmenu -i -p "Mode" -l 3)
+    screenshot_type=$(printf "Normal\nSelect\nWindow" | rofi -dmenu -i -p "Mode:" -l 3)
 
     case $screenshot_type in
         Normal) ;;
@@ -119,7 +119,7 @@ else
 fi
 
 # Set a custom file name (uses current date/time if no input)
-SCREEN_NAME=$(echo | rofi -dmenu -p "Enter file name" -l 0)
+SCREEN_NAME=$(echo | rofi -dmenu -p "Enter file name:" -l 0)
 
 # If a custom name is defined, add a "_" before it
 if [ ! -z "$SCREEN_NAME" ]; then

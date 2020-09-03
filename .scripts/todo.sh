@@ -53,7 +53,7 @@ done
 
 touch "$todo_file"
 height=$(wc -l "$todo_file" | awk '{print $1}')
-prompt="Add/delete a task"
+prompt="Add/delete a task:"
 
 cmd=$(sort "$todo_file" | rofi -dmenu -l "$height" -p "$prompt")
 while [ -n "$cmd" ]; do

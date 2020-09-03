@@ -58,7 +58,7 @@ single_monitor() {
 # Use dmenu to choose display mode
 dmenu_mode() {
     output_list="$($SCRIPTS/xrandr-query.sh "$dis_out" | tail -n +2 | awk '{print $1;}')"
-    dis_mode=$(echo "$output_list" | rofi -dmenu -p "Display Mode: ")
+    dis_mode=$(echo "$output_list" | rofi -dmenu -p "Display Mode:")
 }
 
 dis_mode="1920x1080"

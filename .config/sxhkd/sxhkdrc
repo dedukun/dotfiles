@@ -51,8 +51,12 @@ super + shift + w
 super + control + w
         chromium --incognito
 
-# open rofi as ssh launcher
+# open rofi as ssh launcher (no ~/.ssh/ssh_host)
 super + s
+        rofi -show ssh -no-parse-known-hosts
+
+# open rofi as ssh launcher
+super + shift + s
         rofi -show ssh
 
 ##

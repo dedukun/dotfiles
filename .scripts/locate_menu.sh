@@ -70,6 +70,6 @@ if [ ! -z $2 ]; then
 fi
 
 # execute the command
-lome_result="$(kokatu $lome_locate_args $lome_locate_value | rofi -dmenu -i -l $lome_lines -p 'Lome')"
+lome_result="$(kokatu $lome_locate_args $lome_locate_value | rofi -dmenu -i -l $lome_lines -p 'Lome:')"
 
 [ ! -z $lome_result ] && eval $lome_command "$lome_result"

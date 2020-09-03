@@ -30,7 +30,7 @@ if [ "$2" = "--show" ]; then
 elif [ "$2" = "--get" ]; then
     man_cmd="Get Project"
 else
-    man_cmd=$(printf "Logs\nMove\nOutputs\nNew Project\nCreate Folders\nChoose Project\nShow Project" | rofi -dmenu -i -p "PROJ Command" -l 7)
+    man_cmd=$(printf "Logs\nMove\nOutputs\nNew Project\nCreate Folders\nChoose Project\nShow Project" | rofi -dmenu -i -p "PROJ Command:" -l 7)
 fi
 
 case $man_cmd in

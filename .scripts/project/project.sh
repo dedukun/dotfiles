@@ -22,7 +22,7 @@ print_help() {
 }
 
 new_project() {
-    proj_name=$(echo | rofi -dmenu -p "Project Name" -l 0)
+    proj_name=$(echo | rofi -dmenu -p "Project Name:" -l 0)
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -71,7 +71,7 @@ choose_project() {
         number_of_lines=25
     fi
 
-    proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project" -l $number_of_lines) # dmenu
+    proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project:" -l $number_of_lines) # dmenu
 
     [ "$proj_name" = "" ] && exit 0
 
@@ -102,7 +102,7 @@ _get_unused_directories() {
         sort |
         awk '{gsub(/'"$existing_directories"'/,"")}1' |
         sed '/^$/d' |
-        rofi -dmenu -i -p "Input" -l 11
+        rofi -dmenu -i -p "Input:" -l 11
 }
 
 _choose_project() {

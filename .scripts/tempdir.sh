@@ -112,12 +112,12 @@ get_cached_directory() {
         number_of_lines=25
     fi
 
-    dir_name="$(cat $mtd_cache | rofi -dmenu -p 'Select cached directory' -l $number_of_lines)"
+    dir_name="$(cat $mtd_cache | rofi -dmenu -p 'Select cached directory:' -l $number_of_lines)"
     echo "$dir_name"
 }
 
 select_directory() {
-    choice="$(printf 'Create new temporary directory\nChoose from cached directories' | rofi -dmenu -l 2)"
+    choice="$(printf 'Create new temporary directory\nChoose from cached directories' | rofi -p "Option:" -dmenu -l 2)"
 
     case "$choice" in
         "Create new temporary directory")

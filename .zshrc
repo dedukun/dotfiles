@@ -45,7 +45,7 @@ run_swallow() {
 ###################
 
 ## load antibody
-export ANTIBODY_HOME="$ZSH_CONFIGS/zgen/antibody"
+export ANTIBODY_HOME="$ZSH_CONFIGS/antibody"
 source <(antibody init)
 
 # highlighting

@@ -34,6 +34,7 @@ export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export BSP_LAYOUT_ROOT="$HOME/Applications/bsp-layout/src"
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 

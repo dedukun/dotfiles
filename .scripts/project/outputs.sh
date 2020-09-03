@@ -32,7 +32,7 @@ if [ ! -d "$out_folder/$out_date_folder" ]; then
 fi
 
 # Get custom file name
-out_name=$(echo | rofi -dmenu -p "File name")
+out_name=$(echo | rofi -dmenu -p "File name:")
 
 # Add <time> to name
 if [ ! -n "$out_name" ]; then

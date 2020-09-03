@@ -49,7 +49,7 @@ if [ ! -d "$move_folder/$move_date_folder" ]; then
 fi
 
 # Get custom file name
-move_name=$(echo | rofi -dmenu -p "File name")
+move_name=$(echo | rofi -dmenu -p "File name:")
 
 # If no file name is given, use <time>_<file-name>
 [ ! -n "$move_name" ] && move_name=$(date '+%H%M%S')_$move_file
