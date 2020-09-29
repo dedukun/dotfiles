@@ -18,6 +18,7 @@ alias weather="curl wttr.in"
 
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
+alias cp='cp -i'
 
 # project alias
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'

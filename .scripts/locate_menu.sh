@@ -53,14 +53,14 @@ while [ $# -gt 0 ]; do
 done
 
 # Get first argument (locate value)
-if [ ! -z $1 ]; then
+if [ -n $1 ]; then
     lome_locate_value="$1"
 else
     _exit_error "No argument to locate"
 fi
 
 # Get second argument (command)
-if [ ! -z $2 ]; then
+if [ -n $2 ]; then
     lome_command="$2"
 
     # Test if the given command exists in the system
@@ -72,4 +72,4 @@ fi
 # execute the command
 lome_result="$(kokatu $lome_locate_args $lome_locate_value | rofi -dmenu -i -l $lome_lines -p 'Lome:')"
 
-[ ! -z $lome_result ] && eval $lome_command "$lome_result"
+[ -n $lome_result ] && eval $lome_command "$lome_result"

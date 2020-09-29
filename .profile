@@ -49,8 +49,10 @@ export PYTHONSTARTUP="$HOME/.pythonrc.py"
 # export socket for ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 
-## Run bashrc
-echo "$0" | grep "bash$" >/dev/null && [ -f ~/.bashrc ] && source "$HOME/.bashrc"
+# source aliases
+[ -f $HOME/.aliases ] && source "$HOME/.aliases"
 
-# Kill ssh-agent on logout
-trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+# Kill ssh-agent on logout [only run when first sourcing the system at boot]
+if ! xset q &>/dev/null; then
+    trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
+fi

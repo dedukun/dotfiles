@@ -122,7 +122,7 @@ fi
 SCREEN_NAME=$(echo | rofi -dmenu -p "Enter file name:" -l 0)
 
 # If a custom name is defined, add a "_" before it
-if [ ! -z "$SCREEN_NAME" ]; then
+if [ -n "$SCREEN_NAME" ]; then
     SCREEN_NAME="_"$SCREEN_NAME
 fi
 

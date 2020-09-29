@@ -35,7 +35,7 @@ compile_commands.json
 
 run_swallow() {
   echo
-  eval swallow $BUFFER
+  eval swallow "$BUFFER"
   BUFFER=''
   zle reset-prompt
 }
@@ -66,6 +66,7 @@ antibody bundle sindresorhus/pure
 # pure
 zstyle :prompt:pure:git:stash show yes
 
+# History
 setopt INC_APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt EXTENDED_HISTORY
@@ -73,6 +74,7 @@ HISTFILE=~/.config/zsh/zsh_history
 SAVEHIST=10000
 HISTSIZE=10000
 
+# Completion
 ZSH_DISABLE_COMPFIX=true
 
 autoload -U compinit

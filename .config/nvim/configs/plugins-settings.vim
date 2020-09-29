@@ -40,11 +40,6 @@ if !exists('g:vscode')
         \ ]
 endif
 
-" polyglot
-if !exists('g:vscode')
-  let g:polyglot_disabled = ['latex', 'i3']
-endif
-
 " editorconfig
 let g:EditorConfig_exclude_patterns = ['scp://.\*', 'suda://.\*', 'term://.\*']
 
