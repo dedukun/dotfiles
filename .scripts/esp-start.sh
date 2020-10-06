@@ -9,7 +9,8 @@ espstart_idfs="$espstart_home/idf"
 espstart_tools="$espstart_home/tools"
 
 espstart_env_dir="/tmp/espstart-env"
-espstart_env_rc="$espstart_env_dir/.zshrc"
+espstart_env_rc=""
+espstart_env_shell=""
 
 #############################################
 #=== A U X I L I A R   F U N C T I O N S ===#
@@ -24,7 +25,13 @@ _start_env() {
 
     printf "#!/bin/sh\n\n" >"$espstart_env_rc"
     [ -f ~/.profile ] && printf ". $HOME/.profile\n" >>"$espstart_env_rc"
-    [ -f ~/.zshrc ] && printf ". $HOME/.zshrc\n\n" >>"$espstart_env_rc"
+
+    if [ "$espstart_env_shell" = "zsh" ]; then
+        [ -f ~/.zshrc ] && printf ". $HOME/.zshrc\n\n" >>"$espstart_env_rc"
+    else
+        [ -f ~/.bashrc ] && printf ". $HOME/.bashrc\n\n" >>"$espstart_env_rc"
+    fi
+
 }
 
 _change_ps1() {
@@ -52,20 +59,29 @@ start_idf() {
     echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
     echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
     echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
-
-    if [ "$(basename $SHELL)" = "zsh" ]; then
-        echo "USING ZSH"
-    elif [ "$(basename $SHELL)" = "bash" ]; then
-        echo "USING bash"
+    if [ "$espstart_env_shell" = "zsh" ]; then
+        ZDOTDIR=$espstart_env_dir zsh
+    else
+        bash --init-file "$espstart_env_rc"
     fi
-    ZDOTDIR=$espstart_env_dir zsh
 }
 
 #############################################
 #================= M A I N =================#
 #############################################
 
+if [ "$(basename $SHELL)" = "zsh" ]; then
+    espstart_env_shell="zsh"
+    espstart_env_rc="$espstart_env_dir/.zshrc"
+elif [ "$(basename $SHELL)" = "bash" ]; then
+    espstart_env_shell="bash"
+    espstart_env_rc="$espstart_env_dir/.bashrc"
+else
+    echo "Unkown shell $(basename $SHELL)"
+    exit 1
+fi
+
 idfs_count="$(_list_idfs | wc -w)"
 choosen_idf="$(_list_idfs | rofi -dmenu -p 'IDF Version:' -l $idfs_count)"
 
-[ -n $choosen_idf ] && start_idf "$choosen_idf"
+[ -n "$choosen_idf" ] && start_idf "$choosen_idf"
