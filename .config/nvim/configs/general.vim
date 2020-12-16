@@ -82,6 +82,9 @@ else
     let &t_SR = "\<Esc>[4 q"
 endif
 
+" set .S syntax
+autocmd BufNewFile,BufRead *.S set syntax=c | set ft=c
+
 " Disable automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 

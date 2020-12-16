@@ -45,6 +45,7 @@ let g:EditorConfig_exclude_patterns = ['scp://.\*', 'suda://.\*', 'term://.\*']
 
 " vim-commentary
 autocmd FileType matlab setlocal commentstring=\%\ %s
+autocmd FileType octave setlocal commentstring=\%\ %s
 autocmd FileType dosini setlocal commentstring=#\ %s
 autocmd FileType markdown setlocal commentstring=<!--%s-->
 autocmd FileType gdscript3 setlocal commentstring=#\ %s

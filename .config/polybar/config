@@ -1,6 +1,5 @@
 ;==========================================================
-;
-;
+; 
 ;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
 ;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
 ;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
@@ -57,7 +56,7 @@ font-2 = siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone memory cpu wlan eth battery temperature date
+modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 2
@@ -148,7 +147,7 @@ font-2 = siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=9:antialias=false;3
 
 modules-left = bspwm-second
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone memory cpu wlan eth battery temperature date
+modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu wlan eth battery temperature date
 
 tray-position = right
 tray-padding = 2
@@ -398,6 +397,16 @@ label-font = 2
 type = custom/script
 exec = $HOME/.scripts/polybar/check-battery.sh
 interval = 300
+
+[module/updates-pacman-aurhelper]
+type = custom/script
+exec = $HOME/.scripts/polybar/updates-pacman-aurhelper.sh
+format = <label>
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #AFD787
+label = %output%
+interval = 600
 
 [settings]
 screenchange-reload = true

@@ -60,3 +60,5 @@ dunst &			                                    # dunst for notifications
 
 killall "redshift"
 redshift -c ~/.config/redshift/redshift.conf &      # start redshift
+
+pactl load-module module-bluetooth-discover         # fix bluetooth

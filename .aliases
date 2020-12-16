@@ -31,3 +31,7 @@ alias wine64="WINEPREFIX=\$HOME/.config/wine/wine64 wine64"
 alias winecfg="WINEPREFIX=\$HOME/.config/wine/wine32 winecfg"
 alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
 
+# rmtrash / trash-cli
+alias rm='rmtrash'
+alias rmdir='rmdirtrash'
+alias sudo='sudo '

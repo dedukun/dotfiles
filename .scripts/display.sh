@@ -1,4 +1,11 @@
 #!/bin/bash
+
+_exit_error() {
+    printf "ERROR: %s\n" "$1" >&2
+    echo "For more help use argument -h or --help".
+    exit 1
+}
+
 print_help() {
     printf "Change Second Monitor\n"
     printf "This wrapper script helps configuring the second display.\n"
@@ -57,7 +64,7 @@ single_monitor() {
 
 # Use dmenu to choose display mode
 dmenu_mode() {
-    output_list="$($SCRIPTS/xrandr-query.sh "$dis_out" | tail -n +2 | awk '{print $1;}')"
+    output_list="$($SCRIPTS/auxiliar/xrandr-query.sh "$dis_out" | tail -n +2 | awk '{print $1;}')"
     dis_mode=$(echo "$output_list" | rofi -dmenu -p "Display Mode:")
 }
 
@@ -121,13 +128,12 @@ while [[ $# -gt 0 ]]; do
             exit
             ;;
         *)
-            echo "Invalid argument '$1'."
-            echo "For more help use argument -h or --help".
-            shift # past argument
-            exit 1
+            _exit_error "Invalid argument '$1'."
             ;;
     esac
 done
+
+[ "$($SCRIPTS/auxiliar/xrandr-query.sh $dis_out | grep -i 'disconnected')" != "" ] && _exit_error "$dis_out is not connected"
 
 if [[ -n $dis_primary ]]; then # Set secondary monitor with primary option
     xrandr --output "$dis_out" --mode "$dis_mode" $dis_direction "$dis_base_monitor" --primary

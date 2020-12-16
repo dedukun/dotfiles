@@ -241,5 +241,9 @@ super + control + b
 super + c
         colorpicker --one-shot --short --preview | xsel --clipboard
 
+# open notification center
+super + n
+        kill -s USR1 $(pidof deadd-notification-center)
+
 grave
         slock && bspc wm -O eDP1 HDMI2

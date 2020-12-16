@@ -110,14 +110,14 @@ forward_press() {
 
 mode_select() {
     meb_mode=$(printf "LeftRight\nUpDown\nPagesUpDown\nWorkspace\nFirefox Reader View\nFirefox Force Reader View\nOff" | dmenu -i -p "Mode: ")
-    sed -i "s/mode=.*$/mode=$meb_mode/ g" "$SCRIPTS/.config/.meb"
+    sed -i "s/mode=.*$/mode=$meb_mode/ g" "$SCRIPTS/.cache/.meb"
 
     # TODO MISSING CHECK VALUE
     show_mode
 }
 
 get_mode() {
-    grep -e "^mode=" "$SCRIPTS/.config/.meb" | sed 's/mode=\s*// g'
+    grep -e "^mode=" "$SCRIPTS/.cache/.meb" | sed 's/mode=\s*// g'
 }
 
 show_mode() {

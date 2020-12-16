@@ -6,6 +6,7 @@
 
 espstart_home="$HOME/Globaltronic/espressiff"
 espstart_idfs="$espstart_home/idf"
+espstart_adfs="$espstart_home/adf"
 espstart_tools="$espstart_home/tools"
 
 espstart_env_dir="/tmp/espstart-env"
@@ -58,6 +59,7 @@ start_idf() {
 
     echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
     echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
+    echo "export ADF_PATH='${espstart_adfs}/master'" >>"$espstart_env_rc"
     echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
     if [ "$espstart_env_shell" = "zsh" ]; then
         ZDOTDIR=$espstart_env_dir zsh
@@ -77,7 +79,7 @@ elif [ "$(basename $SHELL)" = "bash" ]; then
     espstart_env_shell="bash"
     espstart_env_rc="$espstart_env_dir/.bashrc"
 else
-    echo "Unkown shell $(basename $SHELL)"
+    echo "Unsupported shell $(basename $SHELL)"
     exit 1
 fi
 

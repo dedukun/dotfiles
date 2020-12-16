@@ -44,7 +44,7 @@ export LANGUAGE=en_GB.UTF-8
 export LC_ALL=en_GB.UTF-8
 
 # export python startup file to add autocomplete to python console
-export PYTHONSTARTUP="$HOME/.pythonrc.py"
+export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # export socket for ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

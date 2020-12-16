@@ -32,6 +32,7 @@ if !exists('g:vscode')
   Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
   Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
   Plug 'ap/vim-css-color'                        "color name highlighter
+  " Plug 'daeyun/vim-matlab'                       "matlab support
 endif
 
 " Syntax

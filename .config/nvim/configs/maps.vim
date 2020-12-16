@@ -4,6 +4,10 @@
 " Remap 'Y' to stay the same as other commands
 map Y y$
 
+" Vmap for maintain visual mode after shifting
+vmap < <gv
+vmap > >gv
+
 " Set map leader
 let mapleader=","
 

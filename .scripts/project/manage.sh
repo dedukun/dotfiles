@@ -5,7 +5,7 @@ notify_send_flags='--replaces-process "proj-manage"'
 notify_send_title='Project Manage'
 
 if [ "$1" = "gbt" ]; then
-    config_file="$SCRIPTS/.config/.gbt_project"
+    config_file="$SCRIPTS/.cache/.gbt_project"
     proj_folder="$GBT_PROJECTS"
 
     notify_send_title="GBT $notify_send_title"
@@ -13,7 +13,7 @@ if [ "$1" = "gbt" ]; then
 
     simlink_name="GBT_Project"
 elif [ "$1" = "personal" ]; then
-    config_file="$SCRIPTS/.config/.personal_project"
+    config_file="$SCRIPTS/.cache/.personal_project"
     proj_folder="$PERSONAL_PROJECTS"
     simlink_name="Personal_Project"
 
