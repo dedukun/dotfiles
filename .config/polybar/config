@@ -56,7 +56,7 @@ font-2 = siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu wlan eth battery temperature date
+modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
 
 tray-position = right
 tray-padding = 2
@@ -66,8 +66,8 @@ wm-restack = bspwm
 
 override-redirect = true
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+scroll-up = bspwm-deskprev
+scroll-down = bspwm-desknext
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -101,7 +101,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
 modules-left = bspwm
-modules-right = wlan eth battery temperature date
+modules-right = vpn-networkmanager-status wlan eth battery temperature popup-calendar
 
 tray-position = right
 tray-padding = 2
@@ -111,8 +111,8 @@ wm-restack = bspwm
 
 override-redirect = true
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+scroll-up = bspwm-deskprev
+scroll-down = bspwm-desknext
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -147,7 +147,7 @@ font-2 = siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=9:antialias=false;3
 
 modules-left = bspwm-second
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu wlan eth battery temperature date
+modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
 
 tray-position = right
 tray-padding = 2
@@ -157,8 +157,8 @@ wm-restack = bspwm
 
 override-redirect = true
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+scroll-up = bspwm-deskprev
+scroll-down = bspwm-desknext
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -387,26 +387,41 @@ ramp-foreground = ${colors.foreground-alt}
 
 [module/pulseaudio-microphone]
 type = custom/script
-exec = $HOME/.scripts/polybar/pulseaudio-microphone.sh
+exec = $SCRIPTS/polybar/pulseaudio-microphone.sh
 tail = true
-click-left = $HOME/.scripts/polybar/pulseaudio-microphone.sh --toggle &
+click-left = $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle &
 label = %output%
 label-font = 2
 
 [module/check-battery]
 type = custom/script
-exec = $HOME/.scripts/polybar/check-battery.sh
-interval = 300
+exec = $SCRIPTS/polybar/check-battery.sh
+interval = 150
 
 [module/updates-pacman-aurhelper]
 type = custom/script
-exec = $HOME/.scripts/polybar/updates-pacman-aurhelper.sh
-format = <label>
+exec = $SCRIPTS/polybar/updates-pacman-aurhelper.sh
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #AFD787
-label = %output%
 interval = 600
+
+[module/popup-calendar]
+type = custom/script
+exec = $SCRIPTS/polybar/popup-calendar.sh
+interval = 5
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
+click-left = $SCRIPTS/polybar/popup-calendar.sh --popup &
+
+[module/vpn-networkmanager-status]
+type = custom/script
+exec = $SCRIPTS/polybar/vpn-networkmanager-status.sh
+interval = 60
+format-prefix = " "
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = #0a6cf5
 
 [settings]
 screenchange-reload = true

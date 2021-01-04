@@ -33,6 +33,7 @@ if !exists('g:vscode')
   Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
   Plug 'ap/vim-css-color'                        "color name highlighter
   " Plug 'daeyun/vim-matlab'                       "matlab support
+  Plug 'junegunn/fzf.vim'
 endif
 
 " Syntax

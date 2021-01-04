@@ -53,8 +53,11 @@ nnoremap GR :noautocmd vimgrep '\b<cword>\b' %:p:h/*<CR>
 " Remap ^W_w to zoomwin
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
-" FZF
+" Fuzzy find for files
 nnoremap <C-p>  :FZF<CR>
+
+" Fuzzy find for lines in files
+nnoremap <S-p>  :Ag<CR>
 
 " CoC
 " Use tab for trigger completion with characters ahead and navigate.
