@@ -17,8 +17,17 @@ espstart_env_shell=""
 #=== A U X I L I A R   F U N C T I O N S ===#
 #############################################
 
+_exit_error() {
+    printf "ERROR: %s\n" "$1" >&2
+    exit 1
+}
+
 _list_idfs() {
     ls $espstart_idfs
+}
+
+_list_adfs() {
+    ls $espstart_adfs
 }
 
 _start_env() {
@@ -32,13 +41,19 @@ _start_env() {
     else
         [ -f ~/.bashrc ] && printf ". $HOME/.bashrc\n\n" >>"$espstart_env_rc"
     fi
-
 }
 
-_change_ps1() {
+_change_idf_ps1() {
     idf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
     echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(IDF ' >>"$espstart_env_rc"
     echo -n "$idf_version" >>"$espstart_env_rc"
+    echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+}
+
+_change_adf_ps1() {
+    adf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
+    echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ADF ' >>"$espstart_env_rc"
+    echo -n "$adf_version" >>"$espstart_env_rc"
     echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
 }
 
@@ -55,11 +70,27 @@ start_idf() {
     _start_env
 
     _enable_cmake_colors
-    _change_ps1 "$1"
+    _change_idf_ps1 "$1"
 
     echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
     echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
-    echo "export ADF_PATH='${espstart_adfs}/master'" >>"$espstart_env_rc"
+    echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
+    if [ "$espstart_env_shell" = "zsh" ]; then
+        ZDOTDIR=$espstart_env_dir zsh
+    else
+        bash --init-file "$espstart_env_rc"
+    fi
+}
+
+start_adf() {
+    _start_env
+
+    _enable_cmake_colors
+    _change_adf_ps1 "$2"
+
+    echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
+    echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
+    echo "export ADF_PATH='${espstart_adfs}/$2'" >>"$espstart_env_rc"
     echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
     if [ "$espstart_env_shell" = "zsh" ]; then
         ZDOTDIR=$espstart_env_dir zsh
@@ -79,11 +110,31 @@ elif [ "$(basename $SHELL)" = "bash" ]; then
     espstart_env_shell="bash"
     espstart_env_rc="$espstart_env_dir/.bashrc"
 else
-    echo "Unsupported shell $(basename $SHELL)"
-    exit 1
+    _exit_error "Unsupported shell $(basename $SHELL)"
 fi
 
-idfs_count="$(_list_idfs | wc -w)"
-choosen_idf="$(_list_idfs | rofi -dmenu -p 'IDF Version:' -l $idfs_count)"
+idf_or_adf="$(echo 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
+[ -z "$idf_or_adf" ] && _exit_error "No option was choosen"
 
-[ -n "$choosen_idf" ] && start_idf "$choosen_idf"
+if [ "$idf_or_adf" = "IDF" ];then
+    idfs_count="$(_list_idfs | wc -w)"
+    choosen_idf="$(_list_idfs | rofi -dmenu -p 'IDF Version:' -l $idfs_count -i)"
+
+    [ -z "$choosen_idf" ] && _exit_error "No IDF was choosen"
+
+    start_idf "$choosen_idf"
+elif [ "$idf_or_adf" = "ADF" ];then
+    adfs_count="$(_list_adfs | wc -w)"
+    choosen_adf="$(_list_adfs | rofi -dmenu -p 'ADF Version:' -l $adfs_count -i)"
+
+    [ -z "$choosen_adf" ] && _exit_error "No ADF was choosen"
+
+    idfs_count="$(_list_idfs | wc -w)"
+    choosen_idf="$(_list_idfs | rofi -dmenu -p 'IDF Version:' -l $idfs_count -i)"
+
+    [ -z "$choosen_idf" ] && _exit_error "No IDF was choosen"
+
+    start_adf "$choosen_idf" "$choosen_adf"
+else
+    _exit_error "Unkown option '$idf_or_adf'"
+fi

@@ -1,5 +1,6 @@
 ;==========================================================
-; 
+;
+;
 ;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
 ;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
 ;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
@@ -27,7 +28,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/default]
-; monitor = ${env:MONITOR:eDP1}
+; monitor = ${env:MONITOR:eDP-1}
 width = 100%
 height = 20
 ;offset-x = 1%
@@ -73,7 +74,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/primary]
-monitor = ${env:MONITOR:eDP1}
+monitor = ${env:MONITOR:eDP-1}
 width = 100%
 height = 20
 ;offset-x = 1%
@@ -118,7 +119,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/second]
-monitor = ${env:MONITOR:HDMI2}
+monitor = ${env:MONITOR:HDMI-2}
 width = 100%
 height = 20
 ;offset-x = 1%

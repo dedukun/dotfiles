@@ -35,9 +35,7 @@ _check_cache_and_notify() {
     return 1
 }
 
-echo "HERE"
 if [ -n "$battery_discharging" ]; then
-    echo "DISCHARGING"
     if [ $battery_level -lt $battery_noti_threshold ]; then
         _check_cache_and_notify 20 && exit 0
         _check_cache_and_notify 15 && exit 0

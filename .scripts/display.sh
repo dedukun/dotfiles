@@ -69,8 +69,8 @@ dmenu_mode() {
 }
 
 dis_mode="1920x1080"
-dis_out="HDMI2"
-dis_base_monitor="eDP1"
+dis_out="HDMI-2"
+dis_base_monitor="eDP-1"
 dis_direction=""
 
 while [[ $# -gt 0 ]]; do

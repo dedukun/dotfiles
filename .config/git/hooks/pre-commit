@@ -8,7 +8,19 @@ if [ $(git remote -v \
      | grep '^192\.168\.100\....\|^github.com:Globaltronic$' -o) ]; then
 
     if [ ! "$(git config --get user.email)" = "diogo.duarte@globaltronic.pt" ]; then
-        echo "You're not using the GBT email even though you are in a GBT repository. Git email changed."
         git config user.email "diogo.duarte@globaltronic.pt"
+
+        bold=$(tput bold)
+        normal=$(tput sgr0)
+
+        echo "#"
+        echo "# You're not using the GBT email even though you are in a GBT repository. Git email changed."
+        echo "#"
+        echo "# Note however that the current commit doesn't has this change,"
+        echo "# as such, you can change this by running the following command ${bold}BEFORE${normal} pushing:"
+        echo "#"
+        echo '# git commit --amend --author "Diogo Duarte <diogo.duarte@globaltronic.pt>" -C HEAD'
+        echo "#"
+        echo "#"
     fi
 fi
