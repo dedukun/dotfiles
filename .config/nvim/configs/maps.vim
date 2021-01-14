@@ -57,7 +57,7 @@ nnoremap <C-w>w :ZoomWinTabToggle<CR>
 nnoremap <C-p>  :FZF<CR>
 
 " Fuzzy find for lines in files
-nnoremap <S-p>  :Ag<CR>
+nnoremap <leader><C-p>  :Ag<CR>
 
 " CoC
 " Use tab for trigger completion with characters ahead and navigate.

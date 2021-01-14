@@ -15,10 +15,11 @@ alias grep='grep --color'
 alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
 alias info='info --vi-keys'
 alias weather="curl wttr.in"
+alias cp='cp -i'
 
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
-alias cp='cp -i'
+alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 
 # project alias
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'

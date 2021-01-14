@@ -10,26 +10,41 @@ print_help() {
     printf "\t-f, --forward   Forward button press\n"
     printf "\t-m, --mode      Mode for extra functionality\n"
     printf "\t-t, --toggle    Toggle the application on/off\n"
+    printf "\t  , --on        Turn the application on\n"
+    printf "\t  , --off        Turn the application off\n"
     printf "\t-s, --show      Show current mode\n"
     printf "\t-h, --help      Prints help menu\n"
 }
 
 exit_error() {
-    #notify-send.py  -t 1500 -u critical "ERROR" "$1" $notify_send_flags
     notify-send -t 1500 -u critical "ERROR" "$1"
     exit 1
 }
 
-toggle_app() {
+turn_on() {
     meb_mode=$(get_mode)
     if [ "$(pgrep xbindkeys)" = "" ]; then
-        #notify-send.py -t 1500 -u normal "Toggle On" "'$meb_mode'" $notify_send_flags
         notify-send -t 1500 -u normal "Toggle On" "'$meb_mode'"
         xbindkeys
     else
-        #notify-send.py -t 1500 -u normal "Toggle Off" $notify_send_flags
+        notify-send -t 1500 -u normal "Already On" "'$meb_mode'"
+    fi
+}
+
+turn_off() {
+    if [ "$(pgrep xbindkeys)" = "" ]; then
+        notify-send -t 1500 -u normal "Already Off"
+    else
         notify-send -t 1500 -u normal "Toggle Off"
         killall xbindkeys
+    fi
+}
+
+toggle_app() {
+    if [ "$(pgrep xbindkeys)" = "" ]; then
+        turn_on
+    else
+        turn_off
     fi
     exit 0
 }
@@ -64,7 +79,6 @@ back_press() {
             # DO NOTHING
             ;;
         *)
-            #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
             notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
@@ -100,7 +114,6 @@ forward_press() {
             # DO NOTHING
             ;;
         *)
-            #notify-send.py  -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
             notify-send -u critical -t 1500 "Unkown gbt choice '$MAN_CMD'"
             exit 1
             ;;
@@ -123,7 +136,6 @@ get_mode() {
 show_mode() {
     meb_mode=$(get_mode)
 
-    #notify-send.py  -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'" $notify_send_flags
     notify-send -u normal -t 1500 "[MEB] Current mode is" "'$meb_mode'"
 }
 
@@ -143,6 +155,14 @@ while [ $# -gt 0 ]; do
             ;;
         -m | --mode)
             mode_select
+            shift # past argument
+            ;;
+        --on)
+            turn_on
+            shift # past argument
+            ;;
+        --off)
+            turn_off
             shift # past argument
             ;;
         -t | --toggle)

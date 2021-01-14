@@ -85,13 +85,11 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-#[ -f "$SCREEN_BASE_FOLDER" ] && notify-send.py  -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" $notify_send_flags && exit 1
 [ -f "$SCREEN_BASE_FOLDER" ] && notify-send -u critical -t 2000 "Not a directory" "'$SCREEN_BASE_FOLDER' is not a directory" && exit 1
 
 # Check if the base folder exists
 if [ ! -d "$SCREEN_BASE_FOLDER" ]; then
     mkdir -p "$SCREEN_BASE_FOLDER"
-    #notify-send.py  -t 1500 "'$SCREEN_BASE_FOLDER' was created." $notify_send_flags
     notify-send -t 1500 "'$SCREEN_BASE_FOLDER' was created."
     printf "'%s' was created.\n" "$SCREEN_BASE_FOLDER"
 fi
@@ -100,7 +98,6 @@ if [[ -n $SCREEN_TIMER ]]; then
     timer_count=0
     while [[ "$timer_count" != "$SCREEN_TIMER" ]]; do
         timer_count=$((timer_count + 1))
-        #notify-send.py  -t 1000 "Timer: $((SCREEN_TIMER-timer_count))" $notify_send_flags
         notify-send -t 1000 "Timer: $((SCREEN_TIMER - timer_count))"
         sleep 1
     done
@@ -145,15 +142,12 @@ fi
 
 # move screen shot to the correct folder and rename it
 if [[ -n $SCREEN_SELECTED ]]; then
-    #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"; notify-send.py  -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"
     notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 elif [[ -n $SCREEN_WINDOW ]]; then
-    #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"; notify-send.py  -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"
     notify-send -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 else
-    #mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"; notify-send.py  -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'" $notify_send_flags
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"
     notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 fi

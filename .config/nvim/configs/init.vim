@@ -24,7 +24,7 @@ endif
 if !exists('g:vscode')
   Plug 'vim-airline/vim-airline'                 "status/tabline
   Plug 'vim-airline/vim-airline-themes'          "status line themes
-  Plug 'frazrepo/vim-rainbow'                    "brackets color
+  Plug 'luochen1990/rainbow'                     "brackets color
   Plug 'sbdchd/neoformat'                        "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter

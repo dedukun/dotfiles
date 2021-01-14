@@ -3,8 +3,8 @@
 format_config_path="$HOME/.config/formatconfig"
 formatted=""
 
-if [ -n "$(fd --max-depth 3 --type f --extension c)" ]; then
-    notify-send -t 2000 "Format Config" "Formatting for C Project"
+if [ -n "$(fd --max-depth 3 --type f --extension c --extension cpp --extension ino)" ]; then
+    notify-send -t 2000 "Format Config" "Formatting for C/C++/Arduino Project"
     cp $format_config_path/clang-format-template .clang-format
     formatted="Y"
 fi

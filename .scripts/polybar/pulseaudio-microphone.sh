@@ -8,7 +8,6 @@ status() {
         echo ""
     else
         echo ""
-        # cat "/tmp/polybar-pulseaudio-microphone"
     fi
 }
 
@@ -23,18 +22,29 @@ listen() {
     done
 }
 
-toggle() {
-    MUTED=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
+mute() {
     DEFAULT_SOURCE=$(pacmd list-sources | awk '/\*/,EOF {print $3; exit}')
 
+    pacmd set-source-mute "$DEFAULT_SOURCE" $1
+}
+
+toggle() {
+    MUTED=$(pacmd list-sources | awk '/\*/,EOF {print}' | awk '/muted/ {print $2; exit}')
+
     if [ "$MUTED" = "yes" ]; then
-        pacmd set-source-mute "$DEFAULT_SOURCE" 0
+        mute 0
     else
-        pacmd set-source-mute "$DEFAULT_SOURCE" 1
+        mute 1
     fi
 }
 
 case "$1" in
+    --mute)
+        mute 1
+        ;;
+    --unmute)
+        mute 0
+        ;;
     --toggle)
         toggle
         ;;

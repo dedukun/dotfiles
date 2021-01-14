@@ -26,7 +26,6 @@ new_project() {
 
     [ "$proj_name" = "" ] && exit 0
 
-    #[ -d "$proj_folder/$proj_name" ] && notify-send.py  -u critical -t 1500 "Project '$proj_name' already exists!" $notify_send_flags && exit 1
     [ -d "$proj_folder/$proj_name" ] && notify-send -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
 
     mkdir -p "$proj_folder/$proj_name"
@@ -81,7 +80,6 @@ choose_project() {
 show_project() {
     proj_name=$1
 
-    #notify-send.py  -t 1500 "Current working project" "'$proj_name'" $notify_send_flags
     notify-send -t 1500 "Current working project" "'$proj_name'"
 }
 
@@ -107,7 +105,6 @@ _get_unused_directories() {
 
 _choose_project() {
     # Check that given directory exists
-    #[ ! -d "$1" ] && notify-send.py  -u critical -t 2500 "Error" "Given directory doesn't exist" $notify_send_flags && exit 1
     [ ! -d "$1" ] && notify-send -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
 
     # Change current working project in the configs
@@ -128,7 +125,6 @@ _get_project() {
 
 _link_second() {
     # check if second is mounted
-    #notify-send.py  "IM LINKING SECOND" "$1" $notify_send_flags
     notify-send "IM LINKING SECOND" "$1"
 }
 

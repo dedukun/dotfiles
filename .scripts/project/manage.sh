@@ -20,7 +20,6 @@ elif [ "$1" = "personal" ]; then
     notify_send_title="Personal $notify_send_title"
     notify_send_flags='--replaces-process "per-proj-manage"'
 else
-    #notify-send.py -u critical -t 1500 "$notify_send_title" "Not a supported project area" $notify_send_flags
     notify-send -u critical -t 1500 "$notify_send_title" "Not a supported project area"
     exit 1
 fi
@@ -36,15 +35,12 @@ fi
 case $man_cmd in
     "Logs")
         # $TERMINAL_OPEN $SCRIPTS/project/logs.sh
-        #notify-send.py -u critical -t 1500 "$notify_send_title" "'Logs' not implemented" $notify_send_flags
         notify-send -u critical -t 1500 "$notify_send_title" "'Logs' not implemented"
         ;;
     "Move")
-        #notify-send.py -u critical -t 1500 "$notify_send_title" "'Move' not implemented" $notify_send_flags
         notify-send -u critical -t 1500 "$notify_send_title" "'Move' not implemented"
         ;;
     "Outputs")
-        #notify-send.py -u critical -t 1500 "$notify_send_title" "'Outputs' not implemented" $notify_send_flags
         notify-send -u critical -t 1500 "$notify_send_title" "'Outputs' not implemented"
         ;;
     "New Project")
@@ -66,7 +62,6 @@ case $man_cmd in
         # DO NOTHING
         ;;
     *)
-        #notify-send.py -u critical -t 1500 "$notify_send_title" "Unkown gbt choice '$MAN_CMD'" $notify_send_flags
         notify-send -u critical -t 1500 "$notify_send_title" "Unkown gbt choice '$MAN_CMD'"
         ;;
 esac

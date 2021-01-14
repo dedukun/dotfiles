@@ -31,13 +31,22 @@ endif
 
 " rainbow
 if !exists('g:vscode')
-  au FileType c,cpp,objc,objcpp,tex call rainbow#load()
-  let g:rainbow_guifgs = ['DarkOrange3', 'DarkGoldenrod3', 'LightGoldenrod3']
-  let g:rainbow_load_separately = [
-        \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-        \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
-        \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-        \ ]
+  let g:rainbow_active = 1
+  let g:rainbow_conf = {
+  \	'guifgs': ['DarkOrange3', 'DarkGoldenrod3', 'LightGoldenrod3'],
+  \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+  \	'separately': {
+  \		'*': {},
+  \		'tex': {
+  \			'parentheses_options': 'containedin=markdownCode contained',
+  \           'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold'],
+  \		},
+  \		'vim': {
+  \			'parentheses_options': 'containedin=vimFuncBody',
+  \		},
+  \		'css': 0,
+  \	}
+  \}
 endif
 
 " editorconfig
@@ -51,6 +60,7 @@ autocmd FileType markdown setlocal commentstring=<!--%s-->
 autocmd FileType gdscript3 setlocal commentstring=#\ %s
 autocmd FileType GDScript setlocal commentstring=#\ %s
 autocmd FileType sxhkdrc setlocal commentstring=#\ %s
+autocmd FileType mib setlocal commentstring=--\ %s
 
 " markdown previewer
 if !exists('g:vscode')

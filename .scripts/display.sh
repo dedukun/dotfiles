@@ -1,5 +1,10 @@
 #!/bin/bash
 
+dis_mode="1920x1080"
+dis_out="$($SCRIPTS/auxiliar/get_display_names.sh -h2)"
+dis_base_monitor="$($SCRIPTS/auxiliar/get_display_names.sh -e)"
+dis_direction=""
+
 _exit_error() {
     printf "ERROR: %s\n" "$1" >&2
     echo "For more help use argument -h or --help".
@@ -10,9 +15,9 @@ print_help() {
     printf "Change Second Monitor\n"
     printf "This wrapper script helps configuring the second display.\n"
     printf "\n"
-    printf "\t-m, --mode        Specify the display mode (default 1920x1080)\n"
+    printf "\t-m, --mode        Specify the display mode (default $dis_mode)\n"
     printf "\t-M, --dmenu-mode  Choose the display mode using a dmenu list\n"
-    printf "\t    --output      Specify the output (default HDMI2)\n"
+    printf "\t    --output      Specify the output (default $dis_out)\n"
     printf "\t-a, --above       Set second display above the main display\n"
     printf "\t-l, --left        Set second display to the left of the main display\n"
     printf "\t-r, --right       Set second display to the right of the main display\n"
@@ -67,11 +72,6 @@ dmenu_mode() {
     output_list="$($SCRIPTS/auxiliar/xrandr-query.sh "$dis_out" | tail -n +2 | awk '{print $1;}')"
     dis_mode=$(echo "$output_list" | rofi -dmenu -p "Display Mode:")
 }
-
-dis_mode="1920x1080"
-dis_out="HDMI-2"
-dis_base_monitor="eDP-1"
-dis_direction=""
 
 while [[ $# -gt 0 ]]; do
     dis_key="$1"
