@@ -40,24 +40,21 @@ run_swallow() {
   zle reset-prompt
 }
 
-###################
-## ANTIBODY STUFF #
-###################
+#################
+##  ZNAP STUFF  #
+#################
 
-## load antibody
-export ANTIBODY_HOME="$ZSH_CONFIGS/antibody"
-source <(antibody init)
-
-# highlighting
-antibody bundle zdharma/fast-syntax-highlighting
-# completions
-antibody bundle zsh-users/zsh-completions
-# better vim mode
-antibody bundle softmoth/zsh-vim-mode
+export ZNAP_HOME="$ZSH_CONFIGS/znap"
+source "$ZNAP_HOME/zsh-snap/znap.zsh"
 
 # theme
-antibody bundle mafredri/zsh-async
-antibody bundle sindresorhus/pure
+znap source mafredri/zsh-async
+znap prompt sindresorhus/pure
+
+# highlighting
+znap source zdharma/fast-syntax-highlighting
+# completions
+znap source zsh-users/zsh-completions
 
 ##################
 # CONFIGURATIONS #

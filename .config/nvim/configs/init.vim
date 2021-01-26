@@ -34,6 +34,7 @@ if !exists('g:vscode')
   Plug 'ap/vim-css-color'                        "color name highlighter
   " Plug 'daeyun/vim-matlab'                       "matlab support
   Plug 'junegunn/fzf.vim'
+  Plug 'honza/vim-snippets'                      "add snippets
 endif
 
 " Syntax

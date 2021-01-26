@@ -11,7 +11,7 @@ print_help() {
     printf "\t-m, --mode      Mode for extra functionality\n"
     printf "\t-t, --toggle    Toggle the application on/off\n"
     printf "\t  , --on        Turn the application on\n"
-    printf "\t  , --off        Turn the application off\n"
+    printf "\t  , --off       Turn the application off\n"
     printf "\t-s, --show      Show current mode\n"
     printf "\t-h, --help      Prints help menu\n"
 }
