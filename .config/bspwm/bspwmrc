@@ -46,8 +46,6 @@ xsetroot -cursor_name left_ptr                      # set the default mouse shap
 hsetroot -solid "#000"                              # change background to solid black
 xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1 # invert scrolling
 
-xbacklight -set 50                                  # start with screen brightness at 50%
-
 setxkbmap pt                                        # set keyboard map to portuguese
 setxkbmap -option ctrl:nocaps                       # disables the caps lock key
 
@@ -58,11 +56,5 @@ wmname LG3D                                         # rename the WM instance to 
 
 killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd
-
-killall "dunst"
-dunst &			                                    # dunst for notifications
-
-killall "redshift"
-redshift -c ~/.config/redshift/redshift.conf &      # start redshift
 
 pactl load-module module-bluetooth-discover         # fix bluetooth

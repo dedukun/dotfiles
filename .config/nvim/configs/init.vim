@@ -35,10 +35,12 @@ if !exists('g:vscode')
   " Plug 'daeyun/vim-matlab'                       "matlab support
   Plug 'junegunn/fzf.vim'
   Plug 'honza/vim-snippets'                      "add snippets
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
 endif
 
 " Syntax
 if !exists('g:vscode')
+  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
   Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
   Plug 'nikvdp/ejs-syntax'                       "ejs syntax

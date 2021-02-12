@@ -47,7 +47,7 @@ run_swallow() {
 export ZNAP_HOME="$ZSH_CONFIGS/znap"
 source "$ZNAP_HOME/zsh-snap/znap.zsh"
 
-# theme
+# prompt
 znap source mafredri/zsh-async
 znap prompt sindresorhus/pure
 

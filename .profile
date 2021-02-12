@@ -7,7 +7,6 @@ export VISUAL="nvim"
 #export TERMINAL_OPEN="$TERMINAL --working-directory"
 #export TERMINAL_RUN="$TERMINAL --command"
 
-export TERM="xterm-kitty"
 export TERMINAL="kitty"
 export TERMINAL_OPEN="$TERMINAL --directory"
 export TERMINAL_RUN="$TERMINAL "

@@ -109,3 +109,21 @@ endif
 
 " neoformat
 let g:shfmt_opt="-ci"
+
+" firenvim
+let g:firenvim_config = {
+    \ 'localSettings': {
+        \ '.*': {
+            \ 'takeover': 'never',
+        \ },
+    \ }
+\ }
+
+" treesitter
+"lua << EOF
+"require('nvim-treesitter.configs').setup {
+"    highlight = {
+"        enable = true
+"    },
+"}
+"EOF

@@ -43,6 +43,7 @@ set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')} " Add CoC statusline support
 set foldmethod=marker            "set fold method to marker
+" set list
 
 " Change the directory where temporary files are stored
 set backupdir=~/.config/nvim/.backup//

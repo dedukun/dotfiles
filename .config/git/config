@@ -20,5 +20,6 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+	func = 146 bold
 [init]
 	defaultBranch = main
