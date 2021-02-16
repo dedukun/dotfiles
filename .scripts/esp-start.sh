@@ -137,7 +137,7 @@ start_adf() {
 #================= M A I N =================#
 #############################################
 
-# Check if the using shell is supported
+# Check if the shell being used is supported
 if [ "$(basename $SHELL)" = "zsh" ]; then
     espstart_env_shell="zsh"
     espstart_env_rc="$espstart_env_dir/.zshrc"
