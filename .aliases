@@ -17,6 +17,7 @@ alias grep='grep --color'
 alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
 alias info='info --vi-keys'
 alias weather="$SCRIPTS/weather.sh"
+alias myip='curl ipinfo.io/ip'
 alias cp='cp -i'
 alias ra='ranger'
 

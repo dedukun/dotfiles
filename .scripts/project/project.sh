@@ -1,11 +1,14 @@
 #!/bin/sh
 # Manages GBT projects.
 
-notify_send_flags='--replaces-process "proj-proj"'
-
 config_file=""
 proj_folder=""
 symlink=""
+
+_exit_error() {
+    notify-send -u critical -t 1500 "ERROR" "$1"
+    exit 1
+}
 
 print_help() {
     echo "This script helps creating a project and manage it."
@@ -24,9 +27,9 @@ print_help() {
 new_project() {
     proj_name=$(echo | rofi -dmenu -p "Project Name:" -l 0)
 
-    [ "$proj_name" = "" ] && exit 0
+    [ -z "$proj_name" ] && exit 0
 
-    [ -d "$proj_folder/$proj_name" ] && notify-send -u critical -t 1500 "Project '$proj_name' already exists!" && exit 1
+    [ -d "$proj_folder/$proj_name" ] && _exit_error "Project '$proj_name' already exists!"
 
     mkdir -p "$proj_folder/$proj_name"
 
@@ -48,13 +51,14 @@ create_folders() {
 
     proj_input=$(_get_unused_directories "$proj_name")
     while true; do
-        if [ "$proj_input" = "" ]; then
+        if [ -z "$proj_input" ]; then
             break
         elif [ "$proj_input" = "Second" ]; then
             _link_second "$proj_name"
+        else
+            mkdir "$proj_name/$proj_input"
         fi
 
-        mkdir "$proj_name/$proj_input"
         proj_input=$(_get_unused_directories "$proj_name")
     done
 }
@@ -72,7 +76,7 @@ choose_project() {
 
     proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project:" -l $number_of_lines) # dmenu
 
-    [ "$proj_name" = "" ] && exit 0
+    [ -z "$proj_name" ] && exit 0
 
     _choose_project "$proj_folder/$proj_name"
 }
@@ -91,10 +95,10 @@ get_full_project() {
 
 # PRIVATE FUNCTIONS
 _get_unused_directories() {
-    existing_directories=$(find "$1" -maxdepth 1 -type d | # search directories in folder
-        tail -n +2 |                                       # remove '.' folder
-        awk -F'/' '{print $(NF)}' |                        # only get the directory name
-        sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')        # remove new lines from results and replace with '|'
+    existing_directories=$(find "$1" -maxdepth 1 -type d,l | # search directories/symlinks in folder
+        tail -n +2 |                                         # remove '.' folder
+        awk -F'/' '{print $(NF)}' |                          # only get the directory name
+        sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/|/g')          # remove new lines from results and replace with '|'
 
     printf "Code\nRepos\nManuals\nDocumentation\nDocuments\nImages\nSchematics\nMedia\nPictures\nOther\nSecond" |
         sort |
@@ -105,7 +109,7 @@ _get_unused_directories() {
 
 _choose_project() {
     # Check that given directory exists
-    [ ! -d "$1" ] && notify-send -u critical -t 2500 "Error" "Given directory doesn't exist" && exit 1
+    [ ! -d "$1" ] && _exit_error "Given directory doesn't exist"
 
     # Change current working project in the configs
     sed -i "s/proj=.*$/proj=$(echo "$1" | sed 's/\//\\\// g')/ g" "$config_file"
@@ -125,7 +129,17 @@ _get_project() {
 
 _link_second() {
     # check if second is mounted
-    notify-send "IM LINKING SECOND" "$1"
+    [ ! $(lsblk | grep -o "/second") ] && _exit_error "'Second' not mounted."
+
+    proj_group=$(basename $(dirname $1))
+    proj_name=$(basename $1)
+
+    link_folder_name="$proj_group-$proj_name"
+
+    mkdir "/second/$link_folder_name"
+    ln -s "/second/$link_folder_name" "$1/Second"
+
+    notify-send -t 1500 "Linking" "Link Successful"
 }
 
 while [ $# -gt 0 ]; do

@@ -1,8 +1,14 @@
 #!/bin/sh
 # Simple wrapper for wttr.in
+# Based on: https://www.reddit.com/r/bash/comments/9o2wap/favorite_bash_script_oneliner_or_utility
 
-if [ -z "$1" ]; then
-    curl wttr.in
-else
-    curl wttr.in/"$1"
-fi
+_exit_error() {
+    printf "ERROR: %s\n" "$1" >&2
+    exit 1
+}
+
+_exists() { command -v "${1}" &>/dev/null; }
+
+[ ! $(_exists curl) ] && _exit_error "This command requires 'curl', please install it."
+
+curl -m 5 "http://wttr.in/${*:-Àgueda}" 2>/dev/null || _exit_error "Could not connect to weather service."
