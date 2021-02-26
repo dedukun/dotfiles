@@ -20,6 +20,7 @@ alias weather="$SCRIPTS/weather.sh"
 alias myip='curl ipinfo.io/ip'
 alias cp='cp -i'
 alias ra='ranger'
+alias ssh='TERM=xterm-256color ssh'
 
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'

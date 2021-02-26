@@ -21,6 +21,8 @@ if !exists('g:vscode')
 endif
 
 " Misc
+Plug 'unblevable/quick-scope'                  "horizontal movement helper
+Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
   Plug 'vim-airline/vim-airline'                 "status/tabline
   Plug 'vim-airline/vim-airline-themes'          "status line themes
@@ -28,8 +30,6 @@ if !exists('g:vscode')
   Plug 'sbdchd/neoformat'                        "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
   Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
-  Plug 'unblevable/quick-scope'                  "horizontal movement helper
-  Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
   Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
   Plug 'ap/vim-css-color'                        "color name highlighter
   " Plug 'daeyun/vim-matlab'                       "matlab support
@@ -63,6 +63,7 @@ Plug 'tpope/vim-repeat'                        "more repeatable plugins
 Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
 if !exists('g:vscode')
-  Plug 'tpope/vim-fugitive'                      "git plugin
+  Plug 'tpope/vim-fugitive'                    "git plugin
+  Plug 'airblade/vim-gitgutter'                "show git diffs in file
 endif
 call plug#end()

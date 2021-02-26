@@ -47,7 +47,9 @@ hsetroot -solid "#000"                              # change background to solid
 xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1 # invert scrolling
 
 setxkbmap pt                                        # set keyboard map to portuguese
-setxkbmap -option ctrl:nocaps                       # disables the caps lock key
+setxkbmap -option ctrl:nocaps                       # disable the caps lock key
+
+numlockx on                                         # ativate numlock
 
 xmodmap -e 'keycode  248 = grave asciitilde grave asciitilde' # set special key [248] to keysym '~' [which is keybinded in sxhkd]
 
