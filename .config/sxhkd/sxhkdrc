@@ -245,5 +245,9 @@ super + c
 super + n
         kill -s USR1 $(pidof deadd-notification-center)
 
+# run share audio
+super + a
+        $SCRIPTS/shareaudio.sh
+
 grave
         slock && bspc wm -O eDP1 HDMI2

@@ -36,6 +36,7 @@ if !exists('g:vscode')
   Plug 'junegunn/fzf.vim'
   Plug 'honza/vim-snippets'                      "add snippets
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
+  Plug 'Yggdroot/indentLine'                     "show identation level
 endif
 
 " Syntax
