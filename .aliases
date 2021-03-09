@@ -28,7 +28,10 @@ alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 
 # project aliases
 alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
-alias percd='cd $($SCRIPTS/project/manage.sh personal --get)'
+alias gtask="$SCRIPTS/project/taskwarrior_project.sh gbt"
+alias percd='cd $($SCRIPTS/project/manage.sh per --get)'
+alias ptask="$SCRIPTS/project/taskwarrior_project.sh per"
+
 alias mtdcd='cd $(mtd --select)'
 
 # wine aliases

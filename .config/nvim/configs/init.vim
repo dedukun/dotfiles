@@ -5,7 +5,6 @@ call plug#begin('~/.config/nvim/plugged')
 " General
 Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of lines in red
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
-Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
 if !exists('g:vscode')
   Plug 'myusuf3/numbers.vim'                     "set relativenumber or number depending of the current mode
@@ -53,6 +52,7 @@ if !exists('g:vscode')
 endif
 
 " Text objects
+Plug 'wellle/targets.vim'                      "more text objects ', . ; : + - = ~ _ * # / | \ & $'
 Plug 'kana/vim-textobj-user'                   "create custom text objects easily
 Plug 'kana/vim-textobj-indent'                 "text object for indents
 Plug 'kana/vim-textobj-function'               "text object for C-like functions

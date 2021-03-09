@@ -21,7 +21,7 @@ super + control + Return
 
 # start a terminal in the current Personal project directory
 super + shift + control + Return
-        eval "$TERMINAL_OPEN" "$($SCRIPTS/project/manage.sh personal --get)"
+        eval "$TERMINAL_OPEN" "$($SCRIPTS/project/manage.sh per --get)"
 
 # start terminal in temp dir
 super + m
@@ -197,7 +197,7 @@ super + control + Print
 
 # screen shots Personal current project
 super + control + shift + Print
-        $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh personal --get)/Pictures/screenshots -m
+        $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh per --get)/Pictures/screenshots -m
 
 # Others
 
@@ -219,11 +219,11 @@ super + shift + g
 
 # Personal Projects
 super + p
-        $SCRIPTS/project/manage.sh personal
+        $SCRIPTS/project/manage.sh per
 
 # Show current personal project
 super + shift + p
-        $SCRIPTS/project/manage.sh personal --show
+        $SCRIPTS/project/manage.sh per --show
 
 # Toggle Mouse Remaps
 super + b

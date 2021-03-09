@@ -3,6 +3,8 @@
 #
 # based on:https://github.com/vindecodex/PCAudioToAndroid
 
+tray_icon="/home/dedukun/.local/share/Steam/tenfoot/resource/images/music/musicguide_icon.png"
+
 _unload_module() {
     module_number="$(pactl list | grep tcp -B1 | grep M | sed 's/[^0-9]//g')"
 
@@ -48,7 +50,11 @@ _unload_module
 _load_module
 
 # add icon to icon tray
-yad --notification --title="Share Audio" --text="Share Audio (click to stop)"
+if [ -f "$tray_icon" ]; then
+    yad --notification --title="Share Audio" --text="Share Audio (click to stop)" --image="$tray_icon"
+else
+    yad --notification --title="Share Audio" --text="Share Audio (click to stop)"
+fi
 
 # after click in notification, unload module
 _unload_module

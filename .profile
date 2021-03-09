@@ -42,6 +42,7 @@ export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
+export TASKRC="$HOME/.config/task/config"
 
 # locale
 export LANG=en_GB.UTF-8
