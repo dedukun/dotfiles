@@ -37,7 +37,7 @@ new_project() {
     echo "$proj_id" >"$proj_folder/$proj_name/.id"
     sed -i "s/id=.*$/id=$((proj_id + 1))/ g" "$config_file"
 
-    _choose_project "$proj_folder/$proj_name"
+    _choose_project "$proj_folder" "$proj_name"
 
     create_folders "$proj_name"
 }
@@ -46,7 +46,7 @@ create_folders() {
     if [ -n "$1" ]; then
         proj_name="$1"
     else
-        proj_name=$(_get_project)
+        proj_name=$(get_full_project)
     fi
 
     proj_input=$(_get_unused_directories "$proj_name")
@@ -78,7 +78,7 @@ choose_project() {
 
     [ -z "$proj_name" ] && exit 0
 
-    _choose_project "$proj_folder/$proj_name"
+    _choose_project "$proj_folder" "$proj_name"
 }
 
 show_project() {
@@ -90,7 +90,7 @@ show_project() {
 get_full_project() {
     proj_name=$(_get_project)
 
-    echo "$proj_name"
+    echo "$proj_folder/$proj_name"
 }
 
 # PRIVATE FUNCTIONS
@@ -109,10 +109,10 @@ _get_unused_directories() {
 
 _choose_project() {
     # Check that given directory exists
-    [ ! -d "$1" ] && _exit_error "Given directory doesn't exist"
+    [ ! -d "$1/$2" ] && _exit_error "Given directory doesn't exist"
 
     # Change current working project in the configs
-    sed -i "s/proj=.*$/proj=$(echo "$1" | sed 's/\//\\\// g')/ g" "$config_file"
+    sed -i "s/proj=.*$/proj=$(echo "$2" | sed 's/\//\\\// g')/ g" "$config_file"
 
     # Create new simlink
     rm "$proj_folder/../$symlink"
@@ -163,7 +163,7 @@ while [ $# -gt 0 ]; do
             ;;
         -s | --show)
             shift # past argument
-            show_project "$(_get_project)"
+            show_project "$(get_full_project)"
             exit 0
             ;;
         -g | --get)
