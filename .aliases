@@ -27,12 +27,12 @@ alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 
 # project aliases
-alias gbtcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
+alias gcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
 alias gtask="$SCRIPTS/project/taskwarrior_project.sh gbt"
-alias percd='cd $($SCRIPTS/project/manage.sh per --get)'
+alias pcd='cd $($SCRIPTS/project/manage.sh per --get)'
 alias ptask="$SCRIPTS/project/taskwarrior_project.sh per"
 
-alias mtdcd='cd $(mtd --select)'
+alias mcd='cd $(mtd --select)'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"

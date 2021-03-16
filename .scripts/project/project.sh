@@ -116,7 +116,7 @@ _choose_project() {
 
     # Create new simlink
     rm "$proj_folder/../$symlink"
-    ln -s "$1" "$proj_folder/../$symlink"
+    ln -s "$1/$2" "$proj_folder/../$symlink"
 
     show_project "$1"
 }
