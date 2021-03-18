@@ -26,6 +26,7 @@ foreground-alt = #555
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
+highlight = #739980
 
 [bar/default]
 ; monitor = ${env:MONITOR:eDP-1}
@@ -143,7 +144,7 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Siji:pixelsize=10;1
-font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=9:antialias=false;3
+font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm-second
 modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
@@ -166,7 +167,8 @@ mount-0 = /
 mount-1 = /home
 mount-2 = /second
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+# label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#739980}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -175,7 +177,7 @@ type = internal/bspwm
 
 label-focused = %name%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
+label-focused-underline= ${colors.highlight}
 label-focused-padding = 2
 
 label-occupied = %name%
@@ -197,7 +199,7 @@ type = internal/bspwm
 
 label-focused = %name%
 label-focused-background = ${colors.background-alt}
-label-focused-underline= ${colors.primary}
+label-focused-underline= ${colors.highlight}
 label-focused-padding = 2
 
 label-occupied = %name%
@@ -214,29 +216,12 @@ label-empty-padding = 2
 ; Separator in between workspaces
 ; label-separator = |
 
-[module/xbacklight]
-type = internal/xbacklight
-
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #fff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
-
 [module/cpu]
 type = internal/cpu
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #f90000
+# format-underline = #0D1117
 label = %percentage:2%%
 
 [module/memory]
@@ -244,7 +229,7 @@ type = internal/memory
 interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #4bffdc
+# format-underline = #0D1117
 label = %percentage_used%%
 
 [module/wlan]
@@ -253,7 +238,7 @@ interface = wlp4s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+# format-connected-underline = #0D1117
 label-connected = %essid%
 
 ;format-disconnected =
@@ -274,7 +259,8 @@ type = internal/network
 interface = enp5s0
 interval = 3.0
 
-format-connected-underline = #55aa55
+# format-connected-underline = #0D1117
+
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
@@ -295,7 +281,7 @@ time = %H:%M:%S
 
 format-prefix = 
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+# format-underline = #0D1117
 
 label = %date% %time%
 
@@ -335,7 +321,7 @@ adapter = AC0
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #ffb52a
+# format-charging-underline = #0D1117
 
 format-discharging = <animation-discharging> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
@@ -367,7 +353,7 @@ thermal-zone = 0
 warn-temperature = 70
 
 format = <ramp> <label>
-format-underline = #f50a4d
+# format-underline = #0D1117
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
@@ -398,7 +384,7 @@ type = custom/script
 exec = $SCRIPTS/polybar/updates-pacman-aurhelper.sh
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #AFD787
+# format-underline = #0D1117
 interval = 600
 
 [module/popup-calendar]
@@ -407,7 +393,7 @@ exec = $SCRIPTS/polybar/popup-calendar.sh
 interval = 5
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+# format-underline = #0D1117
 click-left = $SCRIPTS/polybar/popup-calendar.sh --popup &
 
 [module/vpn-networkmanager-status]
@@ -416,7 +402,7 @@ exec = $SCRIPTS/polybar/vpn-networkmanager-status.sh
 interval = 60
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
-format-underline = #0a6cf5
+# format-underline = #0D1117
 
 [settings]
 screenchange-reload = true

@@ -49,6 +49,7 @@ if !exists('g:vscode')
   Plug 'gisphm/vim-gitignore'                    "gitignore syntax
   Plug 'habamax/vim-godot'                       "GDScript syntax
   Plug 'lervag/vimtex'                           "latex support
+  Plug 'fladson/vim-kitty'                       "kitty config syntax
 endif
 
 " Text objects

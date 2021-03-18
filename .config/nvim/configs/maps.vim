@@ -109,6 +109,9 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
+" Switch between source/header in C/C++ files
+map <leader>s :CocCommand clangd.switchSourceHeader<CR>
+
 """"""""
 " Commands
 

@@ -5,34 +5,20 @@
 # remore previous aliases
 unalias -a
 
-# User defined aliases
-alias vi="nvim"
-alias vim="nvim"
+# commands overwritte
 alias ag="\$SCRIPTS/ag.sh"
+alias vi='nvim'
+alias vim='nvim'
 alias ls='ls -h --color=auto --group-directories-first --sort=extension'
 alias l='ls -l'
 alias ll='ls -lA'
 alias less='less -i'
 alias grep='grep --color'
-alias grep-source='grep --include={"*.[hc]","*.[hc]pp","*.java","*.py","*.js","*.ejs","*.html","*.sh","*.tex","*.vim"}'
 alias info='info --vi-keys'
-alias weather="$SCRIPTS/weather.sh"
-alias myip='curl ipinfo.io/ip'
 alias cp='cp -i'
 alias ra='ranger'
 alias ssh='TERM=xterm-256color ssh'
-
-alias xxstartx='exec startx &> /dev/null'
-alias update-time='sudo ntpdate pt.pool.ntp.org'
-alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
-
-# project aliases
-alias gcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
-alias gtask="$SCRIPTS/project/taskwarrior_project.sh gbt"
-alias pcd='cd $($SCRIPTS/project/manage.sh per --get)'
-alias ptask="$SCRIPTS/project/taskwarrior_project.sh per"
-
-alias mcd='cd $(mtd --select)'
+alias cdiff='diff-so-fancy | less --tabs=4 -RFX'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
@@ -44,3 +30,18 @@ alias wine64cfg="WINEPREFIX=\$HOME/.config/wine/wine64 winecfg"
 alias rm='rmtrash'
 alias rmdir='rmdirtrash'
 alias sudo='sudo '
+
+# auxiliar 'commands' aliases
+alias weather='$SCRIPTS/weather.sh'
+alias myip='curl ipinfo.io/ip'
+alias xxstartx='exec startx &> /dev/null'
+alias update-time='sudo ntpdate pt.pool.ntp.org'
+alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
+alias esp-tags='cp "$HOME/Globaltronic/espressiff/generate-tags.sh" .'
+alias mcd='cd $(mtd --select)'
+
+# project aliases
+alias gcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
+alias gtask='$SCRIPTS/project/taskwarrior_project.sh gbt'
+alias pcd='cd $($SCRIPTS/project/manage.sh per --get)'
+alias ptask='$SCRIPTS/project/taskwarrior_project.sh per'
