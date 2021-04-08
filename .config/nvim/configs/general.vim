@@ -42,21 +42,12 @@ set noshowmode                   "don't show message if in Insert mode or other 
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')} " Add CoC statusline support
-set foldmethod=marker            "set fold method to marker
+set signcolumn=yes               "show the signcolumn
 " set list
 
 " Change the directory where temporary files are stored
 set backupdir=~/.config/nvim/.backup//
 set directory=~/.config/nvim/.backup//
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
 
 " Tags files default locations
 set tags=tags,./tags
@@ -118,3 +109,7 @@ augroup del_bash_tmp_script
     autocmd FileChangedShell /tmp/bash-fc.* execute
     autocmd BufRead /tmp/bash-fc.* !rm %
 augroup end
+
+" Sets foldmethod in the syntax file
+autocmd Syntax c,cpp,vim setlocal foldmethod=syntax
+autocmd Syntax c,cpp,vim normal zR

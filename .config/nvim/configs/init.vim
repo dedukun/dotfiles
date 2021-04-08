@@ -7,11 +7,11 @@ Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of l
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
 if !exists('g:vscode')
-  Plug 'myusuf3/numbers.vim'                     "set relativenumber or number depending of the current mode
-  Plug 'troydm/zoomwintab.vim'                   "zoom in and out off a split window
-  Plug 'lambdalisue/suda.vim'                    "edit root flies
-  Plug 'lifepillar/vim-gruvbox8'                 "colorscheme
-  Plug 'vimlab/split-term.vim'                   "better terminal
+  Plug 'myusuf3/numbers.vim'                   "set relativenumber or number depending of the current mode
+  Plug 'troydm/zoomwintab.vim'                 "zoom in and out off a split window
+  Plug 'lambdalisue/suda.vim'                  "edit root flies
+  Plug 'lifepillar/vim-gruvbox8'               "colorscheme
+  Plug 'vimlab/split-term.vim'                 "better terminal
 endif
 
 " CoC
@@ -23,33 +23,33 @@ endif
 Plug 'unblevable/quick-scope'                  "horizontal movement helper
 Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
-  Plug 'vim-airline/vim-airline'                 "status/tabline
-  Plug 'vim-airline/vim-airline-themes'          "status line themes
-  Plug 'luochen1990/rainbow'                     "brackets color
-  Plug 'sbdchd/neoformat'                        "autoformatter
-  Plug 'vim-scripts/DoxygenToolkit.vim'          "doxygen helper
-  Plug 'powerman/vim-plugin-AnsiEsc'             "ANSI color converter
-  Plug 'editorconfig/editorconfig-vim'           "editorconfig plugin
-  Plug 'ap/vim-css-color'                        "color name highlighter
-  " Plug 'daeyun/vim-matlab'                       "matlab support
+  Plug 'vim-airline/vim-airline'               "status/tabline
+  Plug 'vim-airline/vim-airline-themes'        "status line themes
+  Plug 'luochen1990/rainbow'                   "brackets color
+  Plug 'sbdchd/neoformat'                      "autoformatter
+  Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
+  Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
+  Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
+  Plug 'ap/vim-css-color'                      "color name highlighter
+  " Plug 'daeyun/vim-matlab'                     "matlab support
   Plug 'junegunn/fzf.vim'
-  Plug 'honza/vim-snippets'                      "add snippets
+  Plug 'honza/vim-snippets'                    "add snippets
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
-  Plug 'Yggdroot/indentLine'                     "show identation level
+  Plug 'Yggdroot/indentLine'                   "show identation level
+  Plug 'airblade/vim-gitgutter'                "show git diffs in file
 endif
 
 " Syntax
 if !exists('g:vscode')
-  " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'sheerun/vim-polyglot'                    "a collection of syntaxes
-  Plug 'datsun240z/bitbake.vim'                  "bitbake syntax
-  Plug 'nikvdp/ejs-syntax'                       "ejs syntax
-  Plug 'PotatoesMaster/i3-vim-syntax'            "i3 config file syntax
-  Plug 'neomutt/neomutt.vim'                     "neomutt syntax
-  Plug 'gisphm/vim-gitignore'                    "gitignore syntax
-  Plug 'habamax/vim-godot'                       "GDScript syntax
-  Plug 'lervag/vimtex'                           "latex support
-  Plug 'fladson/vim-kitty'                       "kitty config syntax
+  Plug 'sheerun/vim-polyglot'                  "a collection of syntaxes
+  Plug 'datsun240z/bitbake.vim'                "bitbake syntax
+  Plug 'nikvdp/ejs-syntax'                     "ejs syntax
+  Plug 'PotatoesMaster/i3-vim-syntax'          "i3 config file syntax
+  Plug 'neomutt/neomutt.vim'                   "neomutt syntax
+  Plug 'gisphm/vim-gitignore'                  "gitignore syntax
+  Plug 'habamax/vim-godot'                     "GDScript syntax
+  Plug 'lervag/vimtex'                         "latex support
+  Plug 'fladson/vim-kitty'                     "kitty config syntax
 endif
 
 " Text objects
@@ -66,6 +66,5 @@ Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
 if !exists('g:vscode')
   Plug 'tpope/vim-fugitive'                    "git plugin
-  Plug 'airblade/vim-gitgutter'                "show git diffs in file
 endif
 call plug#end()

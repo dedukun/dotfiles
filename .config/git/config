@@ -23,3 +23,5 @@
 	func = 146 bold
 [init]
 	defaultBranch = main
+[interactive]
+	diffFilter = diff-so-fancy --patch

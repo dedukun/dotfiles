@@ -13,6 +13,8 @@ espstart_env_dir="/tmp/espstart-env"
 espstart_env_rc=""
 espstart_env_shell=""
 
+espstart_generate_tags="generate-tags.sh"
+
 espstart_local_settings="./.esp-start.conf"
 
 #############################################
@@ -87,11 +89,23 @@ _load_settings() {
             choosen_adf="$(cat $espstart_local_settings | grep 'ADF=' | cut -d'=' -f2)"
 
             if [ -n "$choosen_adf" ]; then
+                _check_tags
                 start_adf "$choosen_idf" "$choosen_adf"
             else
+                _check_tags
                 start_idf "$choosen_idf"
             fi
             exit 0
+        fi
+    fi
+}
+
+_check_tags() {
+    if [ ! -f "$espstart_generate_tags" ]; then
+        cp_generate_tags="$(echo 'Yes\nNo' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
+
+        if [ "$cp_generate_tags" = "Yes" ]; then
+            cp "$espstart_home/$espstart_generate_tags" .
         fi
     fi
 }
@@ -162,6 +176,8 @@ if [ "$idf_or_adf" = "IDF" ]; then
 
     _save_settings "$choosen_idf"
 
+    _check_tags
+
     start_idf "$choosen_idf"
 elif [ "$idf_or_adf" = "ADF" ]; then
     adfs_count="$(_list_adfs | wc -w)"
@@ -175,6 +191,8 @@ elif [ "$idf_or_adf" = "ADF" ]; then
     [ -z "$choosen_idf" ] && _exit_error "No IDF was choosen"
 
     _save_settings "$choosen_idf" "$choosen_adf"
+
+    _check_tags
 
     start_adf "$choosen_idf" "$choosen_adf"
 else

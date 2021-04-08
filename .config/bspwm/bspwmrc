@@ -14,6 +14,7 @@ bspc rule -a Gnome-calculator state=floating
 bspc rule -a Rocket.Chat desktop=^9
 bspc rule -a Slack desktop=^9
 bspc rule -a Thunderbird desktop=^10
+bspc rule -a Mailspring desktop=^10
 
 #############
 ## CONFIGS ##
@@ -60,3 +61,5 @@ killall "sxhkd"
 sxhkd -m 1 &		                                # Bind keys with sxhkd
 
 pactl load-module module-bluetooth-discover         # fix bluetooth
+
+/usr/bin/prime-offload                              # for optimus-manager

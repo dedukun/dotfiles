@@ -29,11 +29,11 @@ super + m
 
 # start program launcher
 super + d
-        rofi -show run
+        rofi -show run -matching fuzzy
 
 # start desktop program launcher
 super + shift + d
-        rofi -show drun
+        rofi -show drun -matching fuzzy
 
 # lock Screen
 super + control + l
@@ -53,11 +53,11 @@ super + control + w
 
 # open rofi as ssh launcher (no ~/.ssh/ssh_host)
 super + s
-        rofi -show ssh -no-parse-known-hosts
+        rofi -show ssh -no-parse-known-hosts -matching fuzzy -terminal $TERMINAL
 
 # open rofi as ssh launcher
 super + shift + s
-        rofi -show ssh
+        rofi -show ssh -matching fuzzy -terminal $TERMINAL
 
 ##
 ## WINDOWS COMMANDS

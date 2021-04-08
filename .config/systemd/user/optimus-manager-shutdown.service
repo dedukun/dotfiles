@@ -1,0 +1,13 @@
+[Unit]
+Description=Run optimus-manager prime-switch
+DefaultDependencies=no
+Before=shutdown.target reboot.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/bin/true
+ExecStop=/usr/bin/prime-switch
+
+[Install]
+WantedBy=multi-user.target

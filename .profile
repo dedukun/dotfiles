@@ -16,6 +16,7 @@ export BROWSER="firefox"
 export READER="zathura"
 export FILE="ranger"
 export PAGER="less"
+export CHROME_EXECUTABLE="chromium"
 
 # Paths
 export GOPATH="$HOME/.go"
@@ -25,6 +26,7 @@ PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm_global/bin"
 PATH="$PATH:/snap/bin"
 PATH="$PATH:/usr/local/go/bin"
+PATH="$PATH:/opt/flutter/bin"
 export PATH
 
 # Projects
