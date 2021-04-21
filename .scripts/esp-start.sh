@@ -102,7 +102,7 @@ _load_settings() {
 
 _check_tags() {
     if [ ! -f "$espstart_generate_tags" ]; then
-        cp_generate_tags="$(echo 'Yes\nNo' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
+        cp_generate_tags="$(echo 'No\nYes' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
 
         if [ "$cp_generate_tags" = "Yes" ]; then
             cp "$espstart_home/$espstart_generate_tags" .

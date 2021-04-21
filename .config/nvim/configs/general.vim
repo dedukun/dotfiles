@@ -111,5 +111,4 @@ augroup del_bash_tmp_script
 augroup end
 
 " Sets foldmethod in the syntax file
-autocmd Syntax c,cpp,vim setlocal foldmethod=syntax
-autocmd Syntax c,cpp,vim normal zR
+autocmd Syntax c,cpp,vim,rust setlocal foldmethod=syntax foldlevel=99
