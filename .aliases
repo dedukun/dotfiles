@@ -38,6 +38,7 @@ alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias fix-lol="sudo sh -c 'sysctl -w abi.vsyscall32=0'"
 alias esp-tags='cp "$HOME/Globaltronic/espressiff/generate-tags.sh" .'
+alias esp-reset='$SCRIPTS/esp-reset.sh'
 alias mcd='cd $(mtd --select)'
 
 # project aliases

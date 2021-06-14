@@ -62,4 +62,6 @@ sxhkd -m 1 &		                                # Bind keys with sxhkd
 
 pactl load-module module-bluetooth-discover         # fix bluetooth
 
-/usr/bin/prime-offload                              # for optimus-manager
+mtd -cc                                             # clean 'temp directories script' cache
+
+# /usr/bin/prime-offload                              # for optimus-manager

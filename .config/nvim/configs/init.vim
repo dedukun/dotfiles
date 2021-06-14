@@ -50,6 +50,7 @@ if !exists('g:vscode')
   Plug 'habamax/vim-godot'                     "GDScript syntax
   Plug 'lervag/vimtex'                         "latex support
   Plug 'fladson/vim-kitty'                     "kitty config syntax
+  Plug 'dart-lang/dart-vim-plugin'             "dart
 endif
 
 " Text objects

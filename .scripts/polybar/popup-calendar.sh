@@ -10,19 +10,22 @@ DATE="$(date +"%a, %d %b %H:%M:%S")"
 case "$1" in
 --popup)
     if [ "$(xdotool getwindowfocus getwindowname)" = "yad-calendar" ]; then
+        # on toggle, kill the calendar
+        xdotool getwindowfocus windowkill
         exit 0
     fi
 
     eval "$(xdotool getmouselocation --shell)"
-    eval "$(xdotool getdisplaygeometry --shell)"
+    WIDTH="$(xdpyinfo | awk '/dimensions/ {print $2}' | cut -d 'x' -f 1)"
+    HEIGHT="$(xdpyinfo | awk '/dimensions/ {print $2}' | cut -d 'x' -f 2)"
 
     # X
-    if [ "$((X + YAD_WIDTH / 2 + BORDER_SIZE))" -gt "$WIDTH" ]; then #Right side
+    if [ "$((X + (YAD_WIDTH / 2) + BORDER_SIZE))" -gt "$WIDTH" ]; then #Right side
         : $((pos_x = WIDTH - YAD_WIDTH - BORDER_SIZE))
-    elif [ "$((X - YAD_WIDTH / 2 - BORDER_SIZE))" -lt 0 ]; then #Left side
+    elif [ "$((X - (YAD_WIDTH / 2) - BORDER_SIZE))" -lt 0 ]; then #Left side
         : $((pos_x = BORDER_SIZE))
     else #Center
-        : $((pos_x = X - YAD_WIDTH / 2))
+        : $((pos_x = X - (YAD_WIDTH / 2)))
     fi
 
     # Y

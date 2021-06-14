@@ -183,7 +183,7 @@ while [ $# -gt 0 ]; do
             delete_current_directory
             exit
             ;;
-        -c | --check)
+        -cc | --clean-cache)
             shift # past argument
             check_cached_directories
             exit
