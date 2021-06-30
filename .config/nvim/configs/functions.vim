@@ -46,19 +46,3 @@ function CreateSectionHeader(comment)
   let print_str = ' *' . repeat("#", header_size) . '*/'
   call append(line('.')-1, print_str)
 endfunction
-
-"""""""""""""""""
-" Coc
-
-function! COC_Check_Back_Space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-function! COC_Show_Documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction

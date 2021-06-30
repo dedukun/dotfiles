@@ -17,7 +17,7 @@ set tw=0                         "maximum width of text that is being inserted
 set cursorline                   "set a line where the cursor is
 set showcmd                      "show commands in the lower right corner
 set showmatch                    "show matching brackets/parentthesis
-set number                       "set number of the lines in the side
+set number relativenumber        "set number of the lines in the side
 set hlsearch                     "highlight all search matches
 set ignorecase                   "searches are case insensitive
 set smartcase                    "search will be case sensitive if it contains an uppercase letter
@@ -41,7 +41,6 @@ set noshowmode                   "don't show message if in Insert mode or other 
 " set cmdheight=2                  " Give more space for displaying messages.
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')} " Add CoC statusline support
 set signcolumn=yes               "show the signcolumn
 " set list
 

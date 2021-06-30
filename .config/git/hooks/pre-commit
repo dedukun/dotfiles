@@ -1,12 +1,7 @@
 #!/bin/sh
 # This hook makes sure that I'm using the right email when working in a GBT repository
 
-# check if in GBT repo
-if [ $(git remote -v \
-     | grep origin | head -n 1 | awk '{ print $2; }' \
-     | cut -d '@' -f 2 | cut -d '/' -f 1 \
-     | grep '^192\.168\.100\....\|^github.com:Globaltronic$' -o) ]; then
-
+_change_email() {
     if [ ! "$(git config --get user.email)" = "diogo.duarte@globaltronic.pt" ]; then
         git config user.email "diogo.duarte@globaltronic.pt"
 
@@ -23,4 +18,21 @@ if [ $(git remote -v \
         echo "#"
         echo "#"
     fi
+}
+
+# check if in GBT SSH repo
+if [ $(git remote -v |
+    grep origin | head -n 1 | awk '{ print $2; }' |
+    cut -d '@' -f 2 | cut -d '/' -f 1 |
+    grep '^192\.168\.100\....\|^github.com:Globaltronic$' -o) ]; then
+
+    _change_email
+
+# check if in GBT HTTP repo
+elif [ $(git remote -v |
+    grep origin | head -n 1 | awk '{ print $2; }' |
+    cut -d '/' -f 3 | grep '^192\.168\.100\....\|^github.com:Globaltronic$' -o) ]; then
+
+    _change_email
+
 fi

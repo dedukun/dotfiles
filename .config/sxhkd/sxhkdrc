@@ -125,7 +125,7 @@ super + w
 
 # Run networkmanager in dmenu
 super + F2
-        $HOME/Applications/networkmanager-dmenu/networkmanager_dmenu
+        networkmanager_dmenu
 
 # keyboard backlight
 super + F3

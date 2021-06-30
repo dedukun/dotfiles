@@ -7,16 +7,20 @@ Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of l
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
 Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
 if !exists('g:vscode')
-  Plug 'myusuf3/numbers.vim'                   "set relativenumber or number depending of the current mode
+  Plug 'jeffkreeftmeijer/vim-numbertoggle'     "set relativenumber or number when it makes sense
   Plug 'troydm/zoomwintab.vim'                 "zoom in and out off a split window
   Plug 'lambdalisue/suda.vim'                  "edit root flies
   Plug 'lifepillar/vim-gruvbox8'               "colorscheme
   Plug 'vimlab/split-term.vim'                 "better terminal
 endif
 
-" CoC
+" Completion
 if !exists('g:vscode')
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'glepnir/lspsaga.nvim'
+  Plug 'kabouzeid/nvim-lspinstall'
+  Plug 'hrsh7th/nvim-compe'
+  Plug 'ray-x/lsp_signature.nvim'
 endif
 
 " Misc
@@ -30,7 +34,7 @@ if !exists('g:vscode')
   Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
   Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
   Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
-  Plug 'ap/vim-css-color'                      "color name highlighter
+  Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
   " Plug 'daeyun/vim-matlab'                     "matlab support
   Plug 'junegunn/fzf.vim'
   Plug 'honza/vim-snippets'                    "add snippets
@@ -41,15 +45,7 @@ endif
 
 " Syntax
 if !exists('g:vscode')
-  Plug 'sheerun/vim-polyglot'                  "a collection of syntaxes
-  Plug 'datsun240z/bitbake.vim'                "bitbake syntax
-  Plug 'nikvdp/ejs-syntax'                     "ejs syntax
-  Plug 'PotatoesMaster/i3-vim-syntax'          "i3 config file syntax
-  Plug 'neomutt/neomutt.vim'                   "neomutt syntax
-  Plug 'gisphm/vim-gitignore'                  "gitignore syntax
-  Plug 'habamax/vim-godot'                     "GDScript syntax
-  Plug 'lervag/vimtex'                         "latex support
-  Plug 'fladson/vim-kitty'                     "kitty config syntax
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
   Plug 'dart-lang/dart-vim-plugin'             "dart
 endif
 
