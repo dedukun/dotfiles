@@ -19,16 +19,18 @@ if !exists('g:vscode')
   Plug 'neovim/nvim-lspconfig'
   Plug 'glepnir/lspsaga.nvim'
   Plug 'kabouzeid/nvim-lspinstall'
-  Plug 'hrsh7th/nvim-compe'
   Plug 'ray-x/lsp_signature.nvim'
+  Plug 'L3MON4D3/LuaSnip'                      "snippet engine
+  Plug 'rafamadriz/friendly-snippets'          "default snippets
+  Plug 'hrsh7th/nvim-compe'                    "auto completion
 endif
 
 " Misc
 Plug 'unblevable/quick-scope'                  "horizontal movement helper
 Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
-  Plug 'vim-airline/vim-airline'               "status/tabline
-  Plug 'vim-airline/vim-airline-themes'        "status line themes
+  Plug 'hoob3rt/lualine.nvim'                  "status/tabline
+  Plug 'ryanoasis/vim-devicons'                "icons
   Plug 'luochen1990/rainbow'                   "brackets color
   Plug 'sbdchd/neoformat'                      "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
@@ -36,11 +38,15 @@ if !exists('g:vscode')
   Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
   Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
   " Plug 'daeyun/vim-matlab'                     "matlab support
-  Plug 'junegunn/fzf.vim'
-  Plug 'honza/vim-snippets'                    "add snippets
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
   Plug 'Yggdroot/indentLine'                   "show identation level
-  Plug 'airblade/vim-gitgutter'                "show git diffs in file
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'               "fuzzy finder
+  Plug 'lewis6991/gitsigns.nvim'                     "show git diffs in file
+  Plug 'sindrets/diffview.nvim'                      "diff git files in vim
+  Plug 'JoosepAlviste/nvim-ts-context-commentstring' "set the commentstring option based on the cursor location
+  Plug 'folke/which-key.nvim'                        "show keybindings when timed out
 endif
 
 " Syntax

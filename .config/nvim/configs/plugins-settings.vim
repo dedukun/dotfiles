@@ -5,14 +5,36 @@
 let g:better_whitespace_filetypes_blacklist=['help', 'diff']
 let g:better_whitespace_ctermcolor='DarkRed'
 
-" Airline settings
-if !exists('g:vscode')
-  let g:airline_powerline_fonts = 1
-  if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-  endif
-  let g:airline_theme = 'bubblegum'
-endif
+" lualine
+lua << EOF
+require'lualine'.setup {
+  options = {
+    icons_enabled = true,
+    theme = 'gruvbox',
+    component_separators = {'', ''},
+    section_separators = {'', ''},
+    disabled_filetypes = {'netrw'}
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff'},
+    lualine_c = {'filename', { 'diagnostics', sources = {'nvim_lsp'}}},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  extensions = {}
+}
+EOF
 
 " netrw
 let g:netrw_altv = 1
@@ -129,6 +151,9 @@ require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,              -- false will disable the whole extension
   },
+  context_commentstring = {
+    enable = true
+  }
 }
 EOF
 
@@ -298,6 +323,8 @@ end
 _G.tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-n>"
+  elseif require("luasnip").expand_or_jumpable() then
+    return t "<cmd>lua require'luasnip'.jump(1)<Cr>"
   elseif check_back_space() then
     return t "<Tab>"
   else
@@ -307,6 +334,8 @@ end
 _G.s_tab_complete = function()
   if vim.fn.pumvisible() == 1 then
     return t "<C-p>"
+  elseif require("luasnip").jumpable(-1) then
+    return t "<cmd>lua require'luasnip'.jump(-1)<CR>"
   else
     return t "<S-Tab>"
   end
@@ -316,7 +345,23 @@ vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.cmd "inoremap <silent><expr> <CR>  compe#confirm('<CR>')"
 EOF
 
 " signature help
 lua require'lsp_signature'.on_attach()
+
+" snippets
+lua require("luasnip/loaders/from_vscode").lazy_load()
+
+" gitsigns
+lua require('gitsigns').setup()
+
+" which-key
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF

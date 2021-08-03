@@ -54,10 +54,10 @@ nnoremap GR :noautocmd vimgrep '\b<cword>\b' %:p:h/*<CR>
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
 " Fuzzy find for files
-nnoremap <C-p>  :FZF<CR>
+nnoremap <C-p>  :Telescope find_files<CR>
 
 " Fuzzy find for lines in files
-nnoremap <leader><C-p>  :Ag<CR>
+nnoremap <leader><C-p>  :Telescope live_grep<CR>
 
 " show hover doc
 nnoremap <silent> K :Lspsaga hover_doc<CR>
@@ -66,7 +66,6 @@ nnoremap <silent> K :Lspsaga hover_doc<CR>
 nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
 " scroll up hover doc
 nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-
 
 """"""""
 " Commands

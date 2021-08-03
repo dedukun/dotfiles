@@ -17,7 +17,7 @@ set tw=0                         "maximum width of text that is being inserted
 set cursorline                   "set a line where the cursor is
 set showcmd                      "show commands in the lower right corner
 set showmatch                    "show matching brackets/parentthesis
-set number relativenumber        "set number of the lines in the side
+set number                       "set number of the lines in the side
 set hlsearch                     "highlight all search matches
 set ignorecase                   "searches are case insensitive
 set smartcase                    "search will be case sensitive if it contains an uppercase letter
@@ -37,6 +37,7 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
+set completeopt=menuone,noselect
 set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
 " set cmdheight=2                  " Give more space for displaying messages.
 set updatetime=300
