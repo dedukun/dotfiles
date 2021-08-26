@@ -10,7 +10,7 @@ lua << EOF
 require'lualine'.setup {
   options = {
     icons_enabled = true,
-    theme = 'gruvbox',
+    theme = 'gruvbox-flat',
     component_separators = {'', ''},
     section_separators = {'', ''},
     disabled_filetypes = {'netrw'}
@@ -43,31 +43,46 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = 22
 let g:netrw_list_hide = &wildignore
 
+" nvim tree
+let g:nvim_tree_ignore = [ '.git' ]
+let g:nvim_tree_gitignore = 1
+let g:nvim_tree_auto_close = 1
+let g:nvim_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★",
+    \   'deleted': "",
+    \   'ignored': "◌"
+    \   },
+    \ 'folder': {
+    \   'arrow_open': "",
+    \   'arrow_closed': "",
+    \   'default': "",
+    \   'open': "",
+    \   'empty': "",
+    \   'empty_open': "",
+    \   'symlink': "",
+    \   'symlink_open': "",
+    \   },
+    \   'lsp': {
+    \     'hint': "",
+    \     'info': "",
+    \     'warning': "",
+    \     'error': "",
+    \   }
+    \ }
+highlight NvimTreeFolderIcon guibg=blue " a list of groups can be found at `:help nvim_tree_highlight`
+
 " vimtex
 if !exists('g:vscode')
   let g:vimtex_compiler_progname = 'nvr'
   let g:vimtex_view_method = 'zathura'
   let g:tex_flavor = 'latex'
-endif
-
-" rainbow
-if !exists('g:vscode')
-  let g:rainbow_active = 1
-  let g:rainbow_conf = {
-  \	'guifgs': ['DarkOrange3', 'DarkGoldenrod3', 'LightGoldenrod3'],
-  \	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-  \	'separately': {
-  \		'*': {},
-  \		'tex': {
-  \			'parentheses_options': 'containedin=markdownCode contained',
-  \           'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold'],
-  \		},
-  \		'vim': {
-  \			'parentheses_options': 'containedin=vimFuncBody',
-  \		},
-  \		'css': 0,
-  \	}
-  \}
 endif
 
 " editorconfig
@@ -153,6 +168,12 @@ require'nvim-treesitter.configs'.setup {
   },
   context_commentstring = {
     enable = true
+  },
+  rainbow = {
+    enable = true,
+    extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+    max_file_lines = nil, -- Do not enable for files with more than n lines, int
+    colors = {'#CD6600', '#CD950C', '#CDBE70'}, -- table of hex strings
   }
 }
 EOF
@@ -263,9 +284,20 @@ local function setup_servers()
     end
     if server == "clangd" then
       config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+      config.on_attach = function(client)
+        require'lsp_signature'.on_attach()
+      end
     end
     if server == "rust-analizer" then
       config.filetypes = {"rust"};
+      config.on_attach = function(client)
+        require'lsp_signature'.on_attach()
+      end
+    end
+    if server == "tsserver" then
+      config.on_attach = function(client)
+        require'lsp_signature'.on_attach()
+      end
     end
 
     require'lspconfig'[server].setup(config)
@@ -348,9 +380,6 @@ vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.cmd "inoremap <silent><expr> <CR>  compe#confirm('<CR>')"
 EOF
 
-" signature help
-lua require'lsp_signature'.on_attach()
-
 " snippets
 lua require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -364,4 +393,46 @@ lua << EOF
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
+EOF
+
+" neoscroll
+lua << EOF
+require('neoscroll').setup({
+    -- All these keys will be mapped to their corresponding default scrolling animation
+    mappings = {'<C-u>', '<C-d>', '<C-b>', '<C-f>',
+                '<C-y>', '<C-e>', 'zt', 'zz', 'zb'},
+    hide_cursor = true,          -- Hide cursor while scrolling
+    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+    use_local_scrolloff = false, -- Use the local scope of scrolloff instead of the global scope
+    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+    cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+    easing_function = "sine" ,
+    pre_hook = nil,              -- Function to run before the scrolling animation starts
+    post_hook = nil,             -- Function to run after the scrolling animation ends
+})
+EOF
+
+" indent_blankline
+lua << EOF
+require("indent_blankline").setup {
+    char = "|",
+    buftype_exclude = {"terminal"}
+}
+EOF
+
+" todo-comments
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
+" context
+lua << EOF
+require'treesitter-context'.setup{
+    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+    throttle = true, -- Throttles plugin updates (may improve performance)
+}
 EOF

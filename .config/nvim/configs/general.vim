@@ -54,7 +54,8 @@ set tags=tags,./tags
 
 "set color scheme
 try
-    colorscheme gruvbox8
+    let g:gruvbox_flat_style="dark"
+    colorscheme gruvbox-flat
 catch /^Vim\%((\a\+)\)\=:E185/
     " do nothing
 endtry
@@ -103,7 +104,7 @@ augroup end
 " exists in the system. However, when starting this mode with something already in the command-line, the
 " temporary script file will be created an saved in the system automatically, so even if you leave the mode
 " without saving it, the command that was originally in the command-line will still run.
-" Result: The autocmd's bellow deletes the temporary file when vim starts reading it to the buffer, so the script needs
+" Fix: The autocmd's bellow deletes the temporary file when vim starts reading it to the buffer, so the script needs
 " to be saved before it is executed.
 augroup del_bash_tmp_script
     autocmd FileChangedShell /tmp/bash-fc.* execute

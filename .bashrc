@@ -28,7 +28,6 @@ fi
 eval "$(dircolors -b)"
 
 # User defined aliases
-alias nvim="\$HOME/.local/bin/nvim"
 alias vi="nvim"
 alias vim="nvim"
 alias git="\$SCRIPTS/gbt/git.sh"

@@ -5,13 +5,49 @@ call plug#begin('~/.config/nvim/plugged')
 " General
 Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of lines in red
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
-Plug 'psliwka/vim-smoothie'                    "smoth scrolling with ^D,^U,^F,^B
+Plug 'karb94/neoscroll.nvim'                   "smoth scrolling with ^D,^U,^F,^B
 if !exists('g:vscode')
   Plug 'jeffkreeftmeijer/vim-numbertoggle'     "set relativenumber or number when it makes sense
   Plug 'troydm/zoomwintab.vim'                 "zoom in and out off a split window
   Plug 'lambdalisue/suda.vim'                  "edit root flies
-  Plug 'lifepillar/vim-gruvbox8'               "colorscheme
+  Plug 'eddyekofo94/gruvbox-flat.nvim'         "colorscheme
   Plug 'vimlab/split-term.vim'                 "better terminal
+endif
+
+" Syntax
+if !exists('g:vscode')
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+  Plug 'dart-lang/dart-vim-plugin'             "dart
+endif
+
+" Misc
+Plug 'unblevable/quick-scope'                  "horizontal movement helper
+Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
+if !exists('g:vscode')
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'hoob3rt/lualine.nvim'                  "status/tabline
+  Plug 'ryanoasis/vim-devicons'                "icons
+  Plug 'p00f/nvim-ts-rainbow'                  "brackets color
+  Plug 'sbdchd/neoformat'                      "autoformatter
+  Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
+  Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
+  Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
+  Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
+  " Plug 'daeyun/vim-matlab'                     "matlab support
+  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-telescope/telescope.nvim'                "fuzzy finder
+  Plug 'lewis6991/gitsigns.nvim'                      "show git diffs in file
+  Plug 'sindrets/diffview.nvim'                       "diff git files in vim
+  Plug 'JoosepAlviste/nvim-ts-context-commentstring'  "set the commentstring option based on the cursor location
+  Plug 'folke/which-key.nvim'                         "show keybindings when timed out
+  Plug 'lukas-reineke/indent-blankline.nvim'          "show identation level
+  Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
+  Plug 'romgrk/nvim-treesitter-context'               "context in code
+  Plug 'folke/todo-comments.nvim'                     "todo helper
+  Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
+  Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
+  Plug 'kyazdani42/nvim-tree.lua'                     "file explorer
 endif
 
 " Completion
@@ -23,36 +59,6 @@ if !exists('g:vscode')
   Plug 'L3MON4D3/LuaSnip'                      "snippet engine
   Plug 'rafamadriz/friendly-snippets'          "default snippets
   Plug 'hrsh7th/nvim-compe'                    "auto completion
-endif
-
-" Misc
-Plug 'unblevable/quick-scope'                  "horizontal movement helper
-Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
-if !exists('g:vscode')
-  Plug 'hoob3rt/lualine.nvim'                  "status/tabline
-  Plug 'ryanoasis/vim-devicons'                "icons
-  Plug 'luochen1990/rainbow'                   "brackets color
-  Plug 'sbdchd/neoformat'                      "autoformatter
-  Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
-  Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
-  Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
-  Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
-  " Plug 'daeyun/vim-matlab'                     "matlab support
-  Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
-  Plug 'Yggdroot/indentLine'                   "show identation level
-  Plug 'nvim-lua/popup.nvim'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim'               "fuzzy finder
-  Plug 'lewis6991/gitsigns.nvim'                     "show git diffs in file
-  Plug 'sindrets/diffview.nvim'                      "diff git files in vim
-  Plug 'JoosepAlviste/nvim-ts-context-commentstring' "set the commentstring option based on the cursor location
-  Plug 'folke/which-key.nvim'                        "show keybindings when timed out
-endif
-
-" Syntax
-if !exists('g:vscode')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-  Plug 'dart-lang/dart-vim-plugin'             "dart
 endif
 
 " Text objects
