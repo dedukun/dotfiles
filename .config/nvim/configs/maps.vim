@@ -32,7 +32,6 @@ nnoremap <leader>n :noh<CR>
 nnoremap <leader>N :call ToggleNumber()<CR>
 
 " File Explorer
-" nnoremap <leader>m :Lexplore<CR>
 nnoremap <leader>m :NvimTreeToggle<CR>
 
 " Remap split windows navigation

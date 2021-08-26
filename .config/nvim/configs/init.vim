@@ -44,7 +44,7 @@ if !exists('g:vscode')
   Plug 'lukas-reineke/indent-blankline.nvim'          "show identation level
   Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
   Plug 'romgrk/nvim-treesitter-context'               "context in code
-  Plug 'folke/todo-comments.nvim'                     "todo helper
+  Plug 'folke/todo-comments.nvim'                     "highlight and search for todo comments like TODO, HACK, BUG
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
   Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
   Plug 'kyazdani42/nvim-tree.lua'                     "file explorer

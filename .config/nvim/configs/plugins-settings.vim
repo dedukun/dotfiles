@@ -311,6 +311,13 @@ require'lspinstall'.post_install_hook = function ()
 setup_servers() -- reload installed servers
 vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
+
+-- icons for diagnostics in gutter
+local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+for type, icon in pairs(signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
 EOF
 
 " autocompletion
@@ -384,7 +391,14 @@ EOF
 lua require("luasnip/loaders/from_vscode").lazy_load()
 
 " gitsigns
-lua require('gitsigns').setup()
+lua << EOF
+  require("gitsigns").setup {
+    signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
+    numhl      = true,  -- Toggle with `:Gitsigns toggle_numhl`
+    linehl     = false, -- Toggle with `:Gitsigns toggle_linehl`
+    word_diff  = false, -- Toggle with `:Gitsigns toggle_word_diff`
+  }
+EOF
 
 " which-key
 lua << EOF
@@ -431,7 +445,7 @@ EOF
 
 " context
 lua << EOF
-require'treesitter-context'.setup{
+require'treesitter-context'.setup {
     enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
     throttle = true, -- Throttles plugin updates (may improve performance)
 }
