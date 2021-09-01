@@ -62,7 +62,7 @@ if !exists('g:vscode')
   Plug 'hrsh7th/cmp-path'                      "cmp system path source
   Plug 'hrsh7th/cmp-nvim-lua'                  "cmp neovim lua API source
   Plug 'hrsh7th/cmp-nvim-lsp'                  "cmp LSP source
-  Plug 'saadparwaiz1/cmp_luasnip'              "cmp LusSnip source
+  Plug 'saadparwaiz1/cmp_luasnip'              "cmp LuaSnip source
 endif
 
 " Text objects
