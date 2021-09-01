@@ -17,8 +17,15 @@ require'lualine'.setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
-    lualine_c = {'filename', { 'diagnostics', sources = {'nvim_lsp'}}},
+    lualine_b = {'branch',  { 'diff',
+                              color_added ='#859D63',
+                              color_modified = '#CB8237',
+                              color_removed = '#C35C56',
+                            }},
+    lualine_c = {'filename', { 'diagnostics',
+                               sources = {'nvim_lsp'},
+                               symbols = {error = ' ', warn = ' ', info = ' ', hint = ' '}
+                             }},
     lualine_x = {'encoding', 'fileformat', 'filetype'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -251,7 +258,7 @@ local lua_settings = {
 -- config that activates keymaps and enables snippet support
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
   return {
     -- enable snippet support
     capabilities = capabilities,
@@ -270,7 +277,6 @@ local function setup_servers()
   table.insert(servers, "clangd")
   table.insert(servers, "sourcekit")
   table.insert(servers, "dartls")
-
 
   for _, server in pairs(servers) do
     local config = make_config()
@@ -313,82 +319,89 @@ vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
 -- icons for diagnostics in gutter
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
 for type, icon in pairs(signs) do
   local hl = "LspDiagnosticsSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 EOF
 
-" autocompletion
+" auto completiotn
 lua << EOF
--- Compe setup
-require'compe'.setup {
-  enabled = true;
-  autocomplete = true;
-  debug = false;
-  min_length = 1;
-  preselect = 'enable';
-  throttle_time = 80;
-  source_timeout = 200;
-  incomplete_delay = 400;
-  max_abbr_width = 100;
-  max_kind_width = 100;
-  max_menu_width = 100;
-  documentation = true;
-
-  source = {
-    path = true;
-    nvim_lsp = true;
-  };
-}
+local check_back_space = function()
+  local col = vim.fn.col '.' - 1
+  return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
+end
 
 local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
-        return true
-    else
-        return false
-    end
-end
+local luasnip = require("luasnip")
+local lspkind = require('lspkind')
+local cmp = require("cmp")
+cmp.setup {
+    snippet = {
+      expand = function(args)
+        require'luasnip'.lsp_expand(args.body)
+      end
+    },
 
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif require("luasnip").expand_or_jumpable() then
-    return t "<cmd>lua require'luasnip'.jump(1)<Cr>"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif require("luasnip").jumpable(-1) then
-    return t "<cmd>lua require'luasnip'.jump(-1)<CR>"
-  else
-    return t "<S-Tab>"
-  end
-end
+    mapping = {
+      ["<Tab>"] = cmp.mapping(function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(t("<C-n>"), "n")
+        elseif luasnip.expand_or_jumpable() then
+          vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+        elseif check_back_space() then
+          vim.fn.feedkeys(t("<Tab>"), "n")
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(t("<C-p>"), "n")
+        elseif luasnip.jumpable(-1) then
+          vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+      ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.close(),
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true,
+      })
+    },
 
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.cmd "inoremap <silent><expr> <CR>  compe#confirm('<CR>')"
+    formatting = {
+      format = function(entry, vim_item)
+        vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
+        return vim_item
+      end
+    },
+
+    sources = {
+      { name = 'path' },
+      { name = 'luasnip' },
+      -- { name = 'nvim_lsp' },
+      -- { name = 'nvim_lua' }
+    },
+  }
 EOF
 
 " snippets
-lua require("luasnip/loaders/from_vscode").lazy_load()
+lua require("luasnip.loaders.from_vscode").load()
 
 " gitsigns
 lua << EOF

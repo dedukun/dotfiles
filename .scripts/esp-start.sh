@@ -17,6 +17,8 @@ espstart_generate_tags="generate-tags.sh"
 
 espstart_local_settings="./.esp-start.conf"
 
+espstart_ps_pure=1
+
 #############################################
 #=== A U X I L I A R   F U N C T I O N S ===#
 #############################################
@@ -49,16 +51,28 @@ _start_env() {
 
 _change_idf_ps1() {
     idf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
-    echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(IDF ' >>"$espstart_env_rc"
-    echo -n "$idf_version" >>"$espstart_env_rc"
-    echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+    if [ -z $espstart_ps_pure ]; then
+        echo -n 'export PS1="\[\033[01;36m\](IDF ' >>"$espstart_env_rc"
+        echo -n "$idf_version" >>"$espstart_env_rc"
+        echo ') \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
+    else
+        echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(IDF ' >>"$espstart_env_rc"
+        echo -n "$idf_version" >>"$espstart_env_rc"
+        echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+    fi
 }
 
 _change_adf_ps1() {
     adf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
-    echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ADF ' >>"$espstart_env_rc"
-    echo -n "$adf_version" >>"$espstart_env_rc"
-    echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+    if [ -z $espstart_ps_pure ]; then
+        echo -n 'export PS1="\[\033[01;36m\](ADF ' >>"$espstart_env_rc"
+        echo -n "$adf_version" >>"$espstart_env_rc"
+        echo ') \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
+    else
+        echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ADF ' >>"$espstart_env_rc"
+        echo -n "$adf_version" >>"$espstart_env_rc"
+        echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+    fi
 }
 
 _enable_cmake_colors() {
@@ -165,8 +179,13 @@ fi
 # Check if there are local settings
 _load_settings
 
-idf_or_adf="$(echo 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
-[ -z "$idf_or_adf" ] && _exit_error "No option was choosen"
+# Allow for selection if ADF exists
+if [ -d "$espstart_adfs" ]; then
+    idf_or_adf="$(echo 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
+    [ -z "$idf_or_adf" ] && _exit_error "No option was choosen"
+else
+    idf_or_adf="IDF"
+fi
 
 if [ "$idf_or_adf" = "IDF" ]; then
     idfs_count="$(_list_idfs | wc -w)"

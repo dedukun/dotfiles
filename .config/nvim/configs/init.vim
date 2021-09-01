@@ -26,14 +26,12 @@ Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
   Plug 'nvim-lua/plenary.nvim'
   Plug 'hoob3rt/lualine.nvim'                  "status/tabline
-  Plug 'ryanoasis/vim-devicons'                "icons
   Plug 'p00f/nvim-ts-rainbow'                  "brackets color
   Plug 'sbdchd/neoformat'                      "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
   Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
   Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
   Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
-  " Plug 'daeyun/vim-matlab'                     "matlab support
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope.nvim'                "fuzzy finder
@@ -58,7 +56,13 @@ if !exists('g:vscode')
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'L3MON4D3/LuaSnip'                      "snippet engine
   Plug 'rafamadriz/friendly-snippets'          "default snippets
-  Plug 'hrsh7th/nvim-compe'                    "auto completion
+  Plug 'hrsh7th/nvim-cmp'                      "auto completion
+  Plug 'onsails/lspkind-nvim'                  "vscode-like pictograms for neovim lsp completion items
+
+  Plug 'hrsh7th/cmp-path'                      "cmp system path source
+  Plug 'hrsh7th/cmp-nvim-lua'                  "cmp neovim lua API source
+  Plug 'hrsh7th/cmp-nvim-lsp'                  "cmp LSP source
+  Plug 'saadparwaiz1/cmp_luasnip'              "cmp LusSnip source
 endif
 
 " Text objects

@@ -11,4 +11,4 @@ _exists() { command -v "${1}" &>/dev/null; }
 
 [ ! $(_exists curl) ] && _exit_error "This command requires 'curl', please install it."
 
-curl -m 5 "http://wttr.in/${*:-Àgueda}" 2>/dev/null || _exit_error "Could not connect to weather service."
+curl -m 5 "http://wttr.in/${*:-}" 2>/dev/null || _exit_error "Could not connect to weather service."

@@ -39,7 +39,6 @@ set spelllang=en_us              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
 set completeopt=menuone,noselect
 set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
-" set cmdheight=2                  " Give more space for displaying messages.
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.
 set signcolumn=yes               "show the signcolumn
