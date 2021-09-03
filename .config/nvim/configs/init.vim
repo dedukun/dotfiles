@@ -11,7 +11,6 @@ if !exists('g:vscode')
   Plug 'troydm/zoomwintab.vim'                 "zoom in and out off a split window
   Plug 'lambdalisue/suda.vim'                  "edit root flies
   Plug 'eddyekofo94/gruvbox-flat.nvim'         "colorscheme
-  Plug 'vimlab/split-term.vim'                 "better terminal
 endif
 
 " Syntax
@@ -41,11 +40,11 @@ if !exists('g:vscode')
   Plug 'folke/which-key.nvim'                         "show keybindings when timed out
   Plug 'lukas-reineke/indent-blankline.nvim'          "show identation level
   Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
-  Plug 'romgrk/nvim-treesitter-context'               "context in code
   Plug 'folke/todo-comments.nvim'                     "highlight and search for todo comments like TODO, HACK, BUG
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
   Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
   Plug 'kyazdani42/nvim-tree.lua'                     "file explorer
+  Plug 'andymass/vim-matchup'                         "highlight, navigate, and operate on sets of matching text
 endif
 
 " Completion

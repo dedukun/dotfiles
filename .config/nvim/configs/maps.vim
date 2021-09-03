@@ -19,7 +19,7 @@ nnoremap <leader>cc  :StripWhitespace<CR>
 " nnoremap <leader>F  :call MultipleFileSearch("")<left><left>
 
 " create section header
-nnoremap <leader>h  :CreateSectionHeader<space>
+nnoremap <leader>h <cmd>lua require'tools'.createHeader()<CR>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
@@ -74,4 +74,4 @@ nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_sag
 " source: https://vim.fandom.com/wiki/Reverse_order_of_lines
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 
-command! -nargs=1 CreateSectionHeader call CreateSectionHeader(<f-args>)
+command! -nargs=1 CreateSectionHeader lua require'tools'.createHeader(<f-args>)

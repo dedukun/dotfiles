@@ -181,6 +181,9 @@ require'nvim-treesitter.configs'.setup {
     extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
     max_file_lines = nil, -- Do not enable for files with more than n lines, int
     colors = {'#CD6600', '#CD950C', '#CDBE70'}, -- table of hex strings
+  },
+  matchup = {
+    enable = true,
   }
 }
 EOF
@@ -231,6 +234,11 @@ local on_attach = function(client, bufnr)
     augroup END
     ]], false)
   end
+
+  -- signature
+  require'lsp_signature'.on_attach({
+    zindex = 50,
+  })
 end
 
 -- Configure lua language server for neovim development
@@ -290,20 +298,9 @@ local function setup_servers()
     end
     if server == "clangd" then
       config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
-      config.on_attach = function(client)
-        require'lsp_signature'.on_attach()
-      end
     end
     if server == "rust-analizer" then
       config.filetypes = {"rust"};
-      config.on_attach = function(client)
-        require'lsp_signature'.on_attach()
-      end
-    end
-    if server == "tsserver" then
-      config.on_attach = function(client)
-        require'lsp_signature'.on_attach()
-      end
     end
 
     require'lspconfig'[server].setup(config)
@@ -351,8 +348,6 @@ cmp.setup {
       ["<Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
           vim.fn.feedkeys(t("<C-n>"), "n")
-        elseif luasnip.expand_or_jumpable() then
-          vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
         elseif check_back_space() then
           vim.fn.feedkeys(t("<Tab>"), "n")
         else
@@ -365,7 +360,25 @@ cmp.setup {
       ["<S-Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
           vim.fn.feedkeys(t("<C-p>"), "n")
-        elseif luasnip.jumpable(-1) then
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+      ["<A-Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.expand_or_jumpable() then
+          vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+        else
+          fallback()
+        end
+      end, {
+        "i",
+        "s",
+      }),
+      ["<A-S-Tab>"] = cmp.mapping(function(fallback)
+        if luasnip.jumpable(-1) then
           vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
         else
           fallback()
@@ -401,7 +414,15 @@ cmp.setup {
 EOF
 
 " snippets
-lua require("luasnip.loaders.from_vscode").load()
+lua <<EOF
+local ls = require("luasnip")
+ls.snippets = {
+  c = {
+    ls.parser.parse_snippet({trig = "#ifndefdef", wordTrig = true}, "#ifdef ${1:DEBUG}\n#define $1\n$0\n#endif  /* $1 */"),
+  }
+}
+require("luasnip.loaders.from_vscode").load()
+EOF
 
 " gitsigns
 lua << EOF
@@ -442,7 +463,7 @@ EOF
 " indent_blankline
 lua << EOF
 require("indent_blankline").setup {
-    char = "|",
+    char = "│",
     buftype_exclude = {"terminal"}
 }
 EOF
@@ -454,12 +475,4 @@ lua << EOF
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   }
-EOF
-
-" context
-lua << EOF
-require'treesitter-context'.setup {
-    enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-    throttle = true, -- Throttles plugin updates (may improve performance)
-}
 EOF
