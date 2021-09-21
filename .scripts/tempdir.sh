@@ -108,8 +108,8 @@ create_directory() {
 get_cached_directory() {
     number_of_lines="$(cat $mtd_cache | wc -l)"
 
-    if [ "$number_of_lines" -gt 25 ]; then
-        number_of_lines=25
+    if [ "$number_of_lines" -gt 13 ]; then
+        number_of_lines=13
     fi
 
     dir_name="$(cat $mtd_cache | rofi -dmenu -p 'Select cached directory:' -l $number_of_lines)"

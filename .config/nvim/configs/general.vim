@@ -35,7 +35,7 @@ set nobackup                     "CoC -> some servers have issues with backup fi
 set nowritebackup
 set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
-set spelllang=en_us              "languages for spell checker
+set spelllang=en,pt              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
 set completeopt=menuone,noselect
 set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)

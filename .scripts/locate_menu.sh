@@ -18,7 +18,7 @@ _exit_error() {
 
 [ -f $HOME/.aliases ] && . $HOME/.aliases
 
-lome_lines=25
+lome_lines=13
 lome_locate_args=""
 lome_command="echo" # default command
 

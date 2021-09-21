@@ -105,6 +105,9 @@ autocmd FileType GDScript setlocal commentstring=#\ %s
 autocmd FileType sxhkdrc setlocal commentstring=#\ %s
 autocmd FileType mib setlocal commentstring=--\ %s
 
+" vim-matchup
+let g:matchup_matchparen_offscreen = {'method': 'popup'}
+
 " markdown previewer
 if !exists('g:vscode')
   " specify browser to open preview page
@@ -237,7 +240,9 @@ local on_attach = function(client, bufnr)
 
   -- signature
   require'lsp_signature'.on_attach({
-    zindex = 50,
+    floating_window_above_cur_line=true,
+    hint_enable = false,
+    zindex = 50
   })
 end
 
@@ -283,21 +288,19 @@ local function setup_servers()
   local servers = require'lspinstall'.installed_servers()
   -- ... and add manually installed servers
   table.insert(servers, "clangd")
-  table.insert(servers, "sourcekit")
   table.insert(servers, "dartls")
 
   for _, server in pairs(servers) do
+
     local config = make_config()
 
     -- language specific config
     if server == "lua" then
       config.settings = lua_settings
     end
-    if server == "sourcekit" then
-      config.filetypes = {"swift", "objective-c", "objective-cpp"}; -- we don't want c and cpp!
-    end
     if server == "clangd" then
-      config.filetypes = {"c", "cpp"}; -- we don't want objective-c and objective-cpp!
+      config.cmd = { "/home/dedukun/.scripts/clangd.sh", "--background-index", "--malloc-trim"}
+      config.filetypes = {"c", "cpp"};
     end
     if server == "rust-analizer" then
       config.filetypes = {"rust"};
@@ -325,11 +328,6 @@ EOF
 
 " auto completiotn
 lua << EOF
-local check_back_space = function()
-  local col = vim.fn.col '.' - 1
-  return col == 0 or vim.fn.getline('.'):sub(col, col):match '%s' ~= nil
-end
-
 local t = function(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
@@ -348,8 +346,6 @@ cmp.setup {
       ["<Tab>"] = cmp.mapping(function(fallback)
         if vim.fn.pumvisible() == 1 then
           vim.fn.feedkeys(t("<C-n>"), "n")
-        elseif check_back_space() then
-          vim.fn.feedkeys(t("<Tab>"), "n")
         else
           fallback()
         end
@@ -418,7 +414,10 @@ lua <<EOF
 local ls = require("luasnip")
 ls.snippets = {
   c = {
-    ls.parser.parse_snippet({trig = "#ifndefdef", wordTrig = true}, "#ifdef ${1:DEBUG}\n#define $1\n$0\n#endif  /* $1 */"),
+    ls.parser.parse_snippet({trig = "#ifndefdef", wordTrig = true}, "#ifndef ${1:DEBUG}\n#define $1\n$0\n#endif  /* $1 */"),
+  },
+  cpp = {
+    ls.parser.parse_snippet({trig = "#ifndefdef", wordTrig = true}, "#ifndef ${1:DEBUG}\n#define $1\n$0\n#endif  /* $1 */"),
   }
 }
 require("luasnip.loaders.from_vscode").load()

@@ -1,9 +1,43 @@
 local M = {}
 
+-- PRIVATE FUNCTIONS
+
+function file_exists(name)
+	local f = io.open(name, "r")
+	if f ~= nil then
+		io.close(f)
+		return true
+	else
+		return false
+	end
+end
+
+-- PUBLIC FUNCTIONS
+
+function M.generateTags()
+	if file_exists("generate-tags.sh") then
+		ret = os.execute("./generate-tags.sh")
+		if ret ~= 0 then
+			print("Error generating tags")
+		else
+			print("Generated tags correctly")
+		end
+	elseif file_exists("../generate-tags.sh") then
+		ret = os.execute("../generate-tags.sh")
+		if ret ~= 0 then
+			print("Error generating tags")
+		else
+			print("Generated tags correctly")
+		end
+	else
+		print("No tag generation script found!")
+	end
+end
+
 function M.createHeader(comment)
-	local input_data;
+	local input_data
 	if comment == nil then
-		input_data = vim.fn.input "Comment >"
+		input_data = vim.fn.input("Comment -> ")
 	else
 		input_data = comment
 	end
@@ -26,10 +60,10 @@ function M.createHeader(comment)
 
 	local end_filler_counter = ((header_size - final_comment_size) / 2)
 	print_str = " *" .. border_character .. string.rep(inside_character, (end_filler_counter - 1))
-	for i=1,#input_data do
-		print_str = print_str .. " " .. string.upper(input_data:sub(i,i))
+	for i = 1, #input_data do
+		print_str = print_str .. " " .. string.upper(input_data:sub(i, i))
 	end
-	print_str = print_str .. " " .. string.rep(inside_character, (end_filler_counter -1)) .. border_character .. "*"
+	print_str = print_str .. " " .. string.rep(inside_character, (end_filler_counter - 1)) .. border_character .. "*"
 	table.insert(lines, print_str)
 
 	print_str = " *" .. string.rep(border_character, header_size) .. "*/"

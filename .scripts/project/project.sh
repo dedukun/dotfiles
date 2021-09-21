@@ -70,8 +70,8 @@ choose_project() {
         sed 's$/.id$$g')                                          # remove the '/.id' file string
 
     number_of_lines=$(echo "$list_projects" | wc -l)
-    if [ "$number_of_lines" -gt 25 ]; then
-        number_of_lines=25
+    if [ "$number_of_lines" -gt 13 ]; then
+        number_of_lines=13
     fi
 
     proj_name=$(echo "$list_projects" | rofi -dmenu -i -p "Choose Project:" -l $number_of_lines) # dmenu

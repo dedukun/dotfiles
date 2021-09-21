@@ -19,6 +19,7 @@ alias cp='cp -i'
 alias ra='ranger'
 alias ssh='TERM=xterm-256color ssh'
 alias cdiff='diff-so-fancy | less --tabs=4 -RFX'
+alias trans='$SCRIPTS/other/trans'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"

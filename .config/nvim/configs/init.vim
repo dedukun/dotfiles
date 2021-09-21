@@ -15,7 +15,7 @@ endif
 
 " Syntax
 if !exists('g:vscode')
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'dart-lang/dart-vim-plugin'             "dart
 endif
 
@@ -23,6 +23,7 @@ endif
 Plug 'unblevable/quick-scope'                  "horizontal movement helper
 Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
+  Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'hoob3rt/lualine.nvim'                  "status/tabline
   Plug 'p00f/nvim-ts-rainbow'                  "brackets color
@@ -32,7 +33,6 @@ if !exists('g:vscode')
   Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
   Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
-  Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-telescope/telescope.nvim'                "fuzzy finder
   Plug 'lewis6991/gitsigns.nvim'                      "show git diffs in file
   Plug 'sindrets/diffview.nvim'                       "diff git files in vim
@@ -42,7 +42,7 @@ if !exists('g:vscode')
   Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
   Plug 'folke/todo-comments.nvim'                     "highlight and search for todo comments like TODO, HACK, BUG
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
-  Plug 'kyazdani42/nvim-web-devicons'                 " for file icons
+  Plug 'kyazdani42/nvim-web-devicons'                 "for file icons
   Plug 'kyazdani42/nvim-tree.lua'                     "file explorer
   Plug 'andymass/vim-matchup'                         "highlight, navigate, and operate on sets of matching text
 endif
@@ -50,7 +50,7 @@ endif
 " Completion
 if !exists('g:vscode')
   Plug 'neovim/nvim-lspconfig'
-  Plug 'glepnir/lspsaga.nvim'
+  " Plug 'glepnir/lspsaga.nvim'
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'L3MON4D3/LuaSnip'                      "snippet engine

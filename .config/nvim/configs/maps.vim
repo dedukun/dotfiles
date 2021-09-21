@@ -14,16 +14,12 @@ let mapleader=","
 " Remove all spaces at the end of lines
 nnoremap <leader>cc  :StripWhitespace<CR>
 
-" vimgrep maps
-" nnoremap <leader>f  :noautocmd grep -s <cword> **/* --include={*.c,*.h,*.py,*.java}<CR>
-" nnoremap <leader>F  :call MultipleFileSearch("")<left><left>
-
 " create section header
 nnoremap <leader>h <cmd>lua require'tools'.createHeader()<CR>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
-nnoremap <leader>T :call GenerateTags()<CR>
+nnoremap <leader>T <cmd>lua require'tools'.generateTags()<CR>
 
 " clear highlights
 nnoremap <leader>n :noh<CR>
@@ -44,12 +40,6 @@ nnoremap <C-l> <C-w>l
 " <C-~> didn't seem to work as a replacement for <C-^>)
 nnoremap gb <C-^>
 
-" Search for under under cursor in multiple files
-nnoremap gr :noautocmd vimgrep <cword> *<CR>
-nnoremap Gr :noautocmd vimgrep <cword> %:p:h/*<CR>
-nnoremap gR :noautocmd vimgrep '\b<cword>\b' *<CR>
-nnoremap GR :noautocmd vimgrep '\b<cword>\b' %:p:h/*<CR>
-
 " Remap ^W_w to zoomwin
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
@@ -59,13 +49,16 @@ nnoremap <C-p>  :Telescope find_files<CR>
 " Fuzzy find for lines in files
 nnoremap <leader><C-p>  :Telescope live_grep<CR>
 
-" show hover doc
-nnoremap <silent> K :Lspsaga hover_doc<CR>
+" " show hover doc
+" nnoremap <silent> K :Lspsaga hover_doc<CR>
 
-" scroll down hover doc or scroll in definition preview
-nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-" scroll up hover doc
-nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+" " scroll down hover doc or scroll in definition preview
+" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" " scroll up hover doc
+" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+
+" make shift tab work in insert mode
+inoremap <S-Tab> <C-d>
 
 """"""""
 " Commands
