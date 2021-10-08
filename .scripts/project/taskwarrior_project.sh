@@ -28,7 +28,7 @@ project="$(_get_project $config_file)"
 # remove project selection
 shift
 
-printf '%sProject: %s%s%s\n' "$print_color" "$print_color_bold"  "$project" "$color_reset"
+printf '%sProject: %s%s%s\n' "$print_color" "$print_color_bold" "$project" "$color_reset"
 
 # run taskwarrior
 TASKDATA="$proj_folder/$project/.tasks" task "$@"

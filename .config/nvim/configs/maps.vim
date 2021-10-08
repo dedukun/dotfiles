@@ -44,10 +44,13 @@ nnoremap gb <C-^>
 nnoremap <C-w>w :ZoomWinTabToggle<CR>
 
 " Fuzzy find for files
-nnoremap <C-p>  :Telescope find_files<CR>
+nnoremap <C-p>  <cmd>lua require('telescope.builtin').find_files()<cr>
 
 " Fuzzy find for lines in files
-nnoremap <leader><C-p>  :Telescope live_grep<CR>
+nnoremap <leader><C-p>  <cmd>lua require('telescope.builtin').live_grep()<cr>
+
+" Fuzzy find for files in the Neovim lua configurations
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({cwd="$HOME/.config/nvim/lua"})<cr>
 
 " " show hover doc
 " nnoremap <silent> K :Lspsaga hover_doc<CR>

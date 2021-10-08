@@ -2,7 +2,7 @@ local M = {}
 
 -- PRIVATE FUNCTIONS
 
-function file_exists(name)
+local file_exists = function(name)
 	local f = io.open(name, "r")
 	if f ~= nil then
 		io.close(f)
@@ -16,15 +16,13 @@ end
 
 function M.generateTags()
 	if file_exists("generate-tags.sh") then
-		ret = os.execute("./generate-tags.sh")
-		if ret ~= 0 then
+		if os.execute("./generate-tags.sh") ~= 0 then
 			print("Error generating tags")
 		else
 			print("Generated tags correctly")
 		end
 	elseif file_exists("../generate-tags.sh") then
-		ret = os.execute("../generate-tags.sh")
-		if ret ~= 0 then
+		if os.execute("../generate-tags.sh") ~= 0 then
 			print("Error generating tags")
 		else
 			print("Generated tags correctly")

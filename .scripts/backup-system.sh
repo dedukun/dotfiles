@@ -10,8 +10,8 @@ sudo borg create --stats \
     "$backup_mount"::"$backup_date" \
     /home/dedukun/Applications \
     /home/dedukun/Arduino \
-#   /home/dedukun/Android \
-#   /home/dedukun/AndroidStudioProjects \
+    \
+    \
     /home/dedukun/Desktop \
     /home/dedukun/Documents \
     /home/dedukun/Downloads \
@@ -27,4 +27,5 @@ sudo borg create --stats \
     /home/dedukun/Repositories \
     /home/dedukun/Shared \
     /home/dedukun/Steam \
-    /home/dedukun/.scripts
+    /home/dedukun/.scripts #   /home/dedukun/Android \
+#   /home/dedukun/AndroidStudioProjects \

@@ -17,6 +17,7 @@ endif
 if !exists('g:vscode')
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'dart-lang/dart-vim-plugin'             "dart
+  Plug 'baskerville/vim-sxhkdrc'               "sxhkdrc
 endif
 
 " Misc
@@ -25,7 +26,8 @@ Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
 if !exists('g:vscode')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'hoob3rt/lualine.nvim'                  "status/tabline
+  " WARNING: May need to comment to be able to install/uninstall stuff with lspinstall
+  Plug 'shadmansaleh/lualine.nvim'             "status/tabline
   Plug 'p00f/nvim-ts-rainbow'                  "brackets color
   Plug 'sbdchd/neoformat'                      "autoformatter
   Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
@@ -34,11 +36,12 @@ if !exists('g:vscode')
   Plug 'norcalli/nvim-colorizer.lua'           "color name highlighter
   Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } } "nvim for web browser
   Plug 'nvim-telescope/telescope.nvim'                "fuzzy finder
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'lewis6991/gitsigns.nvim'                      "show git diffs in file
   Plug 'sindrets/diffview.nvim'                       "diff git files in vim
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'  "set the commentstring option based on the cursor location
   Plug 'folke/which-key.nvim'                         "show keybindings when timed out
-  Plug 'lukas-reineke/indent-blankline.nvim'          "show identation level
+  Plug 'lukas-reineke/indent-blankline.nvim'          "show indentation level
   Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
   Plug 'folke/todo-comments.nvim'                     "highlight and search for todo comments like TODO, HACK, BUG
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
@@ -61,6 +64,7 @@ if !exists('g:vscode')
   Plug 'hrsh7th/cmp-path'                      "cmp system path source
   Plug 'hrsh7th/cmp-nvim-lua'                  "cmp neovim lua API source
   Plug 'hrsh7th/cmp-nvim-lsp'                  "cmp LSP source
+  Plug 'hrsh7th/cmp-buffer'                    "cmp buffer
   Plug 'saadparwaiz1/cmp_luasnip'              "cmp LuaSnip source
 endif
 
@@ -76,7 +80,4 @@ Plug 'tpope/vim-unimpaired'                    "maps for multiple uses
 Plug 'tpope/vim-repeat'                        "more repeatable plugins
 Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
-if !exists('g:vscode')
-  Plug 'tpope/vim-fugitive'                    "git plugin
-endif
 call plug#end()

@@ -17,18 +17,20 @@
 ###########################################################
 
 err() {
-   ALL_OFF="\e[1;0m"
-   BOLD="\e[1;1m"
-   RED="${BOLD}\e[1;31m"
-    local mesg=$1; shift
+    ALL_OFF="\e[1;0m"
+    BOLD="\e[1;1m"
+    RED="${BOLD}\e[1;31m"
+    local mesg=$1
+    shift
     printf "${RED}==>${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}\n" "$@" >&2
 }
 
 msg() {
-   ALL_OFF="\e[1;0m"
-   BOLD="\e[1;1m"
-   GREEN="${BOLD}\e[1;32m"
-    local mesg=$1; shift
+    ALL_OFF="\e[1;0m"
+    BOLD="\e[1;1m"
+    GREEN="${BOLD}\e[1;32m"
+    local mesg=$1
+    shift
     printf "${GREEN}==>${ALL_OFF}${BOLD} ${mesg}${ALL_OFF}\n" "$@" >&2
 }
 
@@ -37,7 +39,7 @@ msg() {
 #-----------------------------------------------------
 
 function input {
-   python2 -c 'import sys,readline;readline.set_startup_hook(lambda: readline.insert_text(sys.argv[2]));sys.stderr.write(raw_input(sys.argv[1]))' "$@" 3>&1 1>&2 2>&3
+    python2 -c 'import sys,readline;readline.set_startup_hook(lambda: readline.insert_text(sys.argv[2]));sys.stderr.write(raw_input(sys.argv[1]))' "$@" 3>&1 1>&2 2>&3
 }
 
 #----------------------------------------------------------------
@@ -81,101 +83,101 @@ echo
 read option
 
 case "$option" in
-# Note variable is quoted.
+    # Note variable is quoted.
 
- "1")
- echo
- msg "Currently Available Manjaro Kernels: "
- echo
- mhwd-kernel -l
- echo
- #mhwd-kern.sh
- ;;
-# Note double semicolon to terminate each option.
+    "1")
+        echo
+        msg "Currently Available Manjaro Kernels: "
+        echo
+        mhwd-kernel -l
+        echo
+        #mhwd-kern.sh
+        ;;
+        # Note double semicolon to terminate each option.
 
- "2")
- echo
- msg "Kernels currently installed on this machine: "
- echo
- mhwd-kernel -li
- echo
- #mhwd-kern.sh
- echo
- ;;
-# Note double semicolon to terminate each option.
+    "2")
+        echo
+        msg "Kernels currently installed on this machine: "
+        echo
+        mhwd-kernel -li
+        echo
+        #mhwd-kern.sh
+        echo
+        ;;
+        # Note double semicolon to terminate each option.
 
- "3")
- echo
- msg "Kernel Installation"
- echo
- echo -e "\e[0;32m    Enter the Kernel number directly after \e[1;37mlinux\e[0;32m & hit Enter: \033[0m "
- echo
- printf "sudo mhwd-kernel -i \e[1;37mlinux\033[0m"
- read versionNumber
- echo
- echo -e "\e[0;32m    Input sudo password & hit \e[0;31mEnter\e[0;32m to install following kernel: \033[0m "
- echo
- printf "sudo mhwd-kernel -i linux$versionNumber \n"
- echo
- sudo mhwd-kernel -i linux$versionNumber
- exit 0
- echo
- ;;
-# Note double semicolon to terminate each option.
+    "3")
+        echo
+        msg "Kernel Installation"
+        echo
+        echo -e "\e[0;32m    Enter the Kernel number directly after \e[1;37mlinux\e[0;32m & hit Enter: \033[0m "
+        echo
+        printf "sudo mhwd-kernel -i \e[1;37mlinux\033[0m"
+        read versionNumber
+        echo
+        echo -e "\e[0;32m    Input sudo password & hit \e[0;31mEnter\e[0;32m to install following kernel: \033[0m "
+        echo
+        printf "sudo mhwd-kernel -i linux$versionNumber \n"
+        echo
+        sudo mhwd-kernel -i linux$versionNumber
+        exit 0
+        echo
+        ;;
+        # Note double semicolon to terminate each option.
 
- "4")
- echo
- msg "Remove one or more kernels:"
- echo
- echo -e "\e[0;32m    To remove one Kernel, enter the number of the kernel "
- echo -e "    you wish to remove after \e[1;37mlinux\e[0;32m & hit Enter. "
- echo -e "    Remove multiple kernels, (separate with a space) as follows: "
- echo -e "    e.g.\033[0m sudo mhwd-kernel -r \e[0;33mlinux34 linux310 \033[0m "
- echo
- printf "sudo mhwd-kernel -r \e[1;37mlinux\033[0m"
- read versionNumber
- echo
- echo -e "\e[0;32m    Input sudo password & hit \e[0;31mEnter\e[0;32m to \e[0;31mRemove\e[0;32m the following kernel(s): \033[0m "
- echo
- printf "sudo mhwd-kernel -r linux$versionNumber \n"
- echo
- sudo mhwd-kernel -r linux$versionNumber
- exit 0
- echo
- ;;
-# Note double semicolon to terminate each option.
+    "4")
+        echo
+        msg "Remove one or more kernels:"
+        echo
+        echo -e "\e[0;32m    To remove one Kernel, enter the number of the kernel "
+        echo -e "    you wish to remove after \e[1;37mlinux\e[0;32m & hit Enter. "
+        echo -e "    Remove multiple kernels, (separate with a space) as follows: "
+        echo -e "    e.g.\033[0m sudo mhwd-kernel -r \e[0;33mlinux34 linux310 \033[0m "
+        echo
+        printf "sudo mhwd-kernel -r \e[1;37mlinux\033[0m"
+        read versionNumber
+        echo
+        echo -e "\e[0;32m    Input sudo password & hit \e[0;31mEnter\e[0;32m to \e[0;31mRemove\e[0;32m the following kernel(s): \033[0m "
+        echo
+        printf "sudo mhwd-kernel -r linux$versionNumber \n"
+        echo
+        sudo mhwd-kernel -r linux$versionNumber
+        exit 0
+        echo
+        ;;
+        # Note double semicolon to terminate each option.
 
- "5")
- echo
- msg "Remove currently running kernel & install one or more new kernels:"
- echo
- echo -e "\e[0;32m    This command \e[0;31mRemoves\e[0;32m the kernel you booted with. "
- echo -e "    It is also used to \e[0;33mInstall\e[0;32m one or more kernels by adding "
- echo -e "    them to the command below. "
- echo -e "    You add multiple kernels, (separated by a space) as follows: "
- echo -e "    e.g.\033[0m sudo mhwd-kernel -i \e[0;33mlinux34 linux310 rmc\033[0m "
- echo
- versionNumber=$( input 'sudo mhwd-kernel -i ' 'linux rmc')
- echo
- echo -e "\e[0;32m    Input your sudo password & hit \e[0;31mEnter\e[0;32m to \e[0;31mRemove\e[0;32m the current "
- echo -e "    kernel, & to \e[0;33mInstall\e[0;32m the kernel(s) you just chose: \033[0m "
- echo
- printf "sudo mhwd-kernel -i $versionNumber\n"
- echo
- sudo mhwd-kernel -i $versionNumber
- exit 0
- echo
- ;;
-# Note double semicolon to terminate each option.
+    "5")
+        echo
+        msg "Remove currently running kernel & install one or more new kernels:"
+        echo
+        echo -e "\e[0;32m    This command \e[0;31mRemoves\e[0;32m the kernel you booted with. "
+        echo -e "    It is also used to \e[0;33mInstall\e[0;32m one or more kernels by adding "
+        echo -e "    them to the command below. "
+        echo -e "    You add multiple kernels, (separated by a space) as follows: "
+        echo -e "    e.g.\033[0m sudo mhwd-kernel -i \e[0;33mlinux34 linux310 rmc\033[0m "
+        echo
+        versionNumber=$(input 'sudo mhwd-kernel -i ' 'linux rmc')
+        echo
+        echo -e "\e[0;32m    Input your sudo password & hit \e[0;31mEnter\e[0;32m to \e[0;31mRemove\e[0;32m the current "
+        echo -e "    kernel, & to \e[0;33mInstall\e[0;32m the kernel(s) you just chose: \033[0m "
+        echo
+        printf "sudo mhwd-kernel -i $versionNumber\n"
+        echo
+        sudo mhwd-kernel -i $versionNumber
+        exit 0
+        echo
+        ;;
+        # Note double semicolon to terminate each option.
 
- "6")
- echo
- msg "Following is the output of the mhwd-kernel -h command: "
- echo
- mhwd-kernel -h
- echo
- ;;
-# Note double semicolon to terminate each option.
+    "6")
+        echo
+        msg "Following is the output of the mhwd-kernel -h command: "
+        echo
+        mhwd-kernel -h
+        echo
+        ;;
+        # Note double semicolon to terminate each option.
 
 esac
 

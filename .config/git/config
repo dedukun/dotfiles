@@ -25,3 +25,9 @@
 	defaultBranch = main
 [interactive]
 	diffFilter = diff-so-fancy --patch
+[maintenance]
+	repo = /home/dedukun/.config/zsh/znap/fast-syntax-highlighting
+	repo = /home/dedukun/.config/zsh/znap/pure
+	repo = /home/dedukun/.config/zsh/znap/zsh-async
+	repo = /home/dedukun/.config/zsh/znap/zsh-completions
+	repo = /home/dedukun/.config/zsh/znap/zsh-snap

@@ -58,4 +58,3 @@ case $com in
         ;;
 
 esac
-

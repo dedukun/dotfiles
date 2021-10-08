@@ -15,5 +15,10 @@ if [ -n "$(fd --max-depth 3 --type f --extension js)" ]; then
     formatted="Y"
 fi
 
+if [ -n "$(fd --max-depth 3 --type f --extension py)" ]; then
+    notify-send -t 2000 "Format Config" "Formatting for Python Project"
+    cp $format_config_path/style-yapf-template .style.yapf
+    formatted="Y"
+fi
 
-[ -z "$formatted" ]  && notify-send -u critical -t 2000 "Format Config" "No supported project detected"
+[ -z "$formatted" ] && notify-send -u critical -t 2000 "Format Config" "No supported project detected"

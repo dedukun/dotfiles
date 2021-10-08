@@ -181,9 +181,9 @@ super + shift + F12
 super + Up
         timeout 1s playerctl stop
 super + Right
-        timeout 1s playerctl previous
-super + Left
         timeout 1s playerctl next
+super + Left
+        timeout 1s playerctl previous
 super + Down
         timeout 1s playerctl play-pause
 

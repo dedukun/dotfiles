@@ -48,3 +48,6 @@ alias gcd='cd $($SCRIPTS/project/manage.sh gbt --get)'
 alias gtask='$SCRIPTS/project/taskwarrior_project.sh gbt'
 alias pcd='cd $($SCRIPTS/project/manage.sh per --get)'
 alias ptask='$SCRIPTS/project/taskwarrior_project.sh per'
+
+# other
+alias godot-vim='nvim --listen godothost'
