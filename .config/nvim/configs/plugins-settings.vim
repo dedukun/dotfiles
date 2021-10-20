@@ -20,8 +20,8 @@ endif
 " editorconfig
 lua require "plugins.editorconfig"
 
-" vim-commentary
-lua require "plugins.vim-commentary"
+" nvim-comment
+lua require "plugins.nvim-comment"
 
 " vim-matchup
 lua require "plugins.vim-matchup"
@@ -80,3 +80,6 @@ lua require "plugins.indent-blankline"
 
 " todo-comments
 lua require "plugins.todo-comments"
+
+" dial
+lua require "plugins.dial"

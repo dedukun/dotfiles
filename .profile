@@ -3,10 +3,6 @@
 # Default programs
 export EDITOR="nvim"
 export VISUAL="nvim"
-#export TERMINAL="alacritty"
-#export TERMINAL_OPEN="$TERMINAL --working-directory"
-#export TERMINAL_RUN="$TERMINAL --command"
-
 export TERMINAL="kitty"
 export TERMINAL_OPEN="$TERMINAL --directory"
 export TERMINAL_RUN="$TERMINAL "

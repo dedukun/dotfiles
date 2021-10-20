@@ -1,8 +1,0 @@
--- vim.cmd("autocmd FileType matlab setlocal commentstring=% %s")
--- vim.cmd("autocmd FileType octave setlocal commentstring=% %s")
--- vim.cmd("autocmd FileType dosini setlocal commentstring=# %s")
--- vim.cmd("autocmd FileType markdown setlocal commentstring=<!--%s-->")
--- vim.cmd("autocmd FileType gdscript3 setlocal commentstring=# %s")
--- vim.cmd("autocmd FileType GDScript setlocal commentstring=# %s")
--- vim.cmd("autocmd FileType sxhkdrc setlocal commentstring=# %s")
--- vim.cmd("autocmd FileType mib setlocal commentstring=-- %s")

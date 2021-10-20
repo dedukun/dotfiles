@@ -22,7 +22,7 @@ endif
 
 " Misc
 Plug 'unblevable/quick-scope'                  "horizontal movement helper
-Plug 'qwertologe/nextval.vim'                  "better ^A and ^X
+Plug 'monaqa/dial.nvim'                        "extended increment/decrement
 if !exists('g:vscode')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
@@ -38,29 +38,27 @@ if !exists('g:vscode')
   Plug 'nvim-telescope/telescope.nvim'                "fuzzy finder
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'lewis6991/gitsigns.nvim'                      "show git diffs in file
-  Plug 'sindrets/diffview.nvim'                       "diff git files in vim
   Plug 'JoosepAlviste/nvim-ts-context-commentstring'  "set the commentstring option based on the cursor location
   Plug 'folke/which-key.nvim'                         "show keybindings when timed out
   Plug 'lukas-reineke/indent-blankline.nvim'          "show indentation level
-  Plug 'mg979/vim-visual-multi', {'branch': 'master'} "code-like multiple cursors
   Plug 'folke/todo-comments.nvim'                     "highlight and search for todo comments like TODO, HACK, BUG
   Plug 'dedukun/markdown-preview.nvim', { 'do': 'cd app & yarn install', 'branch': 'linux-browser-args' } "markdown previewer
   Plug 'kyazdani42/nvim-web-devicons'                 "for file icons
   Plug 'kyazdani42/nvim-tree.lua'                     "file explorer
   Plug 'andymass/vim-matchup'                         "highlight, navigate, and operate on sets of matching text
+  Plug 'terrortylor/nvim-comment'                     "easy comments
+  Plug 'windwp/nvim-ts-autotag'                       "autoclose and autorename html tag
 endif
 
 " Completion
 if !exists('g:vscode')
   Plug 'neovim/nvim-lspconfig'
-  " Plug 'glepnir/lspsaga.nvim'
   Plug 'kabouzeid/nvim-lspinstall'
   Plug 'ray-x/lsp_signature.nvim'
   Plug 'L3MON4D3/LuaSnip'                      "snippet engine
+  Plug 'onsails/lspkind-nvim'                  "vscode-like pictograms for neovim lsp completion items
   Plug 'rafamadriz/friendly-snippets'          "default snippets
   Plug 'hrsh7th/nvim-cmp'                      "auto completion
-  Plug 'onsails/lspkind-nvim'                  "vscode-like pictograms for neovim lsp completion items
-
   Plug 'hrsh7th/cmp-path'                      "cmp system path source
   Plug 'hrsh7th/cmp-nvim-lua'                  "cmp neovim lua API source
   Plug 'hrsh7th/cmp-nvim-lsp'                  "cmp LSP source
@@ -78,6 +76,5 @@ Plug 'kana/vim-textobj-function'               "text object for C-like functions
 Plug 'tpope/vim-surround'                      "maps to delete, change,... around brackets,... (eg. cs'<q>)
 Plug 'tpope/vim-unimpaired'                    "maps for multiple uses
 Plug 'tpope/vim-repeat'                        "more repeatable plugins
-Plug 'tpope/vim-commentary'                    "easy comments
 Plug 'tpope/vim-sleuth'                        "automatically adjust tab size intelligently
 call plug#end()

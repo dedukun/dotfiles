@@ -10,6 +10,7 @@ treesitter.setup({
 	},
 	context_commentstring = {
 		enable = true,
+		enable_autocmd = false,
 	},
 	rainbow = {
 		enable = true,
@@ -18,6 +19,9 @@ treesitter.setup({
 		colors = { "#CD6600", "#CD950C", "#CDBE70" }, -- table of hex strings
 	},
 	matchup = {
+		enable = true,
+	},
+	autotag = {
 		enable = true,
 	},
 })
