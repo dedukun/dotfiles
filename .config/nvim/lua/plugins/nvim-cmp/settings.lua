@@ -51,14 +51,14 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<C-d>"] = cmp.mapping.scroll_docs(-4),
-		["<C-f>"] = cmp.mapping.scroll_docs(4),
-		["<C-Space>"] = cmp.mapping.complete(),
-		["<C-e>"] = cmp.mapping.close(),
-		["<CR>"] = cmp.mapping.confirm({
-			behavior = cmp.ConfirmBehavior.Replace,
-			select = true,
+		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
+		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-e>"] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
 		}),
+		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	},
 
 	formatting = {
@@ -67,6 +67,7 @@ cmp.setup({
 
 			vim_item.menu = ({
 				path = "[Path]",
+				buffer = "[Buffer]",
 				luasnip = "[Snp]",
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[Lua]",
@@ -78,14 +79,13 @@ cmp.setup({
 
 	experimental = {
 		native_menu = true,
-		ghost_text = true,
 	},
 
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "buffer" },
 		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
-	},
+	}),
 })

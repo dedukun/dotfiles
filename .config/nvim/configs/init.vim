@@ -5,12 +5,13 @@ call plug#begin('~/.config/nvim/plugged')
 " General
 Plug 'ntpeters/vim-better-whitespace'          "show whitespaces at the end of lines in red
 Plug 'nelstrom/vim-visual-star-search'         "visual search with * and #
-Plug 'karb94/neoscroll.nvim'                   "smoth scrolling with ^D,^U,^F,^B
+Plug 'karb94/neoscroll.nvim'                   "smooth scrolling with ^D,^U,^F,^B
 if !exists('g:vscode')
   Plug 'jeffkreeftmeijer/vim-numbertoggle'     "set relativenumber or number when it makes sense
   Plug 'troydm/zoomwintab.vim'                 "zoom in and out off a split window
   Plug 'lambdalisue/suda.vim'                  "edit root flies
   Plug 'eddyekofo94/gruvbox-flat.nvim'         "colorscheme
+  Plug 'numToStr/FTerm.nvim'                   "floating terminal
 endif
 
 " Syntax
@@ -27,9 +28,9 @@ if !exists('g:vscode')
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   " WARNING: May need to comment to be able to install/uninstall stuff with lspinstall
-  Plug 'shadmansaleh/lualine.nvim'             "status/tabline
+  Plug 'nvim-lualine/lualine.nvim'             "status/tabline
   Plug 'p00f/nvim-ts-rainbow'                  "brackets color
-  Plug 'sbdchd/neoformat'                      "autoformatter
+  Plug 'sbdchd/neoformat'                      "formatter
   Plug 'vim-scripts/DoxygenToolkit.vim'        "doxygen helper
   Plug 'powerman/vim-plugin-AnsiEsc'           "ANSI color converter
   Plug 'editorconfig/editorconfig-vim'         "editorconfig plugin
@@ -46,8 +47,9 @@ if !exists('g:vscode')
   Plug 'kyazdani42/nvim-web-devicons'                 "for file icons
   Plug 'kyazdani42/nvim-tree.lua'                     "file explorer
   Plug 'andymass/vim-matchup'                         "highlight, navigate, and operate on sets of matching text
-  Plug 'terrortylor/nvim-comment'                     "easy comments
-  Plug 'windwp/nvim-ts-autotag'                       "autoclose and autorename html tag
+  Plug 'numToStr/Comment.nvim'                        "comments
+  Plug 'windwp/nvim-ts-autotag'                       "auto close and auto rename html tag
+  Plug 'lewis6991/spellsitter.nvim'                   "Spell checker for Neovim powered by tree-sitter
 endif
 
 " Completion

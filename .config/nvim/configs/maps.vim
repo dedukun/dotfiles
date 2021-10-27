@@ -49,16 +49,12 @@ nnoremap <leader><C-p>  <cmd>lua require('telescope.builtin').live_grep()<cr>
 " Fuzzy find for files in the Neovim lua configurations
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({cwd="$HOME/.config/nvim/lua"})<cr>
 
-" " show hover doc
-" nnoremap <silent> K :Lspsaga hover_doc<CR>
-
-" " scroll down hover doc or scroll in definition preview
-" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
-" " scroll up hover doc
-" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
-
 " make shift tab work in insert mode
 inoremap <S-Tab> <C-d>
+
+" Open/Close floating terminal
+nnoremap <leader>F <cmd>lua require('FTerm').toggle()<cr>
+tnoremap <leader>F <cmd>lua require('FTerm').toggle()<cr>
 
 """"""""
 " Commands
