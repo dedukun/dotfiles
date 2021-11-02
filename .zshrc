@@ -51,10 +51,11 @@ source "$ZNAP_HOME/zsh-snap/znap.zsh"
 znap source mafredri/zsh-async
 znap prompt sindresorhus/pure
 
-# highlighting
-znap source zdharma/fast-syntax-highlighting
 # completions
 znap source zsh-users/zsh-completions
+
+# highlighting
+znap source zsh-users/zsh-syntax-highlighting
 
 ##################
 # CONFIGURATIONS #

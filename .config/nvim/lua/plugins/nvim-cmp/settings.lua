@@ -25,8 +25,8 @@ cmp.setup({
 	},
 
 	mapping = {
-		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
-		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
+		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
 		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
 		["<Down>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
@@ -62,30 +62,39 @@ cmp.setup({
 	},
 
 	formatting = {
-		format = function(entry, vim_item)
-			vim_item.kind = lspkind.presets.default[vim_item.kind] .. " " .. vim_item.kind
-
-			vim_item.menu = ({
+		format = lspkind.cmp_format({
+			with_text = true,
+			menu = {
 				path = "[Path]",
 				buffer = "[Buffer]",
 				luasnip = "[Snp]",
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[Lua]",
-			})[entry.source.name]
-
-			return vim_item
-		end,
-	},
-
-	experimental = {
-		native_menu = true,
+			},
+		}),
 	},
 
 	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "buffer" },
-		{ name = "luasnip" },
 		{ name = "nvim_lsp" },
+		{ name = "luasnip" },
 		{ name = "nvim_lua" },
+	}),
+})
+
+-- Use buffer source for `/`.
+cmp.setup.cmdline("/", {
+	sources = {
+		{ name = "buffer", keyword_length = 2 },
+	},
+})
+
+-- Use cmdline & path source for ':'.
+cmp.setup.cmdline(":", {
+	sources = cmp.config.sources({
+		{ name = "path", keyword_length = 3 },
+	}, {
+		{ name = "cmdline", keyword_length = 3 },
 	}),
 })

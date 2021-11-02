@@ -11,6 +11,7 @@ bspc rule -a mpv state=fullscreen
 bspc rule -a Zathura state=tiled
 bspc rule -a "firefox:Toolkit" state=floating sticky=on rectangle=295x166+1052+595
 bspc rule -a Gnome-calculator state=floating
+bspc rule -a Electron state=floating
 bspc rule -a Rocket.Chat desktop=^9
 bspc rule -a Slack desktop=^9
 bspc rule -a Thunderbird desktop=^10

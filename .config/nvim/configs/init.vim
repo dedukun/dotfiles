@@ -65,6 +65,7 @@ if !exists('g:vscode')
   Plug 'hrsh7th/cmp-nvim-lua'                  "cmp neovim lua API source
   Plug 'hrsh7th/cmp-nvim-lsp'                  "cmp LSP source
   Plug 'hrsh7th/cmp-buffer'                    "cmp buffer
+  Plug 'hrsh7th/cmp-cmdline'                   "cmp for vim's cmdline
   Plug 'saadparwaiz1/cmp_luasnip'              "cmp LuaSnip source
 endif
 

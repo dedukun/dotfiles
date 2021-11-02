@@ -37,7 +37,7 @@ set wildmode=longest,list,full   "do a partial complete first
 set wildmenu                     "command-line completion in enhanced mode
 set spelllang=en,pt              "languages for spell checker
 set complete=.,w,b,u,t,i,kspell  "complete options
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set noshowmode                   "don't show message if in Insert mode or other (vim-airline already does it)
 set updatetime=300
 set shortmess+=c                 "don't give |ins-completion-menu| messages.

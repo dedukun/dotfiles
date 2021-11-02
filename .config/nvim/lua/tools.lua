@@ -40,6 +40,10 @@ function M.createHeader(comment)
 		input_data = comment
 	end
 
+	if string.len(input_data) == 0 then
+		return
+	end
+
 	local header_size = 45
 	local minimun_border_size = 6
 	local border_character = "*"

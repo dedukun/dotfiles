@@ -3,7 +3,6 @@ if not present then
 	return
 end
 
-vim.g.nvim_tree_ignore = { ".git" }
 vim.g.nvim_tree_gitignore = 1
 vim.g.nvim_tree_icons = {
 	default = "",
@@ -38,4 +37,9 @@ vim.g.nvim_tree_icons = {
 nvim_tree.setup({
 	-- closes neovim automatically when the tree is the last **WINDOW** in the view
 	auto_close = true,
+	filter = {
+		custom = {
+			".git",
+		},
+	},
 })
