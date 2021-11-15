@@ -36,3 +36,4 @@ data.location=~/.task
 # don't show header saying TASKDATA was overwritten
 verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait,override,recur
 # default -> blank,header,footnote,label,new-id,affected,edit,special,project,sync,unwait,override,recur
+news.version=2.6.0

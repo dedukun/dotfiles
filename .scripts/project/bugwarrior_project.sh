@@ -1,8 +1,8 @@
 #!/bin/bash
 # Wrapper of taskwarrior per project
 
-print_color=$'\e[0;37m'
-print_color_bold=$'\e[1;37m'
+print_color=$'\e[0;30m'
+print_color_bold=$'\e[1;30m'
 color_reset=$'\e[0m'
 notify_send_title='Project TaskWarrior'
 

@@ -28,20 +28,10 @@ if [ "$2" = "--show" ]; then
 elif [ "$2" = "--get" ]; then
     man_cmd="Get Project"
 else
-    man_cmd=$(printf "Logs\nMove\nOutputs\nNew Project\nCreate Folders\nChoose Project\nShow Project" | rofi -dmenu -i -p "PROJ Command:" -l 7)
+    man_cmd=$(printf "New Project\nCreate Folders\nChoose Project\nShow Project" | rofi -dmenu -i -p "PROJ Command:" -l 7)
 fi
 
 case $man_cmd in
-    "Logs")
-        # $TERMINAL_OPEN $SCRIPTS/project/logs.sh
-        notify-send -u critical -t 1500 "$notify_send_title" "'Logs' not implemented"
-        ;;
-    "Move")
-        notify-send -u critical -t 1500 "$notify_send_title" "'Move' not implemented"
-        ;;
-    "Outputs")
-        notify-send -u critical -t 1500 "$notify_send_title" "'Outputs' not implemented"
-        ;;
     "New Project")
         $SCRIPTS/project/project.sh --config "$config_file" --folder "$proj_folder" --symlink "$simlink_name" --new
         ;;
@@ -61,6 +51,6 @@ case $man_cmd in
         # DO NOTHING
         ;;
     *)
-        notify-send -u critical -t 1500 "$notify_send_title" "Unkown gbt choice '$MAN_CMD'"
+        notify-send -u critical -t 1500 "$notify_send_title" "Unkown gbt choice '$man_cmd'"
         ;;
 esac

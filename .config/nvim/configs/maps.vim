@@ -12,11 +12,11 @@ let mapleader=","
 nnoremap <leader>cc  :StripWhitespace<CR>
 
 " create section header
-nnoremap <leader>h <cmd>lua require'tools'.createHeader()<CR>
+nnoremap <leader>h <cmd>lua require'dedukun.tools'.createHeader()<CR>
 
 " Build tags file
 nnoremap <leader>t :!ctags -R .<CR>
-nnoremap <leader>T <cmd>lua require'tools'.generateTags()<CR>
+nnoremap <leader>T <cmd>lua require'dedukun.tools'.generateTags()<CR>
 
 " clear highlights
 nnoremap <leader>n :noh<CR>
@@ -47,7 +47,7 @@ nnoremap <C-p>  <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader><C-p>  <cmd>lua require('telescope.builtin').live_grep()<cr>
 
 " Fuzzy find for files in the Neovim lua configurations
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({cwd="$HOME/.config/nvim/lua"})<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({cwd="$HOME/.config/nvim/lua/dedukun"})<cr>
 
 " make shift tab work in insert mode
 inoremap <S-Tab> <C-d>
@@ -56,6 +56,21 @@ inoremap <S-Tab> <C-d>
 nnoremap <leader>F <cmd>lua require('FTerm').toggle()<cr>
 tnoremap <leader>F <cmd>lua require('FTerm').toggle()<cr>
 
+""""""""""""""""""""
+" LSPsaga
+" show hover doc
+nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+" scroll down hover doc or scroll in definition preview
+nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" scroll up hover doc
+nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+
+" documentation
+nnoremap <leader>dd <cmd>lua require('neogen').generate()<cr>
+nnoremap <leader>dc <cmd>lua require('neogen').generate({ type = 'class' })<cr>
+nnoremap <leader>df <cmd>lua require('neogen').generate({ type = 'func' })<cr>
+nnoremap <leader>dt <cmd>lua require('neogen').generate({ type = 'type' })<cr>
+
 """"""""
 " Commands
 
@@ -63,4 +78,4 @@ tnoremap <leader>F <cmd>lua require('FTerm').toggle()<cr>
 " source: https://vim.fandom.com/wiki/Reverse_order_of_lines
 command! -bar -range=% Reverse <line1>,<line2>g/^/m<line1>-1|nohl
 
-command! -nargs=1 CreateSectionHeader lua require'tools'.createHeader(<f-args>)
+command! -nargs=1 CreateSectionHeader lua require'dedukun.tools'.createHeader(<f-args>)

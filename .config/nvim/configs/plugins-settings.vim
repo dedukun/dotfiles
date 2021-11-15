@@ -2,42 +2,42 @@
 " Plugins Settings
 
 " vim-better-whitespace
-lua require "plugins.vim-better-whitespace"
+lua require "dedukun.plugins.vim-better-whitespace"
 
 " lualine
-lua require "plugins.lualine"
+lua require "dedukun.plugins.lualine"
 
 " nvim tree
 if !exists('g:vscode')
-  lua require "plugins.nvim-tree"
+  lua require "dedukun.plugins.nvim-tree"
 endif
 
 " vimtex
 if !exists('g:vscode')
-  lua require "plugins.vimtex"
+  lua require "dedukun.plugins.vimtex"
 endif
 
 " editorconfig
-lua require "plugins.editorconfig"
+lua require "dedukun.plugins.editorconfig"
 
 " comment
-lua require "plugins.comment"
+lua require "dedukun.plugins.comment"
 
 " vim-matchup
-lua require "plugins.vim-matchup"
+lua require "dedukun.plugins.vim-matchup"
 
 " markdown previewer
 if !exists('g:vscode')
-  lua require "plugins.markdown-previewer"
+  lua require "dedukun.plugins.markdown-previewer"
 endif
 
 " quick-scope
 if !exists('g:vscode')
-  lua require "plugins.quick-scope"
+  lua require "dedukun.plugins.quick-scope"
 endif
 
 " neoformat
-lua require "plugins.neoformat"
+lua require "dedukun.plugins.neoformat"
 
 " firenvim
 let g:firenvim_config = {
@@ -49,40 +49,43 @@ let g:firenvim_config = {
 \ }
 
 " vim-markdown
-lua require "plugins.vim-markdown"
+lua require "dedukun.plugins.vim-markdown"
 
 " treesitter
-lua require "plugins.treesitter"
+lua require "dedukun.plugins.treesitter"
 
 " lspinstall
-lua require "plugins.lsp"
+lua require "dedukun.plugins.lsp"
 
 " colorizer
-lua require "plugins.colorizer"
+lua require "dedukun.plugins.colorizer"
 
 " auto completion
-lua require "plugins.nvim-cmp"
+lua require "dedukun.plugins.nvim-cmp"
 
 " snippets
-lua require "plugins.snippets"
+lua require "dedukun.plugins.snippets"
 
 " gitsigns
-lua require "plugins.gitsigns"
+lua require "dedukun.plugins.gitsigns"
 
 " which-key
-lua require "plugins.which-key"
+lua require "dedukun.plugins.which-key"
 
 " neoscroll
-lua require "plugins.neoscroll"
+lua require "dedukun.plugins.neoscroll"
 
 " indent-blankline
-lua require "plugins.indent-blankline"
+lua require "dedukun.plugins.indent-blankline"
 
 " todo-comments
-lua require "plugins.todo-comments"
+lua require "dedukun.plugins.todo-comments"
 
 " dial
-lua require "plugins.dial"
+lua require "dedukun.plugins.dial"
 
 " spellsitter
-lua require "plugins.spellsitter"
+lua require "dedukun.plugins.spellsitter"
+
+" lspsaga
+lua require "dedukun.plugins.lspsaga"
