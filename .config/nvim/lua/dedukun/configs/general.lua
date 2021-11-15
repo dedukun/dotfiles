@@ -5,7 +5,6 @@
 vim.opt.hidden = true
 vim.opt.autoindent = true -- indent at the same level of the previous line
 vim.opt.autoread = true -- automatically read a file changed outside of vim
-vim.opt.nocompatible = true -- less vi compatibility
 vim.opt.termguicolors = true -- number of colors
 vim.opt.tabstop = 4 -- tabs are 4 spaces
 vim.opt.shiftwidth = 4 -- spaces used in auto indenting
@@ -19,7 +18,6 @@ vim.opt.number = true -- set number of the lines in the side
 vim.opt.hlsearch = true -- highlight all search matches
 vim.opt.ignorecase = true -- searches are case insensitive
 vim.opt.smartcase = true -- search will be case sensitive if it contains an uppercase letter
-vim.opt.backspace = 2 -- make backspace work in insert mode
 
 vim.opt.splitbelow = true -- make splits open at the bottom
 vim.opt.splitright = true -- make splits open at the right
@@ -32,23 +30,23 @@ else
 	vim.opt.clipboard = "unnamed"
 end
 vim.opt.encoding = "UTF-8" -- add support for utf-8 encoding
-vim.opt.noundofile = true -- don't create .un~ file for persistent undo
-vim.opt.nobackup = true -- CoC -> some servers have issues with backup files, see #649.
-vim.opt.nowritebackup = true
+vim.opt.undofile = false -- don't create .un~ file for persistent undo
+vim.opt.backup = false --
+vim.opt.writebackup = false
 vim.opt.wildmode = { "longest", "list", "full" } -- do a partial complete first
 vim.opt.wildmenu = true -- command-line completion in enhanced mode
 vim.opt.spelllang = { "en", "pt" } -- languages for spell checker
 vim.opt.complete = { ".", "w", "b", "u", "t", "i", "kspell" } -- complete options
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.noshowmode = true -- don't show message if in Insert mode or other (vim-airline already does it)
 vim.opt.updatetime = 300
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages.
 vim.opt.signcolumn = "yes" -- show the signcolumn
--- vim.opt.list = true
+vim.o.lazyredraw = true -- useful for when executing macros.
+vim.o.ttimeoutlen = 10  -- ms to wait for a key code seq to complete
 
 -- Change the directory where temporary files are stored
-vim.opt.backupdir = "~/.config/nvim/.backup//"
-vim.opt.directory = "~/.config/nvim/.backup//"
+vim.opt.backupdir = "/home/dedukun/.config/nvim/.backup//"
+vim.opt.directory = "/home/dedukun/.config/nvim/.backup//"
 
 -- Tags files default locations
 vim.opt.tags = { "tags", "./tags" }
@@ -60,6 +58,3 @@ vim.cmd([[colorscheme gruvbox-flat]])
 -- python paths
 vim.g.python_host_prog = "/home/dedukun/.virtualenvs/vim-python2/bin/python2"
 vim.g.python3_host_prog = "/home/dedukun/.virtualenvs/vim/bin/python"
-
--- Change cursor shape depending of the mode
-vim.env.NVIM_TUI_ENABLE_CURSOR_SHAPE = 1

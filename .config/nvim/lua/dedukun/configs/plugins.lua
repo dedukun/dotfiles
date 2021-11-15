@@ -128,6 +128,8 @@ return require("packer").startup({
 		})
 		--speed up loading Lua modules in Neovim to improve startup time.
 		use("lewis6991/impatient.nvim")
+		--  make mapping and commands more manageable in lua
+		use("b0o/mapx.nvim")
 		-- endif
 
 		-----------------

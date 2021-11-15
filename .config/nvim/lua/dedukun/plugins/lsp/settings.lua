@@ -1,4 +1,4 @@
-local presentLspconfig, lspconfig = pcall(require, "lspconfig")
+local presentLspconfig, _ = pcall(require, "lspconfig")
 if not presentLspconfig then
 	return
 end
@@ -108,7 +108,7 @@ local function setup_servers()
 	lspinstaller.on_server_ready(function(server)
 		local config = make_config()
 
-		if server.name == "lua" then
+		if server.name == "sumneko_lua" then
 			config.settings = lua_settings
 		end
 		if server == "clangd" then

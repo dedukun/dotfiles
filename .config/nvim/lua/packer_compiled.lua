@@ -184,6 +184,11 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/nvim-lualine/lualine.nvim"
   },
+  ["mapx.nvim"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/mapx.nvim",
+    url = "https://github.com/b0o/mapx.nvim"
+  },
   ["markdown-preview.nvim"] = {
     commands = { "MarkdownPreview" },
     loaded = false,
