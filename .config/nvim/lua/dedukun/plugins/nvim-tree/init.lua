@@ -1,1 +1,1 @@
-require "dedukun.plugins.nvim-tree.settings"
+require("dedukun.plugins.nvim-tree.settings")

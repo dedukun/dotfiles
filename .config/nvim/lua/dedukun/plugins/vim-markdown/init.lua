@@ -1,1 +1,1 @@
-require "dedukun.plugins.vim-markdown.settings"
+require("dedukun.plugins.vim-markdown.settings")

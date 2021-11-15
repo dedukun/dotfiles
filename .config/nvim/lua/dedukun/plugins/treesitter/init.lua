@@ -1,1 +1,1 @@
-require "dedukun.plugins.treesitter.settings"
+require("dedukun.plugins.treesitter.settings")

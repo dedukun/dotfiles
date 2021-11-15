@@ -1,1 +1,1 @@
-require "dedukun.plugins.lsp.settings"
+require("dedukun.plugins.lsp.settings")

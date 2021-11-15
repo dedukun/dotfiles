@@ -1,1 +1,1 @@
-require "dedukun.plugins.dial.settings"
+require("dedukun.plugins.dial.settings")

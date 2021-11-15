@@ -1,1 +1,1 @@
-require "dedukun.plugins.vimtex.settings"
+require("dedukun.plugins.vimtex.settings")

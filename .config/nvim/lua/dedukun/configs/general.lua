@@ -42,7 +42,7 @@ vim.opt.updatetime = 300
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages.
 vim.opt.signcolumn = "yes" -- show the signcolumn
 vim.o.lazyredraw = true -- useful for when executing macros.
-vim.o.ttimeoutlen = 10  -- ms to wait for a key code seq to complete
+vim.o.ttimeoutlen = 10 -- ms to wait for a key code seq to complete
 
 -- Change the directory where temporary files are stored
 vim.opt.backupdir = "/home/dedukun/.config/nvim/.backup//"

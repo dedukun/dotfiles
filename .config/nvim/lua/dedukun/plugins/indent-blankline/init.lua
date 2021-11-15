@@ -1,1 +1,1 @@
-require "dedukun.plugins.indent-blankline.settings"
+require("dedukun.plugins.indent-blankline.settings")

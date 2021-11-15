@@ -1,1 +1,1 @@
-require "dedukun.plugins.quick-scope.settings"
+require("dedukun.plugins.quick-scope.settings")

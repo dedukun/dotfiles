@@ -31,7 +31,7 @@ lualine.setup({
 				sources = { "nvim_lsp" },
 				symbols = { error = " ", warn = " ", info = " ", hint = " " },
 			},
-			'lsp_progress'
+			"lsp_progress",
 		},
 		lualine_x = { "encoding", "fileformat", "filetype" },
 		lualine_y = { "progress" },

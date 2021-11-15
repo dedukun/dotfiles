@@ -1,1 +1,1 @@
-require "dedukun.plugins.which-key.settings"
+require("dedukun.plugins.which-key.settings")

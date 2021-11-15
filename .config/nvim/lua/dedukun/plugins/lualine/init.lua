@@ -1,1 +1,1 @@
-require "dedukun.plugins.lualine.settings"
+require("dedukun.plugins.lualine.settings")

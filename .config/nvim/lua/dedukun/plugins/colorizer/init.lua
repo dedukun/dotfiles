@@ -1,1 +1,1 @@
-require "dedukun.plugins.colorizer.settings"
+require("dedukun.plugins.colorizer.settings")

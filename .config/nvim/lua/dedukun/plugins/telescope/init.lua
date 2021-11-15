@@ -1,1 +1,1 @@
-require "dedukun.plugins.telescope.settings"
+require("dedukun.plugins.telescope.settings")

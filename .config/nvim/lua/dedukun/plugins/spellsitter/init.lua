@@ -1,1 +1,1 @@
-require "dedukun.plugins.spellsitter.settings"
+require("dedukun.plugins.spellsitter.settings")

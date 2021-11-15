@@ -1,1 +1,1 @@
-require "dedukun.plugins.todo-comments.settings"
+require("dedukun.plugins.todo-comments.settings")

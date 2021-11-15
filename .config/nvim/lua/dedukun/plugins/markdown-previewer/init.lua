@@ -1,1 +1,1 @@
-require "dedukun.plugins.markdown-previewer.settings"
+require("dedukun.plugins.markdown-previewer.settings")

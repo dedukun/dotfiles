@@ -1,1 +1,1 @@
-require "dedukun.plugins.firenvim.settings"
+require("dedukun.plugins.firenvim.settings")

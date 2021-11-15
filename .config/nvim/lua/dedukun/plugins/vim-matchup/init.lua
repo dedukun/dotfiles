@@ -1,1 +1,1 @@
-require "dedukun.plugins.vim-matchup.settings"
+require("dedukun.plugins.vim-matchup.settings")

@@ -1,1 +1,1 @@
-require "dedukun.plugins.snippets.settings"
+require("dedukun.plugins.snippets.settings")

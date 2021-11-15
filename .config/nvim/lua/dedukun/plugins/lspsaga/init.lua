@@ -1,1 +1,1 @@
-require "dedukun.plugins.lspsaga.settings"
+require("dedukun.plugins.lspsaga.settings")

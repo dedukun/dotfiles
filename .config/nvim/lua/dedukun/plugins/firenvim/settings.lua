@@ -10,4 +10,3 @@ vim.cmd([[let g:firenvim_config = {
         \ },
     \ }
 \ }]])
-

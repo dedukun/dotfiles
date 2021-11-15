@@ -1,1 +1,1 @@
-require "dedukun.plugins.neoscroll.settings"
+require("dedukun.plugins.neoscroll.settings")

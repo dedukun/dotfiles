@@ -1,1 +1,1 @@
-require "dedukun.plugins.nvim-cmp.settings"
+require("dedukun.plugins.nvim-cmp.settings")

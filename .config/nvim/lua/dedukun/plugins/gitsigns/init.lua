@@ -1,1 +1,1 @@
-require "dedukun.plugins.gitsigns.settings"
+require("dedukun.plugins.gitsigns.settings")
