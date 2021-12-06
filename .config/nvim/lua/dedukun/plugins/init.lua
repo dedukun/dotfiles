@@ -12,11 +12,6 @@ if vim.fn.exists("g:vscode") == 0 then
 	require("dedukun.plugins.nvim-tree")
 end
 
--- vimtex
-if vim.fn.exists("g:vscode") == 0 then
-	require("dedukun.plugins.vimtex")
-end
-
 -- editorconfig
 require("dedukun.plugins.editorconfig")
 
@@ -42,9 +37,6 @@ require("dedukun.plugins.neoformat")
 -- firenvim
 require("dedukun.plugins.firenvim")
 
--- vim-markdown
-require("dedukun.plugins.vim-markdown")
-
 -- treesitter
 require("dedukun.plugins.treesitter")
 
@@ -57,8 +49,8 @@ require("dedukun.plugins.colorizer")
 -- auto completion
 require("dedukun.plugins.nvim-cmp")
 
--- snippets
-require("dedukun.plugins.snippets")
+-- luasnip
+require("dedukun.plugins.luasnip")
 
 -- gitsigns
 require("dedukun.plugins.gitsigns")

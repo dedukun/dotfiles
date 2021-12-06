@@ -3,7 +3,6 @@ if not present then
 	return
 end
 
-vim.g.nvim_tree_gitignore = 1
 vim.g.nvim_tree_icons = {
 	default = "",
 	symlink = "",
@@ -41,5 +40,10 @@ nvim_tree.setup({
 		custom = {
 			".git",
 		},
+	},
+	git = {
+		enable = true,
+		ignore = true,
+		timeout = 500,
 	},
 })

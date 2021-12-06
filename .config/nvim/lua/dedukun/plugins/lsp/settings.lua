@@ -110,8 +110,7 @@ local function setup_servers()
 
 		if server.name == "sumneko_lua" then
 			config.settings = lua_settings
-		end
-		if server == "clangd" then
+		elseif server.name == "clangd" then
 			-- config.cmd = { "/home/dedukun/.scripts/clangd.sh", "--background-index", "--malloc-trim" }
 			config.filetypes = { "c", "cpp" }
 		end

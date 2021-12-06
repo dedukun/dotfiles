@@ -43,7 +43,10 @@ return require("packer").startup({
 		-- Syntax
 		-----------------
 		if vim.fn.exists("g:vscode") == 0 then
-			use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+			use({
+				"nvim-treesitter/nvim-treesitter",
+				run = ":TSUpdate",
+			})
 			-- dart
 			use("dart-lang/dart-vim-plugin")
 			-- sxhkdrc
@@ -60,19 +63,28 @@ return require("packer").startup({
 		if vim.fn.exists("g:vscode") == 0 then
 			use("nvim-lua/popup.nvim")
 			use("nvim-lua/plenary.nvim")
-			-- WARNING: May need to comment to be able to install/uninstall stuff with lspinstall
 			--status/tabline
-			use("nvim-lualine/lualine.nvim")
-			-- active lsp clients from the $/progress endpoint
-			use("arkav/lualine-lsp-progress")
+			use({
+				"nvim-lualine/lualine.nvim",
+				requires = {
+					--for file icons
+					{ "kyazdani42/nvim-web-devicons", opt = true },
+					-- active lsp clients from the $/progress endpoint
+					{ "arkav/lualine-lsp-progress" },
+				},
+			})
 			--brackets color
 			use("p00f/nvim-ts-rainbow")
+			--set the commentstring option based on the cursor location
+			use("JoosepAlviste/nvim-ts-context-commentstring")
+			--auto close and auto rename html tag
+			use("windwp/nvim-ts-autotag")
 			--formatter
 			use("sbdchd/neoformat")
-			--ANSI color converter
-			use("powerman/vim-plugin-AnsiEsc")
 			--editorconfig plugin
 			use("editorconfig/editorconfig-vim")
+			--ANSI color converter
+			use("powerman/vim-plugin-AnsiEsc")
 			--color name highlighter
 			use("norcalli/nvim-colorizer.lua")
 			--nvim for web browser
@@ -83,18 +95,26 @@ return require("packer").startup({
 				end,
 			})
 			--fuzzy finder
-			use("nvim-telescope/telescope.nvim")
-			use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+			use({
+				"nvim-telescope/telescope.nvim",
+				requires = {
+					{ "nvim-lua/plenary.nvim" },
+					{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+				},
+			})
 			--show git diffs in file
-			use("lewis6991/gitsigns.nvim")
-			--set the commentstring option based on the cursor location
-			use("JoosepAlviste/nvim-ts-context-commentstring")
+			use({
+				"lewis6991/gitsigns.nvim",
+				requires = {
+					"nvim-lua/plenary.nvim",
+				},
+			})
 			--show keybindings when timed out
 			use("folke/which-key.nvim")
 			--show indentation level
 			use("lukas-reineke/indent-blankline.nvim")
 			--highlight and search for todo comments like TODO, HACK, BUG
-			use("folke/todo-comments.nvim")
+			use({ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" })
 			--markdown previewer
 			use({
 				"dedukun/markdown-preview.nvim",
@@ -102,16 +122,12 @@ return require("packer").startup({
 				cmd = "MarkdownPreview",
 				branch = "linux-browser-args",
 			})
-			--for file icons
-			use("kyazdani42/nvim-web-devicons")
 			--file explorer
 			use("kyazdani42/nvim-tree.lua")
 			--highlight, navigate, and operate on sets of matching text
 			use("andymass/vim-matchup")
 			--comments
 			use("numToStr/Comment.nvim")
-			--auto close and auto rename html tag
-			use("windwp/nvim-ts-autotag")
 			--spell checker for Neovim powered by tree-sitter
 			use("lewis6991/spellsitter.nvim")
 			--light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
@@ -136,29 +152,43 @@ return require("packer").startup({
 		-- Completion
 		-----------------
 		if vim.fn.exists("g:vscode") == 0 then
-			use("neovim/nvim-lspconfig")
-			use("williamboman/nvim-lsp-installer")
-			use("ray-x/lsp_signature.nvim")
+			use({
+				"neovim/nvim-lspconfig",
+				requires = {
+					--seamlessly install LSP servers locally
+					"williamboman/nvim-lsp-installer",
+					--show function signature when you type
+					"ray-x/lsp_signature.nvim",
+					--cmp LSP source
+					"hrsh7th/cmp-nvim-lsp",
+				},
+			})
 			--snippet engine
-			use("L3MON4D3/LuaSnip")
-			--vscode-like pictograms for neovim lsp completion items
-			use("onsails/lspkind-nvim")
-			--default snippets
-			use("rafamadriz/friendly-snippets")
+			use({
+				"L3MON4D3/LuaSnip",
+				--default snippets
+				requires = { "rafamadriz/friendly-snippets" },
+			})
 			--auto completion
-			use("hrsh7th/nvim-cmp")
-			--cmp system path source
-			use("hrsh7th/cmp-path")
-			--cmp neovim lua API source
-			use("hrsh7th/cmp-nvim-lua")
-			--cmp LSP source
-			use("hrsh7th/cmp-nvim-lsp")
-			--cmp buffer
-			use("hrsh7th/cmp-buffer")
-			--cmp for vim's cmdline
-			use("hrsh7th/cmp-cmdline")
-			--cmp LuaSnip source
-			use("saadparwaiz1/cmp_luasnip")
+			use({
+				"hrsh7th/nvim-cmp",
+				requires = {
+					--vscode-like pictograms for neovim lsp completion items
+					"onsails/lspkind-nvim",
+					--cmp system path source
+					"hrsh7th/cmp-path",
+					--cmp neovim lua API source
+					"hrsh7th/cmp-nvim-lua",
+					--cmp LSP source
+					"hrsh7th/cmp-nvim-lsp",
+					--cmp buffer
+					"hrsh7th/cmp-buffer",
+					--cmp for vim's cmdline
+					"hrsh7th/cmp-cmdline",
+					--cmp LuaSnip source
+					"saadparwaiz1/cmp_luasnip",
+				},
+			})
 		end
 
 		-----------------

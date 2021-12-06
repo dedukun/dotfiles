@@ -8,5 +8,5 @@ require("dedukun.configs.general")
 require("dedukun.configs.autocmds")
 -- add custom maps
 require("dedukun.configs.maps")
--- configured plugins
+-- configurate plugins
 require("dedukun.plugins")
