@@ -58,7 +58,7 @@ font-2 = Siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
+modules-right = check-battery filesystem pipewire pipewire-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
 
 tray-position = right
 tray-padding = 2
@@ -100,6 +100,7 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Siji:pixelsize=10;1
+font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
 modules-right = vpn-networkmanager-status wlan eth battery temperature popup-calendar
@@ -147,7 +148,7 @@ font-2 = Siji:pixelsize=10;1
 font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm-second
-modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
+modules-right = check-battery filesystem pipewire pipewire-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar
 
 wm-restack = bspwm
 
@@ -285,34 +286,18 @@ format-prefix-foreground = ${colors.foreground-alt}
 
 label = %date% %time%
 
-[module/pulseaudio]
-type = internal/pulseaudio
+[module/pipewire]
+type = custom/script
 
-format-volume = <label-volume> <bar-volume>
-format-volume-prefix = " "
-format-volume-prefix-foreground = ${colors.foreground-alt}
-label-volume =  %percentage%%
-label-volume-foreground = ${root.foreground}
+tail = true
 
-label-muted = " muted"
-label-muted-foreground = ${colors.foreground-alt}
+label= %output%
+# label-font = 3
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+exec = $SCRIPTS/polybar/pipewire.sh
+click-right = $SCRIPTS/polybar/pipewire.sh --mute &
+scroll-up = $SCRIPTS/polybar/pipewire.sh --up &
+scroll-down = $SCRIPTS/polybar/pipewire.sh --down &
 
 [module/battery]
 type = internal/battery
@@ -366,11 +351,11 @@ ramp-1 = 
 ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
-[module/pulseaudio-microphone]
+[module/pipewire-microphone]
 type = custom/script
-exec = $SCRIPTS/polybar/pulseaudio-microphone.sh
+exec = $SCRIPTS/polybar/pipewire-microphone.sh
 tail = true
-click-left = $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle &
+click-left = $SCRIPTS/polybar/pipewire-microphone.sh --toggle &
 label = %output%
 label-font = 2
 

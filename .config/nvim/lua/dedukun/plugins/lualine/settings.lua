@@ -28,7 +28,7 @@ lualine.setup({
 			"filename",
 			{
 				"diagnostics",
-				sources = { "nvim_lsp" },
+				sources = { "nvim_diagnostic" },
 				symbols = { error = " ", warn = " ", info = " ", hint = " " },
 			},
 			"lsp_progress",

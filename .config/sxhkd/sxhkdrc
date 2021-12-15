@@ -158,23 +158,23 @@ super + control + F9
 
 # Toggle microphone
 super + shift + F10
-        $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle
+        $SCRIPTS/polybar/pipewire-microphone.sh --toggle
 
 # Volume controls
 super + F10
-        amixer -q sset Master toggle
+        pamixer --toggle-mute
 super + F11
-        amixer -q sset Master 5%-
+        pamixer --decrease 5
 super + F12
-        amixer -q sset Master 5%+
+        pamixer --increase 5
 super + control + F11
-        amixer -q sset Master 10%-
+        pamixer --decrease 10
 super + control + F12
-        amixer -q sset Master 10%+
+        pamixer --increase 10
 super + shift + F11
-        amixer -q sset Master 1%-
+        pamixer --decrease 1
 super + shift + F12
-        amixer -q sset Master 1%+
+        pamixer --increase 1
 
 # Media controls
 # playerctl is pending with firefox, but still works
