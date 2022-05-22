@@ -74,11 +74,6 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/Comment.nvim",
     url = "https://github.com/numToStr/Comment.nvim"
   },
-  ["FTerm.nvim"] = {
-    loaded = true,
-    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/FTerm.nvim",
-    url = "https://github.com/numToStr/FTerm.nvim"
-  },
   LuaSnip = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -93,6 +88,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/cmp-cmdline",
     url = "https://github.com/hrsh7th/cmp-cmdline"
+  },
+  ["cmp-dap"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/cmp-dap",
+    url = "https://github.com/rcarriga/cmp-dap"
   },
   ["cmp-nvim-lsp"] = {
     loaded = true,
@@ -113,6 +113,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
+  },
+  ["crates.nvim"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/crates.nvim",
+    url = "https://github.com/saecki/crates.nvim"
   },
   ["dart-vim-plugin"] = {
     loaded = true,
@@ -203,7 +208,6 @@ _G.packer_plugins = {
     url = "https://github.com/sbdchd/neoformat"
   },
   neogen = {
-    config = { "\27LJ\2\nD\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\fenabled\2\nsetup\vneogen\frequire\0" },
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
@@ -218,10 +222,15 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
-  ["nvim-colorizer.lua"] = {
+  ["nvim-dap"] = {
     loaded = true,
-    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua",
-    url = "https://github.com/norcalli/nvim-colorizer.lua"
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-dap",
+    url = "https://github.com/mfussenegger/nvim-dap"
+  },
+  ["nvim-gps"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-gps",
+    url = "https://github.com/SmiteshP/nvim-gps"
   },
   ["nvim-lsp-installer"] = {
     loaded = true,
@@ -314,10 +323,30 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/todo-comments.nvim",
     url = "https://github.com/folke/todo-comments.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
+  },
+  ["trouble.nvim"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/trouble.nvim",
+    url = "https://github.com/folke/trouble.nvim"
+  },
   ["vim-better-whitespace"] = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-better-whitespace",
     url = "https://github.com/ntpeters/vim-better-whitespace"
+  },
+  ["vim-bitbake"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-bitbake",
+    url = "https://github.com/kergoth/vim-bitbake"
+  },
+  ["vim-hexokinase"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-hexokinase",
+    url = "https://github.com/RRethy/vim-hexokinase"
   },
   ["vim-matchup"] = {
     loaded = true,
@@ -353,6 +382,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-sxhkdrc",
     url = "https://github.com/baskerville/vim-sxhkdrc"
+  },
+  ["vim-systemd-syntax"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-systemd-syntax",
+    url = "https://github.com/wgwoods/vim-systemd-syntax"
   },
   ["vim-textobj-function"] = {
     loaded = true,
@@ -392,10 +426,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: neogen
-time([[Config for neogen]], true)
-try_loadstring("\27LJ\2\nD\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\fenabled\2\nsetup\vneogen\frequire\0", "config", "neogen")
-time([[Config for neogen]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
@@ -407,5 +437,6 @@ if should_profile then save_profiles() end
 end)
 
 if not no_errors then
+  error_msg = error_msg:gsub('"', '\\"')
   vim.api.nvim_command('echohl ErrorMsg | echom "Error in packer_compiled: '..error_msg..'" | echom "Please check your config for correctness" | echohl None')
 end

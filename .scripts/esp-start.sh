@@ -81,13 +81,13 @@ _enable_cmake_colors() {
 }
 
 _save_settings() {
-    save_settings="$(echo 'No\nYes' | rofi -dmenu -l 2 -i -p 'Do you want to save the current settings in this folder?')"
+    save_settings="$(echo -e 'No\nYes' | rofi -dmenu -l 2 -i -p 'Do you want to save the current settings in this folder?')"
 
     if [ "$save_settings" = "Yes" ]; then
         notify-send "ESP-Start" "Saved Settings"
 
         if [ -n "$2" ]; then
-            echo "IDF=$1\nADF=$2" >"$espstart_local_settings"
+            echo -e "IDF=$1\nADF=$2" >"$espstart_local_settings"
         else
             echo "IDF=$1" >"$espstart_local_settings"
         fi
@@ -96,7 +96,7 @@ _save_settings() {
 
 _load_settings() {
     if [ -f "$espstart_local_settings" ]; then
-        load_settings="$(echo 'Yes\nNo' | rofi -dmenu -l 2 -i -p 'Local setting detected. Do you want to load them?')"
+        load_settings="$(echo -e 'Yes\nNo' | rofi -dmenu -l 2 -i -p 'Local setting detected. Do you want to load them?')"
 
         if [ "$load_settings" = "Yes" ]; then
             choosen_idf="$(cat $espstart_local_settings | grep 'IDF=' | cut -d'=' -f2)"
@@ -116,7 +116,7 @@ _load_settings() {
 
 _check_tags() {
     if [ ! -f "$espstart_generate_tags" ]; then
-        cp_generate_tags="$(echo 'No\nYes' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
+        cp_generate_tags="$(echo -e 'No\nYes' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
 
         if [ "$cp_generate_tags" = "Yes" ]; then
             cp "$espstart_home/$espstart_generate_tags" .
@@ -181,7 +181,7 @@ _load_settings
 
 # Allow for selection if ADF exists
 if [ -d "$espstart_adfs" ]; then
-    idf_or_adf="$(echo 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
+    idf_or_adf="$(echo -e 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
     [ -z "$idf_or_adf" ] && _exit_error "No option was choosen"
 else
     idf_or_adf="IDF"

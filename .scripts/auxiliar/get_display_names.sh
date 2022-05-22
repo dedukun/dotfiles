@@ -12,8 +12,8 @@ print_help() {
     printf "This wrapper script fixes scripts and configurations that use the displays.\n"
     printf "\n"
     printf "\t-e , --eDP     Print the eDP display name\n"
-    printf "\t-h2, --HDMI2   Print the HDMI2 display name\n"
-    printf "\t-b , --both    Print both the eDP and HDMI2 display names\n"
+    printf "\t   , --HDMI    Print the eDP display name\n"
+    printf "\t-b , --both    Print both the eDP and HDMI display names\n"
     printf "\t-h , --help    Prints help menu\n"
 }
 
@@ -21,8 +21,8 @@ get_eDP() {
     xrandr | grep "connected" | grep "eDP" | awk '{ print $1; }'
 }
 
-get_HDMI2() {
-    xrandr | grep "connected" | grep "HDMI.*2 " | awk '{ print $1; }'
+get_HDMI() {
+    xrandr | grep "connected" | grep "HDMI" | awk '{ print $1; }'
 }
 
 get_both() {
@@ -37,8 +37,8 @@ while [ $# -gt 0 ]; do
             get_eDP
             shift # past argument
             ;;
-        -h2 | --HDMI2)
-            get_HDMI2
+        --HDMI)
+            get_HDMI
             shift # past argument
             ;;
         -b | --both)

@@ -142,3 +142,30 @@ fzf-history-widget() {
   zle reset-prompt
   return $ret
 }
+
+# Wrapper tomake quit in current directory work
+# source: https://github.com/kamiyaa/joshuto/blob/main/docs/configuration/keymap.toml.md#general
+function joshuto() {
+	ID="$$"
+	mkdir -p /tmp/$USER
+	OUTPUT_FILE="/tmp/$USER/joshuto-cwd-$ID"
+	env $SCRIPTS/joshuto.sh --output-file "$OUTPUT_FILE" $@
+	exit_code=$?
+
+	case "$exit_code" in
+		# regular exit
+		0)
+			;;
+		# output contains current directory
+		101)
+			JOSHUTO_CWD=$(cat "$OUTPUT_FILE")
+			cd "$JOSHUTO_CWD"
+			;;
+		# output selected files
+		102)
+			;;
+		*)
+			echo "Exit code: $exit_code"
+			;;
+	esac
+}

@@ -13,6 +13,7 @@ export READER="zathura"
 export FILE="ranger"
 export PAGER="less"
 export CHROME_EXECUTABLE="chromium"
+export DIFFPROG="nvim -d"
 
 # Paths
 export GOPATH="$HOME/.go"
@@ -21,6 +22,7 @@ PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/.local/bin"
 PATH="$PATH:$HOME/.npm_global/bin"
 PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
+PATH="$PATH:$HOME/nRF52/gcc-arm/bin"
 PATH="$PATH:/snap/bin"
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:/opt/flutter/bin"
@@ -33,9 +35,8 @@ export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
 
 # Configs
-export ANDROID_AVD_HOME="$HOME/.android/avd"
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="/opt/android-sdk"
+export ANDROID_SDK_ROOT="/opt/android-sdk"
 export BSP_LAYOUT_ROOT="$HOME/Applications/bsp-layout/src"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -43,11 +44,6 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export TASKRC="$HOME/.config/task/config"
-
-# locale
-export LANG=en_GB.UTF-8
-export LANGUAGE=en_GB.UTF-8
-export LC_ALL=en_GB.UTF-8
 
 # export python startup file to add autocomplete to python console
 export PYTHONSTARTUP="$HOME/.pythonrc"

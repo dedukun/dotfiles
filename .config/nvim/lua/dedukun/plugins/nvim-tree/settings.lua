@@ -34,16 +34,15 @@ vim.g.nvim_tree_icons = {
 }
 
 nvim_tree.setup({
-	-- closes neovim automatically when the tree is the last **WINDOW** in the view
-	auto_close = true,
-	filter = {
-		custom = {
-			".git",
-		},
+	filters = {
+		dotfiles = true
 	},
 	git = {
 		enable = true,
 		ignore = true,
-		timeout = 500,
+		timeout = 400,
 	},
 })
+
+-- auto close when tree is the last window
+vim.cmd([[autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif]])

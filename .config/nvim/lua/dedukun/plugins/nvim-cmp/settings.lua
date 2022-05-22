@@ -51,6 +51,8 @@ cmp.setup({
 		["<A-S-Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.jumpable(-1) then
 				vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
+			elseif neogen.jumpable(-1) then
+				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), "")
 			else
 				fallback()
 			end
@@ -81,12 +83,18 @@ cmp.setup({
 		}),
 	},
 
+	-- nvim-cmp by defaults disables autocomplete for prompt buffers
+	enabled = function()
+		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+	end,
+
 	sources = cmp.config.sources({
 		{ name = "path" },
 		{ name = "buffer" },
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "nvim_lua" },
+		{ name = "dap" },
 	}),
 })
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dis_mode="1920x1080"
-dis_out="$($SCRIPTS/auxiliar/get_display_names.sh -h2)"
+dis_out="$($SCRIPTS/auxiliar/get_display_names.sh --HDMI)"
 dis_base_monitor="$($SCRIPTS/auxiliar/get_display_names.sh -e)"
 dis_direction=""
 

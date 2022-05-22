@@ -28,6 +28,6 @@
 [maintenance]
 	repo = /home/dedukun/.config/zsh/znap/pure
 	repo = /home/dedukun/.config/zsh/znap/zsh-async
-	repo = /home/dedukun/.config/zsh/znap/zsh-snap
 	repo = /home/dedukun/.config/zsh/znap/zsh-completions
+	repo = /home/dedukun/.config/zsh/znap/zsh-snap
 	repo = /home/dedukun/.config/zsh/znap/zsh-syntax-highlighting

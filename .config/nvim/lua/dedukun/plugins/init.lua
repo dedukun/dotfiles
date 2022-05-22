@@ -43,8 +43,8 @@ require("dedukun.plugins.treesitter")
 -- lspinstall
 require("dedukun.plugins.lsp")
 
--- colorizer
-require("dedukun.plugins.colorizer")
+-- vim-hexokinase
+require("dedukun.plugins.vim-hexokinase")
 
 -- auto completion
 require("dedukun.plugins.nvim-cmp")
@@ -75,3 +75,18 @@ require("dedukun.plugins.spellsitter")
 
 -- lspsaga
 require("dedukun.plugins.lspsaga")
+
+-- neogen
+require("dedukun.plugins.neogen")
+
+-- trouble
+require("dedukun.plugins.trouble")
+
+-- crates
+require("dedukun.plugins.crates")
+
+-- toggleterm
+require("dedukun.plugins.toggleterm")
+
+-- nvim-gps
+require("dedukun.plugins.nvim-gps")

@@ -4,7 +4,7 @@ if not present then
 end
 
 treesitter.setup({
-	ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+	ensure_installed = "all",   -- A list of parser names, or "all"
 	highlight = {
 		enable = true, -- false will disable the whole extension
 	},

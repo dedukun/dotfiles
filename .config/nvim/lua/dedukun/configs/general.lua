@@ -55,6 +55,5 @@ vim.opt.tags = { "tags", "./tags" }
 vim.g.gruvbox_flat_style = "dark"
 vim.cmd([[colorscheme gruvbox-flat]])
 
--- python paths
-vim.g.python_host_prog = "/home/dedukun/.virtualenvs/vim-python2/bin/python2"
+-- python path
 vim.g.python3_host_prog = "/home/dedukun/.virtualenvs/vim/bin/python"

@@ -39,14 +39,13 @@ bspc config initial_polarity first_child
 ## AUTOSTART ##
 ###############
 
-$SCRIPTS/optimus-manager-fix.sh -f                  # fixes some configurations that depend on the display names
+$SCRIPTS/configurations-fix.sh -f                  # fixes some configurations that depend on the display names and/or laptop
 $SCRIPTS/mousebuttons.sh --on                       # start mouse extra buttons extra functionality
 $SCRIPTS/polybar/pulseaudio-microphone.sh --mute    # mute the microphone
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
 hsetroot -solid "#000"                              # change background to solid black
-xinput set-prop "ETPS/2 Elantech Touchpad" "libinput Natural Scrolling Enabled" 1 # invert scrolling
 
 setxkbmap pt                                        # set keyboard map to portuguese
 setxkbmap -option ctrl:nocaps                       # disable the caps lock key
@@ -59,10 +58,13 @@ wmname LG3D                                         # rename the WM instance to 
                                                     # More info in: https://wiki.archlinux.org/index.php/Bspwm#Problems_with_Java_applications
 
 killall "sxhkd"
-sxhkd -m 1 &		                                # Bind keys with sxhkd
+sxhkd -m 1 &		                            # Bind keys with sxhkd
 
 pactl load-module module-bluetooth-discover         # fix bluetooth
 
 mtd -cc                                             # clean 'temp directories script' cache
+
+killall "redshift"
+redshift &                                          #
 
 # /usr/bin/prime-offload                              # for optimus-manager

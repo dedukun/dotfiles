@@ -1,6 +1,6 @@
 #!/bin/sh
 
-battery_lock_threshold=15
+battery_lock_threshold=20
 battery_cache_file="$SCRIPTS/.cache/check_battery"
 
 battery_noti_threshold=25
@@ -26,7 +26,6 @@ _check_cache_and_notify() {
                 sleep 5s
                 timeout 1s playerctl -a stop
                 slock
-                bspc wm -O eDP1 HDMI2
             fi
             return 0
         fi

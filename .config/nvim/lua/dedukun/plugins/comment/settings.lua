@@ -55,8 +55,24 @@ comment.setup({
 
 	---Pre-hook, called before commenting the line
 	---@type function|nil
-	pre_hook = function()
-		return require("ts_context_commentstring.internal").calculate_commentstring()
+	pre_hook = function(ctx)
+		local U = require('Comment.utils')
+
+		-- Detemine whether to use linewise or blockwise commentstring
+		local type = ctx.ctype == U.ctype.line and '__default' or '__multiline'
+
+		-- Determine the location where to calculate commentstring from
+		local location = nil
+		if ctx.ctype == U.ctype.block then
+			location = require('ts_context_commentstring.utils').get_cursor_location()
+		elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+			location = require('ts_context_commentstring.utils').get_visual_start_location()
+		end
+
+		return require('ts_context_commentstring.internal').calculate_commentstring({
+			key = type,
+			location = location,
+		})
 	end,
 
 	---Post-hook, called after commenting is done
@@ -64,11 +80,11 @@ comment.setup({
 	post_hook = nil,
 })
 
-ft.set("matlab", "% %s")
-ft.set("octave", "% %s")
 ft.set("dosini", "# %s")
-ft.set("markdown", "<!-- %s -->")
+ft.set("gdscript", "# %s")
 ft.set("gdscript3", "# %s")
-ft.set("GDScript", "# %s")
-ft.set("sxhkdrc", "# %s")
+ft.set("markdown", "<!-- %s -->")
+ft.set("matlab", "% %s")
 ft.set("mib", "-- %s")
+ft.set("octave", "% %s")
+ft.set("sxhkdrc", "# %s")

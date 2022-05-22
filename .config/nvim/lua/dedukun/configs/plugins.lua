@@ -35,8 +35,8 @@ return require("packer").startup({
 			use("lambdalisue/suda.vim")
 			-- colorscheme
 			use("eddyekofo94/gruvbox-flat.nvim")
-			-- floating terminal
-			use("numToStr/FTerm.nvim")
+			-- terminal
+			use("akinsho/toggleterm.nvim")
 		end
 
 		-----------------
@@ -51,6 +51,10 @@ return require("packer").startup({
 			use("dart-lang/dart-vim-plugin")
 			-- sxhkdrc
 			use("baskerville/vim-sxhkdrc")
+			-- systemd
+			use("wgwoods/vim-systemd-syntax")
+			-- bitbake
+			use("kergoth/vim-bitbake")
 		end
 
 		-----------------
@@ -71,6 +75,11 @@ return require("packer").startup({
 					{ "kyazdani42/nvim-web-devicons", opt = true },
 					-- active lsp clients from the $/progress endpoint
 					{ "arkav/lualine-lsp-progress" },
+					-- status line component that shows context of the current cursor position in file
+					{
+						"SmiteshP/nvim-gps",
+						requires = "nvim-treesitter/nvim-treesitter",
+					},
 				},
 			})
 			--brackets color
@@ -86,7 +95,7 @@ return require("packer").startup({
 			--ANSI color converter
 			use("powerman/vim-plugin-AnsiEsc")
 			--color name highlighter
-			use("norcalli/nvim-colorizer.lua")
+			use({ "RRethy/vim-hexokinase", run = "make hexokinase" })
 			--nvim for web browser
 			use({
 				"glacambre/firenvim",
@@ -123,7 +132,13 @@ return require("packer").startup({
 				branch = "linux-browser-args",
 			})
 			--file explorer
-			use("kyazdani42/nvim-tree.lua")
+			use({
+				"kyazdani42/nvim-tree.lua",
+				requires = {
+					-- file icon
+					"kyazdani42/nvim-web-devicons",
+				},
+			})
 			--highlight, navigate, and operate on sets of matching text
 			use("andymass/vim-matchup")
 			--comments
@@ -135,17 +150,20 @@ return require("packer").startup({
 			--annotation toolkit
 			use({
 				"danymat/neogen",
-				config = function()
-					require("neogen").setup({
-						enabled = true,
-					})
-				end,
 				requires = "nvim-treesitter/nvim-treesitter",
 			})
 			--speed up loading Lua modules in Neovim to improve startup time.
 			use("lewis6991/impatient.nvim")
 			--  make mapping and commands more manageable in lua
 			use("b0o/mapx.nvim")
+			-- debug adapter protocol client implementation
+			use("mfussenegger/nvim-dap")
+			-- pretty list for showing diagnostics
+			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
+			use({
+				"saecki/crates.nvim",
+				requires = { "nvim-lua/plenary.nvim" },
+			})
 		end
 
 		-----------------
@@ -187,6 +205,8 @@ return require("packer").startup({
 					"hrsh7th/cmp-cmdline",
 					--cmp LuaSnip source
 					"saadparwaiz1/cmp_luasnip",
+					--cmp dap source
+					"rcarriga/cmp-dap",
 				},
 			})
 		end

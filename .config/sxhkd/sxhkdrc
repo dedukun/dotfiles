@@ -124,67 +124,67 @@ super + w
 ##
 
 # Run networkmanager in dmenu
-super + F2
-        networkmanager_dmenu
+# super + F2
+#         networkmanager_dmenu
 
 # keyboard backlight
-super + F3
-        light -s "sysfs/leds/asus::kbd_backlight" -U 50
-
-super + F4
-        light -s "sysfs/leds/asus::kbd_backlight" -A 50
+# super + F3
+#         light -s "sysfs/leds/asus::kbd_backlight" -U 50
+#
+# super + F4
+#         light -s "sysfs/leds/asus::kbd_backlight" -A 50
 
 # screen backlight
-super + F5
+XF86MonBrightnessDown
         light -U 5
-super + F6
+XF86MonBrightnessUp
         light -A 5
-super + control + F5
+control + XF86MonBrightnessDown
         light -U 10
-super + control + F6
+control + XF86MonBrightnessUp
         light -A 10
-super + shift + F5
+shift XF86MonBrightnessDown
         light -U 1
-super + shift + F6
+shift + XF86MonBrightnessUp
         light -A 1
 
-# Toggle touchpad
-super + F9
-        $SCRIPTS/nomouse.sh
-
-# Toggle touchpad with no delay
-super + control + F9
-        $SCRIPTS/nomouse.sh --no-delay
+# # Toggle touchpad
+# super + F9
+#         $SCRIPTS/nomouse.sh
+#
+# # Toggle touchpad with no delay
+# super + control + F9
+#         $SCRIPTS/nomouse.sh --no-delay
 
 # Toggle microphone
-super + shift + F10
-        $SCRIPTS/polybar/pipewire-microphone.sh --toggle
+shift + XF86AudioMute
+        $SCRIPTS/polybar/pulseaudio-microphone.sh --toggle
 
 # Volume controls
-super + F10
+XF86AudioMute
         pamixer --toggle-mute
-super + F11
+XF86AudioLowerVolume
         pamixer --decrease 5
-super + F12
+XF86AudioRaiseVolume
         pamixer --increase 5
-super + control + F11
+control + XF86AudioLowerVolume
         pamixer --decrease 10
-super + control + F12
+control + XF86AudioRaiseVolume
         pamixer --increase 10
-super + shift + F11
+shift + XF86AudioLowerVolume
         pamixer --decrease 1
-super + shift + F12
+shift + XF86AudioRaiseVolume
         pamixer --increase 1
 
 # Media controls
 # playerctl is pending with firefox, but still works
-super + Up
+XF86AudioStop
         timeout 1s playerctl stop
-super + Right
+XF86AudioNext
         timeout 1s playerctl next
-super + Left
+XF86AudioPrev
         timeout 1s playerctl previous
-super + Down
+XF86AudioPlay
         timeout 1s playerctl play-pause
 
 # screen shots
@@ -199,7 +199,9 @@ super + control + Print
 super + control + shift + Print
         $SCRIPTS/screenshots.sh -f $($SCRIPTS/project/manage.sh per --get)/Pictures/screenshots -m
 
-# Others
+##
+## OTHERS
+##
 
 # Curret GBT project TODO list
 super + t
@@ -245,9 +247,5 @@ super + c
 super + n
         kill -s USR1 $(pidof deadd-notification-center)
 
-# run share audio
-super + a
-        $SCRIPTS/shareaudio.sh
-
-grave
-        slock && bspc wm -O eDP1 HDMI2
+# grave
+        # slock && bspc wm -O eDP1 HDMI2

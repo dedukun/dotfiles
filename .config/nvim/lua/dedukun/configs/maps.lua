@@ -60,9 +60,8 @@ nnoremap("<leader>ff", "<cmd>lua require('telescope.builtin').find_files({cwd='$
 -- Make shift tab work in insert mode
 inoremap("<S-Tab>", "<C-d>")
 
--- Open/Close floating terminal
-nnoremap("<leader>F", "<cmd>lua require('FTerm').toggle()<cr>")
-tnoremap("<leader>F", "<cmd>lua require('FTerm').toggle()<cr>")
+-- Open/Close Terminal
+-- nnoremap("<C-\\>", "<cmd>ToggleTerm<CR>")
 
 --------------------
 -- LSPsaga
@@ -78,3 +77,11 @@ nnoremap("<leader>dd", "<cmd>lua require('neogen').generate()<cr>")
 nnoremap("<leader>dc", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>")
 nnoremap("<leader>df", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>")
 nnoremap("<leader>dt", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>")
+
+-- trouble
+nnoremap("<leader>x", "<cmd>lua require('neogen').generate()<cr>")
+nnoremap("<leader>xx", "<cmd>TroubleToggle<cr>")
+nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
+nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
+nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
+nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
