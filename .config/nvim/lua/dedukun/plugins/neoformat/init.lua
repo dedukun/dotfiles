@@ -1,1 +1,1 @@
-require("dedukun.plugins.neoformat.settings")
+vim.g.shfmt_opt = "-ci"

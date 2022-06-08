@@ -41,6 +41,7 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.updatetime = 300
 vim.opt.shortmess:append("c") -- don't give |ins-completion-menu| messages.
 vim.opt.signcolumn = "yes" -- show the signcolumn
+vim.opt.laststatus = 3 -- only have a single statusline
 vim.o.lazyredraw = true -- useful for when executing macros.
 vim.o.ttimeoutlen = 10 -- ms to wait for a key code seq to complete
 

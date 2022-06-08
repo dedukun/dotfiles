@@ -1,6 +1,9 @@
 --------------------
 -- Plugins Settings
 
+-- nvim-web-devicons
+require("dedukun.plugins.nvim-web-devicons")
+
 -- vim-better-whitespace
 require("dedukun.plugins.vim-better-whitespace")
 
@@ -12,19 +15,11 @@ if vim.fn.exists("g:vscode") == 0 then
 	require("dedukun.plugins.nvim-tree")
 end
 
--- editorconfig
-require("dedukun.plugins.editorconfig")
-
 -- comment
 require("dedukun.plugins.comment")
 
 -- vim-matchup
 require("dedukun.plugins.vim-matchup")
-
--- markdown previewer
-if vim.fn.exists("g:vscode") == 0 then
-	require("dedukun.plugins.markdown-previewer")
-end
 
 -- quick-scope
 if vim.fn.exists("g:vscode") == 0 then
@@ -34,17 +29,11 @@ end
 -- neoformat
 require("dedukun.plugins.neoformat")
 
--- firenvim
-require("dedukun.plugins.firenvim")
-
 -- treesitter
 require("dedukun.plugins.treesitter")
 
 -- lspinstall
 require("dedukun.plugins.lsp")
-
--- vim-hexokinase
-require("dedukun.plugins.vim-hexokinase")
 
 -- auto completion
 require("dedukun.plugins.nvim-cmp")
@@ -90,3 +79,9 @@ require("dedukun.plugins.toggleterm")
 
 -- nvim-gps
 require("dedukun.plugins.nvim-gps")
+
+-- nvim-window
+require("dedukun.plugins.nvim-window")
+
+-- nvim-dap
+require("dedukun.plugins.nvim-dap")

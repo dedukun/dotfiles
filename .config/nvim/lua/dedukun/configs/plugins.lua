@@ -22,7 +22,7 @@ return require("packer").startup({
 		-- show whitespaces at the end of lines in red
 		use("ntpeters/vim-better-whitespace")
 		-- visual search with * and #
-		use("nelstrom/vim-visual-star-search")
+		use("bronson/vim-visual-star-search")
 		-- smooth scrolling with ^D,^U,^F,^B
 		use("karb94/neoscroll.nvim")
 
@@ -40,13 +40,29 @@ return require("packer").startup({
 		end
 
 		-----------------
-		-- Syntax
+		-- Treesitter
 		-----------------
 		if vim.fn.exists("g:vscode") == 0 then
 			use({
 				"nvim-treesitter/nvim-treesitter",
 				run = ":TSUpdate",
 			})
+			-- brackets color
+			use("p00f/nvim-ts-rainbow")
+			-- set the commentstring option based on the cursor location
+			use("JoosepAlviste/nvim-ts-context-commentstring")
+			-- auto close and auto rename html tag
+			use("windwp/nvim-ts-autotag")
+			-- spell checker for Neovim powered by tree-sitter
+			use("lewis6991/spellsitter.nvim")
+			-- annotation toolkit
+			use("danymat/neogen")
+		end
+
+		-----------------
+		-- Extra Syntax
+		-----------------
+		if vim.fn.exists("g:vscode") == 0 then
 			-- dart
 			use("dart-lang/dart-vim-plugin")
 			-- sxhkdrc
@@ -60,50 +76,33 @@ return require("packer").startup({
 		-----------------
 		-- Misc
 		-----------------
-		--horizontal movement helper
+		-- horizontal movement helper
 		use("unblevable/quick-scope")
-		--extended increment/decrement
+		-- extended increment/decrement
 		use("monaqa/dial.nvim")
 		if vim.fn.exists("g:vscode") == 0 then
 			use("nvim-lua/popup.nvim")
+			-- all the lua functions i don't want to write twice.
 			use("nvim-lua/plenary.nvim")
-			--status/tabline
+			-- status/tabline
 			use({
 				"nvim-lualine/lualine.nvim",
 				requires = {
-					--for file icons
-					{ "kyazdani42/nvim-web-devicons", opt = true },
+					-- for file icons
+					{ "kyazdani42/nvim-web-devicons" },
 					-- active lsp clients from the $/progress endpoint
 					{ "arkav/lualine-lsp-progress" },
 					-- status line component that shows context of the current cursor position in file
-					{
-						"SmiteshP/nvim-gps",
-						requires = "nvim-treesitter/nvim-treesitter",
-					},
+					{ "SmiteshP/nvim-gps" },
 				},
 			})
-			--brackets color
-			use("p00f/nvim-ts-rainbow")
-			--set the commentstring option based on the cursor location
-			use("JoosepAlviste/nvim-ts-context-commentstring")
-			--auto close and auto rename html tag
-			use("windwp/nvim-ts-autotag")
-			--formatter
+			-- formatter
 			use("sbdchd/neoformat")
-			--editorconfig plugin
-			use("editorconfig/editorconfig-vim")
-			--ANSI color converter
+			-- ANSI color converter
 			use("powerman/vim-plugin-AnsiEsc")
-			--color name highlighter
+			-- color name highlighter
 			use({ "RRethy/vim-hexokinase", run = "make hexokinase" })
-			--nvim for web browser
-			use({
-				"glacambre/firenvim",
-				run = function()
-					vim.fn["firenvim#install"](0)
-				end,
-			})
-			--fuzzy finder
+			-- fuzzy finder
 			use({
 				"nvim-telescope/telescope.nvim",
 				requires = {
@@ -111,27 +110,20 @@ return require("packer").startup({
 					{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
 				},
 			})
-			--show git diffs in file
+			-- show git diffs in file
 			use({
 				"lewis6991/gitsigns.nvim",
 				requires = {
 					"nvim-lua/plenary.nvim",
 				},
 			})
-			--show keybindings when timed out
+			-- show keybindings when timed out
 			use("folke/which-key.nvim")
-			--show indentation level
+			-- show indentation level
 			use("lukas-reineke/indent-blankline.nvim")
-			--highlight and search for todo comments like TODO, HACK, BUG
+			-- highlight and search for todo comments like TODO, HACK, BUG
 			use({ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" })
-			--markdown previewer
-			use({
-				"dedukun/markdown-preview.nvim",
-				run = "cd app && yarn install",
-				cmd = "MarkdownPreview",
-				branch = "linux-browser-args",
-			})
-			--file explorer
+			-- file explorer
 			use({
 				"kyazdani42/nvim-tree.lua",
 				requires = {
@@ -139,31 +131,31 @@ return require("packer").startup({
 					"kyazdani42/nvim-web-devicons",
 				},
 			})
-			--highlight, navigate, and operate on sets of matching text
+			-- highlight, navigate, and operate on sets of matching text
 			use("andymass/vim-matchup")
-			--comments
+			-- comments
 			use("numToStr/Comment.nvim")
-			--spell checker for Neovim powered by tree-sitter
-			use("lewis6991/spellsitter.nvim")
-			--light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
+			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
 			use("tami5/lspsaga.nvim")
-			--annotation toolkit
-			use({
-				"danymat/neogen",
-				requires = "nvim-treesitter/nvim-treesitter",
-			})
-			--speed up loading Lua modules in Neovim to improve startup time.
+			-- speed up loading Lua modules in Neovim to improve startup time.
 			use("lewis6991/impatient.nvim")
-			--  make mapping and commands more manageable in lua
+			-- make mapping and commands more manageable in lua
 			use("b0o/mapx.nvim")
 			-- debug adapter protocol client implementation
-			use("mfussenegger/nvim-dap")
+			use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 			-- pretty list for showing diagnostics
 			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
+			-- see crates versions in rust
 			use({
 				"saecki/crates.nvim",
 				requires = { "nvim-lua/plenary.nvim" },
 			})
+			-- null-ls
+			use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
+			--  simple and opinionated NeoVim plugin for switching between windows in the current tab page
+			use("https://gitlab.com/yorickpeterse/nvim-window")
+			-- fix neovim CursorHold and CursorHoldI autocmd
+			use("antoinemadec/FixCursorHold.nvim")
 		end
 
 		-----------------
@@ -228,8 +220,6 @@ return require("packer").startup({
 		-----------------
 		--maps to delete, change,... around brackets,... (eg. cs'<q>)
 		use("tpope/vim-surround")
-		--maps for multiple uses
-		use("tpope/vim-unimpaired")
 		--more repeatable plugins
 		use("tpope/vim-repeat")
 		--automatically adjust tab size intelligently

@@ -73,10 +73,10 @@ nnoremap("<silent> <C-f>", "<cmd>lua require('lspsaga.action').smart_scroll_with
 nnoremap("<silent> <C-b>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
 
 -- documentation
-nnoremap("<leader>dd", "<cmd>lua require('neogen').generate()<cr>")
-nnoremap("<leader>dc", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>")
-nnoremap("<leader>df", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>")
-nnoremap("<leader>dt", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>")
+nnoremap("<leader>gd", "<cmd>lua require('neogen').generate()<cr>")
+nnoremap("<leader>gc", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>")
+nnoremap("<leader>gf", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>")
+nnoremap("<leader>gt", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>")
 
 -- trouble
 nnoremap("<leader>x", "<cmd>lua require('neogen').generate()<cr>")
@@ -85,3 +85,23 @@ nnoremap("<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>")
 nnoremap("<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>")
 nnoremap("<leader>xq", "<cmd>TroubleToggle quickfix<cr>")
 nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
+
+-- pick window
+nnoremap("<leader>w", "<cmd>lua require('nvim-window').pick()<cr>")
+
+-- documentation
+nnoremap("<leader>dcc", "<cmd>lua require'dap'.continue()<cr>")
+nnoremap("<leader>dcC", "<cmd>lua require'dap'.close()<cr>")
+nnoremap("<leader>dcp", "<cmd>lua require'dap'.pause()<cr>")
+nnoremap("<leader>dct", "<cmd>lua require'dap'.terminate()<cr>")
+nnoremap("<leader>dso", "<cmd>lua require'dap'.step_over()<cr>")
+nnoremap("<leader>dsi", "<cmd>ua require'dap'.step_into()<cr>")
+nnoremap("<leader>dsO", "<cmd>ua require'dap'.step_out()<cr>")
+nnoremap("<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+nnoremap("<leader>dT", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
+nnoremap("<leader>dl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
+nnoremap("<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
+nnoremap("<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
+nnoremap("<leader>du", "<cmd>lua require'dapui'.toggle()<cr>")
+nnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+vnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")

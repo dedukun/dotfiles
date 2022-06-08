@@ -1,1 +1,2 @@
-require("dedukun.plugins.vim-better-whitespace.settings")
+vim.g.better_whitespace_filetypes_blacklist = { "help", "diff", "toggleterm" }
+vim.g.better_whitespace_ctermcolor = "DarkRed"

@@ -1,1 +1,1 @@
-require("dedukun.plugins.vim-matchup.settings")
+vim.g.matchup_matchparen_offscreen = { method = "popup" }

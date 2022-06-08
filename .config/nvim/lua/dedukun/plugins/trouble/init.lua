@@ -1,1 +1,6 @@
-require("dedukun.plugins.trouble.settings")
+local present, trouble = pcall(require, "trouble")
+if not present then
+	return
+end
+
+trouble.setup({})
