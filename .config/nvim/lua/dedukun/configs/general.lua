@@ -44,6 +44,9 @@ vim.opt.signcolumn = "yes" -- show the signcolumn
 vim.opt.laststatus = 3 -- only have a single statusline
 vim.o.lazyredraw = true -- useful for when executing macros.
 vim.o.ttimeoutlen = 10 -- ms to wait for a key code seq to complete
+vim.wo.foldcolumn = '1'
+vim.wo.foldlevel = 99
+vim.wo.foldenable = true
 
 -- Change the directory where temporary files are stored
 vim.opt.backupdir = "/home/dedukun/.config/nvim/.backup//"

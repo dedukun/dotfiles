@@ -2,6 +2,7 @@
 # ALIAS #
 #########
 
+[ -f $HOME/.profile ] && source $HOME/.profile
 [ -f $HOME/.aliases ] && source $HOME/.aliases
 
 ############
@@ -17,7 +18,7 @@ youtube() {
 
 # start python's virtualenvwrapper
 workonenv() {
-    export WORKON_HOME="$HOME/.virtualenvs"
+    # export WORKON_HOME="$/.virtualenvs"
     export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
     . "$HOME/.local/bin/virtualenvwrapper.sh"
 }
@@ -44,7 +45,7 @@ run_swallow() {
 ##  ZNAP STUFF  #
 #################
 
-export ZNAP_HOME="$ZSH_CONFIGS/znap"
+export ZNAP_HOME="$HOME/.config/zsh/znap"
 source "$ZNAP_HOME/zsh-snap/znap.zsh"
 
 # prompt
@@ -80,6 +81,7 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' special-dirs true
 zmodload zsh/complist
 compinit
+# compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
 
 # Enable Ctrl-x-e to edit command line
 autoload -U edit-command-line

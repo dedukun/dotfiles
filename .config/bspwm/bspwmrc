@@ -10,7 +10,8 @@ bspc rule -r "*"
 bspc rule -a mpv state=fullscreen
 bspc rule -a Zathura state=tiled
 bspc rule -a "firefox:Toolkit" state=floating sticky=on rectangle=295x166+1052+595
-bspc rule -a Gnome-calculator state=floating
+bspc rule -a gnome-calculator state=floating
+bspc rule -a SpeedCrunch state=floating
 bspc rule -a Electron state=floating
 bspc rule -a Rocket.Chat desktop=^9
 bspc rule -a Slack desktop=^9
@@ -42,13 +43,14 @@ bspc config initial_polarity first_child
 ## AUTOSTART ##
 ###############
 
-$SCRIPTS/configurations-fix.sh -f                  # fixes some configurations that depend on the display names and/or laptop
+$SCRIPTS/configurations-fix.sh -f                   # fixes some configurations that depend on the display names and/or laptop
 $SCRIPTS/mousebuttons.sh --on                       # start mouse extra buttons extra functionality
 $SCRIPTS/polybar/pulseaudio-microphone.sh --mute    # mute the microphone
 $SCRIPTS/display.sh -o                              # start display and polybar
 
 xsetroot -cursor_name left_ptr                      # set the default mouse shape
-hsetroot -solid "#000"                              # change background to solid black
+# hsetroot -solid "#000"                              # change background t solid black
+hsetroot -center $HOME/Pictures/WallPapers/1.png    # set background image
 
 setxkbmap pt                                        # set keyboard map to portuguese
 setxkbmap -option ctrl:nocaps                       # disable the caps lock key
@@ -67,7 +69,8 @@ pactl load-module module-bluetooth-discover         # fix bluetooth
 
 mtd -cc                                             # clean 'temp directories script' cache
 
+killall "picom"                                     # start compositor
+picom &
+
 killall "redshift"
 redshift &                                          #
-
-# /usr/bin/prime-offload                              # for optimus-manager

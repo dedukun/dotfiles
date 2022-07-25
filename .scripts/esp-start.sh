@@ -7,6 +7,7 @@
 espstart_home="$HOME/Globaltronic/espressiff"
 espstart_idfs="$espstart_home/idf"
 espstart_adfs="$espstart_home/adf"
+espstart_rust="$espstart_home/rust"
 espstart_tools="$espstart_home/tools"
 
 espstart_env_dir="/tmp/espstart-env"
@@ -36,6 +37,10 @@ _list_adfs() {
     ls $espstart_adfs
 }
 
+_list_rust() {
+    ls $espstart_rust
+}
+
 _start_env() {
     mkdir -p "$espstart_env_dir" 2>/dev/null
 
@@ -43,7 +48,7 @@ _start_env() {
     [ -f ~/.profile ] && printf ". $HOME/.profile\n" >>"$espstart_env_rc"
 
     if [ "$espstart_env_shell" = "zsh" ]; then
-        [ -f ~/.zshrc ] && printf ". $HOME/.zshrc\n\n" >>"$espstart_env_rc"
+        [ -f $XDG_CONFIG_HOME/zsh/.zshrc ] && printf ". $XDG_CONFIG_HOME/zsh/.zshrc\n\n" >>"$espstart_env_rc"
     else
         [ -f ~/.bashrc ] && printf ". $HOME/.bashrc\n\n" >>"$espstart_env_rc"
     fi
@@ -75,6 +80,14 @@ _change_adf_ps1() {
     fi
 }
 
+_change_rust_ps1() {
+    if [ -z $espstart_ps_pure ]; then
+        echo 'export PS1="\[\033[01;36m\](ESP Rust) \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
+    else
+        echo 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ESP Rust) ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
+    fi
+}
+
 _enable_cmake_colors() {
     echo "export EXTRA_CFLAGS=-fdiagnostics-color=always" >>"$espstart_env_rc"
     echo "export GCC_COLORS='error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:path=01;36:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32:type-diff=01;32'" >>"$espstart_env_rc"
@@ -86,7 +99,9 @@ _save_settings() {
     if [ "$save_settings" = "Yes" ]; then
         notify-send "ESP-Start" "Saved Settings"
 
-        if [ -n "$2" ]; then
+        if [ -n "$3" ]; then
+            echo "Rust=$3" >"$espstart_local_settings"
+        elif [ -n "$2" ]; then
             echo -e "IDF=$1\nADF=$2" >"$espstart_local_settings"
         else
             echo "IDF=$1" >"$espstart_local_settings"
@@ -101,8 +116,11 @@ _load_settings() {
         if [ "$load_settings" = "Yes" ]; then
             choosen_idf="$(cat $espstart_local_settings | grep 'IDF=' | cut -d'=' -f2)"
             choosen_adf="$(cat $espstart_local_settings | grep 'ADF=' | cut -d'=' -f2)"
+            choosen_rust="$(cat $espstart_local_settings | grep 'Rust=' | cut -d'=' -f2)"
 
-            if [ -n "$choosen_adf" ]; then
+            if [ -n "$choosen_rust" ]; then
+                start_rust "$choosen_rust"
+            elif [ -n "$choosen_adf" ]; then
                 _check_tags
                 start_adf "$choosen_idf" "$choosen_adf"
             else
@@ -161,6 +179,20 @@ start_adf() {
     fi
 }
 
+start_rust() {
+    _start_env
+
+    _change_rust_ps1
+
+    echo ". '${espstart_rust}/$1/export-esp-rust.sh'" >>"$espstart_env_rc"
+    if [ "$espstart_env_shell" = "zsh" ]; then
+        unset ZDOTDIR
+        ZDOTDIR=$espstart_env_dir zsh
+    else
+        bash --init-file "$espstart_env_rc"
+    fi
+}
+
 #############################################
 #================= M A I N =================#
 #############################################
@@ -181,13 +213,13 @@ _load_settings
 
 # Allow for selection if ADF exists
 if [ -d "$espstart_adfs" ]; then
-    idf_or_adf="$(echo -e 'IDF\nADF' | rofi -dmenu -p 'Choose:' -l 2 -i)"
-    [ -z "$idf_or_adf" ] && _exit_error "No option was choosen"
+    framework="$(echo -e 'IDF\nADF\nRust' | rofi -dmenu -p 'Choose:' -l 3 -i)"
+    [ -z "$framework" ] && _exit_error "No option was choosen"
 else
-    idf_or_adf="IDF"
+    framework="IDF"
 fi
 
-if [ "$idf_or_adf" = "IDF" ]; then
+if [ "$framework" = "IDF" ]; then
     idfs_count="$(_list_idfs | wc -w)"
     choosen_idf="$(_list_idfs | rofi -dmenu -p 'IDF Version:' -l $idfs_count -i)"
 
@@ -198,7 +230,7 @@ if [ "$idf_or_adf" = "IDF" ]; then
     _check_tags
 
     start_idf "$choosen_idf"
-elif [ "$idf_or_adf" = "ADF" ]; then
+elif [ "$framework" = "ADF" ]; then
     adfs_count="$(_list_adfs | wc -w)"
     choosen_adf="$(_list_adfs | rofi -dmenu -p 'ADF Version:' -l $adfs_count -i)"
 
@@ -214,6 +246,15 @@ elif [ "$idf_or_adf" = "ADF" ]; then
     _check_tags
 
     start_adf "$choosen_idf" "$choosen_adf"
+elif [ "$framework" = "Rust" ]; then
+    rust_count="$(_list_rust | wc -w)"
+    choosen_rust="$(_list_rust | rofi -dmenu -p 'Rust Version:' -l $rust_count -i)"
+
+    [ -z "$choosen_rust" ] && _exit_error "No Rust was choosen"
+
+    _save_settings "" "" "$choosen_rust"
+
+    start_rust "$choosen_rust"
 else
-    _exit_error "Unkown option '$idf_or_adf'"
+    _exit_error "Unkown option '$framework'"
 fi

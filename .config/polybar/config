@@ -55,7 +55,7 @@ module-margin-right = 2
 font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = Siji:pixelsize=10;1
-font-3 = Font Awesome 5 Free,Font Awesome 5 Free Solid:style=Solid:size=8:antialias=false;3
+font-3 = Font Awesome 6 Free,Font Awesome 6 Free Solid:style=Solid:size=8:antialias=false;3
 
 modules-left = bspwm
 modules-right = check-battery filesystem pulseaudio pulseaudio-microphone updates-pacman-aurhelper memory cpu vpn-networkmanager-status wlan eth battery temperature popup-calendar

@@ -74,6 +74,21 @@ return require("packer").startup({
 		end
 
 		-----------------
+		-- Utils
+		-----------------
+		-- all the lua functions i don't want to write twice.
+		use("nvim-lua/plenary.nvim")
+		-- make mapping and commands more manageable in lua
+		use("b0o/mapx.nvim")
+		-- null-ls
+		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
+		if vim.fn.exists("g:vscode") == 0 then
+			use("nvim-lua/popup.nvim")
+			-- speed up loading Lua modules in Neovim to improve startup time.
+			use("lewis6991/impatient.nvim")
+		end
+
+		-----------------
 		-- Misc
 		-----------------
 		-- horizontal movement helper
@@ -81,9 +96,6 @@ return require("packer").startup({
 		-- extended increment/decrement
 		use("monaqa/dial.nvim")
 		if vim.fn.exists("g:vscode") == 0 then
-			use("nvim-lua/popup.nvim")
-			-- all the lua functions i don't want to write twice.
-			use("nvim-lua/plenary.nvim")
 			-- status/tabline
 			use({
 				"nvim-lualine/lualine.nvim",
@@ -137,10 +149,6 @@ return require("packer").startup({
 			use("numToStr/Comment.nvim")
 			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
 			use("tami5/lspsaga.nvim")
-			-- speed up loading Lua modules in Neovim to improve startup time.
-			use("lewis6991/impatient.nvim")
-			-- make mapping and commands more manageable in lua
-			use("b0o/mapx.nvim")
 			-- debug adapter protocol client implementation
 			use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 			-- pretty list for showing diagnostics
@@ -150,12 +158,19 @@ return require("packer").startup({
 				"saecki/crates.nvim",
 				requires = { "nvim-lua/plenary.nvim" },
 			})
-			-- null-ls
-			use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 			--  simple and opinionated NeoVim plugin for switching between windows in the current tab page
 			use("https://gitlab.com/yorickpeterse/nvim-window")
 			-- fix neovim CursorHold and CursorHoldI autocmd
 			use("antoinemadec/FixCursorHold.nvim")
+			-- better/faster folds
+			use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+			-- disable background colors
+			use({ "xiyaowong/nvim-transparent" })
+			-- tab bar
+			use({
+				"romgrk/barbar.nvim",
+				requires = { "kyazdani42/nvim-web-devicons" },
+			})
 		end
 
 		-----------------

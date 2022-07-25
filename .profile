@@ -1,5 +1,26 @@
 #!/bin/sh
 
+#XDG
+export XDG_STATE_HOME="$HOME/.local/state"
+
+export HISTFILE="${XDG_STATE_HOME}/bash/history"
+export ANDROID_HOME="$XDG_DATA_HOME/android"
+export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
+export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
+export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
+export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
+export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
+
+export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
+
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export SCREENRC="$XDG_CONFIG_HOME/screen/screenrc"
+export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
+export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
+
 # Default programs
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -35,7 +56,6 @@ export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
 
 # Configs
-export ANDROID_HOME="/opt/android-sdk"
 export ANDROID_SDK_ROOT="/opt/android-sdk"
 export BSP_LAYOUT_ROOT="$HOME/Applications/bsp-layout/src"
 export FZF_DEFAULT_COMMAND='fd --type f'
@@ -44,9 +64,6 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export TASKRC="$HOME/.config/task/config"
-
-# export python startup file to add autocomplete to python console
-export PYTHONSTARTUP="$HOME/.pythonrc"
 
 # export socket for ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"

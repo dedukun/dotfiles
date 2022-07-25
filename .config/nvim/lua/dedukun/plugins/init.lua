@@ -84,4 +84,21 @@ require("dedukun.plugins.nvim-gps")
 require("dedukun.plugins.nvim-window")
 
 -- nvim-dap
-require("dedukun.plugins.nvim-dap")
+if vim.fn.exists("g:vscode") == 0 then
+	require("dedukun.plugins.nvim-dap")
+end
+
+-- nvim-ufo
+if vim.fn.exists("g:vscode") == 0 then
+	require("dedukun.plugins.nvim-ufo")
+end
+
+-- transparent
+if vim.fn.exists("g:vscode") == 0 then
+	require("dedukun.plugins.transparent")
+end
+
+-- barbar
+if vim.fn.exists("g:vscode") == 0 then
+	require("dedukun.plugins.barbar")
+end

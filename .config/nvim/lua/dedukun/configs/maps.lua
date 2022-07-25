@@ -105,3 +105,31 @@ nnoremap("<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
 nnoremap("<leader>du", "<cmd>lua require'dapui'.toggle()<cr>")
 nnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
 vnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+
+-- barbar
+-- Move to previous/next
+nnoremap("<A-,>", ":BufferPrevious<CR>")
+nnoremap("<A-.>", ":BufferNext<CR>")
+-- Re-order to previous/next
+nnoremap("<A-<>", ":BufferMovePrevious<CR>")
+nnoremap("<A->>", ":BufferMoveNext<CR>")
+-- Goto buffer in position...
+nnoremap("<A-1>", ":BufferGoto 1<CR>")
+nnoremap("<A-2>", ":BufferGoto 2<CR>")
+nnoremap("<A-3>", ":BufferGoto 3<CR>")
+nnoremap("<A-4>", ":BufferGoto 4<CR>")
+nnoremap("<A-5>", ":BufferGoto 5<CR>")
+nnoremap("<A-6>", ":BufferGoto 6<CR>")
+nnoremap("<A-7>", ":BufferGoto 7<CR>")
+nnoremap("<A-8>", ":BufferGoto 8<CR>")
+nnoremap("<A-9>", ":BufferGoto 9<CR>")
+nnoremap("<A-0>", ":BufferLast<CR>")
+-- Close buffer
+nnoremap("<A-c>", ":BufferClose<CR>")
+-- Magic buffer-picking mode
+nnoremap("<A-p>", ":BufferPick<CR>")
+-- Sort automatically by...
+nnoremap("<Space>bb", ":BufferOrderByBufferNumber<CR>")
+nnoremap("<Space>bd", ":BufferOrderByDirectory<CR>")
+nnoremap("<Space>bl", ":BufferOrderByLanguage<CR>")
+nnoremap("<Space>bw", ":BufferOrderByWindowNumber<CR>")

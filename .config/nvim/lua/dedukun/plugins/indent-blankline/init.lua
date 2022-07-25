@@ -5,5 +5,14 @@ end
 
 indent_blankline.setup({
 	char = "│",
-	buftype_exclude = { "terminal" },
+	filetype_exclude = {
+		"lspinfo",
+		"packer",
+		"checkhealth",
+		"help",
+		"man",
+		"",
+		"lsp-installer",
+	},
+	use_treesitter = true,
 })

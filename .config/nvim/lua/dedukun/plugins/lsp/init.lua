@@ -95,6 +95,13 @@ local lua_settings = {
 -- config that activates keymaps and enables snippet support
 local function make_config()
 	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+	-- adding folding capabilities
+	capabilities.textDocument.foldingRange = {
+		dynamicRegistration = false,
+		lineFoldingOnly = true,
+	}
+
 	return {
 		-- enable snippet support
 		capabilities = capabilities,
@@ -104,32 +111,50 @@ local function make_config()
 end
 
 local function setup_manual_servers()
-	local servers = { "gdscript" }
+	local servers = {
+		"gdscript",
+		"omnisharp",
+		-- modify default settings installed by lsp-installer
+		"sumneko_lua",
+		"clangd",
+	}
 
 	for _, lsp in pairs(servers) do
 		local config = make_config()
+
+		if lsp == "gdscript" then
+			config.cmd = { "nc", "localhost", "6005" }
+		elseif lsp == "sumneko_lua" then
+			config.settings = lua_settings
+		elseif lsp == "clangd" then
+			config.filetypes = { "c", "cpp" }
+		elseif lsp == "omnisharp" then
+			local pid = vim.fn.getpid()
+			local omnisharp_bin = "/home/dedukun/Applications/OmniSharp_V1.39.0/omnisharp/OmniSharp.exe"
+
+			config.cmd = { "mono", omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) }
+			config.filetypes = { "cs", "vb" }
+			config.init_options = {}
+			config.on_new_config = function(new_config, new_root_dir)
+				if new_root_dir then
+					table.insert(new_config.cmd, "-s")
+					table.insert(new_config.cmd, new_root_dir)
+				end
+			end
+			config.root_dir = lspconfig.util.root_pattern("*.sln")
+		end
+
 		lspconfig[lsp].setup(config)
 	end
 end
 
-local function setup_servers()
-	lspinstaller.on_server_ready(function(server)
-		local config = make_config()
-
-		if server.name == "sumneko_lua" then
-			config.settings = lua_settings
-		elseif server.name == "clangd" then
-			config.filetypes = { "c", "cpp" }
-		elseif server.name == "ccls" then
-			config.filetypes = { "c", "cpp" }
-		end
-
-		server:setup(config)
-	end)
-end
+lspinstaller.setup({
+	ui = {
+		border = "rounded",
+	},
+})
 
 setup_manual_servers()
-setup_servers()
 
 -- icons for diagnostics in gutter
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }

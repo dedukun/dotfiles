@@ -18,11 +18,15 @@ alias info='info --vi-keys'
 alias cp='cp -i'
 alias ra='ranger'
 alias jo='joshuto'
-alias ssh='TERM=xterm-256color ssh'
+alias ssh='kitty +kitten ssh'
 alias cdiff='diff-so-fancy | less --tabs=4 -RFX'
 alias trans='$SCRIPTS/other/trans'
 alias csm='$SCRIPTS/display.sh'
 alias formconf='$SCRIPTS/format_config.sh'
+alias netbeans='netbeans --userdir "$XDG_CONFIG_HOME/netbeans"'
+alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
+alias xbindkeys=xbindkeys -f "$XDG_CONFIG_HOME/xbindkeys/config"
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"
@@ -53,5 +57,12 @@ alias gtask='$SCRIPTS/project/taskwarrior_project.sh gbt'
 alias pcd='cd $($SCRIPTS/project/manage.sh per --get)'
 alias ptask='$SCRIPTS/project/taskwarrior_project.sh per'
 
-# other
-alias godot-vim='nvim --listen godothost'
+# nvidia programs
+alias prusa-slicer='prime-run prusa-slicer'
+alias prusa-gcodeviewer='prime-run prusa-gcodeviewer'
+alias freecad='prime-run freecad'
+alias blender='prime-run blender'
+alias godot='prime-run godot'
+alias godot4='prime-run godot4'
+alias pixelorama='prime-run pixelorama'
+alias unity='prime-run $HOME/Applications/Unity/2021.3.6f1/Editor/Unity'

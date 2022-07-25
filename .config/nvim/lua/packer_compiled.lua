@@ -84,6 +84,11 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["barbar.nvim"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/barbar.nvim",
+    url = "https://github.com/romgrk/barbar.nvim"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -239,6 +244,11 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
   },
+  ["nvim-transparent"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-transparent",
+    url = "https://github.com/xiyaowong/nvim-transparent"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
@@ -264,6 +274,11 @@ _G.packer_plugins = {
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-ts-rainbow",
     url = "https://github.com/p00f/nvim-ts-rainbow"
   },
+  ["nvim-ufo"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-ufo",
+    url = "https://github.com/kevinhwang91/nvim-ufo"
+  },
   ["nvim-web-devicons"] = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
@@ -288,6 +303,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/popup.nvim",
     url = "https://github.com/nvim-lua/popup.nvim"
+  },
+  ["promise-async"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/promise-async",
+    url = "https://github.com/kevinhwang91/promise-async"
   },
   ["quick-scope"] = {
     loaded = true,
