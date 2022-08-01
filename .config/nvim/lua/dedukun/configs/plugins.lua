@@ -71,6 +71,8 @@ return require("packer").startup({
 			use("wgwoods/vim-systemd-syntax")
 			-- bitbake
 			use("kergoth/vim-bitbake")
+			-- kitty
+			use("fladson/vim-kitty")
 		end
 
 		-----------------
@@ -155,7 +157,7 @@ return require("packer").startup({
 			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
 			-- see crates versions in rust
 			use({
-				"saecki/crates.nvim",
+				"Saecki/crates.nvim",
 				requires = { "nvim-lua/plenary.nvim" },
 			})
 			--  simple and opinionated NeoVim plugin for switching between windows in the current tab page

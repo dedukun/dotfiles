@@ -127,7 +127,7 @@ _G.packer_plugins = {
   ["crates.nvim"] = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/crates.nvim",
-    url = "https://github.com/saecki/crates.nvim"
+    url = "https://github.com/Saecki/crates.nvim"
   },
   ["dart-vim-plugin"] = {
     loaded = true,
@@ -368,6 +368,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-hexokinase",
     url = "https://github.com/RRethy/vim-hexokinase"
+  },
+  ["vim-kitty"] = {
+    loaded = true,
+    path = "/home/dedukun/.local/share/nvim/site/pack/packer/start/vim-kitty",
+    url = "https://github.com/fladson/vim-kitty"
   },
   ["vim-matchup"] = {
     loaded = true,
