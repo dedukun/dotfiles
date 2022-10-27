@@ -75,3 +75,4 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 if ! xset q &>/dev/null; then
     trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
 fi
+. "/home/dedukun/.local/share/cargo/env"

@@ -60,8 +60,8 @@ nnoremap("<leader>ff", "<cmd>lua require('telescope.builtin').find_files({cwd='$
 -- Make shift tab work in insert mode
 inoremap("<S-Tab>", "<C-d>")
 
--- Open/Close Terminal
--- nnoremap("<C-\\>", "<cmd>ToggleTerm<CR>")
+-- Format buffer
+nnoremap("<leader>F", "<cmd>lua vim.lsp.buf.format({ bufnr = bufnr })<cr>")
 
 --------------------
 -- LSPsaga
@@ -95,8 +95,8 @@ nnoremap("<leader>dcC", "<cmd>lua require'dap'.close()<cr>")
 nnoremap("<leader>dcp", "<cmd>lua require'dap'.pause()<cr>")
 nnoremap("<leader>dct", "<cmd>lua require'dap'.terminate()<cr>")
 nnoremap("<leader>dso", "<cmd>lua require'dap'.step_over()<cr>")
-nnoremap("<leader>dsi", "<cmd>ua require'dap'.step_into()<cr>")
-nnoremap("<leader>dsO", "<cmd>ua require'dap'.step_out()<cr>")
+nnoremap("<leader>dsi", "<cmd>lua require'dap'.step_into()<cr>")
+nnoremap("<leader>dsO", "<cmd>lua require'dap'.step_out()<cr>")
 nnoremap("<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
 nnoremap("<leader>dT", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
 nnoremap("<leader>dl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")

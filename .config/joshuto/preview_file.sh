@@ -221,6 +221,11 @@ handle_mime() {
             exiftool "${FILE_PATH}" && exit 5
             exit 1;;
 
+        ## SVG
+        image/svg | image/svg+xml)
+	    convert "${FILE_PATH}" "${IMAGE_CACHE_PATH}" && exit 5
+            exit 1;;
+
         ## Image
         image/*)
         #     ## Preview as text conversion

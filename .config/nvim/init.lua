@@ -1,4 +1,4 @@
-require("impatient")
+-- require("impatient")
 
 -- add plugins to packer
 require("dedukun.configs.plugins")

@@ -135,14 +135,15 @@ done
 
 [ "$($SCRIPTS/auxiliar/xrandr-query.sh $dis_out | grep -i 'disconnected')" != "" ] && _exit_error "$dis_out is not connected"
 
+$SCRIPTS/bspwm/manage_monitor.sh --save
+
 if [[ -n $dis_primary ]]; then # Set secondary monitor with primary option
     xrandr --output "$dis_out" --mode "$dis_mode" $dis_direction "$dis_base_monitor" --primary
-
-    reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
-    reset_polybar "dual"
 else # Set secondary monitor
     xrandr --output "$dis_out" --mode "$dis_mode" $dis_direction "$dis_base_monitor"
-
-    reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
-    reset_polybar "dual"
 fi
+
+reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
+reset_polybar "dual"
+
+$SCRIPTS/bspwm/manage_monitor.sh --load

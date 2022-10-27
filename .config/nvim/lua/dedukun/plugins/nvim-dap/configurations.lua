@@ -24,8 +24,34 @@ dap.configurations.c = {
 		miDebuggerPath = "/usr/bin/gdb",
 	},
 	{
+		name = "nRF OpenOCD",
+		type = "lldb",
+		request = "launch",
+		program = "build-rxcontroller/firmware.elf",
+		stopAtEntry = false,
+		cwd = "${workspaceFolder}",
+		-- console = "externalTerminal",
+		MIMode = "gdb",
+		miDebuggerServerAddress = 'localhost:2331',
+		miDebuggerPath = "/usr/bin/arm-none-eabi-gdb",
+		setupCommands = {
+			{
+				text = "target remote localhost:2331",
+			},
+			{
+				text = "file build-rxcontroller/firmware.elf",
+			},
+			{
+				text = "monitor reset 0",
+			},
+			{
+				text = "load",
+			},
+		},
+	},
+	{
 		name = "ESP32 OpenOCD",
-		type = "cppdbg",
+		type = "lldb",
 		request = "launch",
 		cwd = "${workspaceFolder}/build",
 		program = "${workspaceRoot}/build/tamburi.elf",

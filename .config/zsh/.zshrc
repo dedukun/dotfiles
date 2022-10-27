@@ -1,3 +1,4 @@
+source ~/.config/zsh/zsh-snap/zsh-snap/znap.zsh
 #########
 # ALIAS #
 #########
@@ -46,7 +47,6 @@ run_swallow() {
 #################
 
 export ZNAP_HOME="$HOME/.config/zsh/znap"
-source "$ZNAP_HOME/zsh-snap/znap.zsh"
 
 # prompt
 znap source mafredri/zsh-async

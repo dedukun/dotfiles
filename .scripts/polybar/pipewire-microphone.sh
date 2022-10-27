@@ -1,15 +1,15 @@
 #!/bin/sh
 
 get_mic_default() {
-    pw-cat --record --list-targets | sed -n -E "1 s/^.*: (.*)/\1/p"
+    pactl info | awk -F : '/Default Source:/{print $2}'
 }
 
 is_mic_muted() {
     mic_name="$(get_mic_default)"
 
-    pactl list sources | \
+    pactl list sources |
         awk -v mic_name="${mic_name}" '{
-            if ($0 ~ "Name: " mic_name) {
+            if ($0 ~ "Name:" mic_name) {
                 matched_mic_name = 1;
             } else if (matched_mic_name && /Mute/) {
                 print $2;
@@ -31,7 +31,8 @@ get_mic_status() {
 listen() {
     get_mic_status
 
-    LANG=EN; pactl subscribe | while read -r event; do
+    LANG=EN
+    pactl subscribe | while read -r event; do
         if printf "%s\n" "${event}" | grep --quiet "source" || printf "%s\n" "${event}" | grep --quiet "server"; then
             get_mic_status
         fi
@@ -42,9 +43,16 @@ toggle() {
     pactl set-source-mute @DEFAULT_SOURCE@ toggle
 }
 
+mute() {
+    pactl set-source-mute @DEFAULT_SOURCE@ 1
+}
+
 case "$1" in
     --toggle)
         toggle
+        ;;
+    --mute)
+        mute
         ;;
     *)
         listen

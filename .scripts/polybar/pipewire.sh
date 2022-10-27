@@ -1,68 +1,47 @@
 #!/bin/sh
 
-ICON_OFF=""
-ICON_LOW=""
-ICON_HIGH=""
-
-update_sink() {
-    sink=$(pw-play --list-targets | sed -n 's/^*[[:space:]]*\([[:digit:]]\+\):.*$/\1/p')
+get_volume() {
+    volume=$(pamixer --get-volume-human)
+    echo "$volume"
 }
 
-volume_up() {
-    update_sink
-    pactl set-sink-volume "$sink" +5%
+increase_volume() {
+    volume=$(pamixer --get-volume-human)
+
+    if [ $volume != "muted" ]; then
+        pamixer --increase 1
+    fi
 }
 
-volume_down() {
-    update_sink
-    pactl set-sink-volume "$sink" -5%
-}
+decrease_volume() {
+    volume=$(pamixer --get-volume-human)
 
-volume_mute() {
-    update_sink
-    pactl set-sink-mute "$sink" toggle
-}
-
-volume_print() {
-    update_sink
-
-    muted=$(pamixer --sink "$sink" --get-mute)
-
-    if [ "$muted" = true ]; then
-        echo "$ICON_OFF --"
-    else
-        volume=$(pamixer --sink "$sink" --get-volume)
-        if [ $volume -eq 0 ]; then
-            echo "$ICON_OFF $volume"
-        elif [ $volume -lt 40 ]; then
-            echo "$ICON_LOW $volume"
-        else
-            echo "$ICON_HIGH $volume"
-        fi
+    if [ $volume != "muted" ]; then
+        pamixer --decrease 1
     fi
 }
 
 listen() {
-    volume_print
+    get_volume
 
-    pactl subscribe | while read -r event; do
-        if echo "$event" | grep -qv "Client"; then
-            volume_print
+    LANG=EN; pactl subscribe | while read -r event; do
+        if printf "%s\n" "${event}" | grep --quiet "source" || printf "%s\n" "${event}" | grep --quiet "server"; then
+            get_volume
         fi
     done
 }
 
-case "$1" in
-    --up)
-        volume_up
+case $1 in
+    "--up")
+        increase_volume
         ;;
-    --down)
-        volume_down
+    "--down")
+        decrease_volume
         ;;
-    --mute)
-        volume_mute
+    "--mute")
+        pamixer --toggle-mute
         ;;
     *)
         listen
-        ;;
 esac
+

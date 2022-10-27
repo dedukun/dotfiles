@@ -17,6 +17,10 @@ case "$mimetype" in
     image/png | image/jpeg)
         show_image "$path" $x $y $width $height
         ;;
+    image/svg+xml | image/svg)
+        show_image "$path" $x $y $width $height
+        # inkview "$path"
+        ;;
     *)
         remove_image
 

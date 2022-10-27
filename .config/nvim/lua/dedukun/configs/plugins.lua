@@ -9,6 +9,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 		"https://github.com/wbthomason/packer.nvim",
 		install_path,
 	})
+	vim.cmd [[packadd packer.nvim]]
 end
 
 return require("packer").startup({
@@ -43,10 +44,10 @@ return require("packer").startup({
 		-- Treesitter
 		-----------------
 		if vim.fn.exists("g:vscode") == 0 then
-			use({
-				"nvim-treesitter/nvim-treesitter",
-				run = ":TSUpdate",
-			})
+		 	use({
+		 		"nvim-treesitter/nvim-treesitter",
+		 		run = ":TSUpdate",
+		 	})
 			-- brackets color
 			use("p00f/nvim-ts-rainbow")
 			-- set the commentstring option based on the cursor location
@@ -57,6 +58,8 @@ return require("packer").startup({
 			use("lewis6991/spellsitter.nvim")
 			-- annotation toolkit
 			use("danymat/neogen")
+			-- take some text and creates a comment frame
+			use("s1n7ax/nvim-comment-frame")
 		end
 
 		-----------------
@@ -109,9 +112,12 @@ return require("packer").startup({
 					-- status line component that shows context of the current cursor position in file
 					{ "SmiteshP/nvim-gps" },
 				},
+				config = function()
+					require("dedukun.plugins.lualine")
+				end,
 			})
 			-- formatter
-			use("sbdchd/neoformat")
+			-- use("sbdchd/neoformat")
 			-- ANSI color converter
 			use("powerman/vim-plugin-AnsiEsc")
 			-- color name highlighter
@@ -148,11 +154,17 @@ return require("packer").startup({
 			-- highlight, navigate, and operate on sets of matching text
 			use("andymass/vim-matchup")
 			-- comments
-			use("numToStr/Comment.nvim")
+			use({
+				"numToStr/Comment.nvim",
+				config = [[require('dedukun.plugins.comment')]]
+				--[[ config = function() ]]
+				--[[ 	require("dedukun.plugins.comment") ]]
+				--[[ end, ]]
+			})
 			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
 			use("tami5/lspsaga.nvim")
 			-- debug adapter protocol client implementation
-			use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+			use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } })
 			-- pretty list for showing diagnostics
 			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
 			-- see crates versions in rust
@@ -183,7 +195,9 @@ return require("packer").startup({
 				"neovim/nvim-lspconfig",
 				requires = {
 					--seamlessly install LSP servers locally
-					"williamboman/nvim-lsp-installer",
+					"williamboman/mason.nvim",
+					"williamboman/mason-lspconfig.nvim",
+					"jayp0521/mason-null-ls.nvim",
 					--show function signature when you type
 					"ray-x/lsp_signature.nvim",
 					--cmp LSP source

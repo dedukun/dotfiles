@@ -18,11 +18,11 @@ print_help() {
 }
 
 get_eDP() {
-    xrandr | grep "connected" | grep "eDP" | awk '{ print $1; }'
+    xrandr | grep " connected" | grep "eDP" | awk '{ print $1; }'
 }
 
 get_HDMI() {
-    xrandr | grep "connected" | grep "HDMI" | awk '{ print $1; }'
+    xrandr | grep " connected" | grep "HDMI" | awk '{ print $1; }'
 }
 
 get_both() {

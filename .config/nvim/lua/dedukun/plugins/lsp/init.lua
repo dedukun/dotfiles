@@ -3,8 +3,13 @@ if not presentLspconfig then
 	return
 end
 
-local presentLspinstaller, lspinstaller = pcall(require, "nvim-lsp-installer")
-if not presentLspinstaller then
+local presentMason, mason = pcall(require, "mason")
+if not presentMason then
+	return
+end
+
+local presentMasonLSP, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not presentMasonLSP then
 	return
 end
 
@@ -94,7 +99,7 @@ local lua_settings = {
 
 -- config that activates keymaps and enables snippet support
 local function make_config()
-	local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
+	local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 	-- adding folding capabilities
 	capabilities.textDocument.foldingRange = {
@@ -148,11 +153,13 @@ local function setup_manual_servers()
 	end
 end
 
-lspinstaller.setup({
+mason.setup({
 	ui = {
 		border = "rounded",
 	},
 })
+
+mason_lspconfig.setup()
 
 setup_manual_servers()
 

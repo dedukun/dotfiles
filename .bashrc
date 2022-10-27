@@ -1,143 +1,88 @@
-#!/bin/bash
-#.bashrc
-PS1='[\[\033[1;32m\]\u@\h:\[\033[0m\]\[\033[01;34m\]\W\[\033[00m\]] \$ '
+#
+# ~/.bashrc
+#
 
-export HISTCONTROL=ignoredups           # dont save duplicate consecutive commands
-HISTSIZE=HISTFILESIZE=                  # infinite history
-shopt -s histappend                     # append to history, don't overwrite it
-PROMPT_COMMAND='history -a; history -n' # update history after each command in multiple terminals
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
 
-# disable automatically executing !, !!, !?, instead filling the bash with the command
-shopt -s histverify
+[[ -f ~/.welcome_screen ]] && . ~/.welcome_screen
 
-# activate bash completion
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
+_set_liveuser_PS1() {
+    PS1='[\u@\h \W]\$ '
+    if [ "$(whoami)" = "liveuser" ] ; then
+        local iso_version="$(grep ^VERSION= /usr/lib/endeavouros-release 2>/dev/null | cut -d '=' -f 2)"
+        if [ -n "$iso_version" ] ; then
+            local prefix="eos-"
+            local iso_info="$prefix$iso_version"
+            PS1="[\u@$iso_info \W]\$ "
+        fi
     fi
-fi
+}
+_set_liveuser_PS1
+unset -f _set_liveuser_PS1
 
-# s auto completion
-if [ -f $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash ]; then
-    . $GOPATH/src/github.com/zquestz/s/autocomplete/s-completion.bash
-fi
-
-# Add color
-eval "$(dircolors -b)"
-
-# User defined aliases
-alias vi="nvim"
-alias vim="nvim"
-alias git="\$SCRIPTS/gbt/git.sh"
-alias ag="\$SCRIPTS/ag.sh"
-alias ls='ls -h --color=auto --group-directories-first --sort=extension'
-alias l='ls -l'
-alias ll='ls -lA'
-alias less='less -i'
-alias grep='grep --color'
-alias grep-source='grep --include={*.[hc],*.[hc]pp,*.java,*.py,*.js,*.ejs,*.html,*.sh,*.tex}'
-alias xxstartx='exec startx &> /dev/null'
-alias update-time='sudo ntpdate pt.pool.ntp.org'
-alias gbtcd='cd $(glbt_proj --get)'
-alias mtdcd='cd $(mtd --get)'
-#alias dmenu='dmenu -i -fn xft:Inconsolata-10 -nb #303030 -nf #909090 -sb #909090 -sf #303030'
-alias list-big-files='sudo find / -type f -size +50M -exec du -h {} \; | sort -n'
-
-# wine aliases
-alias wine="WINEPREFIX=\$HOME/.wine32 wine"
-alias wine64="WINEPREFIX=\$HOME/.wine64 wine64"
-alias winecfg="WINEPREFIX=\$HOME/.wine32 winecfg"
-alias wine64cfg="WINEPREFIX=\$HOME/.wine64 winecfg"
-
-youtube() {
-    workonenv
-    workon youtube
-    "$HOME/Applications/mps-youtube/mpsyt" "$*"
-    deactivate
+ShowInstallerIsoInfo() {
+    local file=/usr/lib/endeavouros-release
+    if [ -r $file ] ; then
+        cat $file
+    else
+        echo "Sorry, installer ISO info is not available." >&2
+    fi
 }
 
-# start python's virtualenvwrapper
-workonenv() {
-    export WORKON_HOME="$HOME/.virtualenvs"
-    export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
-    . "$HOME/.local/bin/virtualenvwrapper.sh"
-}
 
-pip_upgrade() {
+alias ls='ls --color=auto'
+alias ll='ls -lav --ignore=..'   # show long listing of all except ".."
+alias l='ls -lav --ignore=.?*'   # show long listing but no hidden dotfiles except "."
 
-    if [ -z "$1" ]; then
-        echo "Missing argument"
-        return 1
+[[ "$(whoami)" = "root" ]] && return
+
+[[ -z "$FUNCNEST" ]] && export FUNCNEST=100          # limits recursive functions, see 'man bash'
+
+## Use the up and down arrow keys for finding a command in history
+## (you can write some initial letters of the command first).
+bind '"\e[A":history-search-backward'
+bind '"\e[B":history-search-forward'
+
+################################################################################
+## Some generally useful functions.
+## Consider uncommenting aliases below to start using these functions.
+##
+## October 2021: removed many obsolete functions. If you still need them, please look at
+## https://github.com/EndeavourOS-archive/EndeavourOS-archiso/raw/master/airootfs/etc/skel/.bashrc
+
+_open_files_for_editing() {
+    # Open any given document file(s) for editing (or just viewing).
+    # Note1:
+    #    - Do not use for executable files!
+    # Note2:
+    #    - Uses 'mime' bindings, so you may need to use
+    #      e.g. a file manager to make proper file bindings.
+
+    if [ -x /usr/bin/exo-open ] ; then
+        echo "exo-open $@" >&2
+        setsid exo-open "$@" >& /dev/null
+        return
+    fi
+    if [ -x /usr/bin/xdg-open ] ; then
+        for file in "$@" ; do
+            echo "xdg-open $file" >&2
+            setsid xdg-open "$file" >& /dev/null
+        done
+        return
     fi
 
-    case $1 in
-        "2" )
-            ;;
-        "2.7" )
-            ;;
-        "3" )
-            ;;
-        "3.5" )
-            ;;
-        "3.6" )
-            ;;
-        "3.7" )
-            ;;
-        *)
-            echo "ERROR: Unknown version '$1'"
-            return 1
-            ;;
-
-    esac
-
-    sh -c "python$1 -m pip list --outdated | tail -n +3 | awk '{print \$1;}' | xargs python$1 -m pip install --user --upgrade"
+    echo "$FUNCNAME: package 'xdg-utils' or 'exo' is required." >&2
 }
 
-# gitignore
-gitignore() {
-    local_ignores="""\
-### Local Ignores ###
-generate-tags.sh
-"""
-    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,$*")
-    echo "$local_ignores$remote_ignores"
-}
+#------------------------------------------------------------
 
-# https://superuser.com/questions/611538/is-there-a-way-to-display-a-countdown-or-stopwatch-timer-in-a-terminal
-stopwatch() {
-    local date1
-    date1=$(date +%s)
-    while true; do
-        echo -ne "$(date -u --date @$(($(date +%s) - date1)) +%H:%M:%S)\r"
-        sleep 0.1
-    done
-}
+## Aliases for the functions above.
+## Uncomment an alias if you want to use it.
+##
 
-# Initialize fzf
-[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.bash
+# alias ef='_open_files_for_editing'     # 'ef' opens given file(s) for editing
+# alias pacdiff=eos-pacdiff
+################################################################################
 
-# https://github.com/junegunn/fzf/issues/1309
-# Remove repeated entries from fzf history search
-__fzf_history__() {
-    local line
-    countskip="$(history | tail -n 1 | grep -E '^ *[0-9]+' -o | wc -c)"
-    countskip="$((countskip + 1))"
-    line=$(
-        HISTTIMEFORMAT= history |
-            grep '^.\{1,130\}$' --text |
-            sed 's/ *$//g' |
-            {
-                i=$(cat)
-                head --lines=-50 <<<"$i"
-                cat ~/shared_history | while read line; do echo " 0000  $line"; done
-                tail -n 50 <<<"$i"
-            } |
-            tac |
-            nauniq --skip-chars="$countskip" |
-            tac |
-            $(__fzfcmd) +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
-            \grep '^ *[0-9]'
-    ) && sed 's/ *\([0-9]*\)\** \(.*\)/\2/' <<<"$line"
-}
+. "/home/dedukun/.local/share/cargo/env"

@@ -27,6 +27,7 @@ alias netbeans='netbeans --userdir "$XDG_CONFIG_HOME/netbeans"'
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
 alias xbindkeys=xbindkeys -f "$XDG_CONFIG_HOME/xbindkeys/config"
+alias nocolor='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
 
 # wine aliases
 alias wine="WINEPREFIX=\$HOME/.config/wine/wine32 wine"

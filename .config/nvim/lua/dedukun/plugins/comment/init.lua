@@ -1,9 +1,9 @@
-require("dedukun.plugins.comment.custom")
-
 local present, comment = pcall(require, "Comment")
 if not present then
 	return
 end
+
+require("dedukun.plugins.comment.custom")
 
 comment.setup({
 	---Add a space b/w comment and the line
@@ -55,25 +55,7 @@ comment.setup({
 
 	---Pre-hook, called before commenting the line
 	---@type function|nil
-	pre_hook = function(ctx)
-		local U = require("Comment.utils")
-
-		-- Detemine whether to use linewise or blockwise commentstring
-		local type = ctx.ctype == U.ctype.line and "__default" or "__multiline"
-
-		-- Determine the location where to calculate commentstring from
-		local location = nil
-		if ctx.ctype == U.ctype.block then
-			location = require("ts_context_commentstring.utils").get_cursor_location()
-		elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
-			location = require("ts_context_commentstring.utils").get_visual_start_location()
-		end
-
-		return require("ts_context_commentstring.internal").calculate_commentstring({
-			key = type,
-			location = location,
-		})
-	end,
+	pre_hook =require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
 
 	---Post-hook, called after commenting is done
 	---@type function|nil

@@ -26,13 +26,10 @@ if vim.fn.exists("g:vscode") == 0 then
 	require("dedukun.plugins.quick-scope")
 end
 
--- neoformat
-require("dedukun.plugins.neoformat")
-
 -- treesitter
 require("dedukun.plugins.treesitter")
 
--- lspinstall
+-- lsp
 require("dedukun.plugins.lsp")
 
 -- auto completion
@@ -102,3 +99,6 @@ end
 if vim.fn.exists("g:vscode") == 0 then
 	require("dedukun.plugins.barbar")
 end
+
+-- null-ls
+require("dedukun.plugins.null-ls")

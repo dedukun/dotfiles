@@ -136,17 +136,17 @@ super + w
 
 # screen backlight
 XF86MonBrightnessDown
-        light -U 5
+        brightnessctl set 5%-
 XF86MonBrightnessUp
-        light -A 5
+        brightnessctl set +5%
 control + XF86MonBrightnessDown
-        light -U 10
+        brightnessctl set 10%-
 control + XF86MonBrightnessUp
-        light -A 10
+        brightnessctl set +10%
 shift XF86MonBrightnessDown
-        light -U 1
+        brightnessctl set 1%-
 shift + XF86MonBrightnessUp
-        light -A 1
+        brightnessctl set +1%
 
 # # Toggle touchpad
 # super + F9
