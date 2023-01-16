@@ -271,3 +271,13 @@ gcode.inherit = "slicer_default"
 # CAD
 FCStd.inherit = "cad_default"
 FCStd1.inherit = "cad_default"
+
+[mimetype]
+
+# text/*
+[mimetype.text]
+inherit = "text_default"
+
+# application/octet-stream
+[mimetype.application.subtype.octet-stream]
+inherit = "video_default"

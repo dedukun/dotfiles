@@ -2,8 +2,8 @@
 # This hook makes sure that I'm using the right email when working in a GBT repository
 
 _change_email() {
-    if [ ! "$(git config --get user.email)" = "diogo.duarte@globaltronic.pt" ]; then
-        git config user.email "diogo.duarte@globaltronic.pt"
+    if [ ! "$(git config --get user.email)" = "diogo.duarte@gbtembedded.com" ]; then
+        git config user.email "diogo.duarte@gbtembedded.com"
 
         bold=$(tput bold)
         normal=$(tput sgr0)
@@ -14,7 +14,7 @@ _change_email() {
         echo "# Note however that the current commit doesn't has this change,"
         echo "# as such, you can change this by running the following command ${bold}BEFORE${normal} pushing:"
         echo "#"
-        echo '# git commit --amend --author "Diogo Duarte <diogo.duarte@globaltronic.pt>" -C HEAD'
+        echo '# git commit --amend --author "Diogo Duarte <diogo.duarte@gbtembedded.com>" -C HEAD'
         echo "#"
         echo "#"
     fi

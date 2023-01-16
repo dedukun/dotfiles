@@ -25,7 +25,7 @@ _check_cache_and_notify() {
             if [ "$battery_level" -lt "$battery_lock_threshold" ]; then
                 sleep 5s
                 timeout 1s playerctl -a stop
-                slock
+                xsecurelock
             fi
             return 0
         fi

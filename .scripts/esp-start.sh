@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #############################################
 #======= C O N F I G U R A T I O N S =======#
@@ -18,98 +18,89 @@ espstart_generate_tags="generate-tags.sh"
 
 espstart_local_settings="./.esp-start.conf"
 
-espstart_ps_pure=1
-
 #############################################
 #=== A U X I L I A R   F U N C T I O N S ===#
 #############################################
 
-_exit_error() {
+_exit_error()
+              {
     printf "ERROR: %s\n" "$1" >&2
     exit 1
 }
 
-_list_idfs() {
-    ls $espstart_idfs
+_list_idfs()
+             {
+    ls "$espstart_idfs"
 }
 
-_list_adfs() {
-    ls $espstart_adfs
+_list_adfs()
+             {
+    ls "$espstart_adfs"
 }
 
-_list_rust() {
-    ls $espstart_rust
+_list_rust()
+             {
+    ls "$espstart_rust"
 }
 
-_start_env() {
-    mkdir -p "$espstart_env_dir" 2>/dev/null
+_start_env()
+             {
+    mkdir -p "$espstart_env_dir" 2> /dev/null
 
-    printf "#!/bin/sh\n\n" >"$espstart_env_rc"
-    [ -f ~/.profile ] && printf ". $HOME/.profile\n" >>"$espstart_env_rc"
+    printf "#!/bin/sh\n\n" > "$espstart_env_rc"
+    [ -f ~/.profile ] && printf ". $HOME/.profile\n" >> "$espstart_env_rc"
 
     if [ "$espstart_env_shell" = "zsh" ]; then
-        [ -f $XDG_CONFIG_HOME/zsh/.zshrc ] && printf ". $XDG_CONFIG_HOME/zsh/.zshrc\n\n" >>"$espstart_env_rc"
+        [ -f $XDG_CONFIG_HOME/zsh/.zshrc ] && printf ". $XDG_CONFIG_HOME/zsh/.zshrc\n\n" >> "$espstart_env_rc"
     else
-        [ -f ~/.bashrc ] && printf ". $HOME/.bashrc\n\n" >>"$espstart_env_rc"
+        [ -f ~/.bashrc ] && printf ". $HOME/.bashrc\n\n" >> "$espstart_env_rc"
     fi
 }
 
-_change_idf_ps1() {
-    idf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
-    if [ -z $espstart_ps_pure ]; then
-        echo -n 'export PS1="\[\033[01;36m\](IDF ' >>"$espstart_env_rc"
-        echo -n "$idf_version" >>"$espstart_env_rc"
-        echo ') \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
-    else
-        echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(IDF ' >>"$espstart_env_rc"
-        echo -n "$idf_version" >>"$espstart_env_rc"
-        echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
-    fi
+_change_idf_ps1()
+                  {
+    idf_version="$(echo "$1" | tr '[:lower:]' '[:upper:]')"
+    echo -n 'export IDF_VERSION="IDF ' >> "$espstart_env_rc"
+    echo "$idf_version\"" >> "$espstart_env_rc"
 }
 
-_change_adf_ps1() {
-    adf_version="$(echo $1 | tr '[:lower:]' '[:upper:]')"
-    if [ -z $espstart_ps_pure ]; then
-        echo -n 'export PS1="\[\033[01;36m\](ADF ' >>"$espstart_env_rc"
-        echo -n "$adf_version" >>"$espstart_env_rc"
-        echo ') \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
-    else
-        echo -n 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ADF ' >>"$espstart_env_rc"
-        echo -n "$adf_version" >>"$espstart_env_rc"
-        echo ') ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
-    fi
+_change_adf_ps1()
+                  {
+    adf_version="$(echo "$1" | tr '[:lower:]' '[:upper:]')"
+    echo -n 'export IDF_VERSION="ADF ' >> "$espstart_env_rc"
+    echo "$adf_version\"" >> "$espstart_env_rc"
 }
 
-_change_rust_ps1() {
-    if [ -z $espstart_ps_pure ]; then
-        echo 'export PS1="\[\033[01;36m\](ESP Rust) \[\033[00m\] \[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ "' >>"$espstart_env_rc"
-    else
-        echo 'export PS1="%}%(12V.%F{$prompt_pure_colors[virtualenv]}%12v%f .)%(?.%F{$prompt_pure_colors[prompt:success]}.%F{$prompt_pure_colors[prompt:error]})(ESP Rust) ${prompt_pure_state[prompt]}%f "' >>"$espstart_env_rc"
-    fi
+_change_rust_ps1()
+                   {
+    echo 'export IDF_VERSION=RUST' >> "$espstart_env_rc"
 }
 
-_enable_cmake_colors() {
-    echo "export EXTRA_CFLAGS=-fdiagnostics-color=always" >>"$espstart_env_rc"
-    echo "export GCC_COLORS='error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:path=01;36:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32:type-diff=01;32'" >>"$espstart_env_rc"
+_enable_cmake_colors()
+                       {
+    echo "export EXTRA_CFLAGS=-fdiagnostics-color=always" >> "$espstart_env_rc"
+    echo "export GCC_COLORS='error=01;31:warning=01;35:note=01;36:range1=32:range2=34:locus=01:quote=01:path=01;36:fixit-insert=32:fixit-delete=31:diff-filename=01:diff-hunk=32:diff-delete=31:diff-insert=32:type-diff=01;32'" >> "$espstart_env_rc"
 }
 
-_save_settings() {
+_save_settings()
+                 {
     save_settings="$(echo -e 'No\nYes' | rofi -dmenu -l 2 -i -p 'Do you want to save the current settings in this folder?')"
 
     if [ "$save_settings" = "Yes" ]; then
         notify-send "ESP-Start" "Saved Settings"
 
         if [ -n "$3" ]; then
-            echo "Rust=$3" >"$espstart_local_settings"
+            echo "Rust=$3" > "$espstart_local_settings"
         elif [ -n "$2" ]; then
-            echo -e "IDF=$1\nADF=$2" >"$espstart_local_settings"
+            echo -e "IDF=$1\nADF=$2" > "$espstart_local_settings"
         else
-            echo "IDF=$1" >"$espstart_local_settings"
+            echo "IDF=$1" > "$espstart_local_settings"
         fi
     fi
 }
 
-_load_settings() {
+_load_settings()
+                 {
     if [ -f "$espstart_local_settings" ]; then
         load_settings="$(echo -e 'Yes\nNo' | rofi -dmenu -l 2 -i -p 'Local setting detected. Do you want to load them?')"
 
@@ -132,7 +123,8 @@ _load_settings() {
     fi
 }
 
-_check_tags() {
+_check_tags()
+              {
     if [ ! -f "$espstart_generate_tags" ]; then
         cp_generate_tags="$(echo -e 'No\nYes' | rofi -dmenu -l 2 -i -p 'No `'$espstart_generate_tags'` script detected, do you want to copy it to this folder?')"
 
@@ -146,32 +138,34 @@ _check_tags() {
 #============= C O M M A N D S =============#
 #############################################
 
-start_idf() {
+start_idf()
+            {
     _start_env
 
     _enable_cmake_colors
     _change_idf_ps1 "$1"
 
-    echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
-    echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
-    echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
+    echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >> "$espstart_env_rc"
+    echo "export IDF_PATH='${espstart_idfs}/$1'" >> "$espstart_env_rc"
+    echo ". '${espstart_idfs}/$1/export.sh'" >> "$espstart_env_rc"
     if [ "$espstart_env_shell" = "zsh" ]; then
-        ZDOTDIR=$espstart_env_dir zsh
+        ZDOTDIR="$espstart_env_dir" zsh
     else
         bash --init-file "$espstart_env_rc"
     fi
 }
 
-start_adf() {
+start_adf()
+            {
     _start_env
 
     _enable_cmake_colors
     _change_adf_ps1 "$2"
 
-    echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >>"$espstart_env_rc"
-    echo "export IDF_PATH='${espstart_idfs}/$1'" >>"$espstart_env_rc"
-    echo "export ADF_PATH='${espstart_adfs}/$2'" >>"$espstart_env_rc"
-    echo ". '${espstart_idfs}/$1/export.sh'" >>"$espstart_env_rc"
+    echo "export IDF_TOOLS_PATH='${espstart_tools}/$1'" >> "$espstart_env_rc"
+    echo "export IDF_PATH='${espstart_idfs}/$1'" >> "$espstart_env_rc"
+    echo "export ADF_PATH='${espstart_adfs}/$2'" >> "$espstart_env_rc"
+    echo ". '${espstart_idfs}/$1/export.sh'" >> "$espstart_env_rc"
     if [ "$espstart_env_shell" = "zsh" ]; then
         ZDOTDIR=$espstart_env_dir zsh
     else
@@ -179,12 +173,13 @@ start_adf() {
     fi
 }
 
-start_rust() {
+start_rust()
+             {
     _start_env
 
     _change_rust_ps1
 
-    echo ". '${espstart_rust}/$1/export-esp-rust.sh'" >>"$espstart_env_rc"
+    echo ". '${espstart_rust}/$1/export-esp-rust.sh'" >> "$espstart_env_rc"
     if [ "$espstart_env_shell" = "zsh" ]; then
         unset ZDOTDIR
         ZDOTDIR=$espstart_env_dir zsh

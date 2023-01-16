@@ -1,7 +1,10 @@
 #!/bin/sh
 
 #XDG
-export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
+export XDG_STATE_HOME="${HOME}/.local/state"
 
 export HISTFILE="${XDG_STATE_HOME}/bash/history"
 export ANDROID_HOME="$XDG_DATA_HOME/android"
@@ -31,8 +34,8 @@ export TERMINAL_RUN="$TERMINAL "
 export STATUSBAR="polybar"
 export BROWSER="firefox"
 export READER="zathura"
-export FILE="ranger"
-export PAGER="less"
+export FILE="joshuto"
+export PAGER="moar"
 export CHROME_EXECUTABLE="chromium"
 export DIFFPROG="nvim -d"
 
@@ -64,6 +67,7 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export TASKRC="$HOME/.config/task/config"
+export ZEPHYR_SDK_INSTALL_DIR="$HOME/Globaltronic/zephyr/sdk/zephyr-sdk-0.15.1"
 
 # export socket for ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -75,4 +79,5 @@ export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 if ! xset q &>/dev/null; then
     trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
 fi
+
 . "/home/dedukun/.local/share/cargo/env"

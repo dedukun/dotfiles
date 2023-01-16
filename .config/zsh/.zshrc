@@ -1,4 +1,3 @@
-source ~/.config/zsh/zsh-snap/zsh-snap/znap.zsh
 #########
 # ALIAS #
 #########
@@ -6,16 +5,15 @@ source ~/.config/zsh/zsh-snap/zsh-snap/znap.zsh
 [ -f $HOME/.profile ] && source $HOME/.profile
 [ -f $HOME/.aliases ] && source $HOME/.aliases
 
+################
+# INIT PLUGINS #
+################
+eval "$(starship init zsh)"
+eval "$(sheldon source)"
+
 ############
 # FUCTIONS #
 ############
-
-youtube() {
-    workonenv
-    workon mps-youtube
-    mpsyt
-    deactivate
-}
 
 # start python's virtualenvwrapper
 workonenv() {
@@ -42,28 +40,9 @@ run_swallow() {
   zle reset-prompt
 }
 
-#################
-##  ZNAP STUFF  #
-#################
-
-export ZNAP_HOME="$HOME/.config/zsh/znap"
-
-# prompt
-znap source mafredri/zsh-async
-znap prompt sindresorhus/pure
-
-# completions
-znap source zsh-users/zsh-completions
-
-# highlighting
-znap source zsh-users/zsh-syntax-highlighting
-
 ##################
 # CONFIGURATIONS #
 ##################
-
-# pure
-zstyle :prompt:pure:git:stash show yes
 
 # History
 setopt INC_APPEND_HISTORY
@@ -76,9 +55,13 @@ HISTSIZE=120000
 # Completion
 ZSH_DISABLE_COMPFIX=true
 
+# More completions
+fpath=($XDG_CONFIG_HOME/zsh/completions $fpath)
 autoload -U compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 zmodload zsh/complist
 compinit
 # compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
@@ -145,13 +128,13 @@ fzf-history-widget() {
   return $ret
 }
 
-# Wrapper tomake quit in current directory work
+# Wrapper to make quit in current directory work
 # source: https://github.com/kamiyaa/joshuto/blob/main/docs/configuration/keymap.toml.md#general
 function joshuto() {
 	ID="$$"
 	mkdir -p /tmp/$USER
 	OUTPUT_FILE="/tmp/$USER/joshuto-cwd-$ID"
-	env $SCRIPTS/joshuto.sh --output-file "$OUTPUT_FILE" $@
+	env joshuto --output-file "$OUTPUT_FILE" $@
 	exit_code=$?
 
 	case "$exit_code" in

@@ -145,5 +145,6 @@ fi
 
 reset_bspwm "dual" "$dis_base_monitor" "$dis_out"
 reset_polybar "dual"
+hsetroot -center $HOME/Pictures/WallPapers/1.png
 
 $SCRIPTS/bspwm/manage_monitor.sh --load

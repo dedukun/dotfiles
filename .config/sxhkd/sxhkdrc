@@ -37,7 +37,7 @@ super + shift + d
 
 # lock Screen
 super + control + l
-        slock && bspc wm -O eDP1 HDMI2
+        xsecurelock && bspc wm -O eDP1 HDMI2
 
 # lock mouse and keyboard
 super + shift + control + l
@@ -246,6 +246,3 @@ super + c
 # open notification center
 super + n
         kill -s USR1 $(pidof deadd-notification-center)
-
-# grave
-        # slock && bspc wm -O eDP1 HDMI2
