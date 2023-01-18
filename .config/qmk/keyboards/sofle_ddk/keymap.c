@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_portuguese.h"
 
 enum sofle_layers {
     /* _M_XYZ = Mac Os, _W_XYZ = Win/Linux */
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * | TAB  | Ins  | Pscr | Menu |      |      |                    |  ^   |  &   |  *   |  (   |  )   | BSPC |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |LShift| LAt  | LCtl |LShift|      | Caps |-------.    ,-------|  -   |  =   |  {   |  }   |  |   | !    |
+ * |LShift| LAt  | LCtl |LShift| Caps |      |-------.    ,-------|  -   |  =   |  {   |  }   |  |   | !    |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
  * | LCTR | Undo |  Cut | Copy | Paste|      |-------|    |-------|  _   |  +   |  [   |  ]   |  \   | ~    |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
   _______,  KC_INS,  KC_PSCR, KC_APP, XXXXXXX, XXXXXXX,                   KC_CIRC, KC_AMPR,KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  _______,  KC_LALT, KC_LCTL, KC_LSFT,XXXXXXX, KC_CAPS,                   KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_EXLM,
+  _______,  KC_LALT, KC_LCTL, KC_LSFT,KC_CAPS, XXXXXXX,                   KC_MINS, KC_EQL, KC_LCBR, KC_RCBR, KC_PIPE, KC_EXLM,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
   _______,  KC_UNDO, KC_CUT,  KC_COPY,KC_PASTE,XXXXXXX,_______,   _______,KC_UNDS, KC_PLUS,KC_LBRC, KC_RBRC, KC_BSLS, KC_TILD,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
@@ -103,11 +104,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |BASE L|NUM  L|      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |BOOTL |      |      |      |MACWIN|      |                    |      |      |      |      |      |      |
+ * |      |BOOTL |REBOOT|      |      |MACWIN|                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
+ * |      |      |      |      |BRI_UP|      |-------.    ,-------|      | VOLDO| MUTE | VOLUP|      |      |
  * |------+------+------+------+------+------|  MUTE |    |       |------+------+------+------+------+------|
- * |      |      |      |      |      |      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
+ * |      |      |      |      |BRI_DO|      |-------|    |-------|      | PREV | PLAY | NEXT |      |      |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *            | Bspc | LAlt | WIN  | LOWER| /Space  /       \Enter \  |RAISE | WIN  | RCTR | RAlt |
  *            |      |      |      |      |/       /         \      \ |      |      |      |      |
@@ -117,11 +118,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,------------------------------------------------.                    ,---------------------------------------------------.
   XXXXXXX,  TO(0),   TO(4),   XXXXXXX,XXXXXXX,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  QK_BOOT  ,XXXXXXX, XXXXXXX, XXXXXXX,CG_TOGG,XXXXXXX,                     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  XXXXXXX , QK_BOOT, QK_RBT,  XXXXXXX,XXXXXXX,CG_TOGG,                     XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|                   |--------+-------+--------+--------+--------+---------|
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,KC_BRIU,XXXXXXX,                     XXXXXXX, KC_VOLD, KC_MUTE, KC_VOLU, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
-  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,     XXXXXXX,XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
+  XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX,KC_BRID,XXXXXXX,XXXXXXX,     XXXXXXX,XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,
   //|------+-------+--------+--------+--------+------|  ===  |   |  ===  |--------+-------+--------+--------+--------+---------|
                    _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______
   //            \--------+--------+--------+---------+-------|   |--------+---------+--------+---------+-------/
@@ -157,15 +158,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
-// static void render_logo(void) {
-//     static const char PROGMEM qmk_logo[] = {
-//         0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
-//         0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
-//         0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
-//     };
-//
-//     oled_write_P(qmk_logo, false);
-// }
+static void render_logo(void) {
+    static const char PROGMEM qmk_logo[] = {
+        0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
+        0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
+        0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0
+    };
+
+    oled_write_P(qmk_logo, false);
+}
 
 static void print_status_narrow(void) {
     // Print current mode
@@ -223,8 +224,7 @@ bool oled_task_user(void) {
     if (is_keyboard_master()) {
         print_status_narrow();
     } else {
-        print_status_narrow();
-        // render_logo();
+        render_logo();
     }
     return false;
 }

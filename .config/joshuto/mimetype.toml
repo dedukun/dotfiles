@@ -4,7 +4,7 @@ audio_default = [
     "--",
   ] },
   { command = "mediainfo", confirm_exit = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 image_default = [
@@ -12,7 +12,7 @@ image_default = [
   { command = "gimp", args = [
     "--",
   ], fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 video_default = [
@@ -20,7 +20,7 @@ video_default = [
     "--",
   ], fork = true, silent = true },
   { command = "mediainfo", confirm_exit = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 text_default = [
@@ -28,33 +28,33 @@ text_default = [
   { command = "bat", args = [
     "--paging=always",
   ] },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 reader_default = [
   { command = "zathura", fork = true, silent = true },
 
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 office_default = [
   { command = "libreoffice", fork = true, silent = true },
 
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 slicer_default = [
   { command = "prime-run", args = [
     "prusa-slicer",
   ], fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 cad_default = [
   { command = "prime-run", args = [
     "freecad",
   ], fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 slicer_and_cad_default = [
@@ -64,7 +64,7 @@ slicer_and_cad_default = [
   { command = "prime-run", args = [
     "freecad",
   ], fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 [extension]
@@ -85,12 +85,12 @@ webp.inherit = "image_default"
 svg.app_list = [
   { command = "inkview", fork = true, silent = true },
   { command = "inkscape", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 tiff.app_list = [
   { command = "qimgv", fork = true, silent = true },
   { command = "krita", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 ## audio formats
@@ -162,68 +162,68 @@ yml.inherit = "text_default"
     "x",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 bz2.app_list = [
   { command = "tar", args = [
     "-xvjf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 gz.app_list = [
   { command = "tar", args = [
     "-xvzf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 tar.app_list = [
   { command = "tar", args = [
     "-xvf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 tgz.app_list = [
   { command = "tar", args = [
     "-xvzf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 rar.app_list = [
   { command = "unrar", args = [
     "x",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 xz.app_list = [
   { command = "tar", args = [
     "-xvJf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 zip.app_list = [
   { command = "unzip", confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 # misc formats
 aup.app_list = [
   { command = "audacity", fork = true, silent = true },
 
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 m3u.app_list = [
   { command = "mpv" },
   { command = "nvim" },
   { command = "bat", confirm_exit = true },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 odt.inherit = "office_default"
@@ -243,24 +243,24 @@ pdf.inherit = "reader_default"
 kra.app_list = [
   { command = "krita", fork = true, silent = true },
 
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 kdenlive.app_list = [
   { command = "kdenlive", fork = true, silent = true },
 
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 tex.app_list = [
   { command = "nvim" },
   { command = "bat", confirm_exit = true },
   { command = "pdflatex" },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 torrent.app_list = [
   { command = "transmission-gtk" },
-  { command = "dragon-drag-and-drop", fork = true, silent = true },
+  { command = "dragon-drop", fork = true, silent = true },
 ]
 
 # 3D Printing files

@@ -242,7 +242,3 @@ super + control + b
 # color picker TODO change to xsel
 super + c
         colorpicker --one-shot --short --preview | xsel --clipboard
-
-# open notification center
-super + n
-        kill -s USR1 $(pidof deadd-notification-center)

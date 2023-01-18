@@ -55,9 +55,10 @@ $SCRIPTS/display.sh -o                         # start display and polybar
 xsetroot -cursor_name left_ptr                   # set the default mouse shape
 hsetroot -center $HOME/Pictures/WallPapers/1.png # set background image
 
-setxkbmap pt                  # set keyboard map to portuguese
-setxkbmap -option ctrl:nocaps # disable the caps lock key
-numlockx on                   # ativate numlock
+# setxkbmap -option ctrl:nocaps # disable the caps lock key
+# numlockx on                   # ativate numlock
+setxkbmap us                  # set keyboard map to portuguese
+# localectl set-keymap us
 
 wmname LG3D # rename the WM instance to fix Java applications
 # More info in: https://wiki.archlinux.org/index.php/Bspwm#Problems_with_Java_applications
@@ -82,3 +83,5 @@ nm-applet --indicator & # Network Applet
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 & # Polkit
 
 # dex -a -s /etc/xdg/autostart/:~/.config/autostart/ # Dex
+
+xrdb -load ~/.Xresources #load Xresources
