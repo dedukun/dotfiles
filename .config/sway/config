@@ -18,11 +18,6 @@ set $term kitty
 set $term_open kitty --directory
 # GTK schema
 set $gnome-schema org.gnome.desktop.interface
-
-### Output configuration
-#
-# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 #
 # Example configuration:
 #
@@ -67,7 +62,6 @@ default_border pixel 2
 default_floating_border pixel 2
 workspace_auto_back_and_forth yes
 
-
 workspace 1 output eDP-1
 workspace 2 output eDP-1
 workspace 3 output eDP-1
@@ -79,10 +73,16 @@ workspace 8 output HDMI-A-2
 workspace 9 output HDMI-A-2
 workspace 10 output HDMI-A-2
 
+assign [class="^Microsoft Teams - Preview$"] 9
+assign [class="^Prospect Mail$"] 10
+
 # start notification manager
 exec mako
 
-exec_always {
+exec nm-applet --indicator
+exec swww init && swww img "$HOME/Pictures/WallPapers/mikael-gustafsson-amongtrees-2-8.jpg"
+
+exec {
     gsettings set $gnome-schema gtk-theme 'Arc-Dark'
     gsettings set $gnome-schema icon-theme 'Qogir-dark'
     gsettings set $gnome-schema cursor-theme 'Qogir-dark'
@@ -200,8 +200,11 @@ exec_always {
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
+    # Make the current focus maximiazed
+    bindsym $mod+f exec $SCRIPTS/sway/sway-maximize.sh -d 2 -m 2
+
     # Make the current focus fullscreen
-    bindsym $mod+f fullscreen
+    bindsym $mod+Shift+f fullscreen
 
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
@@ -227,24 +230,25 @@ exec_always {
     # Resizing containers:
     #
     mode "resize" {
-        # left will shrink the containers width
-        # right will grow the containers width
-        # up will shrink the containers height
-        # down will grow the containers height
         bindsym $left resize shrink width 10px
         bindsym $down resize grow height 10px
         bindsym $up resize shrink height 10px
         bindsym $right resize grow width 10px
 
-        # Ditto, with arrow keys
-        bindsym Left resize shrink width 10px
-        bindsym Down resize grow height 10px
-        bindsym Up resize shrink height 10px
-        bindsym Right resize grow width 10px
+        bindsym Control+$left resize shrink width 100px
+        bindsym Control+$down resize grow height 100px
+        bindsym Control+$up resize shrink height 100px
+        bindsym Control+$right resize grow width 100px
+
+        bindsym Shift+$left resize shrink width 1px
+        bindsym Shift+$down resize grow height 1px
+        bindsym Shift+$up resize shrink height 1px
+        bindsym Shift+$right resize grow width 1px
 
         # Return to default mode
         bindsym Return mode "default"
         bindsym Escape mode "default"
+        bindsym Space mode "default"
     }
     bindsym $mod+r mode "resize"
 
@@ -314,9 +318,6 @@ exec_always {
 
     # Mouse Remaps Mode
     bindsym $mod+Control+b exec $SCRIPTS/mousebuttons.sh --mode
-
-    # color picker TODO change to xsel
-    bindsym $mod+c exec colorpicker --one-shot --short --preview | xsel --clipboard
 
 #
 # Status Bar:
