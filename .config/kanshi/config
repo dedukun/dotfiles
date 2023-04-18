@@ -1,0 +1,78 @@
+profile {
+    output eDP-1 mode 1920x1080 position 0,0
+    exec swaymsg workspace 1, move workspace to output eDP-1
+    exec swaymsg workspace 2, move workspace to output eDP-1
+    exec swaymsg workspace 3, move workspace to output eDP-1
+    exec swaymsg workspace 4, move workspace to output eDP-1
+    exec swaymsg workspace 5, move workspace to output eDP-1
+    exec swaymsg workspace 6, move workspace to output eDP-1
+    exec swaymsg workspace 7, move workspace to output eDP-1
+    exec swaymsg workspace 8, move workspace to output eDP-1
+    exec swaymsg workspace 9, move workspace to output eDP-1
+    exec swaymsg workspace 10, move workspace to output eDP-1
+    exec swaymsg workspace 1 output eDP-1
+    exec swaymsg workspace 2 output eDP-1
+    exec swaymsg workspace 3 output eDP-1
+    exec swaymsg workspace 4 output eDP-1
+    exec swaymsg workspace 5 output eDP-1
+    exec swaymsg workspace 6 output eDP-1
+    exec swaymsg workspace 7 output eDP-1
+    exec swaymsg workspace 8 output eDP-1
+    exec swaymsg workspace 9 output eDP-1
+    exec swaymsg workspace 10 output eDP-1
+    exec notify-send "Switching to Internal Screen" -u normal
+}
+
+profile {
+    output eDP-1 mode 1920x1080 position 2560,0
+    output HDMI-A-1 mode 2560x1440 position 0,0
+    exec swaymsg workspace 1, move workspace to output eDP-1
+    exec swaymsg workspace 2, move workspace to output eDP-1
+    exec swaymsg workspace 3, move workspace to output eDP-1
+    exec swaymsg workspace 4, move workspace to output eDP-1
+    exec swaymsg workspace 5, move workspace to output HDMI-A-1
+    exec swaymsg workspace 6, move workspace to output HDMI-A-1
+    exec swaymsg workspace 7, move workspace to output HDMI-A-1
+    exec swaymsg workspace 8, move workspace to output HDMI-A-1
+    exec swaymsg workspace 9, move workspace to output HDMI-A-1
+    exec swaymsg workspace 10, move workspace to output HDMI-A-1
+    exec swaymsg workspace 1 output eDP-1
+    exec swaymsg workspace 2 output eDP-1
+    exec swaymsg workspace 3 output eDP-1
+    exec swaymsg workspace 4 output eDP-1
+    exec swaymsg workspace 5 output HDMI-A-1
+    exec swaymsg workspace 6 output HDMI-A-1
+    exec swaymsg workspace 7 output HDMI-A-1
+    exec swaymsg workspace 8 output HDMI-A-1
+    exec swaymsg workspace 9 output HDMI-A-1
+    exec swaymsg workspace 10 output HDMI-A-1
+    exec notify-send "Switching to 1 External Screens" -u normal
+}
+
+profile {
+    output eDP-1 mode 1920x1080 position 4480,0
+    output HDMI-A-1 mode 2560x1440 position 1920,0
+    output DP-1 mode 1920x1080 position 0,0
+    exec swaymsg workspace 1, move workspace to output eDP-1
+    exec swaymsg workspace 2, move workspace to output eDP-1
+    exec swaymsg workspace 3, move workspace to output eDP-1
+    exec swaymsg workspace 4, move workspace to output HDMI-A-1
+    exec swaymsg workspace 5, move workspace to output HDMI-A-1
+    exec swaymsg workspace 6, move workspace to output HDMI-A-1
+    exec swaymsg workspace 7, move workspace to output DP-1
+    exec swaymsg workspace 8, move workspace to output DP-1
+    exec swaymsg workspace 9, move workspace to output DP-1
+    exec swaymsg workspace 10, move workspace to output DP-1
+    exec swaymsg workspace 1 output eDP-1
+    exec swaymsg workspace 2 output eDP-1
+    exec swaymsg workspace 3 output eDP-1
+    exec swaymsg workspace 4 output HDMI-A-1
+    exec swaymsg workspace 5 output HDMI-A-1
+    exec swaymsg workspace 6 output HDMI-A-1
+    exec swaymsg workspace 7 output DP-1
+    exec swaymsg workspace 8 output DP-1
+    exec swaymsg workspace 9 output DP-1
+    exec swaymsg workspace 10 output DP-1
+    exec notify-send "Switching to 2 External Screens" -u normal
+}
+

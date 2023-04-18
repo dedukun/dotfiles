@@ -106,9 +106,10 @@ keymap = [
 	{ keys = [ "?" ],		command = "help" },
 
 	# custom paths
-	{ keys = ["g", "w"], command = "cd ~/Globaltronic/GBT_Project" },
+	{ keys = ["g", "w"], command = "cd ~/GBT/GBT_Project" },
 	{ keys = ["g", "p"], command = "cd ~/Personal_Project" },
 	{ keys = ["g", "s"], command = "cd ~/.scripts" },
+	{ keys = ["g", "m"], command = "cd ~/Music" },
 	{ keys = [ "D", "e" ],	command = "spawn /home/dedukun/.scripts/joshuto/dragon-drop.sh -e %s" },
 	{ keys = [ "D", "t" ],	command = "spawn /home/dedukun/.scripts/joshuto/dragon-drop.sh -t" },
 ]

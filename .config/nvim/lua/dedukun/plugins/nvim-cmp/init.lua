@@ -84,9 +84,9 @@ cmp.setup({
 	},
 
 	-- nvim-cmp by defaults disables autocomplete for prompt buffers
-	enabled = function()
-		return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
-	end,
+	-- enabled = function()
+	-- 	return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+	-- end,
 
 	sources = cmp.config.sources({
 		{ name = "path" },
@@ -94,7 +94,7 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "nvim_lua" },
-		{ name = "dap" },
+		-- { name = "dap" },
 	}),
 })
 

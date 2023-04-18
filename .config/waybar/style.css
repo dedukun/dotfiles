@@ -2,7 +2,7 @@
 Based on: https://github.com/hajosattila/dotfiles/blob/main/style.css
 */
 * {
-  all: unset;
+  /* all: unset; */
   border: none;
   border-radius: 4;
   font-family: Siji, JetBrains Mono;

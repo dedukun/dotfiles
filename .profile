@@ -44,6 +44,7 @@ export GOPATH="$HOME/.go"
 PATH="$PATH:$GOPATH/bin"
 PATH="$PATH:$HOME/.cargo/bin"
 PATH="$PATH:$HOME/.local/bin"
+PATH="$PATH:$HOME/.local/share/cargo/bin"
 PATH="$PATH:$HOME/.npm_global/bin"
 PATH="$PATH:$HOME/.local/share/gem/ruby/3.0.0/bin"
 PATH="$PATH:$HOME/nRF52/gcc-arm/bin"
@@ -53,7 +54,7 @@ PATH="$PATH:/opt/flutter/bin"
 export PATH
 
 # Projects
-export GBT_PROJECTS="$HOME/Globaltronic/Projects"
+export GBT_PROJECTS="$HOME/GBT/Projects"
 export LOCAL_BINARIES="$HOME/.local/bin/"
 export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
@@ -67,7 +68,8 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export QT_STYLE_OVERRIDE="gtk2"
 export ZSH_CONFIGS="$HOME/.config/zsh"
 export TASKRC="$HOME/.config/task/config"
-export ZEPHYR_SDK_INSTALL_DIR="$HOME/Globaltronic/zephyr/sdk/zephyr-sdk-0.15.1"
+export ZEPHYR_SDK_INSTALL_DIR="$HOME/GBT/zephyr/sdk/zephyr-sdk-0.15.2"
+
 
 # export socket for ssh-agent
 export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
@@ -80,4 +82,4 @@ if ! xset q &>/dev/null; then
     trap 'test -n "$SSH_AUTH_SOCK" && eval `/usr/bin/ssh-agent -k`' 0
 fi
 
-. "/home/dedukun/.local/share/cargo/env"
+. "$HOME/.cargo/env"

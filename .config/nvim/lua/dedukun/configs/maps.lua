@@ -49,7 +49,7 @@ nnoremap("gb", "<C-^>")
 nnoremap("<C-w>w", ":ZoomWinTabToggle<CR>")
 
 -- Fuzzy find for files
-nnoremap("<C-p>", "<cmd>lua require('telescope.builtin').find_files()<cr>")
+nnoremap("<C-p>", "<cmd>lua require('telescope.builtin').find_files({follow=true})<cr>")
 
 -- Fuzzy find for lines in files
 nnoremap("<leader><C-p>", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
@@ -90,21 +90,21 @@ nnoremap("<leader>xl", "<cmd>TroubleToggle loclist<cr>")
 nnoremap("<leader>w", "<cmd>lua require('nvim-window').pick()<cr>")
 
 -- documentation
-nnoremap("<leader>dcc", "<cmd>lua require'dap'.continue()<cr>")
-nnoremap("<leader>dcC", "<cmd>lua require'dap'.close()<cr>")
-nnoremap("<leader>dcp", "<cmd>lua require'dap'.pause()<cr>")
-nnoremap("<leader>dct", "<cmd>lua require'dap'.terminate()<cr>")
-nnoremap("<leader>dso", "<cmd>lua require'dap'.step_over()<cr>")
-nnoremap("<leader>dsi", "<cmd>lua require'dap'.step_into()<cr>")
-nnoremap("<leader>dsO", "<cmd>lua require'dap'.step_out()<cr>")
-nnoremap("<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
-nnoremap("<leader>dT", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
-nnoremap("<leader>dl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
-nnoremap("<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
-nnoremap("<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
-nnoremap("<leader>du", "<cmd>lua require'dapui'.toggle()<cr>")
-nnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
-vnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+-- nnoremap("<leader>dcc", "<cmd>lua require'dap'.continue()<cr>")
+-- nnoremap("<leader>dcC", "<cmd>lua require'dap'.close()<cr>")
+-- nnoremap("<leader>dcp", "<cmd>lua require'dap'.pause()<cr>")
+-- nnoremap("<leader>dct", "<cmd>lua require'dap'.terminate()<cr>")
+-- nnoremap("<leader>dso", "<cmd>lua require'dap'.step_over()<cr>")
+-- nnoremap("<leader>dsi", "<cmd>lua require'dap'.step_into()<cr>")
+-- nnoremap("<leader>dsO", "<cmd>lua require'dap'.step_out()<cr>")
+-- nnoremap("<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
+-- nnoremap("<leader>dT", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<cr>")
+-- nnoremap("<leader>dl", "<cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<cr>")
+-- nnoremap("<leader>dr", "<cmd>lua require'dap'.repl.toggle()<cr>")
+-- nnoremap("<leader>dl", "<cmd>lua require'dap'.run_last()<cr>")
+-- nnoremap("<leader>du", "<cmd>lua require'dapui'.toggle()<cr>")
+-- nnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
+-- vnoremap("<leader>de", "<cmd>lua require'dapui'.eval()<cr>")
 
 -- barbar
 -- Move to previous/next

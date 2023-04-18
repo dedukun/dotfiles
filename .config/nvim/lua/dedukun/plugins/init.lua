@@ -80,10 +80,10 @@ require("dedukun.plugins.nvim-gps")
 -- nvim-window
 require("dedukun.plugins.nvim-window")
 
--- nvim-dap
-if vim.fn.exists("g:vscode") == 0 then
-	require("dedukun.plugins.nvim-dap")
-end
+-- -- nvim-dap
+-- if vim.fn.exists("g:vscode") == 0 then
+-- 	require("dedukun.plugins.nvim-dap")
+-- end
 
 -- nvim-ufo
 if vim.fn.exists("g:vscode") == 0 then
@@ -102,3 +102,11 @@ end
 
 -- null-ls
 require("dedukun.plugins.null-ls")
+
+-- null-ls
+if vim.fn.exists("g:vscode") == 0 then
+	require("dedukun.plugins.colorizer")
+end
+
+-- null-ls
+require("dedukun.plugins.neodev")

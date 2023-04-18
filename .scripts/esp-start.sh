@@ -4,7 +4,7 @@
 #======= C O N F I G U R A T I O N S =======#
 #############################################
 
-espstart_home="$HOME/Globaltronic/espressiff"
+espstart_home="$HOME/GBT/espressiff"
 espstart_idfs="$espstart_home/idf"
 espstart_adfs="$espstart_home/adf"
 espstart_rust="$espstart_home/rust"

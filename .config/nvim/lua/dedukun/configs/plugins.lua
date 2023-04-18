@@ -9,7 +9,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
 		"https://github.com/wbthomason/packer.nvim",
 		install_path,
 	})
-	vim.cmd [[packadd packer.nvim]]
+	vim.cmd([[packadd packer.nvim]])
 end
 
 return require("packer").startup({
@@ -44,10 +44,10 @@ return require("packer").startup({
 		-- Treesitter
 		-----------------
 		if vim.fn.exists("g:vscode") == 0 then
-		 	use({
-		 		"nvim-treesitter/nvim-treesitter",
-		 		run = ":TSUpdate",
-		 	})
+			use({
+				"nvim-treesitter/nvim-treesitter",
+				run = ":TSUpdate",
+			})
 			-- brackets color
 			use("p00f/nvim-ts-rainbow")
 			-- set the commentstring option based on the cursor location
@@ -121,13 +121,16 @@ return require("packer").startup({
 			-- ANSI color converter
 			use("powerman/vim-plugin-AnsiEsc")
 			-- color name highlighter
-			use({ "RRethy/vim-hexokinase", run = "make hexokinase" })
+			use("NvChad/nvim-colorizer.lua")
 			-- fuzzy finder
 			use({
 				"nvim-telescope/telescope.nvim",
 				requires = {
 					{ "nvim-lua/plenary.nvim" },
-					{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+					{
+						"nvim-telescope/telescope-fzf-native.nvim",
+						run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+					},
 				},
 			})
 			-- show git diffs in file
@@ -156,7 +159,7 @@ return require("packer").startup({
 			-- comments
 			use({
 				"numToStr/Comment.nvim",
-				config = [[require('dedukun.plugins.comment')]]
+				config = [[require('dedukun.plugins.comment')]],
 				--[[ config = function() ]]
 				--[[ 	require("dedukun.plugins.comment") ]]
 				--[[ end, ]]
@@ -164,7 +167,7 @@ return require("packer").startup({
 			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
 			use("tami5/lspsaga.nvim")
 			-- debug adapter protocol client implementation
-			use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } })
+			-- use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } })
 			-- pretty list for showing diagnostics
 			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
 			-- see crates versions in rust
@@ -179,11 +182,20 @@ return require("packer").startup({
 			-- better/faster folds
 			use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 			-- disable background colors
-			use({ "xiyaowong/nvim-transparent" })
+			use({ "xiyaowong/transparent.nvim" })
 			-- tab bar
 			use({
 				"romgrk/barbar.nvim",
 				requires = { "kyazdani42/nvim-web-devicons" },
+			})
+			use("folke/neodev.nvim")
+			use({
+				"iamcco/markdown-preview.nvim",
+				run = "cd app && npm install",
+				setup = function()
+					vim.g.mkdp_filetypes = { "markdown" }
+				end,
+				ft = { "markdown" },
 			})
 		end
 
@@ -229,7 +241,7 @@ return require("packer").startup({
 					--cmp LuaSnip source
 					"saadparwaiz1/cmp_luasnip",
 					--cmp dap source
-					"rcarriga/cmp-dap",
+					-- "rcarriga/cmp-dap",
 				},
 			})
 		end

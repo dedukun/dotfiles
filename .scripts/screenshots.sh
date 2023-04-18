@@ -105,14 +105,12 @@ fi
 
 # take the screen shot now so its timing doesn't depend on the user input
 if [[ -n $SCREEN_SELECTED ]]; then
-    flameshot gui -r >"$SCREEN_TMP_NAME"
+    grimshot save area "$SCREEN_TMP_NAME"
     [ "$(cat $SCREEN_TMP_NAME | wc -l)" -lt 2 ] && exit_error "No Selection made"
 elif [[ -n $SCREEN_WINDOW ]]; then
-    geometry=$(xwininfo | grep "geometry" | awk '{print $2;}')
-    maim -g "$geometry" --hidecursor "$SCREEN_TMP_NAME"
+    grimshot save window "$SCREEN_TMP_NAME"
 else
-    sleep 0.5
-    maim --hidecursor "$SCREEN_TMP_NAME"
+    grimshot --cursor save window "$SCREEN_TMP_NAME"
 fi
 
 # Set a custom file name (uses current date/time if no input)

@@ -85,4 +85,4 @@ _open_files_for_editing() {
 # alias pacdiff=eos-pacdiff
 ################################################################################
 
-. "/home/dedukun/.local/share/cargo/env"
+. "$HOME/.cargo/env"

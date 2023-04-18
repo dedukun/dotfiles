@@ -8,8 +8,8 @@ audio_default = [
 ]
 
 image_default = [
-  { command = "swayimg", fork = true, silent = true },
   { command = "nsxiv", fork = true, silent = true },
+  # { command = "swayimg", fork = true, silent = true },
   { command = "gimp", args = [
     "--",
   ], fork = true, silent = true },

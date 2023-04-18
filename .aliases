@@ -44,6 +44,7 @@ alias esp-tags='cp "$HOME/Globaltronic/espressiff/generate-tags.sh" .'
 alias esp-reset='$SCRIPTS/esp-reset.sh'
 alias esp-start='$SCRIPTS/esp-start.sh'
 alias esp-flash='$SCRIPTS/esp-flash.sh'
+alias nrf-start='source $SCRIPTS/nrf-start.sh'
 alias mtd='$SCRIPTS/tempdir.sh'
 alias mcd='cd $(mtd --select)'
 
