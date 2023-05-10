@@ -1,7 +1,7 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
-command_timeout=1000
+command_timeout = 1000
 
 [custom.esp]
 command = "echo $IDF_VERSION"
@@ -17,8 +17,8 @@ symbol = " "
 [c]
 symbol = " "
 
-[conda]
-symbol = " "
+[cmake]
+symbol = "△ "
 
 [dart]
 symbol = " "
@@ -29,17 +29,27 @@ read_only = " "
 [docker_context]
 symbol = " "
 
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
 [fossil_branch]
 symbol = " "
 
 [git_branch]
 symbol = " "
+
+[git_commit]
+disabled = true
+
+[git_metrics]
+disabled = false
+
+[git_status]
+format = '([$all_status$ahead_behind]($style) )'
+stashed = ""
+conflicted = "󰕚 "
+staged = " "
+deleted = " "
+modified = ' '
+untracked = ' '
+renamed =' '
 
 [golang]
 symbol = " "
@@ -68,11 +78,8 @@ symbol = " "
 [lua]
 symbol = " "
 
-[memory_usage]
-symbol = " "
-
 [meson]
-symbol = "喝 "
+symbol = "⬢ "
 
 [nim]
 symbol = " "
@@ -137,10 +144,10 @@ symbol = "󰟔 "
 symbol = " "
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
 
-[scala]
-symbol = " "
+[vlang]
+symbol = " "
 
-[spack]
-symbol = "🅢 "
+[zig]
+symbol = " "
