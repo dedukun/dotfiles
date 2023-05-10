@@ -45,6 +45,7 @@ alias esp-reset='$SCRIPTS/esp-reset.sh'
 alias esp-start='$SCRIPTS/esp-start.sh'
 alias esp-flash='$SCRIPTS/esp-flash.sh'
 alias nrf-start='source $SCRIPTS/nrf-start.sh'
+alias zephyr-start='source $SCRIPTS/zephyr-start.sh'
 alias mtd='$SCRIPTS/tempdir.sh'
 alias mcd='cd $(mtd --select)'
 
