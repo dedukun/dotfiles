@@ -1,0 +1,5 @@
+#!/bin/sh
+hyprctl reload
+killall waybar
+sleep 0.5
+waybar &

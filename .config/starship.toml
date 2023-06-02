@@ -36,14 +36,15 @@ symbol = " "
 symbol = " "
 
 [git_commit]
-disabled = true
+tag_disabled=false
+tag_symbol = "🏷"
 
 [git_metrics]
 disabled = false
 
 [git_status]
 format = '([$all_status$ahead_behind]($style) )'
-stashed = ""
+stashed = " "
 conflicted = "󰕚 "
 staged = " "
 deleted = " "

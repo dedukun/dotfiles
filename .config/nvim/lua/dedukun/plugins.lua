@@ -70,6 +70,8 @@ return require("packer").startup({
 			use("kergoth/vim-bitbake")
 			-- kitty
 			use("fladson/vim-kitty")
+			-- hyprland
+			use("theRealCarneiro/hyprland-vim-syntax")
 		end
 
 		-----------------
@@ -77,8 +79,6 @@ return require("packer").startup({
 		-----------------
 		-- all the lua functions i don't want to write twice.
 		use("nvim-lua/plenary.nvim")
-		-- make mapping and commands more manageable in lua
-		use("b0o/mapx.nvim")
 		-- null-ls
 		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
 		if vim.fn.exists("g:vscode") == 0 then
@@ -106,9 +106,6 @@ return require("packer").startup({
 					-- status line component that shows context of the current cursor position in file
 					{ "SmiteshP/nvim-navic" },
 				},
-				config = function()
-					require("dedukun.plugins.lualine")
-				end,
 			})
 			-- ANSI color converter
 			use("powerman/vim-plugin-AnsiEsc")
@@ -149,13 +146,7 @@ return require("packer").startup({
 			-- highlight, navigate, and operate on sets of matching text
 			use("andymass/vim-matchup")
 			-- comments
-			use({
-				"numToStr/Comment.nvim",
-				config = [[require('dedukun.plugins.comment')]],
-				--[[ config = function() ]]
-				--[[ 	require("dedukun.plugins.comment") ]]
-				--[[ end, ]]
-			})
+			use("numToStr/Comment.nvim")
 			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
 			use({
 				"nvimdev/lspsaga.nvim",

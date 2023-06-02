@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
-. "$HOME/.local/bin/virtualenvwrapper.sh"
-
-workon zephyr
-source "$HOME/GBT/zephyr/zephyrproject/zephyr/zephyr-env.sh"
+workonenv
+workon zephyr-dev
+source "$HOME/GBT/zephyr/dev/zephyrproject/zephyr/zephyr-env.sh"

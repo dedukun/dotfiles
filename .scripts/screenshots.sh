@@ -20,16 +20,20 @@ exit_error() {
 }
 
 choose_menu() {
-    screenshot_type=$(printf "Normal\nSelect\nWindow" | rofi -dmenu -i -p "Mode:" -l 3)
+    screenshot_type=$(printf "Select\nActive Window\nWorkspace\nAll Workspaces" | rofi -dmenu -i -p "Mode:" -l 4ll)
+    echo "$screenshot_type"
 
     case $screenshot_type in
-        Normal) ;;
+        Workspace) ;;
 
         Select)
             SCREEN_SELECTED=YES
             ;;
-        Window)
-            SCREEN_WINDOW=YES
+        "Active Window")
+            SCREEN_ACTIVE_WINDOW=YES
+            ;;
+        "All Workspaces")
+            SCREEN_ALL_WORKSPACES=YES
             ;;
         *)
             echo "Invalid screenshot type '$1'."
@@ -54,8 +58,8 @@ while [[ $# -gt 0 ]]; do
             SCREEN_SELECTED=YES
             shift # past argument
             ;;
-        -i | --window)
-            SCREEN_WINDOW=YES
+        -i | --active-window)
+            SCREEN_ACTIVE_WINDOW=YES
             shift # past argument
             ;;
         -df | --date-folder)
@@ -105,12 +109,14 @@ fi
 
 # take the screen shot now so its timing doesn't depend on the user input
 if [[ -n $SCREEN_SELECTED ]]; then
-    grimshot save area "$SCREEN_TMP_NAME"
+    grimblast save area "$SCREEN_TMP_NAME"
     [ "$(cat $SCREEN_TMP_NAME | wc -l)" -lt 2 ] && exit_error "No Selection made"
-elif [[ -n $SCREEN_WINDOW ]]; then
-    grimshot save window "$SCREEN_TMP_NAME"
+elif [[ -n $SCREEN_ACTIVE_WINDOW ]]; then
+    grimblast save active "$SCREEN_TMP_NAME"
+elif [[ -n $SCREEN_ALL_WORKSPACES ]]; then
+    grimblast save screen "$SCREEN_TMP_NAME"
 else
-    grimshot --cursor save window "$SCREEN_TMP_NAME"
+    grimblast save output "$SCREEN_TMP_NAME"
 fi
 
 # Set a custom file name (uses current date/time if no input)
@@ -141,11 +147,14 @@ fi
 # move screen shot to the correct folder and rename it
 if [[ -n $SCREEN_SELECTED ]]; then
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-S.png"
-    notify-send -t 2000 "Screenshot selected taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
-elif [[ -n $SCREEN_WINDOW ]]; then
+    notify-send -t 2000 "Screenshot selected taken with Selected" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+elif [[ -n $SCREEN_ACTIVE_WINDOW ]]; then
+    mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-A.png"
+    notify-send -t 2000 "Screenshot taken with Active Window" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+elif [[ -n $SCREEN_ALL_WORKSPACES ]]; then
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME-W.png"
-    notify-send -t 2000 "Screenshot taken with ID" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    notify-send -t 2000 "Screenshot taken with All Workspaces" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 else
     mv "$SCREEN_TMP_NAME" "$SCREEN_BASE_FOLDER/$SCREEN_PRE_NAME$SCREEN_NAME.png"
-    notify-send -t 2000 "Screenshot taken" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
+    notify-send -t 2000 "Screenshot taken with Active Workspace" "A new screenshot was saved to \'$SCREEN_BASE_FOLDER\'"
 fi

@@ -1,228 +1,65 @@
 // vi:ft=jsonc
-//
-// First Monitor
-//
 [
-{
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    "output": "eDP-1",
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad"],
-    "modules-right": ["idle_inhibitor", "custom/pacman", "pulseaudio", "network", "cpu", "memory", "disk", "temperature", "sway/language", "battery", "clock", "tray"],
-    // Modules configuration
-    "sway/workspaces": {
-        "enable-bar-scroll": true
+    {
+        "layer": "top", // Waybar at top layer
+        "position": "top", // Waybar position (top|bottom|left|right)
+        "height": 30, // Waybar height (to be removed for auto height)
+        // "width": 1280, // Waybar width
+        "spacing": 4, // Gaps between modules (4px)
+        "output": "eDP-1",
+        "include": [
+            "~/.config/waybar/modules.json"
+        ],
+        // Choose the order of the modules
+        "modules-left": [
+            "wlr/workspaces",
+            "hyprland/submap"
+        ],
+        "modules-right": [
+            "idle_inhibitor",
+            "custom/pacman",
+            "pulseaudio",
+            "network",
+            "cpu",
+            "memory",
+            "disk",
+            "temperature",
+            // "hyprland/language",
+            "battery",
+            "clock",
+            "tray"
+        ]
     },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "sway/language": {
-        "format": "{} ",
-        "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
-    },
-    "tray": {
-        "icon-size": 18,
-        "spacing": 5
-    },
-    "clock": {
-        "timezone": "Europe/Lisbon",
-        "format": "{:%F %R} ",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": true
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "disk": {
-        "interval": 30,
-        "format": "{path}: {percentage_used}% ",
-        "path": "/"
-    },
-    "temperature": {
-        "thermal-zone": 7,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol",
-        "on-click-right": "helvum"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-    "custom/pacman": {
-        "exec": "$SCRIPTS/polybar/updates-pacman-aurhelper.sh",
-        "interval": 3600,                     // every hour
-        "exec-if": "exit 0",                  // always run; consider advanced run conditions
-        "format": "{} ",
+    {
+        "layer": "top", // Waybar at top layer
+        "position": "top", // Waybar position (top|bottom|left|right)
+        "height": 30, // Waybar height (to be removed for auto height)
+        // "width": 1280, // Waybar width
+        "spacing": 4, // Gaps between modules (4px)
+        "output": [
+            "HDMI-A-1",
+            "DP-1"
+        ],
+        "include": [
+            "~/.config/waybar/modules.json"
+        ],
+        // Choose the order of the modules
+        "modules-left": [
+            "wlr/workspaces",
+            "hyprland/submap"
+        ],
+        "modules-right": [
+            "idle_inhibitor",
+            "pulseaudio",
+            "network",
+            "cpu",
+            "memory",
+            "disk",
+            "temperature",
+            // "hyprland/language",
+            "battery",
+            "clock",
+            "tray"
+        ]
     }
-},
-{
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    "output": ["HDMI-A-1", "DP-1"],
-    // Choose the order of the modules
-    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "disk", "temperature", "sway/language", "battery", "clock", "tray"],
-    // Modules configuration
-    "sway/workspaces": {
-        "enable-bar-scroll": true
-    },
-    "sway/mode": {
-        "format": "<span style=\"italic\">{}</span>"
-    },
-    "sway/scratchpad": {
-        "format": "{icon} {count}",
-        "show-empty": false,
-        "format-icons": ["", ""],
-        "tooltip": true,
-        "tooltip-format": "{app}: {title}"
-    },
-    "sway/language": {
-        "format": "{} ",
-        "on-click": "swaymsg input type:keyboard xkb_switch_layout next",
-    },
-    "tray": {
-        "icon-size": 18,
-        "spacing": 5
-    },
-    "clock": {
-        "timezone": "Europe/Lisbon",
-        "format": "{:%F %R} ",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-    },
-    "cpu": {
-        "format": "{usage}% ",
-        "tooltip": true
-    },
-    "memory": {
-        "format": "{}% "
-    },
-    "disk": {
-        "interval": 30,
-        "format": "{path}: {percentage_used}% ",
-        "path": "/"
-    },
-    "temperature": {
-        "thermal-zone": 7,
-        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        // "format-critical": "{temperatureC}°C {icon}",
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
-    },
-    "battery": {
-        "states": {
-            // "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{capacity}% {icon}",
-        "format-charging": "{capacity}% ",
-        "format-plugged": "{capacity}% ",
-        "format-alt": "{time} {icon}",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
-        "format-icons": ["", "", "", "", ""]
-    },
-    "network": {
-        // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": "{essid} ({signalStrength}%) ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
-    },
-    "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
-        "format-bluetooth": "{volume}% {icon} {format_source}",
-        "format-bluetooth-muted": " {icon} {format_source}",
-        "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": ["", "", ""]
-        },
-        "on-click": "pavucontrol",
-        "on-click-right": "helvum"
-    },
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": ""
-        }
-    },
-}]
-
+]

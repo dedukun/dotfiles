@@ -6,7 +6,6 @@
 unalias -a
 
 # commands overwritte
-alias ag="\$SCRIPTS/ag.sh"
 alias vi='nvim'
 alias vim='nvim'
 alias ls='ls -h --color=auto --group-directories-first --sort=extension'
@@ -16,12 +15,10 @@ alias less='less -i'
 alias grep='grep --color'
 alias info='info --vi-keys'
 alias cp='cp -i'
-alias ra='ranger'
 alias jo='joshuto'
 alias ssh='kitty +kitten ssh'
 alias cdiff='diff-so-fancy | less --tabs=4 -RFX'
 alias trans='$SCRIPTS/other/trans'
-alias csm='$SCRIPTS/display.sh'
 alias formconf='$SCRIPTS/format_config.sh'
 alias netbeans='netbeans --userdir "$XDG_CONFIG_HOME/netbeans"'
 alias nvidia-settings='nvidia-settings --config="$XDG_CONFIG_HOME/nvidia/settings"'
@@ -37,7 +34,7 @@ alias sudo='sudo '
 
 # auxiliar 'commands' aliases
 alias weather='$SCRIPTS/weather.sh'
-alias myip='curl ipinfo.io/ip'
+alias myip='curl ipinfo.io/ip && echo'
 alias xxstartx='exec startx &> /dev/null'
 alias update-time='sudo ntpdate pt.pool.ntp.org'
 alias esp-tags='cp "$HOME/Globaltronic/espressiff/generate-tags.sh" .'

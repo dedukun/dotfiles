@@ -1,0 +1,7 @@
+#!/bin/sh
+# URL: https://github.com/vilari-mickopf/hyprcwd/blob/master/hyprcwd
+
+pid=$(hyprctl activewindow -j | jq '.pid')
+ppid=$(pgrep --newest --parent "$pid")
+dir=$(readlink /proc/"$ppid"/cwd || echo "$HOME")
+[ -d "$dir" ] && echo "$dir" || echo "$HOME"
