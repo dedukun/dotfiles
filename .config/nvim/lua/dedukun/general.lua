@@ -26,7 +26,6 @@ vim.opt.scrolloff = 8 --
 
 vim.opt.splitbelow = true -- make splits open at the bottom
 vim.opt.splitright = true -- make splits open at the right
-vim.opt.bg = "dark"
 -- use special register '*' or '+' for all
 if vim.fn.has("unnamedplus") == 1 then
 	-- yank, delete, ...
@@ -60,10 +59,6 @@ vim.opt.directory = "/home/dedukun/.config/nvim/.backup//"
 
 -- Tags files default locations
 vim.opt.tags = { "tags", "./tags" }
-
--- set color scheme
-vim.g.gruvbox_flat_style = "dark"
-vim.cmd([[colorscheme gruvbox-flat]])
 
 -- python path
 vim.g.python3_host_prog = "/home/dedukun/.local/share/virtualenvs/vim/bin/python"

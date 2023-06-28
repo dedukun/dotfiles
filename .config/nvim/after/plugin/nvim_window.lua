@@ -45,3 +45,7 @@ window.setup({
 	-- The border style to use for the floating window.
 	border = "single",
 })
+
+
+-- pick window
+vim.keymap.set("n", "<leader>w", "<cmd>lua require('nvim-window').pick()<cr>")

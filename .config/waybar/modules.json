@@ -40,7 +40,7 @@
   },
   "temperature": {
     "thermal-zone": 7,
-    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon5/temp1_input",
     "critical-threshold": 80,
     // "format-critical": "{temperatureC}°C {icon}",
     "format": "{temperatureC}°C {icon}",

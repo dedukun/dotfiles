@@ -1,4 +1,4 @@
-local present, barbar = pcall(require, "bufferline")
+local present, barbar = pcall(require, "barbar")
 if not present then
 	return
 end
@@ -103,3 +103,25 @@ barbar.setup({
 	-- where X is the buffer number. But only a static string is accepted here.
 	no_name_title = nil,
 })
+
+-- Move to previous/next
+vim.keymap.set("n", "<A-,>", ":BufferPrevious<CR>")
+vim.keymap.set("n", "<A-.>", ":BufferNext<CR>")
+-- Re-order to previous/next
+vim.keymap.set("n", "<A-<>", ":BufferMovePrevious<CR>")
+vim.keymap.set("n", "<A->>", ":BufferMoveNext<CR>")
+-- Goto buffer in position...
+vim.keymap.set("n", "<A-1>", ":BufferGoto 1<CR>")
+vim.keymap.set("n", "<A-2>", ":BufferGoto 2<CR>")
+vim.keymap.set("n", "<A-3>", ":BufferGoto 3<CR>")
+vim.keymap.set("n", "<A-4>", ":BufferGoto 4<CR>")
+vim.keymap.set("n", "<A-5>", ":BufferGoto 5<CR>")
+vim.keymap.set("n", "<A-6>", ":BufferGoto 6<CR>")
+vim.keymap.set("n", "<A-7>", ":BufferGoto 7<CR>")
+vim.keymap.set("n", "<A-8>", ":BufferGoto 8<CR>")
+vim.keymap.set("n", "<A-9>", ":BufferGoto 9<CR>")
+vim.keymap.set("n", "<A-0>", ":BufferLast<CR>")
+-- Close buffer
+vim.keymap.set("n", "<A-c>", ":BufferClose<CR>")
+-- Magic buffer-picking mode
+vim.keymap.set("n", "<A-p>", ":BufferPick<CR>")

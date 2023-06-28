@@ -3,8 +3,6 @@ if not present then
 	return
 end
 
-local navic = require("nvim-navic")
-
 local function diff_source()
 	local gitsigns = vim.b.gitsigns_status_dict
 	if gitsigns then
@@ -19,7 +17,7 @@ end
 lualine.setup({
 	options = {
 		icons_enabled = true,
-		theme = "gruvbox-flat",
+		theme = "catppuccin",
 		component_separators = { left = "", right = "" },
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = {},
@@ -108,5 +106,5 @@ lualine.setup({
 		lualine_z = {},
 	},
 	tabline = {},
-	extensions = {},
+	extensions = { "nvim-tree" },
 })

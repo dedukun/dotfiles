@@ -8,6 +8,7 @@ unalias -a
 # commands overwritte
 alias vi='nvim'
 alias vim='nvim'
+alias hx='helix'
 alias ls='ls -h --color=auto --group-directories-first --sort=extension'
 alias l='ls -l'
 alias ll='ls -lA'

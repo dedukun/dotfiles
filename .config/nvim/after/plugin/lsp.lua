@@ -30,10 +30,6 @@ end
 
 -- keymaps
 local on_attach = function(client, bufnr)
-	local function buf_set_keymap(...)
-		vim.api.nvim_buf_set_keymap(bufnr, ...)
-	end
-
 	local function buf_set_option(...)
 		vim.api.nvim_buf_set_option(bufnr, ...)
 	end
@@ -41,57 +37,40 @@ local on_attach = function(client, bufnr)
 	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
-	local opts = { noremap = true, silent = true }
-	buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	buf_set_keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
-	buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	buf_set_keymap("n", "<space>r", "<cmd>Lspsaga rename<CR>", opts)
-	buf_set_keymap("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opts)
-	buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	buf_set_keymap("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
-	buf_set_keymap("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-	buf_set_keymap("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-	-- buf_set_keymap("n", "<C-u>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1, '<c-u>')<cr>", opts)
-	-- buf_set_keymap("n", "<C-d>", "<cmd>lua require('lspsaga.action').smart_scroll_with_saga(1, '<c-d>')<cr>", opts)
-
-	-- Set some keybinds conditional on server capabilities
-	if client.server_capabilities.document_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	elseif client.server_capabilities.document_range_formatting then
-		buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-	end
-
-	-- Set autocommands conditional on server_capabilities
-	if client.server_capabilities.document_highlight then
-		vim.api.nvim_exec(
-			[[
-    augroup lsp_document_highlight
-    autocmd! * <buffer>
-    autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-    autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    augroup END
-    ]],
-			false
-		)
-	end
+	local opts = { buffer = bufnr, noremap = true, silent = true }
+	vim.keymap.set("n", "<space>gD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "<space>gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "<space>gi", vim.lsp.buf.implementation, opts)
+	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
+	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+	vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
+	vim.keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
+	vim.keymap.set("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opts)
+	vim.keymap.set("n", "<space>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+	vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+	vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+	vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, opts)
+	vim.keymap.set("n", "<space>ff", vim.lsp.buf.format, opts)
+	vim.keymap.set("n", "[E", function()
+		require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+	end, opts)
+	vim.keymap.set("n", "]E", function()
+		require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+	end, opts)
 
 	if client.server_capabilities.documentSymbolProvider then
 		navic.attach(client, bufnr)
 	end
+
+	lsp_signature.on_attach({
+		hint_enable = false,
+	}, bufnr)
 end
 
 -- config that activates keymaps and enables snippet support
 local function make_config()
 	local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-	-- adding folding capabilities
-	capabilities.textDocument.foldingRange = {
-		dynamicRegistration = false,
-		lineFoldingOnly = true,
-	}
 
 	return {
 		-- enable snippet support
@@ -102,8 +81,6 @@ local function make_config()
 end
 
 neodev.setup({})
-
-lsp_signature.setup({})
 
 mason.setup({
 	ui = {
@@ -117,7 +94,7 @@ mason_lspconfig.setup_handlers({
 	-- The default handler
 	function(server_name) -- default handler (optional)
 		local config = make_config()
-		require("lspconfig")[server_name].setup(config)
+		lspconfig[server_name].setup(config)
 	end,
 
 	-- Next, you can provide a dedicated handler for specific servers.
@@ -125,12 +102,17 @@ mason_lspconfig.setup_handlers({
 	-- ["gdscript"] = function()
 	-- 	local config = make_config()
 	-- 	config.cmd = { "nc", "localhost", "6005" }
-	-- 	require("lspconfig")["gdscript"].setup(config)
+	-- 	lspconfig.gdscript.setup(config)
 	-- end,
 	["clangd"] = function()
 		local config = make_config()
 		config.filetypes = { "c", "cpp", "arduino" }
-		require("lspconfig")["clangd"].setup(config)
+		lspconfig.clangd.setup(config)
+	end,
+	["lua_ls"] = function()
+		local config = make_config()
+		config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+		lspconfig.lua_ls.setup(config)
 	end,
 	["omnisharp"] = function()
 		local config = make_config()
@@ -147,7 +129,7 @@ mason_lspconfig.setup_handlers({
 			end
 		end
 		config.root_dir = lspconfig.util.root_pattern("*.sln")
-		require("lspconfig")["omnisharp"].setup(config)
+		lspconfig.omnisharp.setup(config)
 	end,
 })
 

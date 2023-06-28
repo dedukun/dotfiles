@@ -33,7 +33,7 @@ return require("packer").startup({
 			-- edit root flies
 			use("lambdalisue/suda.vim")
 			-- colorscheme
-			use("eddyekofo94/gruvbox-flat.nvim")
+			use({ "catppuccin/nvim", as = "catppuccin" })
 			-- terminal
 			use("akinsho/toggleterm.nvim")
 		end
@@ -46,6 +46,8 @@ return require("packer").startup({
 				"nvim-treesitter/nvim-treesitter",
 				run = ":TSUpdate",
 			})
+			-- function context
+			use("nvim-treesitter/nvim-treesitter-context")
 			-- brackets color
 			use("HiPhish/nvim-ts-rainbow2")
 			-- set the commentstring option based on the cursor location
@@ -72,6 +74,8 @@ return require("packer").startup({
 			use("fladson/vim-kitty")
 			-- hyprland
 			use("theRealCarneiro/hyprland-vim-syntax")
+			-- rofi
+			use("Fymyte/rasi.vim")
 		end
 
 		-----------------
@@ -118,7 +122,8 @@ return require("packer").startup({
 					{ "nvim-lua/plenary.nvim" },
 					{
 						"nvim-telescope/telescope-fzf-native.nvim",
-						run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+						run =
+						"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 					},
 				},
 			})
@@ -177,6 +182,7 @@ return require("packer").startup({
 				"romgrk/barbar.nvim",
 				requires = { "kyazdani42/nvim-web-devicons" },
 			})
+			-- Neovim setup for init.lua and plugin development
 			use("folke/neodev.nvim")
 			use({
 				"iamcco/markdown-preview.nvim",
@@ -186,7 +192,10 @@ return require("packer").startup({
 				end,
 				ft = { "markdown" },
 			})
+			-- Visual Undo Tree
 			use("mbbill/undotree")
+			-- Tmux integration
+			use("aserowy/tmux.nvim")
 		end
 
 		-----------------

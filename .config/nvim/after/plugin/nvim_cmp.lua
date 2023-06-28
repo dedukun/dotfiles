@@ -28,8 +28,13 @@ cmp.setup({
 			require("luasnip").lsp_expand(args.body)
 		end,
 	},
-
+	window = {
+		-- completion = cmp.config.window.bordered(),
+		-- documentation = cmp.config.window.bordered(),
+	},
 	mapping = {
+		["<C-b>"] = cmp.mapping.scroll_docs(-4),
+		["<C-f>"] = cmp.mapping.scroll_docs(4),
 		["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s", "c" }),
 		["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s", "c" }),
 		["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
@@ -60,13 +65,8 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-		["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		["<C-e>"] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
+		["<C-Space>"] = cmp.mapping.complete(),
+		["<C-e>"] = cmp.mapping.abort(),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 	},
 
@@ -94,25 +94,25 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
 		{ name = "nvim_lua" },
+        { name = "crates" },
 		-- { name = "dap" },
 	}),
 })
 
--- Use buffer source for `/`.
-cmp.setup.cmdline("/", {
+-- Use buffer source for `/` and '?'.
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = {
-		-- { name = "buffer", keyword_length = 2 },
-		{ name = "buffer", keyword_length = 1 },
+		{ name = "buffer" },
 	},
 })
 
 -- Use cmdline & path source for ':'.
 cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
 	sources = cmp.config.sources({
-		-- { name = "path", keyword_length = 3 },
-		{ name = "path", keyword_length = 1 },
+		{ name = "path" },
 	}, {
-		-- { name = "cmdline", keyword_length = 3 },
-		{ name = "cmdline", keyword_length = 1 },
+		{ name = "cmdline" },
 	}),
 })

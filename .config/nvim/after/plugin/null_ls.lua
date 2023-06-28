@@ -27,6 +27,13 @@ mason_null_ls.setup({
 			-- Keep original functionality of `automatic_setup = true`
 			require("mason-null-ls.automatic_setup")(source_name, methods)
 		end,
+		cspell = function()
+			null_ls.register(null_ls.builtins.diagnostics.cspell.with({ filetypes = { "markdown" } }))
+			null_ls.register(null_ls.builtins.code_actions.cspell.with({ filetypes = { "markdown" } }))
+		end,
+		ruff = function()
+			null_ls.register(null_ls.builtins.diagnostics.ruff)
+		end,
 		clang_format = function()
 			null_ls.register(null_ls.builtins.formatting.clang_format.with({
 				extra_filetypes = { "arduino" },
@@ -37,7 +44,6 @@ mason_null_ls.setup({
 
 null_ls.setup({
 	sources = {
-		null_ls.builtins.code_actions.gitsigns,
-        null_ls.builtins.diagnostics.eslint,
+		null_ls.register(null_ls.builtins.diagnostics.cppcheck),
 	},
 })

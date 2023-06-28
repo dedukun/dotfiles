@@ -3,4 +3,9 @@ if not present then
 	return
 end
 
-crates.setup({})
+crates.setup({
+	null_ls = {
+		enabled = true,
+		name = "crates.nvim",
+	},
+})
