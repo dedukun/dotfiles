@@ -44,6 +44,7 @@ alias esp-start='$SCRIPTS/esp-start.sh'
 alias esp-flash='$SCRIPTS/esp-flash.sh'
 alias nrf-start='source $SCRIPTS/nrf-start.sh'
 alias zephyr-start='source $SCRIPTS/zephyr-start.sh'
+alias arduino-bossac='$HOME/.arduino15/packages/arduino/tools/bossac/1.9.1-arduino2/bossac'
 alias mtd='$SCRIPTS/tempdir.sh'
 alias mcd='cd $(mtd --select)'
 

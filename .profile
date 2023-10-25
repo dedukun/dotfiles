@@ -7,7 +7,7 @@ export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
 
 export HISTFILE="${XDG_STATE_HOME}/bash/history"
-export ANDROID_HOME="$XDG_DATA_HOME/android"
+export ANDROID_HOME="$HOME/Android"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
@@ -27,8 +27,8 @@ export PYTHONSTARTUP="${XDG_CONFIG_HOME}/python/pythonrc"
 # Default programs
 export EDITOR="nvim"
 export VISUAL="nvim"
-export TERMINAL="kitty"
-export TERMINAL_OPEN="$TERMINAL --directory"
+export TERMINAL="wezterm"
+export TERMINAL_OPEN="$TERMINAL  start --cwd"
 export TERMINAL_RUN="$TERMINAL "
 
 export STATUSBAR="polybar"
@@ -60,7 +60,7 @@ export PERSONAL_PROJECTS="$HOME/Projects"
 export SCRIPTS="$HOME/.scripts"
 
 # Configs
-export ANDROID_SDK_ROOT="/opt/android-sdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
 export BSP_LAYOUT_ROOT="$HOME/Applications/bsp-layout/src"
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"

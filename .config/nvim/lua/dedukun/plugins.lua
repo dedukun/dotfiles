@@ -1,281 +1,344 @@
-local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-	PackerBootstrap = fn.system({
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
 		"git",
 		"clone",
-		"--depth",
-		"1",
-		"https://github.com/wbthomason/packer.nvim",
-		install_path,
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
 	})
-	vim.cmd([[packadd packer.nvim]])
 end
+vim.opt.rtp:prepend(lazypath)
 
-return require("packer").startup({
-	function(use)
-		-- Packer can manage itself
-		use("wbthomason/packer.nvim")
+require("lazy").setup({
+	-----------------
+	-- General
+	-----------------
+	-- show whitespaces at the end of lines in red
+	"ntpeters/vim-better-whitespace",
+	-- visual search with * and #
+	"bronson/vim-visual-star-search",
+	-- set relativenumber or number when it makes sense
+	{ "jeffkreeftmeijer/vim-numbertoggle", cond = vim.fn.exists("g:vscode") == 0 },
+	-- zoom in and out off a split window
+	{ "troydm/zoomwintab.vim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- edit root flies
+	{ "lambdalisue/suda.vim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- colorscheme
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		cond = vim.fn.exists("g:vscode") == 0,
+		priority = 1000,
+	},
+	-- terminal
+	{ "akinsho/toggleterm.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 
-		-----------------
-		-- General
-		-----------------
-		-- show whitespaces at the end of lines in red
-		use("ntpeters/vim-better-whitespace")
-		-- visual search with * and #
-		use("bronson/vim-visual-star-search")
+	-----------------
+	-- Treesitter
+	-----------------
+	{
+		"nvim-treesitter/nvim-treesitter",
+		build = ":TSUpdate",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- function context
+	{
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- set the commentstring option based on the cursor location
+	{
+		"JoosepAlviste/nvim-ts-context-commentstring",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- auto close and auto rename html tag
+	{
+		"windwp/nvim-ts-autotag",
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- annotation toolkit
+	{
+		"danymat/neogen",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
 
-		if vim.fn.exists("g:vscode") == 0 then
-			-- set relativenumber or number when it makes sense
-			use("jeffkreeftmeijer/vim-numbertoggle")
-			-- zoom in and out off a split window
-			use("troydm/zoomwintab.vim")
-			-- edit root flies
-			use("lambdalisue/suda.vim")
-			-- colorscheme
-			use({ "catppuccin/nvim", as = "catppuccin" })
-			-- terminal
-			use("akinsho/toggleterm.nvim")
-		end
+	-- -----------------
+	-- Extra Syntax
+	-----------------
+	-- dart
+	{
+		"dart-lang/dart-vim-plugin",
+		ft = "dart",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- sxhkdrc
+	{
+		"baskerville/vim-sxhkdrc",
+		ft = "sxhkdrc",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- systemd
+	{
+		"wgwoods/vim-systemd-syntax",
+		ft = "sytemd",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- bitbake
+	{
+		"kergoth/vim-bitbake",
+		ft = "bitbake",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- kitty
+	{
+		"fladson/vim-kitty",
+		ft = "kitty",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- hyprland
+	{
+		"theRealCarneiro/hyprland-vim-syntax",
+		ft = "hypr",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- rofi
+	{
+		"Fymyte/rasi.vim",
+		ft = "rasi",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
 
-		-----------------
-		-- Treesitter
-		-----------------
-		if vim.fn.exists("g:vscode") == 0 then
-			use({
-				"nvim-treesitter/nvim-treesitter",
-				run = ":TSUpdate",
-			})
-			-- function context
-			use("nvim-treesitter/nvim-treesitter-context")
-			-- brackets color
-			use("HiPhish/nvim-ts-rainbow2")
-			-- set the commentstring option based on the cursor location
-			use("JoosepAlviste/nvim-ts-context-commentstring")
-			-- auto close and auto rename html tag
-			use("windwp/nvim-ts-autotag")
-			-- annotation toolkit
-			use("danymat/neogen")
-		end
+	-----------------
+	-- Utils
+	-----------------
+	-- -- null-ls
+	-- {
+	-- 	"jose-elias-alvarez/null-ls.nvim",
+	-- 	event = "LspAttach",
+	-- 	config = function()
+	-- 		require("dedukun.plugins.null_ls")
+	-- 	end,
+	-- 	dependencies = { "nvim-lua/plenary.nvim", "jayp0521/mason-null-ls.nvim" },
+	-- },
+	-- nvim-lint
+	-- {
+	-- 	"mfussenegger/nvim-lint",
+	-- },
+	-- formatter
+	{
+		"mhartington/formatter.nvim",
+	},
 
-		-----------------
-		-- Extra Syntax
-		-----------------
-		if vim.fn.exists("g:vscode") == 0 then
-			-- dart
-			use("dart-lang/dart-vim-plugin")
-			-- sxhkdrc
-			use("baskerville/vim-sxhkdrc")
-			-- systemd
-			use("wgwoods/vim-systemd-syntax")
-			-- bitbake
-			use("kergoth/vim-bitbake")
-			-- kitty
-			use("fladson/vim-kitty")
-			-- hyprland
-			use("theRealCarneiro/hyprland-vim-syntax")
-			-- rofi
-			use("Fymyte/rasi.vim")
-		end
+	-----------------
+	-- Misc
+	-----------------
+	-- horizontal movement helper
+	"unblevable/quick-scope",
+	-- extended increment/decrement
+	"monaqa/dial.nvim",
+	-- status/tabline
+	{
+		"nvim-lualine/lualine.nvim",
+		dependencies = {
+			-- for file icons
+			{ "nvim-tree/nvim-web-devicons" },
+			-- active lsp clients from the $/progress endpoint
+			{ "arkav/lualine-lsp-progress" },
+			-- status line component that shows context of the current cursor position in file
+			{ "SmiteshP/nvim-navic" },
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- ANSI color converter
+	{ "powerman/vim-plugin-AnsiEsc", cond = vim.fn.exists("g:vscode") == 0 },
+	-- color name highlighter
+	{ "NvChad/nvim-colorizer.lua", cond = vim.fn.exists("g:vscode") == 0 },
+	-- fuzzy finder
+	{
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			{ "nvim-lua/plenary.nvim" },
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
+			},
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- show git diffs in file
+	{
+		"lewis6991/gitsigns.nvim",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- show keybindings when timed out
+	{ "folke/which-key.nvim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- show indentation level
+	{ "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {}, cond = vim.fn.exists("g:vscode") == 0 },
+	-- highlight and search for todo comments like TODO, HACK, BUG
+	{
+		"folke/todo-comments.nvim",
+		dependencies = "nvim-lua/plenary.nvim",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- file explorer
+	{
+		"kyazdani42/nvim-tree.lua",
+		dependencies = {
+			-- file icon
+			"nvim-tree/nvim-web-devicons",
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- highlight, navigate, and operate on sets of matching text
+	{
+		"andymass/vim-matchup",
+		event = "LspAttach",
+		config = function()
+			require("dedukun.plugins.matchup")
+		end,
+		dependencies = { "nvim-treesitter/nvim-treesitter" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- comments
+	{
+		"numToStr/Comment.nvim",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
+	{
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		config = function()
+			require("dedukun.plugins.lspsaga")
+		end,
+		dependencies = {
+			{ "nvim-tree/nvim-web-devicons" },
+			--Please make sure you install markdown and markdown_inline parser
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- debug adapter protocol client implementation
+	-- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } },
+	-- pretty list for showing diagnostics
+	{
+		"folke/trouble.nvim",
+		dependencies = "nvim-tree/nvim-web-devicons",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- see crates versions in rust
+	{
+		"Saecki/crates.nvim",
+		ft = "toml",
+		config = function()
+			require("dedukun.plugins.crates")
+		end,
+		dependencies = { "nvim-lua/plenary.nvim" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	--  simple and opinionated NeoVim plugin for switching between windows in the current tab page
+	{ "yorickpeterse/nvim-window", cond = vim.fn.exists("g:vscode") == 0 },
+	-- disable background colors
+	{ "xiyaowong/transparent.nvim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- tab bar
+	{
+		"romgrk/barbar.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	-- Neovim setup for init.lua and plugin development
+	{ "folke/neodev.nvim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- Visual Undo Tree
+	-- { "mbbill/undotree", cond = vim.fn.exists("g:vscode") == 0 },
+	-- ChatGPT.nvim
+	{
+		"jackMort/ChatGPT.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope.nvim",
+		},
+	},
 
-		-----------------
-		-- Utils
-		-----------------
-		-- all the lua functions i don't want to write twice.
-		use("nvim-lua/plenary.nvim")
-		-- null-ls
-		use({ "jose-elias-alvarez/null-ls.nvim", requires = "nvim-lua/plenary.nvim" })
-		if vim.fn.exists("g:vscode") == 0 then
-			-- use("nvim-lua/popup.nvim")
-			-- speed up loading Lua modules in Neovim to improve startup time.
-			use("lewis6991/impatient.nvim")
-		end
+	-----------------
+	-- Completion
+	-----------------
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			--seamlessly install LSP servers locally
+			"williamboman/mason.nvim",
+			"williamboman/mason-lspconfig.nvim",
+			--show function signature when you type
+			"ray-x/lsp_signature.nvim",
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	--snippet engine
+	{
+		"L3MON4D3/LuaSnip",
+		build = "make install_jsregexp",
+		--default snippets
+		dependencies = { "rafamadriz/friendly-snippets" },
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	--auto completion
+	{
+		"hrsh7th/nvim-cmp",
+		dependencies = {
+			--vscode-like pictograms for neovim lsp completion items
+			"onsails/lspkind-nvim",
+			--cmp system path source
+			"hrsh7th/cmp-path",
+			--cmp neovim lua API source
+			"hrsh7th/cmp-nvim-lua",
+			--cmp LSP source
+			"hrsh7th/cmp-nvim-lsp",
+			--cmp buffer
+			"hrsh7th/cmp-buffer",
+			--cmp for vim's cmdline
+			"hrsh7th/cmp-cmdline",
+			--cmp LuaSnip source
+			"saadparwaiz1/cmp_luasnip",
+			--cmp dap source
+			-- "rcarriga/cmp-dap",
+		},
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
 
-		-----------------
-		-- Misc
-		-----------------
-		-- horizontal movement helper
-		use("unblevable/quick-scope")
-		-- extended increment/decrement
-		use("monaqa/dial.nvim")
-		if vim.fn.exists("g:vscode") == 0 then
-			-- status/tabline
-			use({
-				"nvim-lualine/lualine.nvim",
-				requires = {
-					-- for file icons
-					{ "kyazdani42/nvim-web-devicons" },
-					-- active lsp clients from the $/progress endpoint
-					{ "arkav/lualine-lsp-progress" },
-					-- status line component that shows context of the current cursor position in file
-					{ "SmiteshP/nvim-navic" },
-				},
-			})
-			-- ANSI color converter
-			use("powerman/vim-plugin-AnsiEsc")
-			-- color name highlighter
-			use("NvChad/nvim-colorizer.lua")
-			-- fuzzy finder
-			use({
-				"nvim-telescope/telescope.nvim",
-				requires = {
-					{ "nvim-lua/plenary.nvim" },
-					{
-						"nvim-telescope/telescope-fzf-native.nvim",
-						run =
-						"cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
-					},
-				},
-			})
-			-- show git diffs in file
-			use({
-				"lewis6991/gitsigns.nvim",
-				requires = {
-					"nvim-lua/plenary.nvim",
-				},
-			})
-			-- show keybindings when timed out
-			use("folke/which-key.nvim")
-			-- show indentation level
-			use("lukas-reineke/indent-blankline.nvim")
-			-- highlight and search for todo comments like TODO, HACK, BUG
-			use({ "folke/todo-comments.nvim", requires = "nvim-lua/plenary.nvim" })
-			-- file explorer
-			use({
-				"kyazdani42/nvim-tree.lua",
-				requires = {
-					-- file icon
-					"kyazdani42/nvim-web-devicons",
-				},
-			})
-			-- highlight, navigate, and operate on sets of matching text
-			use("andymass/vim-matchup")
-			-- comments
-			use("numToStr/Comment.nvim")
-			-- light-weight lsp plugin based on neovim built-in lsp with highly a performant UI
-			use({
-				"nvimdev/lspsaga.nvim",
-				-- opt = true,
-				branch = "main",
-				-- event = "LspAttach",
-				requires = {
-					{ "nvim-tree/nvim-web-devicons" },
-					--Please make sure you install markdown and markdown_inline parser
-					{ "nvim-treesitter/nvim-treesitter" },
-				},
-			})
-			-- debug adapter protocol client implementation
-			-- use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } })
-			-- pretty list for showing diagnostics
-			use({ "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons" })
-			-- see crates versions in rust
-			use({
-				"Saecki/crates.nvim",
-				requires = { "nvim-lua/plenary.nvim" },
-			})
-			--  simple and opinionated NeoVim plugin for switching between windows in the current tab page
-			use("yorickpeterse/nvim-window")
-			-- disable background colors
-			use({ "xiyaowong/transparent.nvim" })
-			-- tab bar
-			use({
-				"romgrk/barbar.nvim",
-				requires = { "kyazdani42/nvim-web-devicons" },
-			})
-			-- Neovim setup for init.lua and plugin development
-			use("folke/neodev.nvim")
-			use({
-				"iamcco/markdown-preview.nvim",
-				run = "cd app && npm install",
-				setup = function()
-					vim.g.mkdp_filetypes = { "markdown" }
-				end,
-				ft = { "markdown" },
-			})
-			-- Visual Undo Tree
-			use("mbbill/undotree")
-			-- Tmux integration
-			use("aserowy/tmux.nvim")
-		end
+	-----------------
+	-- Text objects
+	-----------------
+	--more text objects ', . ; : + - = ~ _ * # / | \ & $'
+	"wellle/targets.vim",
+	--create custom text objects easily
+	-- "kana/vim-textobj-user",
+	-- --text object for indents
+	-- "kana/vim-textobj-indent",
+	-- --text object for C-like functions
+	-- "kana/vim-textobj-function",
 
-		-----------------
-		-- Completion
-		-----------------
-		if vim.fn.exists("g:vscode") == 0 then
-			use({
-				"neovim/nvim-lspconfig",
-				requires = {
-					--seamlessly install LSP servers locally
-					"williamboman/mason.nvim",
-					"williamboman/mason-lspconfig.nvim",
-					"jayp0521/mason-null-ls.nvim",
-					--show function signature when you type
-					"ray-x/lsp_signature.nvim",
-					--cmp LSP source
-					"hrsh7th/cmp-nvim-lsp",
-				},
-			})
-			--snippet engine
-			use({
-				"L3MON4D3/LuaSnip",
-				run = "make install_jsregexp",
-				--default snippets
-				requires = { "rafamadriz/friendly-snippets" },
-			})
-			--auto completion
-			use({
-				"hrsh7th/nvim-cmp",
-				requires = {
-					--vscode-like pictograms for neovim lsp completion items
-					"onsails/lspkind-nvim",
-					--cmp system path source
-					"hrsh7th/cmp-path",
-					--cmp neovim lua API source
-					"hrsh7th/cmp-nvim-lua",
-					--cmp LSP source
-					"hrsh7th/cmp-nvim-lsp",
-					--cmp buffer
-					"hrsh7th/cmp-buffer",
-					--cmp for vim's cmdline
-					"hrsh7th/cmp-cmdline",
-					--cmp LuaSnip source
-					"saadparwaiz1/cmp_luasnip",
-					--cmp dap source
-					-- "rcarriga/cmp-dap",
-				},
-			})
-		end
-
-		-----------------
-		-- Text objects
-		-----------------
-		--more text objects ', . ; : + - = ~ _ * # / | \ & $'
-		use("wellle/targets.vim")
-		--create custom text objects easily
-		use("kana/vim-textobj-user")
-		--text object for indents
-		use("kana/vim-textobj-indent")
-		--text object for C-like functions
-		use("kana/vim-textobj-function")
-
-		-----------------
-		-- Tpope
-		-----------------
-		--maps to delete, change,... around brackets,... (eg. cs'<q>)
-		use("tpope/vim-surround")
-		--more repeatable plugins
-		use("tpope/vim-repeat")
-		--automatically adjust tab size intelligently
-		use("tpope/vim-sleuth")
-
-		-- Automatically set up your configuration after cloning packer.nvim
-		-- Put this at the end after all plugins
-		if PackerBootstrap then
-			require("packer").sync()
-		end
-	end,
-	config = {
-		-- Move to lua dir so impatient.nvim can cache it
-		compile_path = vim.fn.stdpath("config") .. "/lua/packer_compiled.lua",
+	-----------------
+	-- Tpope
+	-----------------
+	--maps to delete, change,... around brackets,... (eg. cs'<q>)
+	"tpope/vim-surround",
+	--more repeatable plugins
+	"tpope/vim-repeat",
+	--automatically adjust tab size intelligently
+	"tpope/vim-sleuth",
+}, {
+	ui = {
+		border = "rounded",
 	},
 })

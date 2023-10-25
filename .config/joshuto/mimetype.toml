@@ -10,9 +10,7 @@ audio_default = [
 image_default = [
   { command = "nsxiv", fork = true, silent = true },
   # { command = "swayimg", fork = true, silent = true },
-  { command = "gimp", args = [
-    "--",
-  ], fork = true, silent = true },
+  { command = "gimp", args = ["--"], fork = true, silent = true },
   { command = "dragon-drop", fork = true, silent = true },
 ]
 
@@ -45,26 +43,18 @@ office_default = [
 ]
 
 slicer_default = [
-  { command = "prime-run", args = [
-    "prusa-slicer",
-  ], fork = true, silent = true },
+  { command = "prusa-slicer", fork = true, silent = true },
   { command = "dragon-drop", fork = true, silent = true },
 ]
 
 cad_default = [
-  { command = "prime-run", args = [
-    "freecad",
-  ], fork = true, silent = true },
+  { command = "freecad", fork = true, silent = true },
   { command = "dragon-drop", fork = true, silent = true },
 ]
 
 slicer_and_cad_default = [
-  { command = "prime-run", args = [
-    "prusa-slicer",
-  ], fork = true, silent = true },
-  { command = "prime-run", args = [
-    "freecad",
-  ], fork = true, silent = true },
+  { command = "prusa-slicer", fork = true, silent = true },
+  { command = "freecad", fork = true, silent = true },
   { command = "dragon-drop", fork = true, silent = true },
 ]
 
@@ -156,6 +146,7 @@ vim.inherit = "text_default"
 xml.inherit = "text_default"
 yaml.inherit = "text_default"
 yml.inherit = "text_default"
+hbs.inherit = "text_default"
 
 # archive formats
 7z.app_list = [

@@ -41,10 +41,10 @@ vim.cmd([[autocmd Syntax c,cpp,vim,rust setlocal foldmethod=syntax foldlevel=99]
 
 -- highlight yanked selection
 vim.api.nvim_create_autocmd("TextYankPost", {
-  group = vim.api.nvim_create_augroup("highlight_yank", {}),
-  desc = "Hightlight selection on yank",
-  pattern = "*",
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 125 })
-  end,
+	group = vim.api.nvim_create_augroup("highlight_yank", {}),
+	desc = "Hightlight selection on yank",
+	pattern = "*",
+	callback = function()
+		vim.highlight.on_yank({ higroup = "IncSearch", timeout = 125 })
+	end,
 })

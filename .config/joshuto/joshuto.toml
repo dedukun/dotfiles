@@ -12,9 +12,6 @@ use_trash = true
 # Watch for filesystem changes and update directory listings accordingly
 watch_files = true
 
-# The maximum file size to show a preview for
-max_preview_size = 2097152 # 2MB
-
 # Configurations related to the display
 [display]
 # Different view layouts
@@ -56,9 +53,18 @@ directories_first = true
 reverse = false
 
 [preview]
+max_preview_size = 10485760                                              # 10MB
 preview_script = "~/.config/joshuto/preview_file.sh"
 preview_shown_hook_script = "~/.config/joshuto/on_preview_shown.sh"
 preview_removed_hook_script = "~/.config/joshuto/on_preview_removed.sh"
+
+[search]
+# insensitive, sensitive, smart
+string_case_sensitivity = "insensitive"
+# see above
+glob_case_sensitivity = "sensitive"
+# see above
+fzf_case_sensitivity = "insensitive"
 
 [tab]
 # inherit, home, root

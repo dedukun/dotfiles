@@ -50,8 +50,6 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 	vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 	vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
-	vim.keymap.set("n", "<leader>F", vim.lsp.buf.format, opts)
-	vim.keymap.set("n", "<space>ff", vim.lsp.buf.format, opts)
 	vim.keymap.set("n", "[E", function()
 		require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
 	end, opts)
@@ -80,6 +78,11 @@ local function make_config()
 	}
 end
 
+local function manual_servers()
+	local config = make_config()
+	lspconfig.gdscript.setup(config)
+end
+
 neodev.setup({})
 
 mason.setup({
@@ -97,13 +100,11 @@ mason_lspconfig.setup_handlers({
 		lspconfig[server_name].setup(config)
 	end,
 
-	-- Next, you can provide a dedicated handler for specific servers.
-	-- For example, a handler override for the `rust_analyzer`:
-	-- ["gdscript"] = function()
-	-- 	local config = make_config()
-	-- 	config.cmd = { "nc", "localhost", "6005" }
-	-- 	lspconfig.gdscript.setup(config)
-	-- end,
+	["gdscript"] = function()
+		local config = make_config()
+		-- config.cmd = { "nc", "localhost", "6005" }
+		lspconfig.gdscript.setup(config)
+	end,
 	["clangd"] = function()
 		local config = make_config()
 		config.filetypes = { "c", "cpp", "arduino" }
@@ -114,24 +115,10 @@ mason_lspconfig.setup_handlers({
 		config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
 		lspconfig.lua_ls.setup(config)
 	end,
-	["omnisharp"] = function()
-		local config = make_config()
-		local pid = vim.fn.getpid()
-		local omnisharp_bin = "/home/dedukun/Applications/OmniSharp_V1.39.0/omnisharp/OmniSharp.exe"
-
-		config.cmd = { "mono", omnisharp_bin, "--languageserver", "--hostPID", tostring(pid) }
-		config.filetypes = { "cs", "vb" }
-		config.init_options = {}
-		config.on_new_config = function(new_config, new_root_dir)
-			if new_root_dir then
-				table.insert(new_config.cmd, "-s")
-				table.insert(new_config.cmd, new_root_dir)
-			end
-		end
-		config.root_dir = lspconfig.util.root_pattern("*.sln")
-		lspconfig.omnisharp.setup(config)
-	end,
 })
+
+manual_servers()
+
 
 -- icons for diagnostics in gutter
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }

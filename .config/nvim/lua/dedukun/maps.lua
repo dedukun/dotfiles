@@ -33,9 +33,6 @@ vim.keymap.set("n", "<leader>T", "<cmd>lua require'dedukun.tools'.generateTags()
 -- clear highlights
 vim.keymap.set("n", "<leader>n", ":noh<CR>")
 
--- toogle number
-vim.keymap.set("n", "<leader>N", ":call ToggleNumber()<CR>")
-
 -- File Explorer
 vim.keymap.set("n", "<leader>m", ":NvimTreeToggle<CR>")
 
@@ -65,4 +62,4 @@ vim.keymap.set("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_fi
 vim.keymap.set("i", "<S-Tab>", "<C-d>")
 
 -- undo tree
-vim.keymap.set("n", "<leader>u", ":UndotreeToggle<CR>")
+vim.keymap.set("n", "<leader>u", "<cmd>lua require('telescope').extensions.undo.undo()<CR>")

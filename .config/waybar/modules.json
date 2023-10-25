@@ -1,11 +1,14 @@
 // vi:ft=jsonc
 {
   // Modules configuration
-  "wlr/workspaces": {
-    "enable-bar-scroll": true,
+  "hyprland/workspaces": {
+    "format": "{name}",
     "on-click": "activate",
     "on-scroll-up": "hyprctl dispatch workspace e-1",
     "on-scroll-down": "hyprctl dispatch workspace e+1",
+    "active-only": false,
+    "enable-bar-scroll": true,
+    "show-special": true,
     "sort-by-number": true
   },
   "hyprland/submap": {
@@ -70,7 +73,6 @@
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
   "pulseaudio": {
-    // "scroll-step": 1, // %, can be a float
     "format": "{volume}% {icon} {format_source}",
     "format-bluetooth": "{volume}% {icon} {format_source}",
     "format-bluetooth-muted": " {icon} {format_source}",
@@ -87,7 +89,8 @@
       "default": ["", "", ""]
     },
     "on-click": "pavucontrol",
-    "on-click-right": "helvum"
+    "on-click-right": "helvum",
+    "scroll-step": 1 // %, can be a float
   },
   "idle_inhibitor": {
     "format": "{icon}",

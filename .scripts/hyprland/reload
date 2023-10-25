@@ -3,3 +3,4 @@ hyprctl reload
 killall waybar
 sleep 0.5
 waybar &
+systemctl --user restart hyprpaper.service

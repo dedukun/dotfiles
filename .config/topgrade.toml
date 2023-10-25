@@ -1,5 +1,4 @@
-display_preamble = false
-
+[misc]
 # Don't ask for confirmations
 #assume_yes = true
 
