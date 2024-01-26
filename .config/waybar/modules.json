@@ -101,8 +101,30 @@
   },
   "custom/pacman": {
     "exec": "$SCRIPTS/polybar/updates-pacman-aurhelper.sh",
-    "interval": 3600, // every hour
+    "interval": 300, // every 5 minutes
     "exec-if": "exit 0", // always run; consider advanced run conditions
     "format": "{} "
+  },
+  "privacy": {
+    "icon-spacing": 4,
+    "icon-size": 18,
+    "transition-duration": 250,
+    "modules": [
+      {
+	"type": "screenshare",
+	"tooltip": true,
+	"tooltip-icon-size": 24
+      },
+      {
+	"type": "audio-out",
+	"tooltip": true,
+	"tooltip-icon-size": 24
+      },
+      {
+	"type": "audio-in",
+	"tooltip": true,
+	"tooltip-icon-size": 24
+      }
+    ]
   }
 }

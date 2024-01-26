@@ -80,9 +80,9 @@ keymap = [
 	{ keys = [ ":" ],			commands = [":"] },
 	{ keys = [ ";" ],			commands = [":"] },
 
-	{ keys = [ "'" ],			commands = [":shell "] },
-	{ keys = [ "m", "k" ],		commands = [":mkdir "] },
-	{ keys = [ "c", "w" ],		commands = [":rename "] },
+	# { keys = [ "'" ],			commands = [":shell "] },
+	# { keys = [ "m", "k" ],		commands = [":mkdir "] },
+	# { keys = [ "c", "w" ],		commands = [":rename "] },
 
 	{ keys = [ "/" ],			commands = [":search "] },
 	{ keys = [ "|" ],			commands = [":search_inc "] },
@@ -114,6 +114,10 @@ keymap = [
 	{ keys = ["g", "m"], 		commands = ["cd ~/Music"] },
 	{ keys = [ "D", "e" ],		commands = ["spawn /home/dedukun/.scripts/joshuto/dragon-drop.sh -e %s"] },
 	{ keys = [ "D", "t" ],		commands = ["spawn /home/dedukun/.scripts/joshuto/dragon-drop.sh -t"] },
+
+	# bookmark
+	{ keys = [ "m" ],		commands = ["add_bookmark"] },
+	{ keys = [ "'" ],		commands = ["cd_bookmark"] },
 ]
 
 [task_view]

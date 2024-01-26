@@ -1,0 +1,21 @@
+#!/bin/sh
+# This checks if the active window is in fullscreen mode,
+# and if it is, it will focusmonitor instead of movefocus
+
+is_active_window_fullscreen() {
+    hyprctl activewindow | grep -iE "\sfullscreen:" | cut --delimiter=":" --field=2
+}
+
+if [ "$1" != "l" ] && [ "$1" != "r" ] && [ "$1" != "u" ] && [ "$1" != "d" ]; then
+    echo "Invalid direction, must be either 'l', 'r', 'u' or 'd'"
+    exit 1
+fi
+
+dir=$1
+is_fullscreen=$(is_active_window_fullscreen)
+
+if [ "$is_fullscreen" -eq 1 ]; then
+    hyprctl dispatch focusmonitor "$dir"
+else
+    hyprctl dispatch movefocus "$dir"
+fi

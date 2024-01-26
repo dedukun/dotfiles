@@ -10,6 +10,9 @@ formatter.setup({
 	log_level = vim.log.levels.WARN,
 	-- All formatter configurations are opt-in
 	filetype = {
+		arduino = {
+			require("formatter.filetypes.c").clangformat,
+		},
 		c = {
 			require("formatter.filetypes.c").clangformat,
 		},
@@ -18,6 +21,14 @@ formatter.setup({
 		},
 		cmake = {
 			require("formatter.filetypes.cmake").cmakeformat,
+		},
+		gdscript = {
+			function()
+				return {
+					exe = "gdformat -",
+					stdin = true,
+				}
+			end,
 		},
 		html = {
 			require("formatter.filetypes.html").prettier,
@@ -48,6 +59,9 @@ formatter.setup({
 		},
 		toml = {
 			require("formatter.filetypes.toml").taplo,
+		},
+		zig = {
+			require("formatter.filetypes.zig").zigfmt,
 		},
 
 		["*"] = {

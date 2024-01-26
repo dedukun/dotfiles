@@ -22,6 +22,12 @@ if not presentNeogen then
 	return
 end
 
+local has_words_before = function()
+	unpack = unpack or table.unpack
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -43,9 +49,11 @@ cmp.setup({
 		["<Up>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
 		["<A-Tab>"] = cmp.mapping(function(fallback)
 			if luasnip.expand_or_jumpable() then
-				vim.fn.feedkeys(t("<Plug>luasnip-expand-or-jump"), "")
+				luasnip.expand_or_jump()
 			elseif neogen.jumpable() then
-				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), "")
+				neogen.jump_next()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end
@@ -54,10 +62,12 @@ cmp.setup({
 			"s",
 		}),
 		["<A-S-Tab>"] = cmp.mapping(function(fallback)
-			if luasnip.jumpable(-1) then
-				vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
-			elseif neogen.jumpable(-1) then
-				vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), "")
+			if cmp.visible() then
+				cmp.select_prev_item()
+			elseif luasnip.jumpable(-1) then
+				luasnip.jump(-1)
+			elseif neogen.jumpable(true) then
+				neogen.jump_prev()
 			else
 				fallback()
 			end
@@ -84,9 +94,9 @@ cmp.setup({
 	},
 
 	-- nvim-cmp by defaults disables autocomplete for prompt buffers
-	-- enabled = function()
-	-- 	return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
-	-- end,
+	enabled = function()
+		return vim.api.nvim_get_option_value("buftype", { buf = 0 }) ~= "prompt" or require("cmp_dap").is_dap_buffer()
+	end,
 
 	sources = cmp.config.sources({
 		{ name = "path" },
@@ -95,7 +105,6 @@ cmp.setup({
 		{ name = "luasnip" },
 		{ name = "nvim_lua" },
 		{ name = "crates" },
-		-- { name = "dap" },
 	}),
 })
 
@@ -115,4 +124,11 @@ cmp.setup.cmdline(":", {
 	}, {
 		{ name = "cmdline" },
 	}),
+})
+
+-- DAP
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+	sources = {
+		{ name = "dap" },
+	},
 })

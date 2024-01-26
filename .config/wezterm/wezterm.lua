@@ -7,10 +7,10 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+config.font = wezterm.font("JetBrainsMono NFM")
 config.font_size = 14
 config.color_scheme = "Catppuccin Mocha"
-config.window_background_opacity = 0.95
+config.window_background_opacity = 0.90
 config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
 	left = 5,
@@ -19,5 +19,43 @@ config.window_padding = {
 	bottom = 0,
 }
 config.front_end = "WebGpu"
+config.disable_default_key_bindings = true
+config.keys = {
+	{
+		key = "-",
+		mods = "CTRL",
+		action = wezterm.action.DecreaseFontSize,
+	},
+	{
+		key = "+",
+		mods = "CTRL|SHIFT",
+		action = wezterm.action.IncreaseFontSize,
+	},
+	{
+		key = "=",
+		mods = "CTRL",
+		action = wezterm.action.ResetFontSize,
+	},
+	{
+		key = "C",
+		mods = "CTRL",
+		action = wezterm.action.CopyTo("Clipboard"),
+	},
+	{
+		key = "V",
+		mods = "CTRL",
+		action = wezterm.action.PasteFrom("Clipboard"),
+	},
+	{
+		key = "L",
+		mods = "CTRL",
+		action = wezterm.action.ShowDebugOverlay,
+	},
+	{
+		key = "P",
+		mods = "CTRL",
+		action = wezterm.action.ActivateCommandPalette,
+	},
+}
 
 return config

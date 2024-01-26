@@ -1,0 +1,4 @@
+timeout 770 '$SCRIPTS/wayland/hyprland/lock --save-background; hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on'
+timeout 1070 '$SCRIPTS/wayland/hyprland/lock --use-cache -f'
+timeout 1100 'systemctl suspend-then-hibernate'
+before-sleep '$SCRIPTS/wayland/hyprland/lock --use-cache -f'

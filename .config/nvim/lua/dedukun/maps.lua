@@ -21,10 +21,10 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- Remove all spaces at the end of lines
-vim.keymap.set("n", "<leader>cc", ":StripWhitespace<CR>")
+vim.keymap.set("n", "<leader>cc", "<cmd>lua require('whitespace-nvim').trim()<CR>")
 
 -- create section header
-vim.keymap.set("n", "<leader>h", "<cmd>lua require'dedukun.tools'.createHeader()<CR>")
+vim.keymap.set("n", "<leader>hh", "<cmd>lua require'dedukun.tools'.createHeader()<CR>")
 
 -- Build tags file
 vim.keymap.set("n", "<leader>t", ":!ctags -R .<CR>")
@@ -49,17 +49,8 @@ vim.keymap.set("n", "gb", "<C-^>")
 -- Remap ^W_w to zoomwin
 vim.keymap.set("n", "<C-w>w", ":ZoomWinTabToggle<CR>")
 
--- Fuzzy find for files
-vim.keymap.set("n", "<C-p>", "<cmd>lua require('telescope.builtin').find_files({follow=true})<cr>")
-
--- Fuzzy find for lines in files
-vim.keymap.set("n", "<leader><C-p>", "<cmd>lua require('telescope.builtin').live_grep()<cr>")
-
--- Fuzzy find for files in the Neovim lua configurations
-vim.keymap.set("n", "<leader>ff", "<cmd>lua require('telescope.builtin').find_files({cwd='$HOME/.config/nvim/'})<cr>")
-
 -- Make shift tab work in insert mode
 vim.keymap.set("i", "<S-Tab>", "<C-d>")
 
--- undo tree
-vim.keymap.set("n", "<leader>u", "<cmd>lua require('telescope').extensions.undo.undo()<CR>")
+-- Term toggle
+vim.keymap.set({ "n", "t" }, "<C-Bslash>", "<cmd>Lspsaga term_toggle<CR>")

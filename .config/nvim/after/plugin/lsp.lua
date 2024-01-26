@@ -18,7 +18,7 @@ if not presentNeodev then
 	return
 end
 
-local presentSignature, lsp_signature = pcall(require, "lsp_signature")
+local presentSignature, signature = pcall(require, "lsp_signature")
 if not presentSignature then
 	return
 end
@@ -30,11 +30,11 @@ end
 
 -- keymaps
 local on_attach = function(client, bufnr)
-	local function buf_set_option(...)
-		vim.api.nvim_buf_set_option(bufnr, ...)
-	end
-
-	buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+	-- local function buf_set_option(...)
+	-- 	vim.api.nvim_buf_set_option(bufnr, ...)
+	-- end
+	--
+	-- buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Mappings.
 	local opts = { buffer = bufnr, noremap = true, silent = true }
@@ -47,6 +47,7 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
 	vim.keymap.set("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opts)
 	vim.keymap.set("n", "<space>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	vim.keymap.set("n", "<space>w", "<cmd>Lspsaga show_workspace_diagnostics ++normal<CR>", opts)
 	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 	vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 	vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
@@ -61,7 +62,7 @@ local on_attach = function(client, bufnr)
 		navic.attach(client, bufnr)
 	end
 
-	lsp_signature.on_attach({
+	signature.on_attach({
 		hint_enable = false,
 	}, bufnr)
 end
@@ -75,6 +76,9 @@ local function make_config()
 		capabilities = capabilities,
 		-- map buffer local keybindings when the language server attaches
 		on_attach = on_attach,
+		inlay_hints = {
+			enabled = false,
+		},
 	}
 end
 
@@ -82,6 +86,8 @@ local function manual_servers()
 	local config = make_config()
 	lspconfig.gdscript.setup(config)
 end
+
+navic.setup({ highlight = true })
 
 neodev.setup({})
 
@@ -100,15 +106,17 @@ mason_lspconfig.setup_handlers({
 		lspconfig[server_name].setup(config)
 	end,
 
-	["gdscript"] = function()
-		local config = make_config()
-		-- config.cmd = { "nc", "localhost", "6005" }
-		lspconfig.gdscript.setup(config)
-	end,
 	["clangd"] = function()
 		local config = make_config()
 		config.filetypes = { "c", "cpp", "arduino" }
 		lspconfig.clangd.setup(config)
+	end,
+	["zls"] = function()
+		local config = make_config()
+		lspconfig.zls.setup(config)
+
+		-- zsl auto forces fmt on save, this disables it
+		vim.g.zig_fmt_autosave = 0
 	end,
 	["lua_ls"] = function()
 		local config = make_config()
@@ -118,7 +126,6 @@ mason_lspconfig.setup_handlers({
 })
 
 manual_servers()
-
 
 -- icons for diagnostics in gutter
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }

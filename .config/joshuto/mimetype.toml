@@ -4,14 +4,14 @@ audio_default = [
     "--",
   ] },
   { command = "mediainfo", confirm_exit = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 image_default = [
   { command = "nsxiv", fork = true, silent = true },
   # { command = "swayimg", fork = true, silent = true },
   { command = "gimp", args = ["--"], fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 video_default = [
@@ -19,7 +19,7 @@ video_default = [
     "--",
   ], fork = true, silent = true },
   { command = "mediainfo", confirm_exit = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 text_default = [
@@ -27,35 +27,35 @@ text_default = [
   { command = "bat", args = [
     "--paging=always",
   ] },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 reader_default = [
   { command = "zathura", fork = true, silent = true },
 
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 office_default = [
   { command = "libreoffice", fork = true, silent = true },
 
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 slicer_default = [
   { command = "prusa-slicer", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 cad_default = [
   { command = "freecad", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 slicer_and_cad_default = [
   { command = "prusa-slicer", fork = true, silent = true },
   { command = "freecad", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 [extension]
@@ -76,12 +76,29 @@ webp.inherit = "image_default"
 svg.app_list = [
   { command = "inkview", fork = true, silent = true },
   { command = "inkscape", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 tiff.app_list = [
   { command = "qimgv", fork = true, silent = true },
   { command = "krita", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
+]
+
+AppImage.app_list = [
+  { command = "sh", args = [
+    "-c",
+  ], fork = false, silent = true },
+]
+
+html.app_list = [
+  { command = "nvim" },
+  { command = "firefox", args = [
+    "--private-window",
+  ], fork = true, silent = true },
+  { command = "bat", args = [
+    "--paging=always",
+  ] },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 ## audio formats
@@ -121,7 +138,6 @@ go.inherit = "text_default"
 h.inherit = "text_default"
 hpp.inherit = "text_default"
 hs.inherit = "text_default"
-html.inherit = "text_default"
 ini.inherit = "text_default"
 java.inherit = "text_default"
 js.inherit = "text_default"
@@ -154,68 +170,68 @@ hbs.inherit = "text_default"
     "x",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 bz2.app_list = [
   { command = "tar", args = [
     "-xvjf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 gz.app_list = [
   { command = "tar", args = [
     "-xvzf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 tar.app_list = [
   { command = "tar", args = [
     "-xvf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 tgz.app_list = [
   { command = "tar", args = [
     "-xvzf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 rar.app_list = [
   { command = "unrar", args = [
     "x",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 xz.app_list = [
   { command = "tar", args = [
     "-xvJf",
   ], confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 zip.app_list = [
   { command = "unzip", confirm_exit = true },
   { command = "file-roller", fork = true, silent = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 # misc formats
 aup.app_list = [
   { command = "audacity", fork = true, silent = true },
 
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 m3u.app_list = [
   { command = "mpv" },
   { command = "nvim" },
   { command = "bat", confirm_exit = true },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 odt.inherit = "office_default"
@@ -234,25 +250,28 @@ pdf.inherit = "reader_default"
 
 kra.app_list = [
   { command = "krita", fork = true, silent = true },
-
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 kdenlive.app_list = [
   { command = "kdenlive", fork = true, silent = true },
-
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 tex.app_list = [
   { command = "nvim" },
   { command = "bat", confirm_exit = true },
   { command = "pdflatex" },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 torrent.app_list = [
   { command = "transmission-gtk" },
-  { command = "dragon-drop", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
+]
+
+pxo.app_list = [
+  { command = "pixelorama", fork = true, silent = true },
+  { command = "ripdrag", fork = true, silent = true },
 ]
 
 # 3D Printing files

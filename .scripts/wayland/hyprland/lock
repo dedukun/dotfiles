@@ -1,0 +1,46 @@
+#!/bin/bash
+
+LOCKARGSFILE="/tmp/lockargs"
+
+createBackground() {
+    monitor=$1
+    echo "MONITOR ${monitor}"
+    IMAGE="/tmp/${monitor}-lock.png"
+    grim -o "${monitor}" "${IMAGE}"
+    #TODO: Faster blur
+    # convert "${IMAGE}" -blur 0x4 "${IMAGE}"
+    # convert "${IMAGE}" -filter Gaussian -resize 50% -define filter:sigma=2.5 -resize 200% "${IMAGE}"
+    convert "${IMAGE}" -resize 5% -resize 2000% "${IMAGE}"
+    lockargs=" --image ${monitor}:${IMAGE}"
+    echo "$lockargs" >>"$LOCKARGSFILE"
+}
+
+create_cache() {
+    rm "$LOCKARGSFILE" 2>/dev/null
+    for MONITOR in $(hyprctl monitors -j | jq -r '.[] | .name'); do
+        createBackground "${MONITOR}" &
+    done
+    wait
+}
+
+lock() {
+    LOCKARGS=$(cat "${LOCKARGSFILE}")
+
+    # Locks the screen immediately
+    # shellcheck disable=SC2086 # Intended splitting of LOCKARGS
+    swaylock "$@" ${LOCKARGS}
+}
+
+if [ $# -gt 0 ]; then
+    if [ "$1" == '--save-background' ]; then
+        create_cache
+        exit 0
+    elif [ "$1" == '--use-cache' ]; then
+        shift
+        lock "$@"
+        exit 0
+    fi
+fi
+
+create_cache
+lock "$@"

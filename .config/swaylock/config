@@ -1,15 +1,15 @@
-screenshots
-clock
-indicator
-indicator-caps-lock
-hide-keyboard-layout
-ignore-empty-password
-grace=2
-fade-in=2
-effect-blur=7x5
-effect-vignette=0.5:0.5
+##  swaylock effect
+# screenshots
+# clock
+# grace=2
+# fade-in=2
+# effect-blur=7x5
+# effect-vignette=0.5:0.5
 
 # Ring
+ignore-empty-password
+hide-keyboard-layout
+indicator-caps-lock
 indicator-radius=115
 indicator-thickness=7
 # line-uses-ring

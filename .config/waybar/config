@@ -17,6 +17,7 @@
         ],
         "modules-right": [
             "idle_inhibitor",
+            "privacy",
             "custom/pacman",
             "pulseaudio",
             "network",
@@ -50,6 +51,7 @@
         ],
         "modules-right": [
             "idle_inhibitor",
+            "privacy",
             "pulseaudio",
             "network",
             "cpu",

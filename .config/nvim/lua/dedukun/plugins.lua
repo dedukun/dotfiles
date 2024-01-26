@@ -16,7 +16,7 @@ require("lazy").setup({
 	-- General
 	-----------------
 	-- show whitespaces at the end of lines in red
-	"ntpeters/vim-better-whitespace",
+	"johnfrankmorgan/whitespace.nvim",
 	-- visual search with * and #
 	"bronson/vim-visual-star-search",
 	-- set relativenumber or number when it makes sense
@@ -31,9 +31,14 @@ require("lazy").setup({
 		name = "catppuccin",
 		cond = vim.fn.exists("g:vscode") == 0,
 		priority = 1000,
+		config = function()
+			require("dedukun.plugins.catppuccin")
+		end,
 	},
 	-- terminal
 	{ "akinsho/toggleterm.nvim", cond = vim.fn.exists("g:vscode") == 0 },
+	--
+	{ "HiPhish/rainbow-delimiters.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 
 	-----------------
 	-- Treesitter
@@ -148,8 +153,6 @@ require("lazy").setup({
 		dependencies = {
 			-- for file icons
 			{ "nvim-tree/nvim-web-devicons" },
-			-- active lsp clients from the $/progress endpoint
-			{ "arkav/lualine-lsp-progress" },
 			-- status line component that shows context of the current cursor position in file
 			{ "SmiteshP/nvim-navic" },
 		},
@@ -163,11 +166,12 @@ require("lazy").setup({
 	{
 		"nvim-telescope/telescope.nvim",
 		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
+			"nvim-lua/plenary.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
 			},
+			"debugloop/telescope-undo.nvim",
 		},
 		cond = vim.fn.exists("g:vscode") == 0,
 	},
@@ -228,7 +232,17 @@ require("lazy").setup({
 		cond = vim.fn.exists("g:vscode") == 0,
 	},
 	-- debug adapter protocol client implementation
-	-- { "rcarriga/nvim-dap-ui", dependencies = { "mfussenegger/nvim-dap", "jayp0521/mason-nvim-dap.nvim" } },
+	{
+		"rcarriga/nvim-dap-ui",
+		dependencies = {
+			"mfussenegger/nvim-dap",
+			"jayp0521/mason-nvim-dap.nvim",
+			"rcarriga/cmp-dap",
+		},
+		config = function()
+			require("dedukun.plugins.nvim-dap")
+		end,
+	},
 	-- pretty list for showing diagnostics
 	{
 		"folke/trouble.nvim",
@@ -257,18 +271,14 @@ require("lazy").setup({
 	},
 	-- Neovim setup for init.lua and plugin development
 	{ "folke/neodev.nvim", cond = vim.fn.exists("g:vscode") == 0 },
-	-- Visual Undo Tree
-	-- { "mbbill/undotree", cond = vim.fn.exists("g:vscode") == 0 },
-	-- ChatGPT.nvim
-	{
-		"jackMort/ChatGPT.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-			"nvim-lua/plenary.nvim",
-			"nvim-telescope/telescope.nvim",
-		},
-	},
+	-- Delete buffers
+	{ "ojroques/nvim-bufdel" },
+	-- LSP progress
+	{ "j-hui/fidget.nvim" },
+	--
+	{ "ThePrimeagen/harpoon", branch = "harpoon2", dependencies = {
+		"nvim-lua/plenary.nvim",
+	} },
 
 	-----------------
 	-- Completion
@@ -310,8 +320,6 @@ require("lazy").setup({
 			"hrsh7th/cmp-cmdline",
 			--cmp LuaSnip source
 			"saadparwaiz1/cmp_luasnip",
-			--cmp dap source
-			-- "rcarriga/cmp-dap",
 		},
 		cond = vim.fn.exists("g:vscode") == 0,
 	},

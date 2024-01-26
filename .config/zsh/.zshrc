@@ -29,8 +29,10 @@ gitignore() {
 ### Local Ignores ###
 generate-tags.sh
 compile_commands.json
+.cache
+
 """
-    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,emacs,code,$*")
+    remote_ignores=$(curl -L -s "https://www.gitignore.io/api/windows,linux,osx,vim,emacs,visualstudiocode,$*")
     echo "$local_ignores$remote_ignores"
 }
 
