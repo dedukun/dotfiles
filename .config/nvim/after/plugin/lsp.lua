@@ -38,17 +38,17 @@ local on_attach = function(client, bufnr)
 
 	-- Mappings.
 	local opts = { buffer = bufnr, noremap = true, silent = true }
-	vim.keymap.set("n", "<space>gD", vim.lsp.buf.declaration, opts)
-	vim.keymap.set("n", "<space>gd", vim.lsp.buf.definition, opts)
-	vim.keymap.set("n", "<space>gi", vim.lsp.buf.implementation, opts)
+	vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, opts)
+	vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, opts)
+	vim.keymap.set("n", "<leader>gi", vim.lsp.buf.implementation, opts)
 	vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", opts)
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-	vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-	vim.keymap.set("n", "<space>rn", "<cmd>Lspsaga rename<CR>", opts)
-	vim.keymap.set("n", "<space>a", "<cmd>Lspsaga code_action<CR>", opts)
-	vim.keymap.set("n", "<space>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	vim.keymap.set("n", "<space>w", "<cmd>Lspsaga show_workspace_diagnostics ++normal<CR>", opts)
-	vim.keymap.set("n", "<space>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
+	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
+	vim.keymap.set("n", "<leader>rn", "<cmd>Lspsaga rename ++project<CR>", opts)
+	vim.keymap.set("n", "<leader>a", "<cmd>Lspsaga code_action<CR>", opts)
+	vim.keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+	vim.keymap.set("n", "<leader>w", "<cmd>Lspsaga show_workspace_diagnostics ++normal<CR>", opts)
+	vim.keymap.set("n", "<leader>e", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 	vim.keymap.set("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 	vim.keymap.set("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 	vim.keymap.set("n", "[E", function()
@@ -65,6 +65,10 @@ local on_attach = function(client, bufnr)
 	signature.on_attach({
 		hint_enable = false,
 	}, bufnr)
+
+	if client.supports_method("textDocument/inlayHint") or client.server_capabilities.inlayHintProvider then
+		vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+	end
 end
 
 -- config that activates keymaps and enables snippet support
@@ -76,9 +80,6 @@ local function make_config()
 		capabilities = capabilities,
 		-- map buffer local keybindings when the language server attaches
 		on_attach = on_attach,
-		inlay_hints = {
-			enabled = false,
-		},
 	}
 end
 
@@ -108,7 +109,7 @@ mason_lspconfig.setup_handlers({
 
 	["clangd"] = function()
 		local config = make_config()
-		config.filetypes = { "c", "cpp", "arduino" }
+		config.filetypes = { "c", "cpp" }
 		lspconfig.clangd.setup(config)
 	end,
 	["zls"] = function()
@@ -120,7 +121,7 @@ mason_lspconfig.setup_handlers({
 	end,
 	["lua_ls"] = function()
 		local config = make_config()
-		config.settings = { Lua = { diagnostics = { globals = { "vim" } } } }
+		config.settings = { Lua = { diagnostics = { globals = { "vim", "ya" } } } }
 		lspconfig.lua_ls.setup(config)
 	end,
 })

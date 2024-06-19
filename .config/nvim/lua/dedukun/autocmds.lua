@@ -2,8 +2,9 @@
 -- Auto Commands --
 -------------------
 
--- set .S syntax
+-- set some syntaxes
 vim.cmd([[autocmd BufNewFile,BufRead *.S set syntax=c | set ft=c]])
+vim.cmd([[autocmd BufNewFile,BufRead *.conf set syntax=conf | set ft=conf]])
 
 -- Disable automatic commenting on newline
 vim.cmd([[autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])

@@ -3,8 +3,6 @@
 -- 	return
 -- end
 --
--- local ls = {}
---
 -- lint.linters_by_ft = {
 -- 	python = { "ruff" },
 -- 	javascript = { "eslint_d" },

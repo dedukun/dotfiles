@@ -31,4 +31,7 @@ lspsaga.setup({
 		height = 0.8,
 		width = 0.8,
 	},
+	rename = {
+		in_select = false,
+	},
 })

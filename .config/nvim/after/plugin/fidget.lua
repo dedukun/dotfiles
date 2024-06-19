@@ -11,3 +11,6 @@ fidget.setup({
 		},
 	},
 })
+
+-- overwrite notification backend
+vim.notify = require("fidget.notification").notify

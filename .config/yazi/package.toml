@@ -1,0 +1,11 @@
+[plugin]
+deps = [
+  { use = "Reledia/hexyl", commit = "64daf93" },
+  { use = "Rolv-Apneseth/starship", commit = "6197e4c" },
+  { use = "Reledia/glow", commit = "536185a" },
+  { use = "kirasok/torrent-preview", commit = "76970b6" },
+  { use = "ndtoan96/ouch", commit = "694d149" },
+]
+
+[flavor]
+deps = [{ use = "yazi-rs/flavors#catppuccin-mocha", commit = "55e4bf5" }]

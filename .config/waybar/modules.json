@@ -90,6 +90,7 @@
     },
     "on-click": "pavucontrol",
     "on-click-right": "helvum",
+    "on-click-middle": "qpwgraph",
     "scroll-step": 1 // %, can be a float
   },
   "idle_inhibitor": {
@@ -116,15 +117,46 @@
 	"tooltip-icon-size": 24
       },
       {
-	"type": "audio-out",
-	"tooltip": true,
-	"tooltip-icon-size": 24
-      },
-      {
 	"type": "audio-in",
 	"tooltip": true,
 	"tooltip-icon-size": 24
       }
     ]
+  },
+  "systemd-failed-units": {
+	"hide-on-ok": true,
+	"format": "✗ {nr_failed}",
+	"format-ok": "✓"
+  },
+  "wireplumber": {
+      "format": "{volume}% {icon}",
+      "format-muted": "",
+      "on-click": "helvum",
+      "max-volume": 150,
+      "format-icons": ["", "", ""]
+  },
+  "gamemode": {
+    "format": "{glyph}",
+    "format-alt": "{glyph} {count}",
+    "glyph": "",
+    "hide-not-running": true,
+    "use-icon": true,
+    "icon-name": "input-gaming-symbolic",
+    "icon-spacing": 4,
+    "icon-size": 20,
+    "tooltip": true,
+    "tooltip-format": "Games running: {count}"
+  },
+  "mpris": {
+	"format": "{player_icon} {dynamic}",
+	"format-paused": "{status_icon} <i>{dynamic}</i>",
+	"player-icons": {
+		"default": "▶",
+		"mpv": "🎵"
+	},
+	"status-icons": {
+		"paused": "⏸"
+	},
+	"ignored-players": ["firefox"]
   }
 }

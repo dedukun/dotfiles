@@ -20,7 +20,7 @@ require("lazy").setup({
 	-- visual search with * and #
 	"bronson/vim-visual-star-search",
 	-- set relativenumber or number when it makes sense
-	{ "jeffkreeftmeijer/vim-numbertoggle", cond = vim.fn.exists("g:vscode") == 0 },
+	{ "sitiom/nvim-numbertoggle", cond = vim.fn.exists("g:vscode") == 0 },
 	-- zoom in and out off a split window
 	{ "troydm/zoomwintab.vim", cond = vim.fn.exists("g:vscode") == 0 },
 	-- edit root flies
@@ -38,7 +38,7 @@ require("lazy").setup({
 	-- terminal
 	{ "akinsho/toggleterm.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 	--
-	{ "HiPhish/rainbow-delimiters.nvim", cond = vim.fn.exists("g:vscode") == 0 },
+	-- { "HiPhish/rainbow-delimiters.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 
 	-----------------
 	-- Treesitter
@@ -69,6 +69,11 @@ require("lazy").setup({
 	-- annotation toolkit
 	{
 		"danymat/neogen",
+		dependencies = "nvim-treesitter/nvim-treesitter",
+		cond = vim.fn.exists("g:vscode") == 0,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		cond = vim.fn.exists("g:vscode") == 0,
 	},
@@ -131,7 +136,7 @@ require("lazy").setup({
 	-- 	end,
 	-- 	dependencies = { "nvim-lua/plenary.nvim", "jayp0521/mason-null-ls.nvim" },
 	-- },
-	-- nvim-lint
+	-- -- nvim-lint
 	-- {
 	-- 	"mfussenegger/nvim-lint",
 	-- },
@@ -144,7 +149,10 @@ require("lazy").setup({
 	-- Misc
 	-----------------
 	-- horizontal movement helper
-	"unblevable/quick-scope",
+	{ "ggandor/flit.nvim", dependencies = {
+		"ggandor/leap.nvim",
+		"tpope/vim-repeat",
+	} },
 	-- extended increment/decrement
 	"monaqa/dial.nvim",
 	-- status/tabline
@@ -195,7 +203,7 @@ require("lazy").setup({
 	},
 	-- file explorer
 	{
-		"kyazdani42/nvim-tree.lua",
+		"nvim-tree/nvim-tree.lua",
 		dependencies = {
 			-- file icon
 			"nvim-tree/nvim-web-devicons",
@@ -203,15 +211,15 @@ require("lazy").setup({
 		cond = vim.fn.exists("g:vscode") == 0,
 	},
 	-- highlight, navigate, and operate on sets of matching text
-	{
-		"andymass/vim-matchup",
-		event = "LspAttach",
-		config = function()
-			require("dedukun.plugins.matchup")
-		end,
-		dependencies = { "nvim-treesitter/nvim-treesitter" },
-		cond = vim.fn.exists("g:vscode") == 0,
-	},
+	-- {
+	-- 	"andymass/vim-matchup",
+	-- 	event = "LspAttach",
+	-- 	config = function()
+	-- 		require("dedukun.plugins.matchup")
+	-- 	end,
+	-- 	dependencies = { "nvim-treesitter/nvim-treesitter" },
+	-- 	cond = vim.fn.exists("g:vscode") == 0,
+	-- },
 	-- comments
 	{
 		"numToStr/Comment.nvim",
@@ -221,6 +229,7 @@ require("lazy").setup({
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
+		cmd = "Lspsaga",
 		config = function()
 			require("dedukun.plugins.lspsaga")
 		end,
@@ -237,6 +246,7 @@ require("lazy").setup({
 		dependencies = {
 			"mfussenegger/nvim-dap",
 			"jayp0521/mason-nvim-dap.nvim",
+			"theHamsta/nvim-dap-virtual-text",
 			"rcarriga/cmp-dap",
 		},
 		config = function()
@@ -264,11 +274,11 @@ require("lazy").setup({
 	-- disable background colors
 	{ "xiyaowong/transparent.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 	-- tab bar
-	{
-		"romgrk/barbar.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		cond = vim.fn.exists("g:vscode") == 0,
-	},
+	-- {
+	-- 	"romgrk/barbar.nvim",
+	-- 	dependencies = { "nvim-tree/nvim-web-devicons" },
+	-- 	cond = vim.fn.exists("g:vscode") == 0,
+	-- },
 	-- Neovim setup for init.lua and plugin development
 	{ "folke/neodev.nvim", cond = vim.fn.exists("g:vscode") == 0 },
 	-- Delete buffers
@@ -279,6 +289,76 @@ require("lazy").setup({
 	{ "ThePrimeagen/harpoon", branch = "harpoon2", dependencies = {
 		"nvim-lua/plenary.nvim",
 	} },
+	{
+		"m4xshen/hardtime.nvim",
+		dependencies = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
+		opts = {
+			notification = true,
+			hint = true,
+		},
+	},
+	-- {
+	-- 	"huggingface/llm.nvim",
+	-- 	opts = {
+	-- 		api_token = nil,
+	-- 		model = "http://127.0.0.1:11434",
+	-- 		lsp = {
+	-- 			bin_path = vim.api.nvim_call_function("stdpath", { "data" }) .. "/mason/bin/llm-ls",
+	-- 		},
+	-- 		tokenizer = {
+	-- 			repository = "codellama/CodeLlama-13b-hf",
+	-- 		},
+	-- 	},
+	-- },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		build = "cd app && yarn install",
+		init = function()
+			vim.g.mkdp_filetypes = { "markdown" }
+		end,
+		ft = { "markdown" },
+	},
+	{
+		"epwalsh/obsidian.nvim",
+		version = "*", -- recommended, use latest release instead of latest commit
+		lazy = true,
+		ft = "markdown",
+		-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
+		-- event = {
+		--   -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+		--   -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+		--   "BufReadPre ~/Projects/**.md",
+		--   "BufNewFile ~/GBT/**.md",
+		-- },
+		dependencies = {
+			-- Required.
+			"nvim-lua/plenary.nvim",
+
+			-- see below for full list of optional dependencies 👇
+		},
+		opts = {
+			workspaces = {
+				{
+					name = "personal",
+					path = "~/Projects",
+				},
+				{
+					name = "work",
+					path = "~/GBT",
+				},
+			},
+
+			-- see below for full list of options 👇
+		},
+		config = function()
+			vim.opt.conceallevel = 1
+		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
 
 	-----------------
 	-- Completion
@@ -323,18 +403,6 @@ require("lazy").setup({
 		},
 		cond = vim.fn.exists("g:vscode") == 0,
 	},
-
-	-----------------
-	-- Text objects
-	-----------------
-	--more text objects ', . ; : + - = ~ _ * # / | \ & $'
-	"wellle/targets.vim",
-	--create custom text objects easily
-	-- "kana/vim-textobj-user",
-	-- --text object for indents
-	-- "kana/vim-textobj-indent",
-	-- --text object for C-like functions
-	-- "kana/vim-textobj-function",
 
 	-----------------
 	-- Tpope

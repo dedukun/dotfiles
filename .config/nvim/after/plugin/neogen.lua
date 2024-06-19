@@ -9,7 +9,7 @@ neogen.setup({
 })
 
 -- Keymaps
-vim.keymap.set("n", "<leader>gd", "<cmd>lua require('neogen').generate()<cr>")
-vim.keymap.set("n", "<leader>gc", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>")
-vim.keymap.set("n", "<leader>gf", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>")
-vim.keymap.set("n", "<leader>gt", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>")
+vim.keymap.set("n", "<leader>ggd", "<cmd>lua require('neogen').generate()<cr>")
+vim.keymap.set("n", "<leader>ggc", "<cmd>lua require('neogen').generate({ type = 'class' })<cr>")
+vim.keymap.set("n", "<leader>ggf", "<cmd>lua require('neogen').generate({ type = 'func' })<cr>")
+vim.keymap.set("n", "<leader>ggt", "<cmd>lua require('neogen').generate({ type = 'type' })<cr>")

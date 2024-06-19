@@ -49,9 +49,11 @@
             "hyprland/workspaces",
             "hyprland/submap"
         ],
+        "modules-center": ["mpris"],
         "modules-right": [
-            "idle_inhibitor",
             "privacy",
+            "idle_inhibitor",
+            "systemd-failed-units",
             "pulseaudio",
             "network",
             "cpu",

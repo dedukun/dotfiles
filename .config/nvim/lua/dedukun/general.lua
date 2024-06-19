@@ -1,10 +1,6 @@
 ----------------------
 -- General Settings
 ----------------------
--- disable netrw (using nvim tree)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
 vim.opt.hidden = true --
 vim.opt.autoindent = true -- indent at the same level of the previous line
 vim.opt.autoread = true -- automatically read a file changed outside of vim

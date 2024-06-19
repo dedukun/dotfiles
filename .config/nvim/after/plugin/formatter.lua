@@ -31,22 +31,28 @@ formatter.setup({
 			end,
 		},
 		html = {
-			require("formatter.filetypes.html").prettier,
+			require("formatter.filetypes.html").prettierd,
+		},
+		typescript = {
+			require("formatter.filetypes.html").prettierd,
+		},
+		typescriptreact = {
+			require("formatter.filetypes.html").prettierd,
 		},
 		htmldjango = {
-			require("formatter.filetypes.html").prettier,
+			require("formatter.filetypes.html").prettierd,
 		},
 		lua = {
 			require("formatter.filetypes.lua").stylua,
 		},
 		javascript = {
-			require("formatter.filetypes.javascript").prettier,
+			require("formatter.filetypes.javascript").prettierd,
 		},
 		json = {
-			require("formatter.filetypes.json").prettier,
+			require("formatter.filetypes.json").prettierd,
 		},
 		markdown = {
-			require("formatter.filetypes.markdown").prettier,
+			require("formatter.filetypes.markdown").prettierd,
 		},
 		python = {
 			require("formatter.filetypes.python").black,

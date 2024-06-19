@@ -23,6 +23,11 @@ workonenv() {
     . "$HOME/.local/bin/virtualenvwrapper.sh"
 }
 
+opamenv() {
+    echo "Eval Opam env"
+    eval $(opam env)
+}
+
 # gitignore
 gitignore() {
     local_ignores="""\
@@ -136,30 +141,21 @@ fzf-history-widget() {
   zle reset-prompt
   return $ret
 }
-function joshuto() {
-	ID="$$"
-	mkdir -p /tmp/$USER
-	OUTPUT_FILE="/tmp/$USER/joshuto-cwd-$ID"
-	env $SCRIPTS/joshuto/joshuto.sh --output-file "$OUTPUT_FILE" $@
-	exit_code=$?
 
-	case "$exit_code" in
-		# regular exit
-		0)
-			;;
-		# output contains current directory
-		101)
-			JOSHUTO_CWD=$(cat "$OUTPUT_FILE")
-			cd "$JOSHUTO_CWD"
-			;;
-		# output selected files
-		102)
-			;;
-		*)
-			echo "Exit code: $exit_code"
-			;;
-	esac
+function y() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
 }
 
 # From nrfutil completion install
 [[ -r "${HOME}/.nrfutil/share/nrfutil-completion/scripts/zsh/setup.zsh" ]] && . "${HOME}/.nrfutil/share/nrfutil-completion/scripts/zsh/setup.zsh"
+
+# bun completions
+[ -s "/home/dedukun/.bun/_bun" ] && source "/home/dedukun/.bun/_bun"
+
+# nvm
+[ -s "/usr/share/nvm/init-nvm.sh" ] && source "/usr/share/nvm/init-nvm.sh"

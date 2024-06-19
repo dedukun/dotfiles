@@ -3,7 +3,7 @@
 ------------------------
 
 -- Set map leader
-vim.g.mapleader = ","
+vim.g.mapleader = " "
 
 -- make > and < stay with the selection
 vim.keymap.set("v", "<", "<gv")
@@ -24,17 +24,13 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<leader>cc", "<cmd>lua require('whitespace-nvim').trim()<CR>")
 
 -- create section header
-vim.keymap.set("n", "<leader>hh", "<cmd>lua require'dedukun.tools'.createHeader()<CR>")
-
--- Build tags file
-vim.keymap.set("n", "<leader>t", ":!ctags -R .<CR>")
-vim.keymap.set("n", "<leader>T", "<cmd>lua require'dedukun.tools'.generateTags()<CR>")
+vim.keymap.set("n", "<leader>ch", "<cmd>lua require'dedukun.tools'.createHeader()<CR>")
 
 -- clear highlights
 vim.keymap.set("n", "<leader>n", ":noh<CR>")
 
 -- File Explorer
-vim.keymap.set("n", "<leader>m", ":NvimTreeToggle<CR>")
+vim.keymap.set("n", "<leader>t", ":NvimTreeToggle<CR>")
 
 -- Remap split windows navigation
 vim.keymap.set("n", "<C-h>", "<C-w>h")

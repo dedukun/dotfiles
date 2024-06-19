@@ -77,6 +77,8 @@ window#waybar.solo {
 #backlight,
 #network,
 #pulseaudio,
+#wireplumber,
+#systemd-failed-units,
 #custom-weather,
 #tray,
 #mode,
@@ -174,6 +176,16 @@ label:focus {
 #pulseaudio.muted {
   background-color: #44475a;
   color: #f8f8f2;
+}
+
+#wireplumber {
+  background-color: #bd93f9;
+  color: #282a36;
+}
+
+#wireplumber.muted {
+  background-color: #c3b2dd;
+  color: #282a36;
 }
 
 #custom-media.custom-spotify {
@@ -277,4 +289,35 @@ label:focus {
 #sway-scratchpad {
   background-color: #50fa7b;
   color: #282a36;
+}
+
+#systemd-failed-units.ok {
+  background-color: #50fa7b;
+  color: #282a36;
+}
+
+#systemd-failed-units.degraded {
+  background-color: #f53c3c;
+  color: #282a36;
+}
+
+#privacy{
+  margin: 6px 3px;
+}
+
+#privacy-item {
+  color: #f8f8f2;
+  padding: 0 4px;
+}
+
+#privacy-item.screenshare {
+  background-color: #CB5500;
+}
+
+#privacy-item.audio-in {
+  background-color: #1CA000;
+}
+
+#privacy-item.audio-out {
+  background-color: #0061C4;
 }

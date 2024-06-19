@@ -3,6 +3,15 @@ if not present then
 	return
 end
 
+local presentCommentString, ts_context_commentstring = pcall(require, "ts_context_commentstring")
+if not presentCommentString then
+	return
+end
+
+ts_context_commentstring.setup({
+	enable_autocmd = false,
+})
+
 comment.setup({
 	---Add a space b/w comment and the line
 	---@type boolean

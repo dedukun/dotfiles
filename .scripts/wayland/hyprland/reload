@@ -4,3 +4,4 @@ killall waybar
 sleep 0.5
 waybar &
 systemctl --user restart hyprpaper.service
+systemctl --user restart xdg-desktop-portal-hyprland.service

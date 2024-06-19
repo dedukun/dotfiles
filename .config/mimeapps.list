@@ -1,0 +1,35 @@
+[Default Applications]
+x-scheme-handler/msteams=teams.desktop
+text/plain=nvim.desktop
+application/x-zerosize=nvim.desktop
+x-scheme-handler/discord-418794856081653760=discord-418794856081653760.desktop
+x-scheme-handler/mailto=userapp-Thunderbird-N99051.desktop
+message/rfc822=userapp-Thunderbird-N99051.desktop
+x-scheme-handler/mid=userapp-Thunderbird-N99051.desktop
+x-scheme-handler/webcal=userapp-Thunderbird-YB0151.desktop
+text/calendar=userapp-Thunderbird-YB0151.desktop
+application/x-extension-ics=userapp-Thunderbird-YB0151.desktop
+x-scheme-handler/webcals=userapp-Thunderbird-YB0151.desktop
+x-scheme-handler/etcher=balena-etcher.desktop
+x-scheme-handler/prusaslicer=PrusaSlicerURLProtocol.desktop
+inode/directory=thunar.desktop
+text/html=firefox-private.desktop
+x-scheme-handler/http=firefox-private.desktop
+x-scheme-handler/https=firefox-private.desktop
+x-scheme-handler/about=firefox-private.desktop
+x-scheme-handler/unknown=firefox-private.desktop
+application/pdf=org.pwmt.zathura.desktop
+image/png=nsxiv.desktop
+image/jpeg=nsxiv.desktop
+x-scheme-handler/postman=Postman.desktop
+
+[Added Associations]
+text/x-python=nvim.desktop;
+text/plain=nvim.desktop;
+text/html=firefox-private.desktop;
+application/x-zerosize=nvim.desktop;
+x-scheme-handler/mailto=userapp-Thunderbird-N99051.desktop;
+x-scheme-handler/mid=userapp-Thunderbird-N99051.desktop;
+x-scheme-handler/webcal=userapp-Thunderbird-YB0151.desktop;
+x-scheme-handler/webcals=userapp-Thunderbird-YB0151.desktop;
+model/stl=PrusaSlicer.desktop;

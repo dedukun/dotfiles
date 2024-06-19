@@ -9,11 +9,23 @@ treesitter.setup({
 		enable = true, -- false will disable the whole extension
 		additional_vim_regex_highlighting = false,
 	},
-	matchup = {
-		enable = true,
-	},
+	-- matchup = {
+	-- 	enable = true,
+	-- },
 	autotag = {
 		enable = true,
+	},
+	textobjects = {
+		select = {
+			enable = true,
+			lookahead = true,
+			keymaps = {
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
+			},
+		},
 	},
 })
 

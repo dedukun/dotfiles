@@ -7,6 +7,7 @@ if wezterm.config_builder then
 	config = wezterm.config_builder()
 end
 
+config.enable_wayland = false
 config.font = wezterm.font("JetBrainsMono NFM")
 config.font_size = 14
 config.color_scheme = "Catppuccin Mocha"
@@ -20,6 +21,7 @@ config.window_padding = {
 }
 config.front_end = "WebGpu"
 config.disable_default_key_bindings = true
+config.check_for_updates = false
 config.keys = {
 	{
 		key = "-",
@@ -55,6 +57,11 @@ config.keys = {
 		key = "P",
 		mods = "CTRL",
 		action = wezterm.action.ActivateCommandPalette,
+	},
+	{
+		key = "E",
+		mods = "CTRL",
+		action = wezterm.action.ActivateCopyMode,
 	},
 }
 

@@ -15,6 +15,7 @@ export NODE_REPL_HISTORY="$XDG_DATA_HOME/node_repl_history"
 export PSQL_HISTORY="$XDG_DATA_HOME/psql_history"
 export RUSTUP_HOME="$XDG_DATA_HOME/rustup"
 export WORKON_HOME="$XDG_DATA_HOME/virtualenvs"
+export BUN_INSTALL="$HOME/.bun"
 
 export CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv"
 
@@ -31,7 +32,7 @@ export TERMINAL="wezterm"
 export TERMINAL_OPEN="$TERMINAL start --cwd"
 export TERMINAL_RUN="$TERMINAL start --"
 
-export STATUSBAR="polybar"
+export STATUSBAR="waybar"
 export BROWSER="firefox"
 export READER="zathura"
 export FILE="joshuto"
@@ -51,6 +52,7 @@ PATH="$PATH:$HOME/nRF52/gcc-arm/bin"
 PATH="$PATH:/snap/bin"
 PATH="$PATH:/usr/local/go/bin"
 PATH="$PATH:/opt/flutter/bin"
+PATH="$PATH:$BUN_INSTALL/bin"
 export PATH
 
 # Projects
